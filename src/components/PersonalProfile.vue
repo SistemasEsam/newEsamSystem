@@ -133,7 +133,7 @@
            </v-col>  
            <v-col>
 
-             <v-btn @click="submitForm(); changestate(2);uploadimagen();savelocal()"  color="warning"  class="fixed-bottom mr-2">guardar </v-btn>
+             <v-btn @click="ableDegreeForm"  color="warning"  class="fixed-bottom mr-2">guardar </v-btn>
            </v-col> 
 
            <v-dialog v-model="dialogVisible" max-width="500px">
@@ -253,9 +253,9 @@
      
    },
    methods: {
-        ableNextForm(){
-            this.em
-        }
+    ableDegreeForm(){
+      this.$emit('able-degree-form');
+    }
    }
  }
 </script>

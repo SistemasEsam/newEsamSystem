@@ -1,32 +1,41 @@
 <template>
-    <v-tabs>
-        <v-tab @click="activeComponent = 'personalProfile'">Personal Profile</v-tab>
-        <v-tab @click="activeComponent = 'degreeProfile'">Degree Profile</v-tab>
-    </v-tabs>
-    <keep-alive>
-        <component :is="activeComponent"/>
-    </keep-alive>
-        
+  <v-tabs>
+    <v-tab @click="component ='personalProfile'">Personal Profile</v-tab>
+    <v-tab :disabled="ableForm" @click="component ='superiorEducationProfile'">Superior Education Profile</v-tab>
+    <v-tab @click="component ='extraCoursesProfile'">Extra Courses Profile</v-tab>
+
+  </v-tabs>
+    <personal-profile v-if="component === 'personalProfile'" @able-degree-form="ableDegreeForm" ></personal-profile>
+    <superior-education-profile v-if="component === 'superiorEducationProfile'"></superior-education-profile>
+    <extra-courses-profile v-if="component === 'extraCoursesProfile'"></extra-courses-profile>
 </template>
     
 <script>
     
     import personalProfile from '../components/PersonalProfile.vue'
-    import degreeProfile from '../components/DegreeProfile.vue'
-    
-    
-    
+    import superiorEducationProfile from '../components/SuperiorEducationProfile.vue'
+    import extraCoursesProfile from '../components/ExtraCoursesProfile.vue'
+
     export default {
       components: {
        personalProfile,
-       degreeProfile
+       superiorEducationProfile,
+       extraCoursesProfile
       },
     
       data() {
-        return { activeComponent: 'personalProfile'}
+
+        return { 
+          ableForm : true ,
+          activeComponent: 'personalProfile',
+          component: 'personalProfile',
+        }
       },
       methods: {
-      
+        ableDegreeForm(){
+          this.ableForm = false
+        }
+
       }
     }
 </script>
