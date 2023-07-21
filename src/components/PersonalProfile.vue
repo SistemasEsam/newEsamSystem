@@ -133,7 +133,7 @@
            </v-col>  
            <v-col>
 
-             <v-btn @click="ableDegreeForm"  color="warning"  class="fixed-bottom mr-2">guardar </v-btn>
+             <v-btn @click="ableDegreeForm, addUser() "  color="warning"  class="fixed-bottom mr-2">guardar </v-btn>
            </v-col> 
 
            <v-dialog v-model="dialogVisible" max-width="500px">
@@ -157,8 +157,9 @@
 </template>
  
 <script>
-
- export default {
+import {database} from '../firebase/firebase'
+import { doc, setDoc } from "firebase/firestore"; 
+export default {
 
   
 
@@ -255,8 +256,19 @@
    methods: {
     ableDegreeForm(){
       this.$emit('able-degree-form');
+    },
+    addUser(){
+      let idUser=this.numberDoc+this.nombres+this.apellidoPaterno
+      console.log(idUser)
+      setDoc(doc(database, 'instructors', idUser), {
+      nombre: this.nombres,
+      apellidoPaterno: this.apellidoPaterno,
+      apellidoMaterno: this.apellidoMaterno,
+      email: this.email,
+      telefono : this.contactouno})
     }
    }
  }
+
 </script>
  
