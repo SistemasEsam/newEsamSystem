@@ -41,7 +41,7 @@ export default {};
   width: 200px; /* Diámetro del círculo */
   height: 200px; /* Diámetro del círculo */
   border-radius: 50%;
-  background-color: yellow; /* Color amarillo */
+  background-color: #FFDF0B; /* Color amarillo */
   z-index: 1; /* Asegura que el círculo esté por encima del rectángulo */
 }
 
@@ -50,7 +50,7 @@ export default {};
   left: 0in; /* Ajustar la posición horizontal del rectángulo */
   width: 3.5in; /* Ancho del rectángulo */
   height: 18.5in; /* Alto del rectángulo */
-  background-color: navy; /* Color azul marino */
+  background-color: #162D4A; /* Color azul marino */
 }
 
 .yellow-rectangle {
@@ -58,7 +58,7 @@ export default {};
   left: 0.0in; /* Ajustar la posición horizontal del rectángulo */
   width: 1375px; /* Ancho del rectángulo */
   height: 70px; /* Alto del rectángulo */
-  background-color: yellow; /* Color amarillo */
+  background-color: #FFDF0B; /* Color amarillo */
 }
 
 .description-container {
