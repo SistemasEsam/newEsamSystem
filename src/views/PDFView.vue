@@ -1,8 +1,4 @@
 <template>
-    <div>
-      
-    <t>hola</t>
-    </div>
 
     <FilePDFVue />
   </template>
