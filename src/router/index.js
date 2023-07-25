@@ -1,12 +1,15 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
+
 import FormView from '../views/FormView.vue'
+import MainView from '../views/MainView.vue'
+import PDFView from '../views/PDFView.vue'
+
 
 const routes = [
   {
     path: '/',
-    name: 'home',
-    component: HomeView
+    name: 'main',
+    component: MainView
   },
   {
     path: '/about',
@@ -20,7 +23,19 @@ const routes = [
     path:'/form-view',
     name:'form-view',
     component : FormView
-  }
+  },
+ {
+  path: '/pdf',
+  name: 'pdf',
+  component:PDFView
+
+
+
+ },
+
+
+
+
 
 ]
 
