@@ -2,7 +2,7 @@
   <v-sheet width="1000" class="mx-auto">
 
     <p>{{ local.name }}</p>
-    <v-card v-for="(formulario, index) in formularios" :key="index" class="mb-4">
+    <v-card v-for="(formulario, index) in degreeForm" :key="index" class="mb-4">
       <v-card-title>
         <v-col class="d-flex justify-center aling-center">
           <h3 class="headline">FORMACION DE PREGRADO</h3>
@@ -46,13 +46,13 @@
       </v-card-text>
     </v-card>
     <v-col>
-      <v-btn v-if="formularios.length < 3" @click="agregarFormulario" color="warning" class="fixed-bottom mr-2">AGREGAR
+      <v-btn v-if="degreeForm.length < 3" @click="agregarFormulario" color="warning" class="fixed-bottom mr-2">AGREGAR
         NUEVA FORMACIÓN</v-btn>
     </v-col>
     <v-col>
 
     </v-col>
-    <v-card v-for="(formulario2, index2) in formularios2" :key="index2" class="mb-4">
+    <v-card v-for="(formulario2, index2) in postDegreeForm" :key="index2" class="mb-4">
       <v-card-title>
         <v-col class="d-flex justify-center aling-center">
           <h3 class="headline">FORMACION DE POSTGRADO</h3>
@@ -97,7 +97,7 @@
       </v-card-text>
     </v-card>
     <v-col>
-      <v-btn v-if="formularios2.length < 3" @click="agregarFormulario2" color="warning" class="fixed-bottom mr-2">AGREGAR
+      <v-btn v-if="postDegreeForm.length < 3" @click="agregarFormulario2" color="warning" class="fixed-bottom mr-2">AGREGAR
         NUEVO POSTGRADO</v-btn>
       <v-col>
         <v-btn class="success" @click="ableCoursesForm">guardar</v-btn>
@@ -118,23 +118,25 @@
       </v-dialog>
     </v-col>
     <v-row>
-      
+
     </v-row>
   </v-sheet>
 </template>
       
 <script>
+import { database } from '../firebase/firebase'
+import { doc, setDoc } from "firebase/firestore";
 
 export default {
-
+  props:["userId"],
   data() {
     return {
+      idUser:this.userId,
       dialogVisible: false,
       estate: true,
       local: '',
       fileNamePre: [],
-
-      formularios: [
+      degreeForm: [
         {
           unipre: '',
           carrerapre: '',
@@ -145,7 +147,7 @@ export default {
           archivopre: null,
         }
       ],
-      formularios2: [
+      postDegreeForm: [
         {
           universidadPost: '',
           carreraPost: '',

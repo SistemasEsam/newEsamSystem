@@ -56,7 +56,7 @@
           min-width="290px">
           <template v-slot:activator="{ on }">
             <v-text-field v-model="dateOfBirth" label="Fecha de nacimiento" outlined readonly v-on="on"></v-text-field>
-            <VueDatePicker v-model="dateOfBirth" :format-locale="es" :format="format" ></VueDatePicker>
+            <VueDatePicker v-model="formatedDateOfBrith" :format ="format" ></VueDatePicker>
           </template>
         </v-menu>
       </v-col>
@@ -96,6 +96,8 @@
 
 <script setup>
   import { es } from 'date-fns/locale'
+  import { ja } from 'date-fns/locale';
+
 </script>
  
 <script>
@@ -122,6 +124,7 @@ export default {
       selectedDocumentType: null,
       numberId: '',
       dateOfBirth: '',
+      formatedDateOfBrith:'',
       gender: '',
       estate: 1,
       file: null,
@@ -198,9 +201,8 @@ export default {
     },
     addUser() {
       let newIdUser = this.numberId + this.lastNameF + this.lastNameM
-      let birthDate = this.dateOfBirth.getDate()+'/'+ (this.dateOfBirth.getMonth() + 1)+'/'+ this.dateOfBirth.getFullYear()
-      console.log(birthDate)
-     /*setDoc(doc(database, 'instructors', newIdUser), {
+      console.log(this.dateOfBirth)
+     setDoc(doc(database, 'instructors', newIdUser), {
         name: this.name,
         lastNameF: this.lastNameF,
         lastNameM: this.lastNameM,
@@ -212,12 +214,17 @@ export default {
         addres: this.addres,
         selectedDocumentType: this.selectedDocumentType,
         numberId: this.numberId,
-        dateOfBirth: birthDate,
+        dateOfBirth: this.dateOfBirth,
         gender: this.gender,
-      })*/
+      })
     },
     format(dateOfBirth){
-
+      const day = dateOfBirth.getDate();
+      const month = dateOfBirth.getMonth() + 1;
+      const year = dateOfBirth.getFullYear();
+      let formatedBirthDate = `${day}/${month}/${year}`;
+      this.dateOfBirth = formatedBirthDate;
+      return formatedBirthDate;
     },
   },
 
