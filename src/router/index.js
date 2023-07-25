@@ -4,6 +4,7 @@ import FormView from '../views/FormView.vue'
 import MainView from '../views/MainView.vue'
 import PDFView from '../views/PDFView.vue'
 
+
 const routes = [
   {
     path: '/',
@@ -30,7 +31,11 @@ const routes = [
 
 
 
- }
+ },
+
+
+
+
 
 ]
 
