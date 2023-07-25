@@ -43,25 +43,15 @@
             </v-col>
           </v-row>
         </v-col>
-
       </v-card-text>
-
     </v-card>
-
-
     <v-col>
-
       <v-btn v-if="formularios.length < 3" @click="agregarFormulario" color="warning" class="fixed-bottom mr-2">AGREGAR
         NUEVA FORMACIÓN</v-btn>
-
     </v-col>
     <v-col>
 
-
     </v-col>
-
-
-
     <v-card v-for="(formulario2, index2) in formularios2" :key="index2" class="mb-4">
       <v-card-title>
         <v-col class="d-flex justify-center aling-center">
@@ -109,12 +99,8 @@
     <v-col>
       <v-btn v-if="formularios2.length < 3" @click="agregarFormulario2" color="warning" class="fixed-bottom mr-2">AGREGAR
         NUEVO POSTGRADO</v-btn>
-
-
       <v-col>
         <v-btn class="success" @click="ableCoursesForm">guardar</v-btn>
-
-
       </v-col>
 
       <v-dialog v-model="dialogVisible" max-width="500px">
@@ -131,15 +117,9 @@
         </v-card>
       </v-dialog>
     </v-col>
-
     <v-row>
-
-
+      
     </v-row>
-
-
-
-
   </v-sheet>
 </template>
       
@@ -214,7 +194,7 @@ export default {
     }
   },
   methods: {
-    ableCoursesForm(){
+    ableCoursesForm() {
       this.$emit('able-courses-form');
     }
   }

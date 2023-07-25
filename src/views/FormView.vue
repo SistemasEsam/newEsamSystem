@@ -8,7 +8,7 @@
 
 
   </v-tabs>
-    <personal-profile v-if="component === 'personalProfile'" @able-degree-form="ableDegreeForm" ></personal-profile>
+    <personal-profile v-if="component === 'personalProfile'" @able-degree-form="ableDegreeForm " ></personal-profile>
     <superior-education-profile v-if="component === 'superiorEducationProfile'" @able-courses-form="ableCoursesForm" ></superior-education-profile>
     <extra-courses-profile v-if="component === 'extraCoursesProfile'"></extra-courses-profile>
     <work-experience-profile v-if="component === 'workExperienceProfile'"></work-experience-profile>
@@ -37,18 +37,19 @@
         return { 
           ableDegree : true ,
           ableCourses: true,
+          idUser:'',
           activeComponent: 'personalProfile',
           component: 'personalProfile',
         }
       },
       methods: {
-        ableDegreeForm(){
+        ableDegreeForm(idUserProfile){
+          this.idUser = idUserProfile
           this.ableDegree = false
-          console.log('degree')
+          
         },
         ableCoursesForm(){
           this.ableCourses = false
-          console.log('degree')
         }
       }
     }
