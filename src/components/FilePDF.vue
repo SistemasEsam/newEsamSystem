@@ -1,5 +1,8 @@
 <template>
+
   <div>
+    
+    <v-btn @click="exportToPDF">DESCARGAR PDF</v-btn>
     <div ref="pdfComponent" class="custom-text">
       <!-- Contenido del primer componente (File.vue) -->
       <File />
@@ -11,7 +14,7 @@
     </div>
 
     <!-- Agrega un botón para exportar a PDF -->
-    <v-btn @click="exportToPDF">Exportar a PDF</v-btn>
+    
   </div>
 </template>
 
@@ -21,12 +24,18 @@ import jsPDF from 'jspdf';
 import File from './File.vue';
 import SecondPage from './SecondPage.vue';
 
+
 export default {
   components: {
     File,
-    SecondPage
+    SecondPage,
+    
+   
   },
+ 
   methods: {
+
+   
     exportToPDF() {
       const pdfWidth = 8.5 * 72; // Ancho de hoja carta en puntos (1 pulgada = 72 puntos)
       const pdfHeight = 11 * 72; // Alto de hoja carta en puntos (1 pulgada = 72 puntos)
