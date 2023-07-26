@@ -3,8 +3,8 @@
     <v-tab @click="component ='personalProfile'">Personal Profile</v-tab>
     <v-tab :disabled="ableDegree" @click="component ='superiorEducationProfile'">Superior Education Profile</v-tab>
     <v-tab :disabled="ableCourses" @click="component ='extraCoursesProfile'">Extra Courses Profile</v-tab>
-    <v-tab @click="component ='workExperienceProfile'">Work Experience Profile</v-tab>
-    <v-tab @click="component ='skillsProfile'">Skills Profile</v-tab>
+    <v-tab :disabled="ableCourses" @click="component ='workExperienceProfile'">Work Experience Profile</v-tab>
+    <v-tab :disabled="ableCourses" @click="component ='skillsProfile'">Skills Profile</v-tab>
 
 
   </v-tabs>
@@ -37,6 +37,8 @@
         return { 
           ableDegree : true ,
           ableCourses: true,
+          ableWorkExperience : true ,
+          ableSkills: true,
           idUser:'',
           activeComponent: 'personalProfile',
           component: 'personalProfile',

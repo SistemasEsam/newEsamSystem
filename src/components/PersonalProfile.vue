@@ -56,7 +56,7 @@
           min-width="290px">
           <template v-slot:activator="{ on }">
             <v-text-field v-model="dateOfBirth" label="Fecha de nacimiento" outlined readonly v-on="on"></v-text-field>
-            <VueDatePicker v-model="formatedDateOfBrith" :format ="format" ></VueDatePicker>
+            <VueDatePicker v-model="formatedDateOfBrith" :format="format"></VueDatePicker>
           </template>
         </v-menu>
       </v-col>
@@ -74,8 +74,8 @@
       </v-file-input>
     </v-col>
     <v-col>
-
-      <v-btn @click="ableDegreeForm(); addUser()" color="warning" class="fixed-bottom mr-2">guardar </v-btn>
+      <!--<v-btn @click="ableDegreeForm(); addUser()" color="warning" class="fixed-bottom mr-2">guardar </v-btn>-->
+      <v-btn @click="ableDegreeForm()" color="warning" class="fixed-bottom mr-2">guardar </v-btn>
     </v-col>
 
     <v-dialog v-model="dialogVisible" max-width="500px">
@@ -95,8 +95,8 @@
 </template>
 
 <script setup>
-  import { es } from 'date-fns/locale'
-  import { ja } from 'date-fns/locale';
+import { es } from 'date-fns/locale'
+import { ja } from 'date-fns/locale';
 
 </script>
  
@@ -108,7 +108,7 @@ import '@vuepic/vue-datepicker/dist/main.css';
 
 
 export default {
-  components:{VueDatePicker},
+  components: { VueDatePicker },
   data() {
     return {
       dialogVisible: false,
@@ -124,7 +124,7 @@ export default {
       selectedDocumentType: null,
       numberId: '',
       dateOfBirth: '',
-      formatedDateOfBrith:'',
+      formatedDateOfBrith: '',
       gender: '',
       estate: 1,
       file: null,
@@ -202,7 +202,7 @@ export default {
     addUser() {
       let newIdUser = this.numberId + this.lastNameF + this.lastNameM
       console.log(this.dateOfBirth)
-     setDoc(doc(database, 'instructors', newIdUser), {
+      setDoc(doc(database, 'instructors', newIdUser), {
         name: this.name,
         lastNameF: this.lastNameF,
         lastNameM: this.lastNameM,
@@ -218,7 +218,7 @@ export default {
         gender: this.gender,
       })
     },
-    format(dateOfBirth){
+    format(dateOfBirth) {
       const day = dateOfBirth.getDate();
       const month = dateOfBirth.getMonth() + 1;
       const year = dateOfBirth.getFullYear();
@@ -226,6 +226,7 @@ export default {
       this.dateOfBirth = formatedBirthDate;
       return formatedBirthDate;
     },
+
   },
 
 }
