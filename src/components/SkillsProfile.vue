@@ -5,7 +5,7 @@
       <v-card-title>
         <v-col class="d-flex justify-center aling-center">
           <h2 class="headline">HABILIDADES</h2>
-          <v-btn v-if="index !== 0" icon @click="eliminarFormulario(index)">
+          <v-btn v-if="index !== 0" icon @click="deleteSkillForm(index)">
             <v-icon>mdi-close</v-icon>
           </v-btn>
         </v-col>
@@ -22,7 +22,7 @@
       </v-card-text>
     </v-card>
     <v-col>
-      <v-btn v-if="skillForms.length < 5" @click="agregarFormulario" color="warning" class="fixed-bottom mr-2">AGREGAR
+      <v-btn v-if="skillForms.length < 5" @click="addSkillForm()" color="warning" class="fixed-bottom mr-2">AGREGAR
         NUEVA HABILIDAD</v-btn>
     </v-col>
     <v-col>
@@ -31,7 +31,7 @@
       <v-card-title>
         <v-col class="d-flex justify-center aling-center">
           <h2 class="headline">IDIOMAS</h2>
-          <v-btn v-if="index2 !== 0" icon @click="eliminarFormulario2(index2)">
+          <v-btn v-if="index2 !== 0" icon @click="deleteLanguageForm(index2)">
             <v-icon>mdi-close</v-icon>
           </v-btn>
         </v-col>
@@ -68,10 +68,10 @@
         </v-col>
       </v-card-text>
     </v-card>
-    <v-btn v-if="languageForms.length < 3" @click="agregarFormulario2" color="warning" class="fixed-bottom mr-2">AGREGAR
+    <v-btn v-if="languageForms.length < 3" @click="addLanguageForm()" color="warning" class="fixed-bottom mr-2">AGREGAR
       NUEVO IDIOMA</v-btn>
     <v-col>
-      <v-btn class="success" @click="guardardatos(); changeestate(false)">guardar</v-btn>
+      <v-btn class="success" @click="saveDataSkills(); saveDataLanguages() ">guardar</v-btn>
     </v-col>
     <v-dialog v-model="dialogVisible" max-width="500px">
       <v-card>
@@ -116,10 +116,54 @@ export default {
     }
   },
   methods: {
+    addSkillForm(){
+      if(this.skillForms.length<5){
+        this.skillForms.push({
+          skill: ''
+        })
 
+      }
+    },
+    addLanguageForm(){
+      if(this.languageForms.length<5){
+        this.languageForms.push({
+          language: '',
+          writeLevel: '',
+          speakeLevel: '',
+          readLevel: '',
+          listenLevel: '',
+        })
+      }
+    },
+    deleteSkillForm(index){
+      this.skillForms.splice(index,1)
+    },
+    deleteLanguageForm(index){
+      this.languageForms.splice(index,1)
+    },
+    saveDataSkills(){
+      this.skillForms.forEach((skillFormValue) =>{
+        const documentRef = doc(database,'instructors',this.idUser)
+        const collectionRef = collection(documentRef,'skills')
+        addDoc(collectionRef,{
+          skill: skillFormValue.skill
+        })
+      })
+    },
+    saveDataLanguages(){
+      this.languageForms.forEach((languageFormValue) =>{
+        const documentRef = doc(database,'instructors',this.idUser)
+        const collectionRef = collection(documentRef,'languages')
+        addDoc(collectionRef,{
+          language: languageFormValue.language,
+          writeLevel: languageFormValue.writeLevel,
+          speakeLevel: languageFormValue.speakeLevel,
+          readLevel: languageFormValue.readLevel,
+          listenLevel: languageFormValue.listenLevel,
+        })
+      })
+    }
   }
-
-
 }
 </script>
   

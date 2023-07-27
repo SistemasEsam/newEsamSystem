@@ -70,8 +70,9 @@
       </v-col>
     </v-row>
     <v-col class="d-flex justify-center aling-center">
-      <v-file-input v-model="file" label="SELECCIONA UNA IMAGEN FORMAL" @change="uploadFile()" accept="image/*">
-      </v-file-input>
+      <!--<v-file-input v-model="personalPhotoFile" label="SELECCIONA UNA IMAGEN FORMAL" @change="uploadPhotoFile()" accept="image/*"></v-file-input>-->
+      <v-file-input label="SELECCIONA UNA IMAGEN FORMAL" @change="loadPhotoFile($event)" accept="image/*"></v-file-input>
+      <v-btn @click="uploadPhotoProfile()"> Subir foto</v-btn>
     </v-col>
     <v-col>
       <!--<v-btn @click="ableDegreeForm(); addUser()" color="warning" class="fixed-bottom mr-2">guardar </v-btn>-->
@@ -103,6 +104,7 @@ import { ja } from 'date-fns/locale';
 <script>
 import { database } from '../firebase/firebase'
 import { doc, setDoc } from "firebase/firestore";
+import { getStorage, ref, uploadBytes } from 'firebase/storage'
 import VueDatePicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css';
 
@@ -127,7 +129,7 @@ export default {
       formatedDateOfBrith: '',
       gender: '',
       estate: 1,
-      file: null,
+      personalPhotoFile: null,
       imageUrl: '',
       idUser: '',
 
@@ -226,7 +228,19 @@ export default {
       this.dateOfBirth = formatedBirthDate;
       return formatedBirthDate;
     },
-
+    loadPhotoFile(e) {
+      this.personalPhotoFile = e.target.files[0]
+      console.log(this.personalPhotoFile)
+    },
+    uploadPhotoProfile() {
+      const storage = getStorage();
+      let newIdUser = this.numberId + this.lastNameF + this.lastNameM
+      console.log(newIdUser)
+      const storageRef = ref(storage, 'photoProfile/'+newIdUser+'/'+this.personalPhotoFile.name);
+      uploadBytes(storageRef, this.personalPhotoFile).then((snapshot) => {
+        console.log('Uploaded a blob or file!');
+      });
+    },
   },
 
 }
