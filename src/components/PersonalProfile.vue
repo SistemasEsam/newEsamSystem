@@ -236,7 +236,7 @@ export default {
       const storage = getStorage();
       let newIdUser = this.numberId + this.lastNameF + this.lastNameM
       console.log(newIdUser)
-      const storageRef = ref(storage, 'photoProfile/'+newIdUser+'/'+this.personalPhotoFile.name);
+      const storageRef = ref(storage, newIdUser+'/photoProfile'+'/'+this.personalPhotoFile.name);
       uploadBytes(storageRef, this.personalPhotoFile).then((snapshot) => {
         console.log('Uploaded a blob or file!');
       });
