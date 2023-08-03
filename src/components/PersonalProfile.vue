@@ -72,11 +72,11 @@
     <v-col class="d-flex justify-center aling-center">
       <!--<v-file-input v-model="personalPhotoFile" label="SELECCIONA UNA IMAGEN FORMAL" @change="uploadPhotoFile()" accept="image/*"></v-file-input>-->
       <v-file-input label="SELECCIONA UNA IMAGEN FORMAL" @change="loadPhotoFile($event)" accept="image/*"></v-file-input>
-      <v-btn @click="uploadPhotoProfile()"> Subir foto</v-btn>
+      <!--<v-btn @click="uploadPhotoProfile()"> Subir foto</v-btn>-->
     </v-col>
     <v-col>
       <!--<v-btn @click="ableDegreeForm(); addUser()" color="warning" class="fixed-bottom mr-2">guardar </v-btn>-->
-      <v-btn @click="ableDegreeForm()" color="warning" class="fixed-bottom mr-2">guardar </v-btn>
+      <v-btn @click="uploadPhotoProfile(); ableDegreeForm(); addUser()" color="warning" class="fixed-bottom mr-2">guardar </v-btn>
     </v-col>
 
     <v-dialog v-model="dialogVisible" max-width="500px">
@@ -189,7 +189,6 @@ export default {
       documentTypes: [
         'Carnet de Identidad',
         'Pasaporte'
-
       ],
 
       menu: false,
@@ -197,12 +196,12 @@ export default {
   },
   methods: {
     ableDegreeForm() {
-      let newIdUser = this.numberId + this.lastNameF + this.lastNameM
+      let newIdUser = this.email
       console.log(newIdUser)
       this.$emit('able-degree-form', newIdUser);
     },
     addUser() {
-      let newIdUser = this.numberId + this.lastNameF + this.lastNameM
+      let newIdUser = this.email
       console.log(this.dateOfBirth)
       setDoc(doc(database, 'instructors', newIdUser), {
         name: this.name,
@@ -234,8 +233,7 @@ export default {
     },
     uploadPhotoProfile() {
       const storage = getStorage();
-      let newIdUser = this.numberId + this.lastNameF + this.lastNameM
-      console.log(newIdUser)
+      let newIdUser = this.email
       const storageRef = ref(storage, newIdUser+'/photoProfile'+'/'+this.personalPhotoFile.name);
       uploadBytes(storageRef, this.personalPhotoFile).then((snapshot) => {
         console.log('Uploaded a blob or file!');

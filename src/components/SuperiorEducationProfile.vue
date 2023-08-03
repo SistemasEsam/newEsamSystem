@@ -109,7 +109,7 @@
         NUEVO POSTGRADO</v-btn>
       <v-col>
         <!--<v-btn class="success" @click="ableCoursesForm(); saveDataDegrees(); saveDataPostDegrees()">guardar</v-btn>-->
-        <v-btn class="success" @click="ableCoursesForm(); saveDataDegrees()">guardar</v-btn>
+        <v-btn class="success" @click="ableCoursesForm(); saveDataDegrees(); uploadDegreeFiles(); saveDataPostDegrees(); uploadPostDegreeFiles()">guardar</v-btn>
       </v-col>
 
       <v-dialog v-model="dialogVisible" max-width="500px">
@@ -235,21 +235,17 @@ export default {
           graduationYearDegree: degreeFormValue.graduationYearDegree,
           graduationModalityDegree: degreeFormValue.graduationModalityDegree,
         })
-        console.log(degreeFormValue.fileDegree.name)
       })
 
     },
-    saveDegreeFiles() {
+    uploadDegreeFiles() {
       const storage = getStorage();
+      let newIdUser = this.idUser
       this.degreeFiles.forEach((degreeFileValue) => {
-        const storageRef = ref(storage, this.idUser + '/degreeFiles' + '/' + degreeFileValue.name)
+        const storageRef = ref(storage, newIdUser + '/degreeFiles' + '/' + degreeFileValue.name)
         uploadBytes(storageRef, degreeFileValue).then((snapshot) => {
           console.log('Uploaded a blob or file!');
-          return getDownloadURL(snapshot.ref)
         })
-          .then(donwloadURL => {
-            console.log('Download URL', donwloadURL)
-          })
       })
     },
     saveDataPostDegrees() {
@@ -267,11 +263,12 @@ export default {
       })
 
     },
-    savePostDegreeFiles() {
+    uploadPostDegreeFiles() {
       const storage = getStorage();
-      this.degreeFiles.forEach((degreeFileValue) => {
-        const storageRef = ref(storage, this.idUser + '/degreeFiles' + '/' + degreeFileValue.name)
-        uploadBytes(storageRef, degreeFileValue).then((snapshot) => {
+      let newIdUser = this.idUser
+      this.postDegreeFiles.forEach((postDegreeFileValue) => {
+        const storageRef = ref(storage, newIdUser + '/postegreeFiles' + '/' + postDegreeFileValue.name)
+        uploadBytes(storageRef, postDegreeFileValue).then((snapshot) => {
           console.log('Uploaded a blob or file!');
         })
       })
@@ -304,23 +301,23 @@ export default {
         });
       }
     },
-    deleteDegreeForm(index) {
+    deleteDegreeForm(index) { 
       this.degreeForms.splice(index, 1);
     },
     deletePostDegreeForm(index2) {
       this.postDegreeForms.splice(index2, 1);
     },
     loadDegreeFile(e) {
-      this.fileDegree = e.target.files[0]
-      this.degreeForms[this.degreeForms.length - 1].fileDegree = e.target.files[0]
+      let newFileDegree = e.target.files[0]
+      console.log(newFileDegree)
+      this.degreeFiles.push(newFileDegree)
       this.degreeForms[this.degreeForms.length - 1].degreeFilled = true
-      console.log(this.fileDegree)
     },
     loadPostDegreeFile(e) {
-      this.filePostDegree = e.target.files[0]
-      this.postDegreeForms[this.postDegreeForms.length - 1].filePostDegree = e.target.files[0]
-      this.postDegreeForms[this.postDegreeForms.length - 1].postDegreeFilled = true
-      console.log(this.filePostDegree)
+      let newFilePostDegree = e.target.files[0]
+      console.log(newFilePostDegree)
+      this.postDegreeFiles.push(newFilePostDegree)
+      this.postDegreeForms[this.postDegreeForms.length-1].postDegreeFilled = true
     },
     checkDegreeList() {
       let listDegreeFilled = true
