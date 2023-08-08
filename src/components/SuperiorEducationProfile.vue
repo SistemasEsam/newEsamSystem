@@ -109,8 +109,8 @@
         class="fixed-bottom mr-2">AGREGAR
         NUEVO POSTGRADO</v-btn>
       <v-col>
-        <v-btn class="success" @click="ableCoursesForm();">guardar</v-btn>
-        <!--<v-btn class="success" @click="ableCoursesForm(); saveDataDegrees(); uploadDegreeFiles(); saveDataPostDegrees(); uploadPostDegreeFiles()">guardar</v-btn>-->
+        <!-- <v-btn class="success" @click="ableCoursesForm();">guardar</v-btn> -->
+        <v-btn class="success" @click="ableCoursesForm(); saveDataDegrees(); uploadDegreeFiles(); saveDataPostDegrees(); uploadPostDegreeFiles()">guardar</v-btn>
       </v-col>
 
       <v-dialog v-model="dialogVisible" max-width="500px">
@@ -149,7 +149,8 @@ export default {
   },
   data() {
     return {
-      idUser: this.userId,
+      // idUser: this.userId,
+      idUser:'aljiar23@gmail.com',
       dialogVisible: false,
       estate: true,
       alert: false,

@@ -77,7 +77,7 @@
                 placeholder="Fecha de Publicación" :enable-time-picker="false" />
             </v-col>
             <v-col>
-              <v-file-input v-model="publicationForm.filePublication" accept="application/pdf"
+              <v-file-input @change="loadPublicationFile($event)" accept="application/pdf"
                 label="Seleccionar archivo PDF" outlined></v-file-input>
             </v-col>
           </v-row>
@@ -110,7 +110,7 @@
 <script>
 import { database } from '../firebase/firebase'
 import { addDoc, collection, doc } from "firebase/firestore";
-import { getStorage, uploadBytes } from 'firebase/storage';
+import { getStorage, uploadBytes, ref } from 'firebase/storage';
 
 export default {
   props: [
@@ -118,7 +118,8 @@ export default {
   ],
   data() {
     return {
-      idUser: this.userId,
+      // idUser: this.userId,
+      idUser: 'aljiar23@gmail.com',
       dialogVisible: false,
       estate: true,
       local: '',
@@ -214,7 +215,7 @@ export default {
     saveDataPublication() {
       this.publicationForms.forEach((publicationFormValue) => {
         const documentRef = doc(database, 'instructors', this.idUser)
-        const collectionRef = collection(documentRef, 'courses')
+        const collectionRef = collection(documentRef, 'publications')
         addDoc(collectionRef, {
           namePublication: publicationFormValue.namePublication,
           publisher: publicationFormValue.publisher,
