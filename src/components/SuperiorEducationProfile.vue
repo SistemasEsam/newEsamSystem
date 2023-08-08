@@ -32,7 +32,8 @@
               <v-text-field v-model="degreeForm.countryDegree" label="País" required></v-text-field>
             </v-col>
             <v-col>
-              <v-text-field v-model="degreeForm.graduationYearDegree" label="Año de titulación" outlined></v-text-field>
+              <VueDatePicker v-model="degreeForm.graduationYearDegree" year-picker :teleport="true"
+                placeholder="Año de titulación" />
             </v-col>
             <v-col>
               <v-select v-model="degreeForm.graduationModalityDegree" :items="ModalidadGraduacion"
@@ -86,8 +87,8 @@
               <v-text-field v-model="postDegreeForm.countryPostDegree" label="País" required></v-text-field>
             </v-col>
             <v-col>
-              <v-select v-model="postDegreeForm.graduationYearPostDegree" :items="years" label="Año de titulación"
-                outlined></v-select>
+              <VueDatePicker v-model="postDegreeForm.graduationYearPostDegree" year-picker :teleport="true"
+                placeholder="Año de Titulación" />
             </v-col>
             <v-col>
               <v-select v-model="postDegreeForm.graduationModalityPostDegree" :items="ModalidadGraduacionPost"
@@ -108,8 +109,8 @@
         class="fixed-bottom mr-2">AGREGAR
         NUEVO POSTGRADO</v-btn>
       <v-col>
-        <!--<v-btn class="success" @click="ableCoursesForm(); saveDataDegrees(); saveDataPostDegrees()">guardar</v-btn>-->
-        <v-btn class="success" @click="ableCoursesForm(); saveDataDegrees(); uploadDegreeFiles(); saveDataPostDegrees(); uploadPostDegreeFiles()">guardar</v-btn>
+        <v-btn class="success" @click="ableCoursesForm();">guardar</v-btn>
+        <!--<v-btn class="success" @click="ableCoursesForm(); saveDataDegrees(); uploadDegreeFiles(); saveDataPostDegrees(); uploadPostDegreeFiles()">guardar</v-btn>-->
       </v-col>
 
       <v-dialog v-model="dialogVisible" max-width="500px">
@@ -136,10 +137,16 @@
 import { database } from '../firebase/firebase'
 import { addDoc, collection, doc } from "firebase/firestore";
 import { getDownloadURL, getStorage, ref, uploadBytes } from 'firebase/storage'
+import VueDatePicker from '@vuepic/vue-datepicker';
+import '@vuepic/vue-datepicker/dist/main.css';
+
 
 
 export default {
   props: ["userId"],
+  components: {
+    VueDatePicker
+  },
   data() {
     return {
       idUser: this.userId,
@@ -267,7 +274,7 @@ export default {
       const storage = getStorage();
       let newIdUser = this.idUser
       this.postDegreeFiles.forEach((postDegreeFileValue) => {
-        const storageRef = ref(storage, newIdUser + '/postegreeFiles' + '/' + postDegreeFileValue.name)
+        const storageRef = ref(storage, newIdUser + '/postDegreeFiles/' + postDegreeFileValue.name)
         uploadBytes(storageRef, postDegreeFileValue).then((snapshot) => {
           console.log('Uploaded a blob or file!');
         })
@@ -301,7 +308,7 @@ export default {
         });
       }
     },
-    deleteDegreeForm(index) { 
+    deleteDegreeForm(index) {
       this.degreeForms.splice(index, 1);
     },
     deletePostDegreeForm(index2) {
@@ -317,7 +324,7 @@ export default {
       let newFilePostDegree = e.target.files[0]
       console.log(newFilePostDegree)
       this.postDegreeFiles.push(newFilePostDegree)
-      this.postDegreeForms[this.postDegreeForms.length-1].postDegreeFilled = true
+      this.postDegreeForms[this.postDegreeForms.length - 1].postDegreeFilled = true
     },
     checkDegreeList() {
       let listDegreeFilled = true
@@ -330,8 +337,8 @@ export default {
           && degreeForm.graduationYearDegree
           && degreeForm.fileDegree
           && degreeForm.degreeFilled) {
-            listDegreeFilled = true
-        }else{
+          listDegreeFilled = true
+        } else {
           listDegreeFilled = false
         }
       })
@@ -349,8 +356,8 @@ export default {
           && postDegreeForm.graduationModalityPostDegree
           && postDegreeForm.filePostDegree
           && postDegreeForm.postDegreeFilled) {
-            listPostDegreeFilled = true
-        }else{
+          listPostDegreeFilled = true
+        } else {
           listPostDegreeFilled = false
         }
       })

@@ -91,7 +91,13 @@
   
 <script>
 
+import { database } from '../firebase/firebase'
+import { addDoc, collection, doc } from "firebase/firestore";
+
 export default {
+  props:[
+    "userId"
+  ],
   data() {
     return {
       dialogVisible: false,

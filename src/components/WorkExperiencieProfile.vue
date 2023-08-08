@@ -25,36 +25,21 @@
           </v-row>
           <v-row>
             <v-col>
-              <v-checkbox v-model="workExperienceForm.currentJobFlag" label="Aquí estoy trabajando"></v-checkbox>
+              <v-checkbox v-model="workExperienceForm.currentJobFlag" label="Trabajo Actual"></v-checkbox>
             </v-col>
             <v-col v-if="workExperienceForm.currentJobFlag">
-              <v-menu ref="menu" v-model="menu1" :close-on-content-click="false" transition="scale-transition" offset-y
-                min-width="290px">
-                <template v-slot:activator="{ on }">
-                  <v-text-field v-model="workExperienceForm.startWorkExperience" label="Fecha de Inicio" outlined readonly
-                    v-on="on"></v-text-field>
-                </template>
-                <v-date-picker v-model="workExperienceForm.startWorkExperience" @input="menu1 = false"></v-date-picker>
-              </v-menu>
+              <VueDatePicker v-model="workExperienceForm.startWorkExperienceCurrentJob" :teleport="true"
+                placeholder="Fecha de Inicio" :enable-time-picker="false" />
             </v-col>
             <v-col v-else>
-              <v-menu ref="menu" v-model="menu5" :close-on-content-click="false" transition="scale-transition" offset-y
-                min-width="290px">
-                <template v-slot:activator="{ on }">
-                  <v-text-field v-model="workExperienceForm.startWorkExperienceCurrentJob" label="Fecha de Inicio"
-                    outlined readonly v-on="on"></v-text-field>
-                </template>
-                <v-date-picker v-model="workExperienceForm.startWorkExperienceCurrentJob"
-                  @input="menu5 = false"></v-date-picker>
-              </v-menu>
-              <v-menu ref="menu" v-model="menu4" :close-on-content-click="false" transition="scale-transition" offset-y
-                min-width="290px">
-                <template v-slot:activator="{ on }">
-                  <v-text-field v-model="workExperienceForm.endWorkExperience" label="Fecha de Finalización" outlined
-                    readonly v-on="on"></v-text-field>
-                </template>
-                <v-date-picker v-model="workExperienceForm.endWorkExperience" @input="menu4 = false"></v-date-picker>
-              </v-menu>
+              <v-col>
+                <VueDatePicker v-model="workExperienceForm.startWorkExperience" :teleport="true"
+                  placeholder="Fecha de Inicio" :enable-time-picker="false" />
+              </v-col>
+              <v-col>
+                <VueDatePicker v-model="workExperienceForm.endWorkExperience" :teleport="true"
+                  placeholder="Fecha de Finalizacion" :enable-time-picker="false" />
+              </v-col>
             </v-col>
           </v-row>
           <v-row>
@@ -189,10 +174,19 @@
 <script>
 import { database } from '../firebase/firebase'
 import { addDoc, collection, doc } from "firebase/firestore";
+import VueDatePicker from '@vuepic/vue-datepicker';
+import '@vuepic/vue-datepicker/dist/main.css';
 
 export default {
+  props: [
+    "userId"
+  ],
+  components: {
+    VueDatePicker
+  },
   data() {
     return {
+      idUser: this.userId,
       dialogVisible: false,
       isChecked: false,
       dateStart: null,
@@ -331,11 +325,11 @@ export default {
         }
       })
     },
-    saveDateInstructorExperience(){
-      this.instructorExperienceForms.forEach((instructorExperienceFormValue)=>{
+    saveDateInstructorExperience() {
+      this.instructorExperienceForms.forEach((instructorExperienceFormValue) => {
         const documentRef = doc(database, 'instructors', this.idUser)
         const collectionRef = collection(documentRef, 'instructorJobs')
-        addDoc(collectionRef,{
+        addDoc(collectionRef, {
           institutionInstructorExperience: instructorExperienceFormValue.institutionInstructorExperience,
           subjectInstructorExperience: instructorExperienceFormValue.subjectInstructorExperience,
           typeInstructor: instructorExperienceFormValue.typeInstructor,
@@ -348,3 +342,6 @@ export default {
   }
 }
 </script>
+<style>
+
+</style>

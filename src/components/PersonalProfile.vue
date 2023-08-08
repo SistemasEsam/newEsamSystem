@@ -52,13 +52,9 @@
         <v-text-field v-model="numberId" label="Número de Documento" required></v-text-field>
       </v-col>
       <v-col>
-        <v-menu ref="menu" v-model="menu" :close-on-content-click="false" transition="scale-transition" offset-y
-          min-width="290px">
-          <template v-slot:activator="{ on }">
-            <v-text-field v-model="dateOfBirth" label="Fecha de nacimiento" outlined readonly v-on="on"></v-text-field>
-            <VueDatePicker v-model="formatedDateOfBrith" :format="format"></VueDatePicker>
-          </template>
-        </v-menu>
+        <VueDatePicker v-model="dateOfBirth" locale="es" :enable-time-picker="false"
+          placeholder="Fecha de Nacimiento">
+        </VueDatePicker>
       </v-col>
       <v-col>
         <v-radio-group v-model="gender">
@@ -70,13 +66,11 @@
       </v-col>
     </v-row>
     <v-col class="d-flex justify-center aling-center">
-      <!--<v-file-input v-model="personalPhotoFile" label="SELECCIONA UNA IMAGEN FORMAL" @change="uploadPhotoFile()" accept="image/*"></v-file-input>-->
       <v-file-input label="SELECCIONA UNA IMAGEN FORMAL" @change="loadPhotoFile($event)" accept="image/*"></v-file-input>
-      <!--<v-btn @click="uploadPhotoProfile()"> Subir foto</v-btn>-->
     </v-col>
     <v-col>
-      <!--<v-btn @click="ableDegreeForm(); addUser()" color="warning" class="fixed-bottom mr-2">guardar </v-btn>-->
-      <v-btn @click="uploadPhotoProfile(); ableDegreeForm(); addUser()" color="warning" class="fixed-bottom mr-2">guardar </v-btn>
+      <v-btn @click="ableDegreeForm()" color="warning" class="fixed-bottom mr-2">guardar </v-btn>
+      <!--<v-btn @click="uploadPhotoProfile(); ableDegreeForm(); addUser()" color="warning" class="fixed-bottom mr-2">guardar </v-btn>-->
     </v-col>
 
     <v-dialog v-model="dialogVisible" max-width="500px">
@@ -94,12 +88,6 @@
     </v-dialog>
   </v-sheet>
 </template>
-
-<script setup>
-import { es } from 'date-fns/locale'
-import { ja } from 'date-fns/locale';
-
-</script>
  
 <script>
 import { database } from '../firebase/firebase'
@@ -234,7 +222,7 @@ export default {
     uploadPhotoProfile() {
       const storage = getStorage();
       let newIdUser = this.email
-      const storageRef = ref(storage, newIdUser+'/photoProfile'+'/'+this.personalPhotoFile.name);
+      const storageRef = ref(storage, newIdUser + '/photoProfile' + '/' + this.personalPhotoFile.name);
       uploadBytes(storageRef, this.personalPhotoFile).then((snapshot) => {
         console.log('Uploaded a blob or file!');
       });
