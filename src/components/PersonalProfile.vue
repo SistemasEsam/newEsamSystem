@@ -3,7 +3,7 @@
 
     <v-col class="d-flex justify-center aling-center">
       <v-avatar size="150" color="warning">
-        <img class="mx-auto" :src="imageUrl" alt="Circle image">
+        <img class="mx-auto" :src="imageUrl" width="150" height="150">
       </v-avatar>
     </v-col>
     <v-col class="d-flex justify-center aling-center">
@@ -217,6 +217,7 @@ export default {
     },
     loadPhotoFile(e) {
       this.personalPhotoFile = e.target.files[0]
+      this.imageUrl = URL.createObjectURL(this.personalPhotoFile)
       console.log(this.personalPhotoFile)
     },
     uploadPhotoProfile() {
