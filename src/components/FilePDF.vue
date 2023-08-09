@@ -23,14 +23,19 @@ import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 import File from './File.vue';
 import SecondPage from './SecondPage.vue';
+import { database } from '../firebase/firebase'
+import { doc, getDoc} from 'firebase/firestore'
 
 
 export default {
   components: {
     File,
     SecondPage,
-    
-   
+  },
+  data() {
+    return {
+      idUser : 'aljiar23@gmail.com',
+    }
   },
  
   methods: {
@@ -70,6 +75,15 @@ export default {
         });
       });
     },
+    async getInstructorData(){
+      const docSnap = await getDoc(doc(database,'instructors', this.idUser))
+      if (docSnap.exists()) {
+        this.name = docSnap.data().name
+        this.capital = docSnap.data().capital
+      } else {
+        console.log('Document does not exist')
+      }
+    }
   },
 };
 </script>
