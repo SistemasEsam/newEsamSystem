@@ -3,7 +3,7 @@
 
     <v-col class="d-flex justify-center aling-center">
       <v-avatar size="150" color="warning">
-        <img class="mx-auto" :src="imageUrl" alt="Circle image">
+        <img class="mx-auto" :src="imageUrl" width="150" height="150">
       </v-avatar>
     </v-col>
     <v-col class="d-flex justify-center aling-center">
@@ -52,13 +52,9 @@
         <v-text-field v-model="numberId" label="Número de Documento" required></v-text-field>
       </v-col>
       <v-col>
-        <v-menu ref="menu" v-model="menu" :close-on-content-click="false" transition="scale-transition" offset-y
-          min-width="290px">
-          <template v-slot:activator="{ on }">
-            <v-text-field v-model="dateOfBirth" label="Fecha de nacimiento" outlined readonly v-on="on"></v-text-field>
-            <VueDatePicker v-model="formatedDateOfBrith" :format="format"></VueDatePicker>
-          </template>
-        </v-menu>
+        <VueDatePicker v-model="dateOfBirth" locale="es" :enable-time-picker="false"
+          placeholder="Fecha de Nacimiento">
+        </VueDatePicker>
       </v-col>
       <v-col>
         <v-radio-group v-model="gender">
@@ -70,12 +66,11 @@
       </v-col>
     </v-row>
     <v-col class="d-flex justify-center aling-center">
-      <v-file-input v-model="file" label="SELECCIONA UNA IMAGEN FORMAL" @change="uploadFile()" accept="image/*">
-      </v-file-input>
+      <v-file-input label="SELECCIONA UNA IMAGEN FORMAL" @change="loadPhotoFile($event)" accept="image/*"></v-file-input>
     </v-col>
     <v-col>
-      <!--<v-btn @click="ableDegreeForm(); addUser()" color="warning" class="fixed-bottom mr-2">guardar </v-btn>-->
-      <v-btn @click="ableDegreeForm()" color="warning" class="fixed-bottom mr-2">guardar </v-btn>
+      <!-- <v-btn @click="ableDegreeForm()" color="warning" class="fixed-bottom mr-2">guardar </v-btn> -->
+      <v-btn @click="uploadPhotoProfile(); ableDegreeForm(); addUser()" color="warning" class="fixed-bottom mr-2">guardar </v-btn>
     </v-col>
 
     <v-dialog v-model="dialogVisible" max-width="500px">
@@ -93,16 +88,11 @@
     </v-dialog>
   </v-sheet>
 </template>
-
-<script setup>
-import { es } from 'date-fns/locale'
-import { ja } from 'date-fns/locale';
-
-</script>
  
 <script>
 import { database } from '../firebase/firebase'
 import { doc, setDoc } from "firebase/firestore";
+import { getStorage, ref, uploadBytes } from 'firebase/storage'
 import VueDatePicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css';
 
@@ -127,7 +117,7 @@ export default {
       formatedDateOfBrith: '',
       gender: '',
       estate: 1,
-      file: null,
+      personalPhotoFile: null,
       imageUrl: '',
       idUser: '',
 
@@ -187,7 +177,6 @@ export default {
       documentTypes: [
         'Carnet de Identidad',
         'Pasaporte'
-
       ],
 
       menu: false,
@@ -195,12 +184,12 @@ export default {
   },
   methods: {
     ableDegreeForm() {
-      let newIdUser = this.numberId + this.lastNameF + this.lastNameM
+      let newIdUser = this.email
       console.log(newIdUser)
       this.$emit('able-degree-form', newIdUser);
     },
     addUser() {
-      let newIdUser = this.numberId + this.lastNameF + this.lastNameM
+      let newIdUser = this.email
       console.log(this.dateOfBirth)
       setDoc(doc(database, 'instructors', newIdUser), {
         name: this.name,
@@ -226,7 +215,19 @@ export default {
       this.dateOfBirth = formatedBirthDate;
       return formatedBirthDate;
     },
-
+    loadPhotoFile(e) {
+      this.personalPhotoFile = e.target.files[0]
+      this.imageUrl = URL.createObjectURL(this.personalPhotoFile)
+      console.log(this.personalPhotoFile)
+    },
+    uploadPhotoProfile() {
+      const storage = getStorage();
+      let newIdUser = this.email
+      const storageRef = ref(storage, newIdUser + '/photoProfile' + '/' + this.personalPhotoFile.name);
+      uploadBytes(storageRef, this.personalPhotoFile).then((snapshot) => {
+        console.log('Uploaded a blob or file!');
+      });
+    },
   },
 
 }

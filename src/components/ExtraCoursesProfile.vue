@@ -13,7 +13,8 @@
         <v-col>
           <v-row>
             <v-col>
-              <v-text-field v-model="courseForm.institutionCourse" label="Universidad o Institución" required></v-text-field>
+              <v-text-field v-model="courseForm.institutionCourse" label="Universidad o Institución"
+                required></v-text-field>
             </v-col>
             <v-col>
               <v-text-field v-model="courseForm.nameCourse" label="Nombre de Curso o Taller" required></v-text-field>
@@ -24,10 +25,11 @@
               <v-text-field v-model="courseForm.countryCourse" label="País" required></v-text-field>
             </v-col>
             <v-col>
-              <v-select v-model="courseForm.yearCourse" :items="years" label="Año de publicación" outlined></v-select>
+              <VueDatePicker v-model="courseForm.yearCourse" locale="es" year-picker :teleport="true"
+                placeholder="Año de realización" />
             </v-col>
             <v-col>
-              <v-file-input v-model="courseForm.fileCourse" accept="application/pdf" label="Seleccionar archivo PDF"
+              <v-file-input @change="loadCourseFile($event)" accept="application/pdf" label="Seleccionar archivo PDF"
                 outlined></v-file-input>
               <p style="text-align: right;">Adjuntar certificado escaneado</p>
             </v-col>
@@ -54,7 +56,8 @@
         <v-col>
           <v-row>
             <v-col>
-              <v-text-field v-model="publicationForm.namePublication" label="Nombre de publicación" required></v-text-field>
+              <v-text-field v-model="publicationForm.namePublication" label="Nombre de publicación"
+                required></v-text-field>
             </v-col>
             <v-col>
               <v-text-field v-model="publicationForm.publisher" label="Enlace o Editorial de Publicación"
@@ -70,27 +73,23 @@
               <v-text-field v-model="publicationForm.countryPublication" label="País" required></v-text-field>
             </v-col>
             <v-col>
-              <v-menu ref="menu" v-model="publicationForm.menu" :close-on-content-click="false" transition="scale-transition"
-                offset-y min-width="290px">
-                <template v-slot:activator="{ on }">
-                  <v-text-field v-model="publicationForm.datePublication" label="Fecha de publicación" outlined readonly
-                    v-on="on"></v-text-field>
-                </template>
-                <v-date-picker v-model="publicationForm.datePublication" @input="menu = false"></v-date-picker>
-              </v-menu>
+              <VueDatePicker v-model="publicationForm.datePublication" locale="es" :teleport="true"
+                placeholder="Fecha de Publicación" :enable-time-picker="false" />
             </v-col>
             <v-col>
-              <v-file-input v-model="publicationForm.filePublication" accept="application/pdf" label="Seleccionar archivo PDF"
-                outlined></v-file-input>
+              <v-file-input @change="loadPublicationFile($event)" accept="application/pdf"
+                label="Seleccionar archivo PDF" outlined></v-file-input>
             </v-col>
           </v-row>
         </v-col>
       </v-card-text>
     </v-card>
-    <v-btn v-if="publicationForms.length < 3" @click="addPublicationForm()" color="warning" class="fixed-bottom mr-2">Agregar
+    <v-btn v-if="publicationForms.length < 3" @click="addPublicationForm()" color="warning"
+      class="fixed-bottom mr-2">Agregar
       formulario</v-btn>
     <v-col>
-      <v-btn class="success">guardar</v-btn>
+      <v-btn @click="saveDataCourses(); saveDataPublication(); uploadCourseFile(); uploadPublicationFile()"
+        class="success">guardar</v-btn>
     </v-col>
     <v-dialog v-model="dialogVisible" max-width="500px">
       <v-card>
@@ -111,10 +110,16 @@
 <script>
 import { database } from '../firebase/firebase'
 import { addDoc, collection, doc } from "firebase/firestore";
+import { getStorage, uploadBytes, ref } from 'firebase/storage';
 
 export default {
+  props: [
+    "userId"
+  ],
   data() {
     return {
+      // idUser: this.userId,
+      idUser: 'aljiar23@gmail.com',
       dialogVisible: false,
       estate: true,
       local: '',
@@ -124,9 +129,11 @@ export default {
           nameCourse: '',
           countryCourse: '',
           yearCourse: '',
-          fileCourse: null
+          fileCourse: null,
+          courseFilled: false
         }
       ],
+      courseFiles: [],
       publicationForms: [
         {
           namePublication: '',
@@ -134,9 +141,11 @@ export default {
           typePublication: '',
           countryPublication: '',
           datePublication: '',
-          filePublication: null
-        }
+          filePublication: null,
+          publicationFilled: false
+        },
       ],
+      publicationFiles: [],
       publishType: [
         'Libro',
         'Revista',
@@ -160,19 +169,20 @@ export default {
     }
   },
   methods: {
-    addCourseForm(){
-      if (this.courseForms.length < 3) {
+    addCourseForm() {
+      if (this.courseForms.length < 3 && this.checkCourseList()) {
         this.courseForms.push({
           institutionCourse: '',
           nameCourse: '',
           countryCourse: '',
           yearCourse: '',
-          fileCourse: null
+          fileCourse: null,
+          courseFilled: false
         })
       }
     },
-    addPublicationForm(){
-      if(this.publicationForms.length < 3){
+    addPublicationForm() {
+      if (this.publicationForms.length < 3 && this.checkPublicationList()) {
         this.publicationForms.push({
           namePublication: '',
           publisher: '',
@@ -190,30 +200,93 @@ export default {
       this.publicationForms.splice(index, 1);
     },
     saveDataCourses() {
-      this.courseForms.forEach((courseFormValue)=>{
-        const documentRef = doc(database,'instructors',this.idUser)
-        const collectionRef = collection(documentRef,'courses')
-        addDoc(collectionRef,{
+      this.courseForms.forEach((courseFormValue) => {
+        const documentRef = doc(database, 'instructors', this.idUser)
+        const collectionRef = collection(documentRef, 'courses')
+        addDoc(collectionRef, {
           institutionCourse: courseFormValue.institutionCourse,
           nameCourse: courseFormValue.nameCourse,
           countryCourse: courseFormValue.countryCourse,
           yearCourse: courseFormValue.yearCourse,
         })
-        
+
       })
     },
     saveDataPublication() {
-      this.publicationForms.forEach((publicationFormValue)=>{
-        const documentRef = doc(database,'instructors',this.idUser)
-        const collectionRef = collection(documentRef,'courses')
-        addDoc(collectionRef,{
+      this.publicationForms.forEach((publicationFormValue) => {
+        const documentRef = doc(database, 'instructors', this.idUser)
+        const collectionRef = collection(documentRef, 'publications')
+        addDoc(collectionRef, {
           namePublication: publicationFormValue.namePublication,
           publisher: publicationFormValue.publisher,
           typePublication: publicationFormValue.typePublication,
           countryPublication: publicationFormValue.countryPublication,
           datePublication: publicationFormValue.datePublication,
         })
-        
+
+      })
+    },
+    loadCourseFile(e) {
+      let newFileCourse = e.target.files[0]
+      console.log(newFileCourse)
+      this.courseFiles.push(newFileCourse)
+      this.courseForms[this.courseForms.length - 1].courseFilled = true
+    },
+    loadPublicationFile(e) {
+      let newFilePublication = e.target.files[0]
+      console.log(newFilePublication)
+      this.publicationFiles.push(newFilePublication)
+      this.publicationForms[this.publicationForms.length - 1].publicationFilled = true
+    },
+    checkCourseList() {
+      let listCourseFilled = true
+      this.courseForms.forEach((courseForm) => {
+        if (courseForm.institutionCourse
+          && courseForm.nameCourse
+          && courseForm.countryCourse
+          && courseForm.yearCourse
+          && courseForm.courseFilled) {
+          listCourseFilled = true
+        } else {
+          listCourseFilled = false
+        }
+      })
+      return listCourseFilled
+    },
+    checkPublicationList() {
+      let listPublicationFilled = true
+      this.publicationForms.forEach((publicationForm) => {
+        if (publicationForm.namePublication
+          && publicationForm.publisher
+          && publicationForm.typePublication
+          && publicationForm.countryPublication
+          && publicationForm.datePublication
+          && publicationForm.publicationFilled) {
+          listCourseFilled = true
+        } else {
+          listPublicationFilled = false
+        }
+      })
+      return listPublicationFilled
+    },
+    uploadCourseFile() {
+      const storage = getStorage()
+      let newIdUser = this.idUser
+      this.courseFiles.forEach((courseFileValue) => {
+        const storageRef = ref(storage, newIdUser + '/courseFiles/' + courseFileValue.name)
+        uploadBytes(storageRef, courseFileValue).then((snapshot) => {
+          console.log('Upload course file')
+        })
+      })
+    },
+    uploadPublicationFile() {
+      const storage = getStorage()
+      let newIdUser = this.idUser
+      this.publicationFiles.forEach((publicationFileValue) => {
+        const storageRef = ref(storage, newIdUser + '/publicationFiles/' + publicationFileValue.name)
+        uploadBytes(storageRef, publicationFileValue).then((snapshot) => {
+          console.log('Upload publication file')
+        })
       })
     },
   }

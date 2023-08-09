@@ -1,6 +1,6 @@
 <template>
-  <H1>{{this.idUser}}</H1>
-    
+  <H1>{{ this.idUser }}</H1>
+
   <v-sheet width="1000" class="mx-auto">
     <p>{{ local.name }}</p>
     <v-card v-for="(degreeForm, index) in degreeForms" :key="index" class="mb-4">
@@ -32,14 +32,15 @@
               <v-text-field v-model="degreeForm.countryDegree" label="País" required></v-text-field>
             </v-col>
             <v-col>
-              <v-text-field v-model="degreeForm.graduationYearDegree" label="Año de titulación" outlined></v-text-field>
+              <VueDatePicker v-model="degreeForm.graduationYearDegree" year-picker :teleport="true"
+                placeholder="Año de titulación" />
             </v-col>
             <v-col>
               <v-select v-model="degreeForm.graduationModalityDegree" :items="ModalidadGraduacion"
                 label="Modalidad Graduación" outlined></v-select>
             </v-col>
             <v-col>
-              <v-file-input v-model="degreeForm.fileDegree" accept="application/pdf" label="Seleccionar archivo PDF"
+              <v-file-input @change="loadDegreeFile($event)" accept="application/pdf" label="Seleccionar archivo PDF"
                 outlined></v-file-input>
               <p style="text-align: right;">Adjuntar título escaneado</p>
             </v-col>
@@ -47,6 +48,9 @@
         </v-col>
       </v-card-text>
     </v-card>
+    <v-alert v-model="alert" close-text="Close Alert" color="error" dark dismissible class="mx-15">
+      Debe llenar todos los campos requeridos.
+    </v-alert>
     <v-col>
       <v-btn v-if="degreeForms.length < 3" @click="addDegreeForm()" color="warning" class="fixed-bottom mr-2">AGREGAR
         NUEVA FORMACIÓN</v-btn>
@@ -83,16 +87,16 @@
               <v-text-field v-model="postDegreeForm.countryPostDegree" label="País" required></v-text-field>
             </v-col>
             <v-col>
-              <v-select v-model="postDegreeForm.graduationYearPostDegree" :items="years" label="Año de titulación"
-                outlined></v-select>
+              <VueDatePicker v-model="postDegreeForm.graduationYearPostDegree" year-picker :teleport="true"
+                placeholder="Año de Titulación" />
             </v-col>
             <v-col>
               <v-select v-model="postDegreeForm.graduationModalityPostDegree" :items="ModalidadGraduacionPost"
                 label="Modalidad de graduación" outlined></v-select>
             </v-col>
             <v-col>
-              <v-file-input v-model="postDegreeForm.filePostDegree" accept="application/pdf"
-                label="Seleccionar archivo PDF" outlined></v-file-input>
+              <v-file-input v-model="postDegreeForm.filePostDegree" @change="loadPostDegreeFile($event)"
+                accept="application/pdf" label="Seleccionar archivo PDF" outlined></v-file-input>
               <p style="text-align: right;">Adjuntar título escaneado</p>
 
             </v-col>
@@ -105,8 +109,8 @@
         class="fixed-bottom mr-2">AGREGAR
         NUEVO POSTGRADO</v-btn>
       <v-col>
-        <!--<v-btn class="success" @click="ableCoursesForm(); saveDataDegrees(); saveDataPostDegrees()">guardar</v-btn>-->
-        <v-btn class="success" @click="ableCoursesForm() ">guardar</v-btn>
+        <!-- <v-btn class="success" @click="ableCoursesForm();">guardar</v-btn> -->
+        <v-btn class="success" @click="ableCoursesForm(); saveDataDegrees(); uploadDegreeFiles(); saveDataPostDegrees(); uploadPostDegreeFiles()">guardar</v-btn>
       </v-col>
 
       <v-dialog v-model="dialogVisible" max-width="500px">
@@ -132,16 +136,27 @@
 <script>
 import { database } from '../firebase/firebase'
 import { addDoc, collection, doc } from "firebase/firestore";
+import { getDownloadURL, getStorage, ref, uploadBytes } from 'firebase/storage'
+import VueDatePicker from '@vuepic/vue-datepicker';
+import '@vuepic/vue-datepicker/dist/main.css';
+
+
 
 export default {
   props: ["userId"],
+  components: {
+    VueDatePicker
+  },
   data() {
     return {
-      idUser: this.userId,
+      // idUser: this.userId,
+      idUser:'aljiar23@gmail.com',
       dialogVisible: false,
       estate: true,
+      alert: false,
       local: '',
-      fileNamePre: [],
+      url: '',
+      listOfPaths: [],
       degreeForms: [
         {
           universityDegree: '',
@@ -151,8 +166,12 @@ export default {
           graduationYearDegree: '',
           graduationModalityDegree: '',
           fileDegree: null,
+          fileDegreePath: '',
+          degreeFilled: false,
+
         }
       ],
+      degreeFiles: [],
       postDegreeForms: [
         {
           universityPostDegree: '',
@@ -161,9 +180,12 @@ export default {
           countryPostDegree: '',
           graduationYearPostDegree: '',
           graduationModalityPostDegree: '',
-          filePostDegree: null
+          filePostDegree: null,
+          filePostDegreePath: '',
+          postDegreeFilled: false,
         }
       ],
+      postDegreeFiles: [],
       selectedPostEstudyType: null,
       PostNivelEstudio: [
         'Diplomado',
@@ -209,10 +231,11 @@ export default {
       this.$emit('able-courses-form');
     },
     saveDataDegrees() {
-      this.degreeForms.forEach((degreeFormValue)=>{
-        const documentRef = doc(database,'instructors',this.idUser)
-        const collectionRef = collection(documentRef,'degrees')
-        addDoc(collectionRef,{
+      console.log(this.idUser)
+      const documentRef = doc(database, 'instructors', this.idUser)
+      const collectionRef = collection(documentRef, 'degrees')
+      this.degreeForms.forEach((degreeFormValue) => {
+        addDoc(collectionRef, {
           universityDegree: degreeFormValue.universityDegree,
           careerDegree: degreeFormValue.careerDegree,
           levelOfDegree: degreeFormValue.levelOfDegree,
@@ -220,15 +243,24 @@ export default {
           graduationYearDegree: degreeFormValue.graduationYearDegree,
           graduationModalityDegree: degreeFormValue.graduationModalityDegree,
         })
-        
       })
 
     },
+    uploadDegreeFiles() {
+      const storage = getStorage();
+      let newIdUser = this.idUser
+      this.degreeFiles.forEach((degreeFileValue) => {
+        const storageRef = ref(storage, newIdUser + '/degreeFiles' + '/' + degreeFileValue.name)
+        uploadBytes(storageRef, degreeFileValue).then((snapshot) => {
+          console.log('Uploaded a blob or file!');
+        })
+      })
+    },
     saveDataPostDegrees() {
-      this.postDegreeForms.forEach((postDegreeFormValue)=>{
-        const documentRef = doc(database,'instructors',this.idUser)
-        const collectionRef = collection(documentRef,'postDegrees')
-        addDoc(collectionRef,{
+      const documentRef = doc(database, 'instructors', this.idUser)
+      const collectionRef = collection(documentRef, 'postDegrees')
+      this.postDegreeForms.forEach((postDegreeFormValue) => {
+        addDoc(collectionRef, {
           universityPostDegree: postDegreeFormValue.universityPostDegree,
           namePostDegree: postDegreeFormValue.namePostDegree,
           titlePostDegree: postDegreeFormValue.titlePostDegree,
@@ -239,8 +271,18 @@ export default {
       })
 
     },
+    uploadPostDegreeFiles() {
+      const storage = getStorage();
+      let newIdUser = this.idUser
+      this.postDegreeFiles.forEach((postDegreeFileValue) => {
+        const storageRef = ref(storage, newIdUser + '/postDegreeFiles/' + postDegreeFileValue.name)
+        uploadBytes(storageRef, postDegreeFileValue).then((snapshot) => {
+          console.log('Uploaded a blob or file!');
+        })
+      })
+    },
     addDegreeForm() {
-      if (this.degreeForms.length < 3) {
+      if (this.degreeForms.length < 3 && this.checkDegreeList()) {
         this.degreeForms.push({
           universityDegree: '',
           careerDegree: '',
@@ -249,11 +291,12 @@ export default {
           graduationYearDegree: '',
           graduationModalityDegree: '',
           fileDegree: '',
+          degreeFilled: false
         });
       }
     },
     addPostDegreeForm() {
-      if (this.postDegreeForms.length < 3) {
+      if (this.postDegreeForms.length < 3 && this.checkPostDegreeList()) {
         this.postDegreeForms.push({
           universityPostDegree: '',
           namePostDegree: '',
@@ -261,7 +304,8 @@ export default {
           countryPostDegree: '',
           graduationYearPostDegree: '',
           graduationModalityPostDegree: '',
-          filePostDegree: ''
+          filePostDegree: '',
+          postDegreeFilled: false
         });
       }
     },
@@ -271,9 +315,57 @@ export default {
     deletePostDegreeForm(index2) {
       this.postDegreeForms.splice(index2, 1);
     },
-
-
-  }
+    loadDegreeFile(e) {
+      let newFileDegree = e.target.files[0]
+      console.log(newFileDegree)
+      this.degreeFiles.push(newFileDegree)
+      this.degreeForms[this.degreeForms.length - 1].degreeFilled = true
+    },
+    loadPostDegreeFile(e) {
+      let newFilePostDegree = e.target.files[0]
+      console.log(newFilePostDegree)
+      this.postDegreeFiles.push(newFilePostDegree)
+      this.postDegreeForms[this.postDegreeForms.length - 1].postDegreeFilled = true
+    },
+    checkDegreeList() {
+      let listDegreeFilled = true
+      this.degreeForms.forEach((degreeForm) => {
+        if (degreeForm.universityDegree
+          && degreeForm.careerDegree
+          && degreeForm.levelOfDegree
+          && degreeForm.graduationModalityDegree
+          && degreeForm.countryDegree
+          && degreeForm.graduationYearDegree
+          && degreeForm.fileDegree
+          && degreeForm.degreeFilled) {
+          listDegreeFilled = true
+        } else {
+          listDegreeFilled = false
+        }
+      })
+      console.log(listDegreeFilled)
+      return listDegreeFilled
+    },
+    checkPostDegreeList() {
+      let listPostDegreeFilled = true
+      this.postDegreeForms.forEach((postDegreeForm) => {
+        if (postDegreeForm.universityPostDegree
+          && postDegreeForm.namePostDegree
+          && postDegreeForm.titlePostDegree
+          && postDegreeForm.countryPostDegree
+          && postDegreeForm.graduationYearPostDegree
+          && postDegreeForm.graduationModalityPostDegree
+          && postDegreeForm.filePostDegree
+          && postDegreeForm.postDegreeFilled) {
+          listPostDegreeFilled = true
+        } else {
+          listPostDegreeFilled = false
+        }
+      })
+      console.log(listPostDegreeFilled)
+      return listPostDegreeFilled
+    },
+  },
 }
 </script>
 <style></style>
