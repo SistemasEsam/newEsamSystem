@@ -106,6 +106,8 @@ export default {
       postDegrees: [],
       courses: [],
       img: null,
+      photoProfilePath: '',
+
     }
   },
   created() {
@@ -113,7 +115,6 @@ export default {
     this.getDegrees()
     this.getPostDegrees()
     this.getCourses()
-    this.loadProfileImage()
   },
 
   methods: {
@@ -131,11 +132,13 @@ export default {
         this.addres = personalProfileData.data().addres
         this.personalPhone = personalProfileData.data().personalPhone
         this.email = personalProfileData.data().email
+        this.photoProfilePath = personalProfileData.data().photoProfilePath
 
 
       } else {
         console.log('Document does not exist')
       }
+      this.loadProfileImage()
     },
     async getDegrees() {
       const dataDegrees = await getDocs(collection(database, 'instructors', this.idUser, 'degrees'))
@@ -176,9 +179,10 @@ export default {
         })
       })
     },
-    loadProfileImage() {
+    async loadProfileImage() {
       const storage = getStorage();
-      getDownloadURL(ref(storage, this.idUser + '/photoProfile/AlanJimenez-PhotoProfile.png'))
+      console.log(this.photoProfilePath)
+      await getDownloadURL(ref(storage, this.photoProfilePath))
         .then((url) => {
           // Or inserted into an <img> element
           this.img = url
