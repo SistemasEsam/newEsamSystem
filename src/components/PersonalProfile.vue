@@ -1,5 +1,5 @@
 <template>
-  <v-sheet width="1000" class="mx-auto">
+ <v-sheet class="mx-auto">
 
     <v-col class="d-flex justify-center aling-center">
       <v-avatar size="150" color="warning">
