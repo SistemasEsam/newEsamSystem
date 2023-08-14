@@ -16,7 +16,7 @@
   
   <style>
 .yellow-rectangle1 {
-  position: absolute;
+  position: absolute;  
 }
 
   .component-with-shapes-and-description {
