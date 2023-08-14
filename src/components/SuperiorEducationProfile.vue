@@ -1,6 +1,4 @@
 <template>
-  <H1>{{ this.idUser }}</H1>
-
   <v-sheet width="1000" class="mx-auto">
     <p>{{ local.name }}</p>
     <v-card v-for="(degreeForm, index) in degreeForms" :key="index" class="mb-4">
@@ -109,8 +107,8 @@
         class="fixed-bottom mr-2">AGREGAR
         NUEVO POSTGRADO</v-btn>
       <v-col>
-        <v-btn class="success" @click="ableCoursesForm();">guardar</v-btn>
-        <!-- <v-btn class="success" @click="ableCoursesForm(); saveDataDegrees(); uploadDegreeFiles(); saveDataPostDegrees(); uploadPostDegreeFiles()">guardar</v-btn> -->
+        <!-- <v-btn class="success" @click="ableCoursesForm();">guardar</v-btn> -->
+        <v-btn class="success" @click="ableCoursesForm(); saveDataDegrees(); uploadDegreeFiles(); saveDataPostDegrees(); uploadPostDegreeFiles()">guardar</v-btn>
       </v-col>
 
       <v-dialog v-model="dialogVisible" max-width="500px">
@@ -149,8 +147,7 @@ export default {
   },
   data() {
     return {
-      // idUser: this.userId,
-      idUser:'aljiar23@gmail.com',
+      idUser: this.userId,
       dialogVisible: false,
       estate: true,
       alert: false,

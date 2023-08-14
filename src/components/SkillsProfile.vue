@@ -100,7 +100,7 @@ export default {
   ],
   data() {
     return {
-      idUser: 'aljiar23@gmail.com',
+      idUser: this.userId,
       dialogVisible: false,
       local: '',
       estate: true,

@@ -186,8 +186,7 @@ export default {
   },
   data() {
     return {
-      // idUser: this.userId,
-      idUser: 'aljiar23@gmail.com',
+      idUser: this.userId,
       dialogVisible: false,
       isChecked: false,
       dateStart: null,
