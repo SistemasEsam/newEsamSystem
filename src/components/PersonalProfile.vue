@@ -70,7 +70,7 @@
     </v-col>
     <v-col>
       <!-- <v-btn @click="ableDegreeForm()" color="warning" class="fixed-bottom mr-2">guardar </v-btn> -->
-      <v-btn @click="uploadPhotoProfile(); ableDegreeForm(); addUser()" color="warning" class="fixed-bottom mr-2">guardar </v-btn>
+      <v-btn @click="uploadPhotoProfile(); ableDegreeForm(); addUser(); component='SuperiorEducationProfile' " color="warning" class="fixed-bottom mr-2">guardar </v-btn>
     </v-col>
 
     <v-dialog v-model="dialogVisible" max-width="500px">
@@ -95,12 +95,14 @@ import { doc, setDoc } from "firebase/firestore";
 import { getStorage, ref, uploadBytes } from 'firebase/storage'
 import VueDatePicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css';
+import SuperiorEducationProfile from './SuperiorEducationProfile.vue';
 
 
 export default {
-  components: { VueDatePicker },
+  components: { VueDatePicker , SuperiorEducationProfile},
   data() {
     return {
+      component: "SuperiorEducationProfile",
       dialogVisible: false,
       name: '',
       lastNameF: '',
@@ -120,6 +122,7 @@ export default {
       personalPhotoFile: null,
       imageUrl: '',
       idUser: '',
+      photoProfilePath: '',
 
       emailRules: [
         v => !!v || 'El correo electrónico es requerido',
@@ -205,6 +208,7 @@ export default {
         numberId: this.numberId,
         dateOfBirth: this.format(this.dateOfBirth),
         gender: this.gender,
+        photoProfilePath: this.photoProfilePath
       })
     },
     format(dateOfBirth) {
@@ -223,7 +227,8 @@ export default {
     uploadPhotoProfile() {
       const storage = getStorage();
       let newIdUser = this.email
-      const storageRef = ref(storage, newIdUser + '/photoProfile' + '/' + this.personalPhotoFile.name);
+      this.photoProfilePath= newIdUser + '/photoProfile' + '/' + this.personalPhotoFile.name
+      const storageRef = ref(storage, this.photoProfilePath);
       uploadBytes(storageRef, this.personalPhotoFile).then((snapshot) => {
         console.log('Uploaded a blob or file!');
       });

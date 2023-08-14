@@ -71,7 +71,7 @@
     <v-btn v-if="languageForms.length < 3" @click="addLanguageForm()" color="warning" class="fixed-bottom mr-2">AGREGAR
       NUEVO IDIOMA</v-btn>
     <v-col>
-      <v-btn class="success" @click="saveDataSkills(); saveDataLanguages() ">guardar</v-btn>
+      <v-btn class="success" @click="saveDataSkills(); saveDataLanguages() " to="/pdf">guardar</v-btn>
     </v-col>
     <v-dialog v-model="dialogVisible" max-width="500px">
       <v-card>
