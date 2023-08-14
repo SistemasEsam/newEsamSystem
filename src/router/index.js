@@ -5,6 +5,7 @@ import MainView from '../views/MainView.vue'
 import PDFView from '../views/PDFView.vue'
 import LoginView from '../views/LoginView.vue'
 import ProfileView from '../views/ProfileView.vue'
+import ContactView from '../views/ContactView.vue'
 
 
 const routes = [
@@ -34,6 +35,15 @@ const routes = [
 
 
  },
+
+{ 
+  path: '/contact',
+  name: 'contact',
+  component: ContactView
+
+},
+
+
  {
     path: '/login',
     name: 'login',

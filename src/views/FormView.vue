@@ -1,4 +1,5 @@
 <template>
+  <NavBarForm/>
   <v-tabs>
     <v-tab @click="component ='personalProfile'">Perfil Personal</v-tab>
     <v-tab :disabled="ableDegree" @click="component ='superiorEducationProfile'">Educación Superior</v-tab>
@@ -13,6 +14,8 @@
     <extra-courses-profile v-if="component === 'extraCoursesProfile'" :user-id="idUser"></extra-courses-profile>
     <work-experience-profile v-if="component === 'workExperienceProfile'" :user-id="idUser"></work-experience-profile>
     <skills-profile v-if="component === 'skillsProfile'" :user-id="idUser"></skills-profile>
+<Footer/>
+
 </template>
     
 <script>
@@ -22,14 +25,17 @@
     import extraCoursesProfile from '../components/ExtraCoursesProfile.vue'
     import workExperienceProfile from '../components/WorkExperiencieProfile.vue'
     import skillsProfile from '../components/SkillsProfile.vue'
-
+    import NavBarForm from '@/components/NavBarForm.vue'
+    import Footer from '@/components/Footer.vue'
     export default {
       components: {
        personalProfile,
        superiorEducationProfile,
        extraCoursesProfile,
        workExperienceProfile,
-       skillsProfile
+       skillsProfile,
+       NavBarForm,
+       Footer
       },
     
       data() {
