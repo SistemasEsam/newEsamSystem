@@ -35,38 +35,38 @@
         <h1>
           Estudios Pregrado
         </h1>
-        <v-card v-for="(degree, index) in degrees" :key="index" class="cards">
+        <ol v-for="(degree, index) in degrees" :key="index" class="cards">
           <p>{{ degree.universityDegree }}</p>
           <p>{{ degree.careerDegree }}</p>
           <p>{{ degree.levelOfDegree }}</p>
           <p>{{ degree.countryDegree }}</p>
           <p>{{ degree.graduationYearDegree }}</p>
           <p>{{ degree.graduationModalityDegree }}</p>
-        </v-card>
+        </ol>
       </div>
       <div class="degrees">
         <h1>
           Estudios Postgrado
         </h1>
-        <v-card v-for="(postDegree, index) in postDegrees" :key="index" class="cards">
+        <ol v-for="(postDegree, index) in postDegrees" :key="index" class="cards">
           <p>{{ postDegree.universityPostDegree }}</p>
           <p>{{ postDegree.namePostDegree }}</p>
           <p>{{ postDegree.titlePostDegree }}</p>
           <p>{{ postDegree.countryPostDegree }}</p>
           <p>{{ postDegree.graduationYearPostDegree }}</p>
           <p>{{ postDegree.graduationModalityPostDegree }}</p>
-        </v-card>
+        </ol>
       </div>
       <div class="degrees">
         <h1>
           Cursos
         </h1>
-        <v-card v-for="(course, index) in courses" :key="index" class="cards">
+        <ol v-for="(course, index) in courses" :key="index" class="cards">
           <p>{{ course.institutionCourse }}</p>
           <p>{{ course.nameCourse }}</p>
           <p>{{ course.countryCourse }}</p>
           <p>{{ course.yearCourse }}</p>
-        </v-card>
+        </ol>
       </div>
     </div>
   </div>
