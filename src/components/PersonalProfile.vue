@@ -3,7 +3,7 @@
 
     <v-col class="d-flex justify-center aling-center">
       <v-avatar size="150" color="warning">
-        <img class="mx-auto" :src="require(imageUrl) " width="150" height="150">
+        <img class="mx-auto" :src="imageUrl" width="150" height="150">
       </v-avatar>
     </v-col>
     <v-col class="d-flex justify-center aling-center">
