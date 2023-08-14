@@ -1,60 +1,172 @@
 <template>
+  <page size="letter">
   <div class="component-with-shapes-and-image">
     <!-- Círculo amarillo -->
     <div class="yellow-circle"></div>
 
-    <!-- Rectángulo azul marino -->
     <div class="blue-rectangle">
-      <v-container>
-        <v-col-3>
-          <label>
-            {{this.name}}
-          </label>
-        </v-col-3>
-        <v-col-9>
-          {{this.lastNameF}}
-        </v-col-9>
-      </v-container>
+      <aside class="personalProfile">
+        <div>
+          <p>
+            {{ this.name + ' ' + this.lastNameF + ' ' + this.lastNameM }}</p>
+          <p>
+            {{ this.numberId }}</p>
+          <p>
+            {{ this.dateOfBirth }}</p>
+          <p>
+            {{ this.gender }}</p>
+          <p>{{ this.cityRadication + ', ' + this.selectedCountry }}
+          </p>
+          <p> {{ this.addres }} </p>
+          <p>
+            {{ this.personalPhone }}
+          </p>
+          <p>
+            {{ this.email }}
+          </p>
+        </div>
+      </aside>
     </div>
-
     <!-- Rectángulo amarillo -->
     <div class="yellow-rectangle"></div>
 
-    <!-- Descripción de la imagen -->
-    <div class="description-container">
-      <p class="description">Esta es una imagen con una descripción sobre ella.</p>
+    <div class="education">
+      <div class="degrees">
+        <h1>
+          Estudios Pregrado
+        </h1>
+        <v-card v-for="(degree, index) in degrees" :key="index" class="cards">
+          <p>{{ degree.universityDegree }}</p>
+          <p>{{ degree.careerDegree }}</p>
+          <p>{{ degree.levelOfDegree }}</p>
+          <p>{{ degree.countryDegree }}</p>
+          <p>{{ degree.graduationYearDegree }}</p>
+          <p>{{ degree.graduationModalityDegree }}</p>
+        </v-card>
+      </div>
+      <div class="degrees">
+        <h1>
+          Estudios Postgrado
+        </h1>
+        <v-card v-for="(postDegree, index) in postDegrees" :key="index" class="cards">
+          <p>{{ postDegree.universityPostDegree }}</p>
+          <p>{{ postDegree.namePostDegree }}</p>
+          <p>{{ postDegree.titlePostDegree }}</p>
+          <p>{{ postDegree.countryPostDegree }}</p>
+          <p>{{ postDegree.graduationYearPostDegree }}</p>
+          <p>{{ postDegree.graduationModalityPostDegree }}</p>
+        </v-card>
+      </div>
+      <div class="degrees">
+        <h1>
+          Cursos
+        </h1>
+        <v-card v-for="(course, index) in courses" :key="index" class="cards">
+          <p>{{ course.institutionCourse }}</p>
+          <p>{{ course.nameCourse }}</p>
+          <p>{{ course.countryCourse }}</p>
+          <p>{{ course.yearCourse }}</p>
+        </v-card>
+      </div>
     </div>
   </div>
+</page>
+
 </template>
 
 <script>
 import { database } from '../firebase/firebase'
-import { doc, getDoc } from 'firebase/firestore'
+import { collection, doc, getDoc, getDocs } from 'firebase/firestore'
 export default {
   data() {
     return {
       idUser: 'aljiar23@gmail.com',
-      name:'', 
-      lastNameF:'',
-      lastNameM:'',
+      name: '',
+      lastNameF: '',
+      lastNameM: '',
+      personalPhone: null,
+      personalPhoneAux: null,
+      email: '',
+      selectedCountry: '',
+      cityRadication: '',
+      addres: '',
+      selectedDocumentType: null,
+      numberId: '',
+      dateOfBirth: '',
+      formatedDateOfBrith: '',
+      gender: '',
+      degrees: [],
+      postDegrees: [],
+      courses: [],
     }
   },
-  created(){
+  created() {
     this.getInstructorData()
+    this.getDegrees()
+    this.getPostDegrees()
+    this.getCourses()
   },
 
   methods: {
     async getInstructorData() {
-      const docSnap = await getDoc(doc(database, 'instructors', this.idUser))
-      if (docSnap.exists()) {
-        this.name = docSnap.data().name
-        this.lastNameF = docSnap.data().lastNameF
-        this.lastNameM= docSnap.data().lastNameM
-        console.log(this.name)
+      const personalProfileData = await getDoc(doc(database, 'instructors', this.idUser))
+      if (personalProfileData.exists()) {
+        this.name = personalProfileData.data().name
+        this.lastNameF = personalProfileData.data().lastNameF
+        this.lastNameM = personalProfileData.data().lastNameM
+        this.numberId = personalProfileData.data().numberId
+        this.dateOfBirth = personalProfileData.data().dateOfBirth
+        this.gender = personalProfileData.data().gender
+        this.cityRadication = personalProfileData.data().cityRadication
+        this.selectedCountry = personalProfileData.data().selectedCountry
+        this.addres = personalProfileData.data().addres
+        this.personalPhone = personalProfileData.data().personalPhone
+        this.email = personalProfileData.data().email
+
+
       } else {
         console.log('Document does not exist')
       }
-    }
+    },
+    async getDegrees() {
+      const dataDegrees = await getDocs(collection(database, 'instructors', this.idUser, 'degrees'))
+      dataDegrees.forEach((degree) => {
+        this.degrees.push({
+          careerDegree: degree.data().careerDegree,
+          countryDegree: degree.data().countryDegree,
+          graduationModalityDegree: degree.data().graduationModalityDegree,
+          graduationYearDegree: degree.data().graduationYearDegree,
+          levelOfDegree: degree.data().levelOfDegree,
+          universityDegree: degree.data().universityDegree
+
+        })
+      })
+    },
+    async getPostDegrees() {
+      const dataPostDegrees = await getDocs(collection(database, 'instructors', this.idUser, 'postDegrees'))
+      dataPostDegrees.forEach((postDegree) => {
+        this.postDegrees.push({
+          universityPostDegree: postDegree.data().universityPostDegree,
+          namePostDegree: postDegree.data().namePostDegree,
+          titlePostDegree: postDegree.data().titlePostDegree,
+          countryPostDegree: postDegree.data().countryPostDegree,
+          graduationYearPostDegree: postDegree.data().graduationYearPostDegree,
+          graduationModalityPostDegree: postDegree.data().graduationModalityPostDegree
+        })
+      })
+    },
+    async getCourses() {
+      const dataCourses = await getDocs(collection(database, 'instructors', this.idUser, 'courses'))
+      dataCourses.forEach((course) => {
+        this.courses.push({
+          institutionCourse: course.data().institutionCourse,
+          nameCourse: course.data().nameCourse,
+          countryCourse: course.data().countryCourse,
+          yearCourse: course.data().yearCourse
+
+        })
+      })
+    },
   },
 };
 </script>
@@ -72,9 +184,9 @@ export default {
   position: relative;
 }
 
-.yellow-circle,
 .blue-rectangle,
-.yellow-rectangle {
+.yellow-rectangle,
+.education {
   position: absolute;
 }
 
@@ -92,6 +204,7 @@ export default {
   /* Color amarillo */
   z-index: 1;
   /* Asegura que el círculo esté por encima del rectángulo */
+  position: relative;
 }
 
 .blue-rectangle {
@@ -105,7 +218,9 @@ export default {
   /* Alto del rectángulo */
   background-color: #162D4A;
   /* Color azul marino */
+  bottom: 0.0in;
 }
+
 
 .yellow-rectangle {
   top: 17.77in;
@@ -120,23 +235,40 @@ export default {
   /* Color amarillo */
 }
 
-.description-container {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  text-align: center;
+.personalProfile {
+  width: 100%;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-size: x-large;
+  color: white;
+  padding-top: 100%;
+  padding-left: 15px;
+  margin-left: 15px;
+  float: right;
+  text-align-last: center;
 }
 
-.description {
-  color: black;
-  /* Color del texto en negro */
-  font-size: 23px;
-  /* Tamaño de fuente 23px */
-  font-family: Arial, sans-serif;
-  /* Tipo de letra Arial */
-  background-color: rgba(255, 255, 255, 0.7);
-  /* Fondo transparente */
-  padding: 10px;
-  border-radius: 5px;
-}</style>
+.degrees {
+  width: 100%;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  margin-left: 4in;
+  color: #162D4A;
+  margin-top: 0%;
+}
+
+.cards {
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-size: large;
+  color: #162D4A;
+  font-weight: bold;
+}
+@page {
+  size: 8.5in 11in ;
+  width: 8.5in;
+  height: 11in;
+  margin: 0;
+}
+.education {
+  top :0%;
+}
+
+</style>

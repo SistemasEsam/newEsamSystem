@@ -299,7 +299,7 @@ export default {
             institutionWorkExperience: workExperienceFormValue.institutionWorkExperience,
             jobTitleWorkExperience: workExperienceFormValue.jobTitleWorkExperience,
             currentJobFlag: workExperienceFormValue.currentJobFlag,
-            startWorkExperienceCurrentJob: workExperienceFormValue.institutionWorkExperience,
+            startWorkExperienceCurrentJob: this.format(workExperienceFormValue.startWorkExperienceCurrentJob),
             countryWorkExperience: workExperienceFormValue.countryWorkExperience,
             cityWorkExperience: workExperienceFormValue.cityWorkExperience,
             descriptionWorkExperience: workExperienceFormValue.descriptionWorkExperience,
@@ -313,8 +313,8 @@ export default {
             institutionWorkExperience: workExperienceFormValue.institutionWorkExperience,
             jobTitleWorkExperience: workExperienceFormValue.jobTitleWorkExperience,
             currentJobFlag: workExperienceFormValue.currentJobFlag,
-            startWorkExperience: workExperienceFormValue.startWorkExperience,
-            endWorkExperience: workExperienceFormValue.endWorkExperience,
+            startWorkExperience: this.format(workExperienceFormValue.startWorkExperience),
+            endWorkExperience: this.format(workExperienceFormValue.endWorkExperience),
             countryWorkExperience: workExperienceFormValue.countryWorkExperience,
             cityWorkExperience: workExperienceFormValue.cityWorkExperience,
             descriptionWorkExperience: workExperienceFormValue.descriptionWorkExperience,
@@ -335,10 +335,18 @@ export default {
           subjectInstructorExperience: instructorExperienceFormValue.subjectInstructorExperience,
           typeInstructor: instructorExperienceFormValue.typeInstructor,
           academicLevel: instructorExperienceFormValue.academicLevel,
-          startInstructorExperience: instructorExperienceFormValue.startInstructorExperience,
-          endInstructorExperience: instructorExperienceFormValue.endInstructorExperience,
+          startInstructorExperience: this.format(instructorExperienceFormValue.startInstructorExperience),
+          endInstructorExperience: this.format(instructorExperienceFormValue.endInstructorExperience),
         })
       })
+    },
+    format(date) {
+      const day = dateOfBirth.getDate();
+      const month = dateOfBirth.getMonth() + 1;
+      const year = dateOfBirth.getFullYear();
+      let formatedBirthDate = `${day}/${month}/${year}`;
+      this.dateOfBirth = formatedBirthDate;
+      return formatedDate;
     },
   }
 }

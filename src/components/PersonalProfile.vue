@@ -69,8 +69,8 @@
       <v-file-input label="SELECCIONA UNA IMAGEN FORMAL" @change="loadPhotoFile($event)" accept="image/*"></v-file-input>
     </v-col>
     <v-col>
-      <!-- <v-btn @click="ableDegreeForm()" color="warning" class="fixed-bottom mr-2">guardar </v-btn> -->
-      <v-btn @click="uploadPhotoProfile(); ableDegreeForm(); addUser()" color="warning" class="fixed-bottom mr-2">guardar </v-btn>
+      <v-btn @click="ableDegreeForm()" color="warning" class="fixed-bottom mr-2">guardar </v-btn>
+      <!-- <v-btn @click="uploadPhotoProfile(); ableDegreeForm(); addUser()" color="warning" class="fixed-bottom mr-2">guardar </v-btn> -->
     </v-col>
 
     <v-dialog v-model="dialogVisible" max-width="500px">
@@ -203,7 +203,7 @@ export default {
         addres: this.addres,
         selectedDocumentType: this.selectedDocumentType,
         numberId: this.numberId,
-        dateOfBirth: this.dateOfBirth,
+        dateOfBirth: this.format(this.dateOfBirth),
         gender: this.gender,
       })
     },
