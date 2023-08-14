@@ -10,19 +10,19 @@
         <h1>
           Publicaciones
         </h1>
-        <v-card v-for="(publication, index) in publications" :key="index" class="cards1">
+        <ol v-for="(publication, index) in publications" :key="index" class="cards1">
           <p>{{ publication.publisher }}</p>
           <p>{{ publication.namePublication }}</p>
           <p>{{ publication.typePublication }}</p>
           <p>{{ publication.countryPublication }}</p>
           <p>{{ publication.datePublication }}</p>
-        </v-card>
+        </ol>
       </div>
       <div class="degrees2">
         <h1>
           Experiencia Laboral
         </h1>
-        <v-card v-for="(job, index) in jobs" :key="index" class="cards1">
+        <ol v-for="(job, index) in jobs" :key="index" class="cards1">
           <p>{{ job.jobTitleWorkExperience }}</p>
           <p>{{ job.institutionWorkExperience }}</p>
           <p>{{ job.cityWorkExperience + ',' + job.countryWorkExperience }}</p>
@@ -31,39 +31,39 @@
           <p>{{ job.nameReference + ' ' + job.lastnameReference }}</p>
           <p>{{ job.jobTitleReference }}</p>
           <p>{{ job.phoneReference }}</p>
-        </v-card>
+        </ol>
       </div>
       <div class="degrees2">
         <h1>
           Experiencia Docente
         </h1>
-        <v-card v-for="(instructorJob, index) in instructorJobs" :key="index" class="cards1">
+        <ol v-for="(instructorJob, index) in instructorJobs" :key="index" class="cards1">
           <p>{{ instructorJob.subjectInstructorExperience }}</p>
           <p>{{ instructorJob.typeInstructor }}</p>
           <p>{{ instructorJob.academicLevel }}</p>
           <p>{{ instructorJob.institutionInstructorExperience }}</p>
           <p>{{ instructorJob.startInstructorExperience + '/' + instructorJob.endInstructorExperience }}</p>
-        </v-card>
+        </ol>
       </div>
       <div class="degrees2">
         <h1>
           Habilidades Blandas
         </h1>
-        <v-card v-for="(skill, index) in skills" :key="index" class="cards1">
+        <ol v-for="(skill, index) in skills" :key="index" class="cards1">
           <p>{{ skill.skill }}</p>
-        </v-card>
+        </ol>
       </div>
       <div class="degrees2">
         <h1>
           Idiomas
         </h1>
-        <v-card v-for="(language, index) in languajes" :key="index" class="cards1">
+        <ol v-for="(language, index) in languajes" :key="index" class="cards1">
           <p>{{ language.language }}</p>
           <p>Escucha: {{ language.listenLevel }}</p>
           <p>Lectura: {{ language.readLevel }}</p>
           <p>Habla: {{ language.speakeLevel }}</p>
           <p>Escritura: {{ language.writeLevel}}</p>
-        </v-card>
+        </ol>
       </div>
     </div>
     </div>
