@@ -290,10 +290,11 @@ export default {
       this.instructorExperienceForms.splice(index, 1)
     },
     saveDataWorkExperience() {
+      const documentRef = doc(database, 'instructors', this.idUser)
+      const collectionRef = collection(documentRef, 'jobs')
       this.workExperienceForms.forEach((workExperienceFormValue) => {
-        const documentRef = doc(database, 'instructors', this.idUser)
-        const collectionRef = collection(documentRef, 'jobs')
-        if (workExperienceFormValue.currentJobFlag) {
+        if(workExperienceFormValue.jobTitleWorkExperience != ''){
+          if (workExperienceFormValue.currentJobFlag) {
           addDoc(collectionRef, {
             institutionWorkExperience: workExperienceFormValue.institutionWorkExperience,
             jobTitleWorkExperience: workExperienceFormValue.jobTitleWorkExperience,
@@ -323,13 +324,15 @@ export default {
             phoneReference: workExperienceFormValue.phoneReference
           })
         }
+        }
       })
     },
     saveDateInstructorExperience() {
+      const documentRef = doc(database, 'instructors', this.idUser)
+      const collectionRef = collection(documentRef, 'instructorJobs')
       this.instructorExperienceForms.forEach((instructorExperienceFormValue) => {
-        const documentRef = doc(database, 'instructors', this.idUser)
-        const collectionRef = collection(documentRef, 'instructorJobs')
-        addDoc(collectionRef, {
+        if(instructorExperienceFormValue.subjectInstructorExperience != ''){
+          addDoc(collectionRef, {
           institutionInstructorExperience: instructorExperienceFormValue.institutionInstructorExperience,
           subjectInstructorExperience: instructorExperienceFormValue.subjectInstructorExperience,
           typeInstructor: instructorExperienceFormValue.typeInstructor,
@@ -337,6 +340,7 @@ export default {
           startInstructorExperience: this.format(instructorExperienceFormValue.startInstructorExperience),
           endInstructorExperience: this.format(instructorExperienceFormValue.endInstructorExperience),
         })
+        }
       })
     },
     format(date) {

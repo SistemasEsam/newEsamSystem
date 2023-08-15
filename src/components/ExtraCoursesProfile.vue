@@ -77,8 +77,8 @@
                 placeholder="Fecha de Publicación" :enable-time-picker="false" />
             </v-col>
             <v-col>
-              <v-file-input @change="loadPublicationFile($event)" accept="application/pdf"
-                label="Seleccionar archivo PDF" outlined></v-file-input>
+              <v-file-input @change="loadPublicationFile($event)" accept="application/pdf" label="Seleccionar archivo PDF"
+                outlined></v-file-input>
             </v-col>
           </v-row>
         </v-col>
@@ -199,30 +199,32 @@ export default {
       this.publicationForms.splice(index, 1);
     },
     saveDataCourses() {
+      const documentRef = doc(database, 'instructors', this.idUser)
+      const collectionRef = collection(documentRef, 'courses')
       this.courseForms.forEach((courseFormValue) => {
-        const documentRef = doc(database, 'instructors', this.idUser)
-        const collectionRef = collection(documentRef, 'courses')
-        addDoc(collectionRef, {
+        if(courseFormValue.nameCourse != ''){
+          addDoc(collectionRef, {
           institutionCourse: courseFormValue.institutionCourse,
           nameCourse: courseFormValue.nameCourse,
           countryCourse: courseFormValue.countryCourse,
           yearCourse: courseFormValue.yearCourse,
         })
-
+        }
       })
     },
     saveDataPublication() {
+      const documentRef = doc(database, 'instructors', this.idUser)
+      const collectionRef = collection(documentRef, 'publications')
       this.publicationForms.forEach((publicationFormValue) => {
-        const documentRef = doc(database, 'instructors', this.idUser)
-        const collectionRef = collection(documentRef, 'publications')
-        addDoc(collectionRef, {
-          namePublication: publicationFormValue.namePublication,
-          publisher: publicationFormValue.publisher,
-          typePublication: publicationFormValue.typePublication,
-          countryPublication: publicationFormValue.countryPublication,
-          datePublication: publicationFormValue.datePublication,
-        })
-
+        if (publicationFormValue.namePublication != '') {
+          addDoc(collectionRef, {
+            namePublication: publicationFormValue.namePublication,
+            publisher: publicationFormValue.publisher,
+            typePublication: publicationFormValue.typePublication,
+            countryPublication: publicationFormValue.countryPublication,
+            datePublication: publicationFormValue.datePublication,
+          })
+        }
       })
     },
     loadCourseFile(e) {

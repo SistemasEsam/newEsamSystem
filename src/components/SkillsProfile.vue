@@ -71,7 +71,8 @@
     <v-btn v-if="languageForms.length < 3" @click="addLanguageForm()" color="warning" class="fixed-bottom mr-2">AGREGAR
       NUEVO IDIOMA</v-btn>
     <v-col>
-      <v-btn class="success" @click="saveDataSkills(); saveDataLanguages() " :to="{name:'pdf', params:{id:this.idUser}}">guardar</v-btn>
+      <v-btn class="success" @click="saveDataSkills(); saveDataLanguages()"
+        :to="{ name: 'pdf', params: { id: this.idUser } }">guardar</v-btn>
       <!-- <v-btn class="success" :to="{name:'pdf', params:{id:this.idUser}}">guardar</v-btn> -->
 
     </v-col>
@@ -97,7 +98,7 @@ import { database } from '../firebase/firebase'
 import { addDoc, collection, doc } from "firebase/firestore";
 
 export default {
-  props:[
+  props: [
     "userId"
   ],
   data() {
@@ -125,16 +126,16 @@ export default {
     }
   },
   methods: {
-    addSkillForm(){
-      if(this.skillForms.length<5){
+    addSkillForm() {
+      if (this.skillForms.length < 5) {
         this.skillForms.push({
           skill: ''
         })
 
       }
     },
-    addLanguageForm(){
-      if(this.languageForms.length<5){
+    addLanguageForm() {
+      if (this.languageForms.length < 5) {
         this.languageForms.push({
           language: '',
           writeLevel: '',
@@ -144,32 +145,36 @@ export default {
         })
       }
     },
-    deleteSkillForm(index){
-      this.skillForms.splice(index,1)
+    deleteSkillForm(index) {
+      this.skillForms.splice(index, 1)
     },
-    deleteLanguageForm(index){
-      this.languageForms.splice(index,1)
+    deleteLanguageForm(index) {
+      this.languageForms.splice(index, 1)
     },
-    saveDataSkills(){
-      this.skillForms.forEach((skillFormValue) =>{
-        const documentRef = doc(database,'instructors',this.idUser)
-        const collectionRef = collection(documentRef,'skills')
-        addDoc(collectionRef,{
-          skill: skillFormValue.skill
-        })
+    saveDataSkills() {
+      const documentRef = doc(database, 'instructors', this.idUser)
+      const collectionRef = collection(documentRef, 'skills')
+      this.skillForms.forEach((skillFormValue) => {
+        if (skillFormValue.skill != '') {
+          addDoc(collectionRef, {
+            skill: skillFormValue.skill
+          })
+        }
       })
     },
-    saveDataLanguages(){
-      this.languageForms.forEach((languageFormValue) =>{
-        const documentRef = doc(database,'instructors',this.idUser)
-        const collectionRef = collection(documentRef,'languages')
-        addDoc(collectionRef,{
-          language: languageFormValue.language,
-          writeLevel: languageFormValue.writeLevel,
-          speakeLevel: languageFormValue.speakeLevel,
-          readLevel: languageFormValue.readLevel,
-          listenLevel: languageFormValue.listenLevel,
-        })
+    saveDataLanguages() {
+      const documentRef = doc(database, 'instructors', this.idUser)
+      const collectionRef = collection(documentRef, 'languages')
+      this.languageForms.forEach((languageFormValue) => {
+        if (languageFormValue.language != '') {
+          addDoc(collectionRef, {
+            language: languageFormValue.language,
+            writeLevel: languageFormValue.writeLevel,
+            speakeLevel: languageFormValue.speakeLevel,
+            readLevel: languageFormValue.readLevel,
+            listenLevel: languageFormValue.listenLevel,
+          })
+        }
       })
     }
   }

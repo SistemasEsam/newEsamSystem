@@ -228,11 +228,11 @@ export default {
       this.$emit('able-courses-form');
     },
     saveDataDegrees() {
-      console.log(this.idUser)
       const documentRef = doc(database, 'instructors', this.idUser)
       const collectionRef = collection(documentRef, 'degrees')
       this.degreeForms.forEach((degreeFormValue) => {
-        addDoc(collectionRef, {
+        if(degreeFormValue.careerDegree != ''){
+          addDoc(collectionRef, {
           universityDegree: degreeFormValue.universityDegree,
           careerDegree: degreeFormValue.careerDegree,
           levelOfDegree: degreeFormValue.levelOfDegree,
@@ -240,6 +240,7 @@ export default {
           graduationYearDegree: degreeFormValue.graduationYearDegree,
           graduationModalityDegree: degreeFormValue.graduationModalityDegree,
         })
+        }
       })
 
     },
@@ -257,7 +258,8 @@ export default {
       const documentRef = doc(database, 'instructors', this.idUser)
       const collectionRef = collection(documentRef, 'postDegrees')
       this.postDegreeForms.forEach((postDegreeFormValue) => {
-        addDoc(collectionRef, {
+        if(postDegreeFormValue.namePostDegree != ''){
+          addDoc(collectionRef, {
           universityPostDegree: postDegreeFormValue.universityPostDegree,
           namePostDegree: postDegreeFormValue.namePostDegree,
           titlePostDegree: postDegreeFormValue.titlePostDegree,
@@ -265,6 +267,7 @@ export default {
           graduationYearPostDegree: postDegreeFormValue.graduationYearPostDegree,
           graduationModalityPostDegree: postDegreeFormValue.graduationModalityPostDegree,
         })
+        }
       })
 
     },
