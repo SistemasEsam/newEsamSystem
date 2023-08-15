@@ -28,7 +28,7 @@ const routes = [
     component : FormView
   },
  {
-  path: '/pdf',
+  path: '/pdf/:id',
   name: 'pdf',
   component:PDFView
 

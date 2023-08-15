@@ -85,9 +85,12 @@ import { collection, doc, getDoc, getDocs } from 'firebase/firestore'
 import { getStorage, ref, getDownloadURL } from 'firebase/storage'
 
 export default {
+  props: [
+    "userId"
+  ],
   data() {
     return {
-      idUser: 'aljiar23@gmail.com',
+      idUser: this.userId,
       name: '',
       lastNameF: '',
       lastNameM: '',

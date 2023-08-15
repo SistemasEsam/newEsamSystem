@@ -5,12 +5,12 @@
     <v-btn @click="exportToPDF">DESCARGAR PDF</v-btn>
     <div ref="pdfComponent" class="custom-text">
       <!-- Contenido del primer componente (File.vue) -->
-      <File />
+      <File :user-id="idUser"/>
     </div>
 
     <!-- Contenido del segundo componente (SecondPage.vue) -->
     <div ref="secondPageComponent">
-      <SecondPage />
+      <SecondPage :user-id="idUser"/>
     </div>
 
     <!-- Agrega un botón para exportar a PDF -->
@@ -28,13 +28,16 @@ import { doc, getDoc} from 'firebase/firestore'
 
 
 export default {
+  props:[
+    "userId"
+  ],
   components: {
     File,
     SecondPage,
   },
   data() {
     return {
-      idUser : 'aljiar23@gmail.com',
+      idUser : this.userId,
     }
   },
  

@@ -74,9 +74,12 @@
 import { database } from '../firebase/firebase'
 import { collection, getDocs } from 'firebase/firestore'
 export default {
+  props:[
+    "userId"
+  ],
   data() {
     return {
-      idUser: 'aljiar23@gmail.com',
+      idUser: this.userId,
       publications: [],
       jobs: [],
       instructorJobs: [],
