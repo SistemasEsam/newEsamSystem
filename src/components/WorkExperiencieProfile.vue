@@ -124,26 +124,12 @@
                 label="Grado Académico que impartió" outlined></v-select>
             </v-col>
             <v-col>
-              <v-menu ref="menu2" :close-on-content-click="false" transition="scale-transition" offset-y
-                min-width="290px">
-                <template v-slot:activator="{ on }">
-                  <v-text-field v-model="instructorExperienceForm.startInstructorExperience" label="Fecha de inicio"
-                    outlined readonly v-on="on"></v-text-field>
-                </template>
-                <v-date-picker v-model="instructorExperienceForm.startInstructorExperience"
-                  @input="menu2 = false"></v-date-picker>
-              </v-menu>
+                <VueDatePicker v-model="instructorExperienceForm.startInstructorExperience" :teleport="true"
+                placeholder="Fecha de Inicio" :enable-time-picker="false" />
             </v-col>
             <v-col>
-              <v-menu ref="menu3" :close-on-content-click="false" transition="scale-transition" offset-y
-                min-width="290px">
-                <template v-slot:activator="{ on }">
-                  <v-text-field v-model="instructorExperienceForm.endInstructorExperience" label="Fecha de finalización"
-                    outlined readonly v-on="on"></v-text-field>
-                </template>
-                <v-date-picker v-model="instructorExperienceForm.endInstructorExperience"
-                  @input="menu3 = false"></v-date-picker>
-              </v-menu>
+              <VueDatePicker v-model="instructorExperienceForm.endInstructorExperience" :teleport="true"
+                placeholder="Fecha de Finalización" :enable-time-picker="false" />
             </v-col>
           </v-row>
         </v-col>

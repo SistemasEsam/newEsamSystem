@@ -38,7 +38,7 @@
                 label="Modalidad Graduación" outlined></v-select>
             </v-col>
             <v-col>
-              <v-file-input @change="loadDegreeFile($event)" accept="application/pdf" label="Seleccionar archivo PDF"
+              <v-file-input v-model="degreeForm.fileDegree" @change="loadDegreeFile($event)" accept="application/pdf" label="Seleccionar archivo PDF"
                 outlined></v-file-input>
               <p style="text-align: right;">Adjuntar título escaneado</p>
             </v-col>
@@ -107,8 +107,8 @@
         class="fixed-bottom mr-2">AGREGAR
         NUEVO POSTGRADO</v-btn>
       <v-col>
-        <!-- <v-btn class="success" @click="ableCoursesForm();">guardar</v-btn> -->
-        <v-btn class="success" @click="ableCoursesForm(); saveDataDegrees(); uploadDegreeFiles(); saveDataPostDegrees(); uploadPostDegreeFiles()">guardar</v-btn>
+        <v-btn class="success" @click="ableCoursesForm();">guardar</v-btn>
+        <!-- <v-btn class="success" @click="ableCoursesForm(); saveDataDegrees(); uploadDegreeFiles(); saveDataPostDegrees(); uploadPostDegreeFiles()">guardar</v-btn> -->
       </v-col>
 
       <v-dialog v-model="dialogVisible" max-width="500px">
@@ -295,6 +295,25 @@ export default {
         });
       }
     },
+    checkDegreeList() {
+      let listDegreeFilled = true
+      this.degreeForms.forEach((degreeForm) => {
+        if (degreeForm.universityDegree
+          && degreeForm.careerDegree
+          && degreeForm.levelOfDegree
+          && degreeForm.countryDegree
+          && degreeForm.graduationYearDegree
+          && degreeForm.graduationModalityDegree
+          && degreeForm.fileDegree
+          && degreeForm.degreeFilled) {
+          listDegreeFilled = true
+        } else {
+          listDegreeFilled = false
+        }
+      })
+      console.log(listDegreeFilled)
+      return listDegreeFilled
+    },
     addPostDegreeForm() {
       if (this.postDegreeForms.length < 3 && this.checkPostDegreeList()) {
         this.postDegreeForms.push({
@@ -308,43 +327,6 @@ export default {
           postDegreeFilled: false
         });
       }
-    },
-    deleteDegreeForm(index) {
-      this.degreeForms.splice(index, 1);
-    },
-    deletePostDegreeForm(index2) {
-      this.postDegreeForms.splice(index2, 1);
-    },
-    loadDegreeFile(e) {
-      let newFileDegree = e.target.files[0]
-      console.log(newFileDegree)
-      this.degreeFiles.push(newFileDegree)
-      this.degreeForms[this.degreeForms.length - 1].degreeFilled = true
-    },
-    loadPostDegreeFile(e) {
-      let newFilePostDegree = e.target.files[0]
-      console.log(newFilePostDegree)
-      this.postDegreeFiles.push(newFilePostDegree)
-      this.postDegreeForms[this.postDegreeForms.length - 1].postDegreeFilled = true
-    },
-    checkDegreeList() {
-      let listDegreeFilled = true
-      this.degreeForms.forEach((degreeForm) => {
-        if (degreeForm.universityDegree
-          && degreeForm.careerDegree
-          && degreeForm.levelOfDegree
-          && degreeForm.graduationModalityDegree
-          && degreeForm.countryDegree
-          && degreeForm.graduationYearDegree
-          && degreeForm.fileDegree
-          && degreeForm.degreeFilled) {
-          listDegreeFilled = true
-        } else {
-          listDegreeFilled = false
-        }
-      })
-      console.log(listDegreeFilled)
-      return listDegreeFilled
     },
     checkPostDegreeList() {
       let listPostDegreeFilled = true
@@ -364,6 +346,24 @@ export default {
       })
       console.log(listPostDegreeFilled)
       return listPostDegreeFilled
+    },
+    deleteDegreeForm(index) {
+      this.degreeForms.splice(index, 1);
+    },
+    deletePostDegreeForm(index2) {
+      this.postDegreeForms.splice(index2, 1);
+    },
+    loadDegreeFile(e) {
+      let newFileDegree = e.target.files[0]
+      console.log(newFileDegree)
+      this.degreeFiles.push(newFileDegree)
+      this.degreeForms[this.degreeForms.length - 1].degreeFilled = true
+    },
+    loadPostDegreeFile(e) {
+      let newFilePostDegree = e.target.files[0]
+      console.log(newFilePostDegree)
+      this.postDegreeFiles.push(newFilePostDegree)
+      this.postDegreeForms[this.postDegreeForms.length - 1].postDegreeFilled = true
     },
   },
 }
