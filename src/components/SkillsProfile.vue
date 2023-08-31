@@ -71,9 +71,9 @@
     <v-btn v-if="languageForms.length < 3" @click="addLanguageForm()" color="warning" class="fixed-bottom mr-2">AGREGAR
       NUEVO IDIOMA</v-btn>
     <v-col>
-      <v-btn class="success" @click="saveDataSkills(); saveDataLanguages()"
-        :to="{ name: 'pdf', params: { id: this.idUser } }">guardar</v-btn>
-      <!-- <v-btn class="success" :to="{name:'pdf', params:{id:this.idUser}}">guardar</v-btn> -->
+      <!-- <v-btn class="success" @click="saveDataSkills(); saveDataLanguages()"
+        :to="{ name: 'pdf', params: { id: this.idUser } }">guardar</v-btn> -->
+      <v-btn class="success" :to="{name:'pdf', params:{id:this.idUser}}">guardar</v-btn>
 
     </v-col>
     <v-dialog v-model="dialogVisible" max-width="500px">

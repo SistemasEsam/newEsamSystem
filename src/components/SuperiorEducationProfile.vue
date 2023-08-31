@@ -1,6 +1,6 @@
 <template>
   <v-sheet width="1000" class="mx-auto">
-    <p>{{ local.name }}</p>
+    <p>{{ idUser }}</p>
     <v-card v-for="(degreeForm, index) in degreeForms" :key="index" class="mb-4">
       <v-card-title>
         <v-col class="d-flex justify-center aling-center">
@@ -38,8 +38,8 @@
                 label="Modalidad Graduación" outlined></v-select>
             </v-col>
             <v-col>
-              <v-file-input v-model="degreeForm.fileDegree" @change="loadDegreeFile($event)" accept="application/pdf" label="Seleccionar archivo PDF"
-                outlined></v-file-input>
+              <v-file-input v-model="degreeForm.fileDegree" @change="loadDegreeFile($event)" accept="application/pdf"
+                label="Seleccionar archivo PDF" outlined></v-file-input>
               <p style="text-align: right;">Adjuntar título escaneado</p>
             </v-col>
           </v-row>
@@ -106,10 +106,18 @@
       <v-btn v-if="postDegreeForms.length < 3" @click="addPostDegreeForm()" color="warning"
         class="fixed-bottom mr-2">AGREGAR
         NUEVO POSTGRADO</v-btn>
-      <v-col>
-        <v-btn class="success" @click="ableCoursesForm();">guardar</v-btn>
-        <!-- <v-btn class="success" @click="ableCoursesForm(); saveDataDegrees(); uploadDegreeFiles(); saveDataPostDegrees(); uploadPostDegreeFiles()">guardar</v-btn> -->
-      </v-col>
+        <v-container>
+      <v-row no-gutters>
+        <v-col align-self="start">
+          <v-btn class="success" @click="showNextForm();">guardar</v-btn>
+          <!-- <v-btn class="success" @click="ableCoursesForm(); saveDataDegrees(); uploadDegreeFiles(); saveDataPostDegrees(); uploadPostDegreeFiles()">guardar</v-btn> -->
+        </v-col>
+        <v-col align-self="center">
+          <v-btn class="warning" @click="showPreviusForm();">atras</v-btn>
+          <!-- <v-btn class="success" @click="ableCoursesForm(); saveDataDegrees(); uploadDegreeFiles(); saveDataPostDegrees(); uploadPostDegreeFiles()">guardar</v-btn> -->
+        </v-col>
+      </v-row>
+    </v-container>
 
       <v-dialog v-model="dialogVisible" max-width="500px">
         <v-card>
@@ -224,22 +232,27 @@ export default {
     }
   },
   methods: {
-    ableCoursesForm() {
-      this.$emit('able-courses-form');
+    showNextForm() {
+      let nextComponent = 'extra-courses-profile'
+      this.$emit('show-next-form', nextComponent)
+    },
+    showPreviusForm() {
+      let nextComponent = 'personal-profile'
+      this.$emit('show-next-form', nextComponent)
     },
     saveDataDegrees() {
       const documentRef = doc(database, 'instructors', this.idUser)
       const collectionRef = collection(documentRef, 'degrees')
       this.degreeForms.forEach((degreeFormValue) => {
-        if(degreeFormValue.careerDegree != ''){
+        if (degreeFormValue.careerDegree != '') {
           addDoc(collectionRef, {
-          universityDegree: degreeFormValue.universityDegree,
-          careerDegree: degreeFormValue.careerDegree,
-          levelOfDegree: degreeFormValue.levelOfDegree,
-          countryDegree: degreeFormValue.countryDegree,
-          graduationYearDegree: degreeFormValue.graduationYearDegree,
-          graduationModalityDegree: degreeFormValue.graduationModalityDegree,
-        })
+            universityDegree: degreeFormValue.universityDegree,
+            careerDegree: degreeFormValue.careerDegree,
+            levelOfDegree: degreeFormValue.levelOfDegree,
+            countryDegree: degreeFormValue.countryDegree,
+            graduationYearDegree: degreeFormValue.graduationYearDegree,
+            graduationModalityDegree: degreeFormValue.graduationModalityDegree,
+          })
         }
       })
 
@@ -258,15 +271,15 @@ export default {
       const documentRef = doc(database, 'instructors', this.idUser)
       const collectionRef = collection(documentRef, 'postDegrees')
       this.postDegreeForms.forEach((postDegreeFormValue) => {
-        if(postDegreeFormValue.namePostDegree != ''){
+        if (postDegreeFormValue.namePostDegree != '') {
           addDoc(collectionRef, {
-          universityPostDegree: postDegreeFormValue.universityPostDegree,
-          namePostDegree: postDegreeFormValue.namePostDegree,
-          titlePostDegree: postDegreeFormValue.titlePostDegree,
-          countryPostDegree: postDegreeFormValue.countryPostDegree,
-          graduationYearPostDegree: postDegreeFormValue.graduationYearPostDegree,
-          graduationModalityPostDegree: postDegreeFormValue.graduationModalityPostDegree,
-        })
+            universityPostDegree: postDegreeFormValue.universityPostDegree,
+            namePostDegree: postDegreeFormValue.namePostDegree,
+            titlePostDegree: postDegreeFormValue.titlePostDegree,
+            countryPostDegree: postDegreeFormValue.countryPostDegree,
+            graduationYearPostDegree: postDegreeFormValue.graduationYearPostDegree,
+            graduationModalityPostDegree: postDegreeFormValue.graduationModalityPostDegree,
+          })
         }
       })
 

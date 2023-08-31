@@ -88,8 +88,10 @@
       class="fixed-bottom mr-2">Agregar
       formulario</v-btn>
     <v-col>
-      <v-btn @click="saveDataCourses(); saveDataPublication(); uploadCourseFile(); uploadPublicationFile()"
+      <v-btn @click="showNextForm()"
         class="success">guardar</v-btn>
+      <!-- <v-btn @click="saveDataCourses(); saveDataPublication(); uploadCourseFile(); uploadPublicationFile()"
+        class="success">guardar</v-btn> -->
     </v-col>
     <v-dialog v-model="dialogVisible" max-width="500px">
       <v-card>
@@ -168,6 +170,10 @@ export default {
     }
   },
   methods: {
+    showNextForm(){
+      let nextComponent= 'work-experience-profile'
+      this.$emit('show-next-form', nextComponent)
+    },
     addCourseForm() {
       if (this.courseForms.length < 3 && this.checkCourseList()) {
         this.courseForms.push({

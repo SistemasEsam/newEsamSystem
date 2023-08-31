@@ -1,6 +1,5 @@
 <template>
   <v-sheet width="1000" class="mx-auto">
-
     <v-col class="d-flex justify-center aling-center">
       <v-avatar size="150" color="warning">
         <img class="mx-auto" :src="imageUrl" width="150" height="150">
@@ -8,16 +7,20 @@
     </v-col>
     <v-col class="d-flex justify-center aling-center">
       <p class="text-body-1 font-weight-bold">PERFIL PERSONAL</p>
+      <p>{{ idUser }}</p>
     </v-col>
     <v-row>
       <v-col>
-        <v-text-field v-model="name" :rules="textoRules" label="Nombres" required></v-text-field>
+        <v-text-field v-model="name" :rules="textoRules" label="Nombres" @input="name = name.toUpperCase()"
+          required></v-text-field>
       </v-col>
       <v-col>
-        <v-text-field v-model="lastNameF" :rules="textoRules1" label="Apellido Paterno" required></v-text-field>
+        <v-text-field v-model="lastNameF" :rules="textoRules1" label="Apellido Paterno"
+          @input="lastNameF = lastNameF.toUpperCase()" required></v-text-field>
       </v-col>
       <v-col>
-        <v-text-field v-model="lastNameM" :rules="textoRules2" label="Apellido Materno" required></v-text-field>
+        <v-text-field v-model="lastNameM" :rules="textoRules2" label="Apellido Materno"
+          @input="lastNameM = lastNameM.toUpperCase()" required></v-text-field>
       </v-col>
     </v-row>
     <v-row>
@@ -38,10 +41,11 @@
         </v-select>
       </v-col>
       <v-col>
-        <v-text-field v-model="cityRadication" label="Ciudad de Radicación" required></v-text-field>
+        <v-text-field v-model="cityRadication" label="Ciudad de Radicación"
+          @input="cityRadication = cityRadication.toUpperCase()" required></v-text-field>
       </v-col>
       <v-col>
-        <v-text-field v-model="addres" label="Dirección" required></v-text-field>
+        <v-text-field v-model="addres" label="Dirección" @input="addres = addres.toUpperCase()" required></v-text-field>
       </v-col>
     </v-row>
     <v-row>
@@ -52,40 +56,51 @@
         <v-text-field v-model="numberId" label="Número de Documento" required></v-text-field>
       </v-col>
       <v-col>
-        <VueDatePicker v-model="dateOfBirth" locale="es" :enable-time-picker="false"
-          placeholder="Fecha de Nacimiento">
+        <v-select v-model="idExtension" :items="cityExtension" item-title="cityName" item-value="code" label="Extensión"
+          outlined></v-select>
+      </v-col>
+    </v-row>
+    <v-row>
+      <v-col>
+        <VueDatePicker v-model="dateOfBirth" locale="es" :enable-time-picker="false" placeholder="Fecha de Nacimiento"
+          :year-range="[1950, 2003]">
         </VueDatePicker>
       </v-col>
       <v-col>
-        <v-radio-group v-model="gender">
-          <v-radio label="Masculino" value="masculino"></v-radio>
-          <v-radio label="Femenino" value="femenino"></v-radio>
-          <v-radio label="Otro" value="otro"></v-radio>
+        <v-text-field v-model="idAddNumber" label="Complemento" minlength="3" maxlength="3" :disabled="addOnFlag" required></v-text-field>
+      </v-col>
+      <v-col>
+        <v-radio-group label="Tiene complemento" inline>
+          <v-radio label="Si" value=false @change="enableAddOn(false)"></v-radio>
+          <v-radio label="No" value=true @change="enableAddOn(true)"></v-radio>
         </v-radio-group>
-        <p>Género seleccionado: {{ gender }}</p>
+      </v-col>
+    </v-row>
+    <v-row>
+      <v-col>
+        <v-select v-model="gender" label="Genero" :items="genderType" >
+        </v-select>
+      </v-col>
+      <v-col>
+
+      </v-col>
+      <v-col>
+
       </v-col>
     </v-row>
     <v-col class="d-flex justify-center aling-center">
-      <v-file-input label="SELECCIONA UNA IMAGEN FORMAL" @change="loadPhotoFile($event)" accept="image/*"></v-file-input>
+      <v-file-input label="SELECCIONA UNA IMAGEN FORMAL" @change="loadPhotoFile($event); showAlert()"
+        accept="image/*"></v-file-input>
     </v-col>
     <v-col>
-      <v-btn @click="ableDegreeForm()" color="warning" class="fixed-bottom mr-2">guardar </v-btn>
+      <v-alert closable density="compact" type="warning" title="Atención" v-show="alertFlag"
+        text="Verifique que los datos ingresados sean correctos!"></v-alert>
+    </v-col>
+    <v-col>
+      <v-btn @click="showNextForm()" color="warning" class="fixed-bottom mr-2">guardar
+      </v-btn>
       <!-- <v-btn @click="uploadPhotoProfile(); ableDegreeForm(); addUser(); component='SuperiorEducationProfile' " color="warning" class="fixed-bottom mr-2">guardar </v-btn> -->
     </v-col>
-
-    <v-dialog v-model="dialogVisible" max-width="500px">
-      <v-card>
-        <v-card-title>
-          <span class="headline">Datos guardados</span>
-        </v-card-title>
-        <v-card-text>
-          <p>Los datos se han guardado exitosamente.</p>
-        </v-card-text>
-        <v-card-actions>
-          <v-btn color="primary" to="/form2">OK</v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
   </v-sheet>
 </template>
  
@@ -99,11 +114,14 @@ import SuperiorEducationProfile from './SuperiorEducationProfile.vue';
 
 
 export default {
-  components: { VueDatePicker , SuperiorEducationProfile},
+  props: ["userId"],
+  components: { VueDatePicker, SuperiorEducationProfile },
   data() {
     return {
       component: "SuperiorEducationProfile",
-      dialogVisible: false,
+      dialog: false,
+      alertFlag: false,
+      addOnFlag: true,
       name: '',
       lastNameF: '',
       lastNameM: '',
@@ -121,8 +139,9 @@ export default {
       estate: 1,
       personalPhotoFile: null,
       imageUrl: '',
-      idUser: '',
+      idUser: this.userId,
       photoProfilePath: '',
+      idExtension: '',
 
       emailRules: [
         v => !!v || 'El correo electrónico es requerido',
@@ -173,7 +192,6 @@ export default {
         { countryName: "Canadá", code: "CA" },
         { countryName: "México", code: "MX" },
         { countryName: "Brasil", code: "BR" },
-        { countryName: "Chile", code: "CL" },
         { countryName: "Ecuador", code: "EC" },
       ],
 
@@ -181,15 +199,36 @@ export default {
         'Carnet de Identidad',
         'Pasaporte'
       ],
+      genderType:[
+        'Masculino',
+        'Femenino',
+        'Otro'
+      ],
+      cityExtension: [
+        { cityName: 'Beni', code: 'BN' },
+        { cityName: 'Chuquisaca', code: 'CH' },
+        { cityName: 'Cochabamba', code: 'CB' },
+        { cityName: 'La Paz', code: 'LP' },
+        { cityName: 'Oruro', code: 'OR' },
+        { cityName: 'Pando', code: 'PA' },
+        { cityName: 'Potosi', code: 'PT' },
+        { cityName: 'Santa Cruz', code: 'SC' },
+        { cityName: 'Tarija', code: 'TJ' },
+      ],
 
       menu: false,
     }
   },
   methods: {
-    ableDegreeForm() {
-      let newIdUser = this.email
-      console.log(newIdUser)
-      this.$emit('able-degree-form', newIdUser);
+    enableAddOn(flag){
+      this.addOnFlag = flag
+    },
+    showAlert() {
+      this.alertFlag = true
+    },
+    showNextForm() {
+      let nextComponent = 'superior-education-profile'
+      this.$emit('show-next-form', nextComponent);
     },
     addUser() {
       let newIdUser = this.email
@@ -227,7 +266,7 @@ export default {
     uploadPhotoProfile() {
       const storage = getStorage();
       let newIdUser = this.email
-      this.photoProfilePath= newIdUser + '/photoProfile' + '/' + this.personalPhotoFile.name
+      this.photoProfilePath = newIdUser + '/photoProfile' + '/' + this.personalPhotoFile.name
       const storageRef = ref(storage, this.photoProfilePath);
       uploadBytes(storageRef, this.personalPhotoFile).then((snapshot) => {
         console.log('Uploaded a blob or file!');

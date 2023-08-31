@@ -139,7 +139,8 @@
       class="fixed-bottom mr-2">AGREGAR
       NUEVA EXPERIENCIA COMO DOCENTE</v-btn>
     <v-col>
-      <v-btn class="success" @click="saveDataWorkExperience(); saveDateInstructorExperience()">guardar</v-btn>
+      <v-btn class="success" @click="showNextForm()">guardar</v-btn>
+      <!-- <v-btn class="success" @click="saveDataWorkExperience(); saveDateInstructorExperience()">guardar</v-btn> -->
     </v-col>
     <v-dialog v-model="dialogVisible" max-width="500px">
       <v-card>
@@ -238,6 +239,10 @@ export default {
     }
   },
   methods: {
+    showNextForm(){
+      let nextComponent= 'skills-profile'
+      this.$emit('show-next-form', nextComponent)
+    },
     addWorkExperienceForm() {
       if (this.workExperienceForms.length < 3) {
         this.workExperienceForms.push({

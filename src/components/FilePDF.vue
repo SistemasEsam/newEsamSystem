@@ -74,7 +74,7 @@ export default {
         html2canvas(this.$refs.secondPageComponent, options).then(canvas => {
           const imgData2 = canvas.toDataURL('image/png');
           pdf.addImage(imgData2, 'PNG', 0, 0, pdfWidth, pdfHeight);
-          pdf.save('cvESAM.pdf');
+          pdf.save(this.idUser+'CVESAM.pdf');
         });
       });
     },
