@@ -1,5 +1,5 @@
 <template>
-  <v-sheet width="1000" class="mx-auto">
+  <v-container width="1000" class="mx-auto">
     <v-col class="d-flex justify-center aling-center">
       <v-avatar size="150" color="warning">
         <img class="mx-auto" :src="imageUrl" width="150" height="150">
@@ -7,7 +7,6 @@
     </v-col>
     <v-col class="d-flex justify-center aling-center">
       <p class="text-body-1 font-weight-bold">PERFIL PERSONAL</p>
-      <p>{{ idUser }}</p>
     </v-col>
     <v-row>
       <v-col>
@@ -96,12 +95,12 @@
       <v-alert closable density="compact" type="warning" title="Atención" v-show="alertFlag"
         text="Verifique que los datos ingresados sean correctos!"></v-alert>
     </v-col>
-    <v-col>
+  </v-container>
+  <v-container>
       <v-btn @click="showNextForm()" color="warning" class="fixed-bottom mr-2">guardar
       </v-btn>
       <!-- <v-btn @click="uploadPhotoProfile(); ableDegreeForm(); addUser(); component='SuperiorEducationProfile' " color="warning" class="fixed-bottom mr-2">guardar </v-btn> -->
-    </v-col>
-  </v-sheet>
+  </v-container>
 </template>
  
 <script>
@@ -142,6 +141,7 @@ export default {
       idUser: this.userId,
       photoProfilePath: '',
       idExtension: '',
+      idAddNumber: '',
 
       emailRules: [
         v => !!v || 'El correo electrónico es requerido',
@@ -227,7 +227,7 @@ export default {
       this.alertFlag = true
     },
     showNextForm() {
-      let nextComponent = 'superior-education-profile'
+      let nextComponent = 'higher-education-post-degree'
       this.$emit('show-next-form', nextComponent);
     },
     addUser() {
@@ -245,6 +245,8 @@ export default {
         addres: this.addres,
         selectedDocumentType: this.selectedDocumentType,
         numberId: this.numberId,
+        idExtension: this.idExtension,
+        idAddNumber: this.idAddNumber,
         dateOfBirth: this.format(this.dateOfBirth),
         gender: this.gender,
         photoProfilePath: this.photoProfilePath

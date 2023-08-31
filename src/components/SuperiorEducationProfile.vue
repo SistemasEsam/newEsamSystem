@@ -1,5 +1,5 @@
 <template>
-  <v-sheet width="1000" class="mx-auto">
+  <v-container width="1000" class="mx-auto">
     <p>{{ idUser }}</p>
     <v-card v-for="(degreeForm, index) in degreeForms" :key="index" class="mb-4">
       <v-card-title>
@@ -37,25 +37,25 @@
               <v-select v-model="degreeForm.graduationModalityDegree" :items="ModalidadGraduacion"
                 label="Modalidad Graduación" outlined></v-select>
             </v-col>
+          </v-row>
+          <v-row>
             <v-col>
+              <p style="text-align: left;">Adjuntar título escaneado</p>
               <v-file-input v-model="degreeForm.fileDegree" @change="loadDegreeFile($event)" accept="application/pdf"
                 label="Seleccionar archivo PDF" outlined></v-file-input>
-              <p style="text-align: right;">Adjuntar título escaneado</p>
             </v-col>
           </v-row>
         </v-col>
       </v-card-text>
+      <v-alert v-model="alert" close-text="Close Alert" color="error" dark dismissible class="mx-15">
+        Debe llenar todos los campos requeridos.
+      </v-alert>
+      <v-col>
+        <v-btn v-if="degreeForms.length < 3" @click="addDegreeForm()" color="warning" class="fixed-bottom mr-2">AGREGAR
+          NUEVA FORMACIÓN</v-btn>
+      </v-col>
     </v-card>
-    <v-alert v-model="alert" close-text="Close Alert" color="error" dark dismissible class="mx-15">
-      Debe llenar todos los campos requeridos.
-    </v-alert>
-    <v-col>
-      <v-btn v-if="degreeForms.length < 3" @click="addDegreeForm()" color="warning" class="fixed-bottom mr-2">AGREGAR
-        NUEVA FORMACIÓN</v-btn>
-    </v-col>
-    <v-col>
 
-    </v-col>
     <v-card v-for="(postDegreeForm, index2) in postDegreeForms" :key="index2" class="mb-4">
       <v-card-title>
         <v-col class="d-flex justify-center aling-center">
@@ -92,51 +92,32 @@
               <v-select v-model="postDegreeForm.graduationModalityPostDegree" :items="ModalidadGraduacionPost"
                 label="Modalidad de graduación" outlined></v-select>
             </v-col>
+          </v-row>
+          <v-row>
             <v-col>
+              <p style="text-align: left;">Adjuntar título escaneado</p>
               <v-file-input v-model="postDegreeForm.filePostDegree" @change="loadPostDegreeFile($event)"
                 accept="application/pdf" label="Seleccionar archivo PDF" outlined></v-file-input>
-              <p style="text-align: right;">Adjuntar título escaneado</p>
-
             </v-col>
           </v-row>
         </v-col>
       </v-card-text>
+      <v-col>
+        <v-btn v-if="postDegreeForms.length < 3" @click="addPostDegreeForm()" color="warning"
+          class="fixed-bottom mr-2">AGREGAR
+          NUEVO POSTGRADO</v-btn>
+      </v-col>
     </v-card>
-    <v-col>
-      <v-btn v-if="postDegreeForms.length < 3" @click="addPostDegreeForm()" color="warning"
-        class="fixed-bottom mr-2">AGREGAR
-        NUEVO POSTGRADO</v-btn>
-        <v-container>
-      <v-row no-gutters>
-        <v-col align-self="start">
-          <v-btn class="success" @click="showNextForm();">guardar</v-btn>
-          <!-- <v-btn class="success" @click="ableCoursesForm(); saveDataDegrees(); uploadDegreeFiles(); saveDataPostDegrees(); uploadPostDegreeFiles()">guardar</v-btn> -->
-        </v-col>
-        <v-col align-self="center">
-          <v-btn class="warning" @click="showPreviusForm();">atras</v-btn>
-          <!-- <v-btn class="success" @click="ableCoursesForm(); saveDataDegrees(); uploadDegreeFiles(); saveDataPostDegrees(); uploadPostDegreeFiles()">guardar</v-btn> -->
-        </v-col>
-      </v-row>
-    </v-container>
 
-      <v-dialog v-model="dialogVisible" max-width="500px">
-        <v-card>
-          <v-card-title>
-            <span class="headline">Datos guardados</span>
-          </v-card-title>
-          <v-card-text>
-            <p>Los datos se han guardado exitosamente.</p>
-          </v-card-text>
-          <v-card-actions>
-            <v-btn color="primary" to="/form3">OK</v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-dialog>
-    </v-col>
-    <v-row>
-
-    </v-row>
-  </v-sheet>
+  </v-container>
+  <v-container>
+    <v-btn class="fixed-bottom mr-2" width="100px" density="comfortable" color="warning"
+      @click="showNextForm();">guardar</v-btn>
+    <!-- <v-btn class="success" @click="ableCoursesForm(); saveDataDegrees(); uploadDegreeFiles(); saveDataPostDegrees(); uploadPostDegreeFiles()">guardar</v-btn> -->
+    <v-btn class="fixed-bottom mr-2" width="100px" density="comfortable" color="warning"
+      @click="showPreviusForm();">atras</v-btn>
+    <!-- <v-btn class="success" @click="ableCoursesForm(); saveDataDegrees(); uploadDegreeFiles(); saveDataPostDegrees(); uploadPostDegreeFiles()">guardar</v-btn> -->
+  </v-container>
 </template>
       
 <script>
@@ -207,11 +188,11 @@ export default {
       selectedEstudyType: null,
       NivelEstudio: [
         'Licenciatura',
-        'Tecnico universitario'
+        'Técnico Universitario'
       ],
       selectedModalityPostType: '',
       ModalidadGraduacionPost: [
-        'Monografia',
+        'Monografía',
         'Tesis',
         'Otros'
       ],
@@ -237,7 +218,7 @@ export default {
       this.$emit('show-next-form', nextComponent)
     },
     showPreviusForm() {
-      let nextComponent = 'personal-profile'
+      let nextComponent = 'higher-education-post-degree'
       this.$emit('show-next-form', nextComponent)
     },
     saveDataDegrees() {
