@@ -1,5 +1,5 @@
 <template>
-  <h1>
+  <h1 class="header-form">
     Registro Docente
   </h1>
     <keep-alive>
@@ -35,7 +35,7 @@
 
         return {
           idUser:'aljiar23@gmail.com',
-          activeComponent: 'personal-profile',
+          activeComponent: 'skills-profile',
           component: 'personalProfile',
         }
       },

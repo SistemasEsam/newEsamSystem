@@ -1,7 +1,7 @@
 <template>
     <v-container width="1000" class="mx-auto">
-        <h2>Diplomado/Maestria en Educación Superior</h2>
-        <v-card>
+        <h2 class="header-form">Diplomado/Maestria en Educación Superior</h2>
+        <v-card class="card-style">
             <v-row>
                 <v-col>
                     <v-text-field v-model="institutionName" @input="institutionName = institutionName.toUpperCase()"
@@ -33,7 +33,7 @@
                     </v-select>
                 </v-col>
                 <v-col>
-                    <VueDatePicker v-model="graduationYearHigherEducation" year-picker :year-range="[1950, 2023]"
+                    <VueDatePicker v-model="graduationYearHigherEducation" year-picker :year-range="[1950, currentYear]"
                         :teleport="true" placeholder="Año de Titulación" />
                 </v-col>
             </v-row>
@@ -48,11 +48,9 @@
         </v-card>
     </v-container>
     <v-container>
-        <v-btn @click="showNextForm()" width="100px" density="comfortable" color="warning" class="fixed-bottom mr-2">guardar
-        </v-btn>
-        <v-btn @click="showPreviusForm()" width="100px" density="comfortable" color="warning"
-            class="fixed-bottom mr-2">atras
-        </v-btn>
+        <v-btn prepend-icon="mdi-content-save-outline" @click="showNextForm()" width="150px" density="default" class="fixed-bottom mr-2 button-form" end>guardar</v-btn>
+        <v-btn prepend-icon="mdi-arrow-left" @click="showPreviusForm()" width="150px" density="default"
+            class="fixed-bottom mr-2 button-form">atras</v-btn>
     </v-container>
 </template>
 <script>
@@ -78,6 +76,7 @@ export default {
             graduationModalityHigherEducation: '',
             graduationYearHigherEducation: '',
             higherEducationFile: '',
+            currentYear: new Date().getFullYear(),
 
 
             titlePostDegree: [

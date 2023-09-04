@@ -1,105 +1,107 @@
 <template>
   <v-container width="1000" class="mx-auto">
     <v-col class="d-flex justify-center aling-center">
-      <v-avatar size="150" color="warning">
+      <v-avatar size="150" color="#b2a612">
         <img class="mx-auto" :src="imageUrl" width="150" height="150">
       </v-avatar>
     </v-col>
     <v-col class="d-flex justify-center aling-center">
-      <p class="text-body-1 font-weight-bold">PERFIL PERSONAL</p>
+      <p class="text-body-1 font-weight-bold header-form">PERFIL PERSONAL</p>
     </v-col>
-    <v-row>
-      <v-col>
-        <v-text-field v-model="name" :rules="textoRules" label="Nombres" @input="name = name.toUpperCase()"
-          required></v-text-field>
-      </v-col>
-      <v-col>
-        <v-text-field v-model="lastNameF" :rules="textoRules1" label="Apellido Paterno"
-          @input="lastNameF = lastNameF.toUpperCase()" required></v-text-field>
-      </v-col>
-      <v-col>
-        <v-text-field v-model="lastNameM" :rules="textoRules2" label="Apellido Materno"
-          @input="lastNameM = lastNameM.toUpperCase()" required></v-text-field>
-      </v-col>
-    </v-row>
-    <v-row>
-      <v-col>
-        <v-text-field v-model="personalPhone" :rules="numeroRules2" label="Número de Contacto" required></v-text-field>
-      </v-col>
-      <v-col>
-        <v-text-field v-model="personalPhoneAux" :rules="numeroRules"
-          label="Número de Referencia (OPCIONAL)"></v-text-field>
-      </v-col>
-      <v-col>
-        <v-text-field v-model="email" :rules="emailRules" label="Correo Electrónico" required></v-text-field>
-      </v-col>
-    </v-row>
-    <v-row>
-      <v-col>
-        <v-select v-model="selectedCountry" :items="countries" item-title="countryName" item-value="code" label="País">
-        </v-select>
-      </v-col>
-      <v-col>
-        <v-text-field v-model="cityRadication" label="Ciudad de Radicación"
-          @input="cityRadication = cityRadication.toUpperCase()" required></v-text-field>
-      </v-col>
-      <v-col>
-        <v-text-field v-model="addres" label="Dirección" @input="addres = addres.toUpperCase()" required></v-text-field>
-      </v-col>
-    </v-row>
-    <v-row>
-      <v-col>
-        <v-select v-model="selectedDocumentType" :items="documentTypes" label="Tipo de documento" outlined></v-select>
-      </v-col>
-      <v-col>
-        <v-text-field v-model="numberId" label="Número de Documento" required></v-text-field>
-      </v-col>
-      <v-col>
-        <v-select v-model="idExtension" :items="cityExtension" item-title="cityName" item-value="code" label="Extensión"
-          outlined></v-select>
-      </v-col>
-    </v-row>
-    <v-row>
-      <v-col>
-        <VueDatePicker v-model="dateOfBirth" locale="es" :enable-time-picker="false" placeholder="Fecha de Nacimiento"
-          :year-range="[1950, 2003]">
-        </VueDatePicker>
-      </v-col>
-      <v-col>
-        <v-text-field v-model="idAddNumber" label="Complemento" minlength="3" maxlength="3" :disabled="addOnFlag" required></v-text-field>
-      </v-col>
-      <v-col>
-        <v-radio-group label="Tiene complemento" inline>
-          <v-radio label="Si" value=false @change="enableAddOn(false)"></v-radio>
-          <v-radio label="No" value=true @change="enableAddOn(true)"></v-radio>
-        </v-radio-group>
-      </v-col>
-    </v-row>
-    <v-row>
-      <v-col>
-        <v-select v-model="gender" label="Genero" :items="genderType" >
-        </v-select>
-      </v-col>
-      <v-col>
+    <v-card>
+      <v-row>
+        <v-col>
+          <v-text-field v-model="name" :rules="textoRules" label="Nombres" @input="name = name.toUpperCase()"
+            required></v-text-field>
+        </v-col>
+        <v-col>
+          <v-text-field v-model="lastNameF" :rules="textoRules1" label="Apellido Paterno"
+            @input="lastNameF = lastNameF.toUpperCase()" required></v-text-field>
+        </v-col>
+        <v-col>
+          <v-text-field v-model="lastNameM" :rules="textoRules2" label="Apellido Materno"
+            @input="lastNameM = lastNameM.toUpperCase()" required></v-text-field>
+        </v-col>
+      </v-row>
+      <v-row>
+        <v-col>
+          <v-text-field v-model="personalPhone" :rules="numeroRules2" label="Número de Contacto" required></v-text-field>
+        </v-col>
+        <v-col>
+          <v-text-field v-model="personalPhoneAux" :rules="numeroRules"
+            label="Número de Referencia (OPCIONAL)"></v-text-field>
+        </v-col>
+        <v-col>
+          <v-text-field v-model="email" :rules="emailRules" label="Correo Electrónico" required></v-text-field>
+        </v-col>
+      </v-row>
+      <v-row>
+        <v-col>
+          <v-select v-model="selectedCountry" :items="countries" item-title="countryName" item-value="code" label="País">
+          </v-select>
+        </v-col>
+        <v-col>
+          <v-text-field v-model="cityRadication" label="Ciudad de Radicación"
+            @input="cityRadication = cityRadication.toUpperCase()" required></v-text-field>
+        </v-col>
+        <v-col>
+          <v-text-field v-model="addres" label="Dirección" @input="addres = addres.toUpperCase()" required></v-text-field>
+        </v-col>
+      </v-row>
+      <v-row>
+        <v-col>
+          <v-select v-model="selectedDocumentType" :items="documentTypes" label="Tipo de documento" outlined></v-select>
+        </v-col>
+        <v-col>
+          <v-text-field v-model="numberId" label="Número de Documento" required></v-text-field>
+        </v-col>
+        <v-col>
+          <v-select v-model="idExtension" :items="cityExtension" item-title="cityName" item-value="code" label="Extensión"
+            outlined></v-select>
+        </v-col>
+      </v-row>
+      <v-row>
+        <v-col>
+          <VueDatePicker v-model="dateOfBirth" locale="es" :enable-time-picker="false" placeholder="Fecha de Nacimiento"
+            :year-range="[1950, 2003]">
+          </VueDatePicker>
+        </v-col>
+        <v-col>
+          <v-text-field v-model="idAddNumber" label="Complemento" minlength="3" maxlength="3" :disabled="addOnFlag"
+            required></v-text-field>
+        </v-col>
+        <v-col>
+          <v-radio-group label="Tiene complemento" inline>
+            <v-radio label="Si" value=false @change="enableAddOn(false)"></v-radio>
+            <v-radio label="No" value=true @change="enableAddOn(true)"></v-radio>
+          </v-radio-group>
+        </v-col>
+      </v-row>
+      <v-row>
+        <v-col>
+          <v-select v-model="gender" label="Genero" :items="genderType">
+          </v-select>
+        </v-col>
+        <v-col>
 
+        </v-col>
+        <v-col>
+
+        </v-col>
+      </v-row>
+      <v-col class="d-flex justify-center aling-center">
+        <v-file-input label="SELECCIONA UNA IMAGEN FORMAL" @change="loadPhotoFile($event); showAlert()"
+          accept="image/*"></v-file-input>
       </v-col>
       <v-col>
-
+        <v-alert closable density="compact" type="warning" title="Atención" v-show="alertFlag"
+          text="Verifique que los datos ingresados sean correctos!"></v-alert>
       </v-col>
-    </v-row>
-    <v-col class="d-flex justify-center aling-center">
-      <v-file-input label="SELECCIONA UNA IMAGEN FORMAL" @change="loadPhotoFile($event); showAlert()"
-        accept="image/*"></v-file-input>
-    </v-col>
-    <v-col>
-      <v-alert closable density="compact" type="warning" title="Atención" v-show="alertFlag"
-        text="Verifique que los datos ingresados sean correctos!"></v-alert>
-    </v-col>
+    </v-card>
   </v-container>
   <v-container>
-      <v-btn @click="showNextForm()" color="warning" class="fixed-bottom mr-2">guardar
-      </v-btn>
-      <!-- <v-btn @click="uploadPhotoProfile(); ableDegreeForm(); addUser(); component='SuperiorEducationProfile' " color="warning" class="fixed-bottom mr-2">guardar </v-btn> -->
+    <v-btn prepend-icon="mdi-content-save-outline" width="150px" density="default" @click="showNextForm()"
+      class="fixed-bottom mr-2 button-form">guardar</v-btn>
   </v-container>
 </template>
  
@@ -199,7 +201,7 @@ export default {
         'Carnet de Identidad',
         'Pasaporte'
       ],
-      genderType:[
+      genderType: [
         'Masculino',
         'Femenino',
         'Otro'
@@ -220,7 +222,7 @@ export default {
     }
   },
   methods: {
-    enableAddOn(flag){
+    enableAddOn(flag) {
       this.addOnFlag = flag
     },
     showAlert() {

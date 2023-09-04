@@ -1,161 +1,164 @@
 <template>
-  <v-sheet width="1000" class="mx-auto">
-
-    <h3 class="headline">EXPERIENCIA LABORAL</h3>
-    <v-card v-for="(workExperienceForm, index) in workExperienceForms" :key="index" class="mb-4">
-      <v-card-title>
-        <v-col class="d-flex justify-center aling-center">
-          <h2 class="headline">EXPERIENCIA LABORAL DE LOS ULTIMOS 3 AÑOS</h2>
-          <v-btn v-if="index !== 0" icon @click="deleteWorkExperinceForm(index)">
-            <v-icon>mdi-close</v-icon>
-          </v-btn>
-        </v-col>
-      </v-card-title>
-      <v-card-text>
-        <v-col>
-          <v-row>
-            <v-col>
-              <v-text-field v-model="workExperienceForm.institutionWorkExperience" label="Nombre de empresa o institución"
-                required></v-text-field>
-            </v-col>
-
-            <v-col>
-              <v-text-field v-model="workExperienceForm.cargoexplaboral" label="Cargo" required></v-text-field>
-            </v-col>
-          </v-row>
-          <v-row>
-            <v-col>
-              <v-checkbox v-model="workExperienceForm.currentJobFlag" label="Trabajo Actual"></v-checkbox>
-            </v-col>
-            <v-col v-if="workExperienceForm.currentJobFlag">
-              <VueDatePicker v-model="workExperienceForm.startWorkExperienceCurrentJob" :teleport="true"
-                placeholder="Fecha de Inicio" :enable-time-picker="false" />
-            </v-col>
-            <v-col v-else>
-              <v-col>
-                <VueDatePicker v-model="workExperienceForm.startWorkExperience" :teleport="true"
-                  placeholder="Fecha de Inicio" :enable-time-picker="false" />
-              </v-col>
-              <v-col>
-                <VueDatePicker v-model="workExperienceForm.endWorkExperience" :teleport="true"
-                  placeholder="Fecha de Finalizacion" :enable-time-picker="false" />
-              </v-col>
-            </v-col>
-          </v-row>
-          <v-row>
-            <v-col>
-              <v-text-field v-model="workExperienceForm.countryWorkExperience" label="País" required></v-text-field>
-            </v-col>
-            <v-col>
-              <v-text-field v-model="workExperienceForm.cityWorkExperience" label="Ciudad" required></v-text-field>
-            </v-col>
-          </v-row>
-          <v-col>
-            <v-textarea v-model="workExperienceForm.descriptionWorkExperience" label="Descripción de funciones realizadas"
-              placeholder="Escribe tus comentarios aquí" rows="4" auto-grow outlined></v-textarea>
-          </v-col>
-          <v-row>
-            <v-card-title>
-              <v-col class="d-flex justify-center aling-center">
-                <h2 class="headline">REFERENCIAS</h2>
-              </v-col>
-            </v-card-title>
-            <v-card-text>
-              <v-row>
-                <v-col>
-                  <v-text-field v-model="workExperienceForm.nameReference" label="Nombre"></v-text-field>
-                </v-col>
-                <v-col>
-                  <v-text-field v-model="workExperienceForm.lastnameReference" label="Apellidos"></v-text-field>
-                </v-col>
-              </v-row>
-              <v-row>
-                <v-col>
-                  <v-text-field v-model="workExperienceForm.jobTitleReference"
-                    label="Cargo de Inmediato Superior"></v-text-field>
-                </v-col>
-                <v-col>
-                  <v-text-field v-model="workExperienceForm.phoneReference" :rules="numeroRules"
-                    label="Número de Contacto " required></v-text-field>
-                </v-col>
-              </v-row>
-            </v-card-text>
-          </v-row>
-        </v-col>
-      </v-card-text>
-    </v-card>
-    <v-col>
-      <v-btn v-if="workExperienceForms.length < 3" @click="addWorkExperienceForm()" color="warning"
-        class="fixed-bottom mr-2">AGREGAR
-        NUEVA EXPERIENCIA LABORAL</v-btn>
-    </v-col>
-    <v-col>
-
-    </v-col>
-
-    <v-card v-for="(instructorExperienceForm, index2) in instructorExperienceForms" :key="index2" class="mb-4">
-      <v-card-title>
-        <v-col class="d-flex justify-center aling-center">
-          <h2 class="headline">EXPERIENCIA COMO DOCENTE</h2>
-          <v-btn v-if="index2 !== 0" icon @click="deleteInstructorExperienceForm(index2)">
-            <v-icon>mdi-close</v-icon>
-          </v-btn>
-        </v-col>
-      </v-card-title>
-      <v-card-text>
-        <v-col>
-          <v-row>
-            <v-col>
-              <v-text-field v-model="instructorExperienceForm.institutionInstructorExperience"
-                label="Universidad o Institución" required></v-text-field>
-            </v-col>
-            <v-col>
-              <v-text-field v-model="instructorExperienceForm.subjectInstructorExperience" label="Materia Impartida"
-                required></v-text-field>
-            </v-col>
-            <v-col>
-              <v-select v-model="instructorExperienceForm.typeInstructor" :items="academicLevels" label="En calidad de:"
-                outlined></v-select>
-            </v-col>
-          </v-row>
-          <v-row>
-            <v-col>
-              <v-select v-model="instructorExperienceForm.academicLevel" :items="instructorTypes"
-                label="Grado Académico que impartió" outlined></v-select>
-            </v-col>
-            <v-col>
-                <VueDatePicker v-model="instructorExperienceForm.startInstructorExperience" :teleport="true"
-                placeholder="Fecha de Inicio" :enable-time-picker="false" />
-            </v-col>
-            <v-col>
-              <VueDatePicker v-model="instructorExperienceForm.endInstructorExperience" :teleport="true"
-                placeholder="Fecha de Finalización" :enable-time-picker="false" />
-            </v-col>
-          </v-row>
-        </v-col>
-      </v-card-text>
-    </v-card>
-    <v-btn v-if="instructorExperienceForms.length < 3" @click="addInstructorExperienceForm()" color="warning"
-      class="fixed-bottom mr-2">AGREGAR
-      NUEVA EXPERIENCIA COMO DOCENTE</v-btn>
-    <v-col>
-      <v-btn class="success" @click="showNextForm()">guardar</v-btn>
-      <!-- <v-btn class="success" @click="saveDataWorkExperience(); saveDateInstructorExperience()">guardar</v-btn> -->
-    </v-col>
-    <v-dialog v-model="dialogVisible" max-width="500px">
-      <v-card>
+  <v-container width="1000" class="mx-auto">
+    <v-container>
+      <v-card v-for="(workExperienceForm, index) in workExperienceForms" :key="index" class="mb-4 card-style">
         <v-card-title>
-          <span class="headline">Datos guardados</span>
+          <v-col class="d-flex justify-center aling-center">
+            <h2 class="headline header-form">EXPERIENCIA LABORAL DE LOS ULTIMOS 3 AÑOS</h2>
+          </v-col>
+          <v-btn append-icon class="icon-button" color="red" v-if="index !== 0" @click="deleteWorkExperinceForm(index)">
+            <v-icon size="x-large">mdi-close-thick</v-icon>
+          </v-btn>
         </v-card-title>
         <v-card-text>
-          <p>Los datos se han guardado exitosamente.</p>
+          <v-col>
+            <v-row>
+              <v-col>
+                <v-text-field v-model="workExperienceForm.institutionWorkExperience"
+                  @input="workExperienceForm.institutionWorkExperience = workExperienceForm.institutionWorkExperience.toUpperCase()"
+                  label="Nombre de Empresa o Institución" required></v-text-field>
+              </v-col>
+
+              <v-col>
+                <v-text-field v-model="workExperienceForm.cargoexplaboral" label="Cargo"
+                  @input="workExperienceForm.cargoexplaboral = workExperienceForm.cargoexplaboral.toUpperCase()"
+                  required></v-text-field>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col>
+                <v-text-field v-model="workExperienceForm.countryWorkExperience"
+                  @input="workExperienceForm.countryWorkExperience = workExperienceForm.countryWorkExperience.toUpperCase()"
+                  label="País" required></v-text-field>
+              </v-col>
+              <v-col>
+                <v-text-field v-model="workExperienceForm.cityWorkExperience"
+                  @input="workExperienceForm.cityWorkExperience = workExperienceForm.cityWorkExperience.toUpperCase()"
+                  label="Ciudad" required></v-text-field>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col>
+                <v-checkbox v-model="workExperienceForm.currentJobFlag" label="Trabajo Actual"></v-checkbox>
+              </v-col>
+              <v-col v-if="workExperienceForm.currentJobFlag">
+                <VueDatePicker v-model="workExperienceForm.startWorkExperienceCurrentJob" locale="es" :teleport="true"
+                  :year-range="[1950, currentYear]" placeholder="Fecha de Inicio" :enable-time-picker="false" />
+              </v-col>
+              <v-col v-else>
+                <v-col>
+                  <VueDatePicker v-model="workExperienceForm.startWorkExperience" locale="es" :teleport="true"
+                    :year-range="[1950, currentYear]" placeholder="Fecha de Inicio" :enable-time-picker="false" />
+                </v-col>
+                <v-col>
+                  <VueDatePicker v-model="workExperienceForm.endWorkExperience" locale="es" :teleport="true"
+                    :year-range="[1950, currentYear]" placeholder="Fecha de Finalizacion" :enable-time-picker="false" />
+                </v-col>
+              </v-col>
+            </v-row>
+            <v-col>
+              <v-textarea v-model="workExperienceForm.descriptionWorkExperience"
+                @input="workExperienceForm.descriptionWorkExperience = workExperienceForm.descriptionWorkExperience.toUpperCase()"
+                label="Descripción de funciones realizadas" placeholder="Escribe tus comentarios aquí" rows="4" auto-grow
+                outlined></v-textarea>
+            </v-col>
+            <v-container>
+              <v-row>
+                <v-card-title>
+                  <v-col class="d-flex justify-center aling-center">
+                    <h2 class="headline header-form">REFERENCIAS</h2>
+                  </v-col>
+                </v-card-title>
+                <v-card-text>
+                  <v-row>
+                    <v-col>
+                      <v-text-field v-model="workExperienceForm.nameReference"
+                        @input="workExperienceForm.nameReference = workExperienceForm.nameReference.toUpperCase()"
+                        label="Nombre"></v-text-field>
+                    </v-col>
+                    <v-col>
+                      <v-text-field v-model="workExperienceForm.lastnameReference"
+                        @input="workExperienceForm.lastnameReference = workExperienceForm.lastnameReference.toUpperCase()"
+                        label="Apellidos"></v-text-field>
+                    </v-col>
+                  </v-row>
+                  <v-row>
+                    <v-col>
+                      <v-text-field v-model="workExperienceForm.jobTitleReference"
+                        @input="workExperienceForm.jobTitleReference = workExperienceForm.jobTitleReference.toUpperCase()"
+                        label="Cargo de Inmediato Superior"></v-text-field>
+                    </v-col>
+                    <v-col>
+                      <v-text-field v-model="workExperienceForm.phoneReference"
+                        @input="workExperienceForm.phoneReference = workExperienceForm.phoneReference.toUpperCase()"
+                        :rules="numeroRules" label="Número de Contacto " required></v-text-field>
+                    </v-col>
+                  </v-row>
+                </v-card-text>
+              </v-row>
+            </v-container>
+          </v-col>
         </v-card-text>
-        <v-card-actions>
-          <v-btn color="primary" to="/form5">OK</v-btn>
-        </v-card-actions>
       </v-card>
-    </v-dialog>
-  </v-sheet>
+      <v-btn prepend-icon="mdi-plus" v-if="workExperienceForms.length < 3" @click="addWorkExperienceForm()"
+        class="fixed-bottom mr-2 button-form">AGREGAR
+        NUEVA EXPERIENCIA LABORAL</v-btn>
+    </v-container>
+    <v-container>
+      <v-card v-for="(instructorExperienceForm, index2) in instructorExperienceForms" :key="index2"
+        class="mb-4 card-style">
+        <v-card-title>
+          <v-col class="d-flex justify-center aling-center">
+            <h2 class="headline header-forom">EXPERIENCIA COMO DOCENTE</h2>
+            <v-btn append-icon class="icon-button" color="red" v-if="index2 !== 0"
+              @click="deleteInstructorExperienceForm(index2)">
+              <v-icon size="x-large">mdi-close-thick</v-icon>
+            </v-btn>
+          </v-col>
+        </v-card-title>
+        <v-card-text>
+          <v-col>
+            <v-row>
+              <v-col>
+                <v-text-field v-model="instructorExperienceForm.institutionInstructorExperience"
+                  @input="instructorExperienceForm.institutionInstructorExperience = instructorExperienceForm.institutionInstructorExperience.toUpperCase()"
+                  label="Universidad o Institución" required></v-text-field>
+              </v-col>
+              <v-col>
+                <v-text-field v-model="instructorExperienceForm.subjectInstructorExperience" label="Materia Impartida"
+                  @input="instructorExperienceForm.subjectInstructorExperience = instructorExperienceForm.subjectInstructorExperience.toUpperCase()"
+                  required></v-text-field>
+              </v-col>
+              <v-col>
+                <v-select v-model="instructorExperienceForm.typeInstructor" :items="academicLevels" label="En calidad de:"
+                  outlined></v-select>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col>
+                <v-select v-model="instructorExperienceForm.academicLevel" :items="instructorTypes"
+                  item-title="instructorType" item-value="code" label="Grado Académico que impartió" outlined></v-select>
+              </v-col>
+              <v-col>
+                <VueDatePicker v-model="instructorExperienceForm.lastYearInstructorExperience" :teleport="true"
+                  :year-range="[1950, currentYear]" year-picker placeholder="Ultimo año de experiencia"
+                  :enable-time-picker="false" />
+              </v-col>
+            </v-row>
+          </v-col>
+        </v-card-text>
+      </v-card>
+      <v-btn prepend-icon="mdi-plus" v-if="instructorExperienceForms.length < 3" @click="addInstructorExperienceForm()"
+        class="fixed-bottom mr-2 button-form">AGREGAR
+        NUEVA EXPERIENCIA COMO DOCENTE</v-btn>
+    </v-container>
+    <v-container>
+      <v-btn prepend-icon="mdi-content-save-outline" class="fixed-bottom mr-2 button-form" width="150px" density="default"
+        @click="showNextForm(); saveDataWorkExperience(); saveDateInstructorExperience()">guardar</v-btn>
+      <v-btn prepend-icon="mdi-arrow-left" class="fixed-bottom mr-2 button-form" width="150px" density="default"
+        @click="showPreviusForm()">atras</v-btn>
+    </v-container>
+  </v-container>
 </template>
 
 <script>
@@ -183,6 +186,7 @@ export default {
       numero: null,
       local: '',
       estate: true,
+      currentYear: new Date().getFullYear(),
 
       numeroRules: [
         v => !!v || 'El número es requerido',
@@ -215,22 +219,18 @@ export default {
           subjectInstructorExperience: '',
           typeInstructor: '',
           academicLevel: '',
-          startInstructorExperience: '',
-          endInstructorExperience: '',
+          lastYearInstructorExperience: '',
         }
       ],
 
       instructorTypes: [
-
-        'PreGrado',
-        'PostGrado'
+        { instructorType: "Pregrado", code: "degree" },
+        { instructorType: "Postgrado", code: "postDegree" },
       ],
 
       academicLevels: [
-
         'Titular',
         'Invitado'
-
       ],
       dateOfBirth: null,
       menu: false,
@@ -239,9 +239,47 @@ export default {
     }
   },
   methods: {
-    showNextForm(){
-      let nextComponent= 'skills-profile'
+    showNextForm() {
+      let nextComponent = 'skills-profile'
       this.$emit('show-next-form', nextComponent)
+    },
+    showPreviusForm() {
+      let nextComponent = 'extra-courses-profile'
+      this.$emit('show-next-form', nextComponent)
+    },
+    checkWorkExperienceList() {
+      let listWorkExperienceFilled = true
+      this.workExperienceForms.forEach((workExperienceForm) => {
+        if (workExperienceForm.institutionWorkExperience
+          && workExperienceForm.jobTitleWorkExperience
+          && workExperienceForm.countryWorkExperience
+          && workExperienceForm.cityWorkExperience
+          && workExperienceForm.descriptionWorkExperience
+          && workExperienceForm.nameReference
+          && workExperienceForm.lastnameReference
+          && workExperienceForm.jobTitleReference
+          && workExperienceForm.phoneReference) {
+          listWorkExperienceFilled = true
+        } else {
+          listWorkExperienceFilled = false
+        }
+      })
+      return listWorkExperienceFilled
+    },
+    checkInstructorExperienceList() {
+      let listInstructorExperienceFilled = true
+      this.instructorExperienceForms.forEach((instructorExperienceForm) => {
+        if (instructorExperienceForm.institutionInstructorExperience
+          && instructorExperienceForm.subjectInstructorExperience
+          && instructorExperienceForm.typeInstructor
+          && instructorExperienceForm.academicLevel
+          && instructorExperienceForm.lastYearInstructorExperience) {
+          listInstructorExperienceFilled = true
+        } else {
+          listInstructorExperienceFilled = false
+        }
+      })
+      return listInstructorExperienceFilled
     },
     addWorkExperienceForm() {
       if (this.workExperienceForms.length < 3) {
@@ -269,8 +307,7 @@ export default {
           subjectInstructorExperience: '',
           typeInstructor: '',
           academicLevel: '',
-          startInstructorExperience: '',
-          endInstructorExperience: '',
+          lastYearInstructorExperience: '',
         })
       }
     },
@@ -284,37 +321,37 @@ export default {
       const documentRef = doc(database, 'instructors', this.idUser)
       const collectionRef = collection(documentRef, 'jobs')
       this.workExperienceForms.forEach((workExperienceFormValue) => {
-        if(workExperienceFormValue.jobTitleWorkExperience != ''){
+        if (workExperienceFormValue.jobTitleWorkExperience != '') {
           if (workExperienceFormValue.currentJobFlag) {
-          addDoc(collectionRef, {
-            institutionWorkExperience: workExperienceFormValue.institutionWorkExperience,
-            jobTitleWorkExperience: workExperienceFormValue.jobTitleWorkExperience,
-            currentJobFlag: workExperienceFormValue.currentJobFlag,
-            startWorkExperienceCurrentJob: this.format(workExperienceFormValue.startWorkExperienceCurrentJob),
-            countryWorkExperience: workExperienceFormValue.countryWorkExperience,
-            cityWorkExperience: workExperienceFormValue.cityWorkExperience,
-            descriptionWorkExperience: workExperienceFormValue.descriptionWorkExperience,
-            nameReference: workExperienceFormValue.nameReference,
-            lastnameReference: workExperienceFormValue.lastnameReference,
-            jobTitleReference: workExperienceFormValue.jobTitleReference,
-            phoneReference: workExperienceFormValue.phoneReference
-          })
-        } else {
-          addDoc(collectionRef, {
-            institutionWorkExperience: workExperienceFormValue.institutionWorkExperience,
-            jobTitleWorkExperience: workExperienceFormValue.jobTitleWorkExperience,
-            currentJobFlag: workExperienceFormValue.currentJobFlag,
-            startWorkExperience: this.format(workExperienceFormValue.startWorkExperience),
-            endWorkExperience: this.format(workExperienceFormValue.endWorkExperience),
-            countryWorkExperience: workExperienceFormValue.countryWorkExperience,
-            cityWorkExperience: workExperienceFormValue.cityWorkExperience,
-            descriptionWorkExperience: workExperienceFormValue.descriptionWorkExperience,
-            nameReference: workExperienceFormValue.nameReference,
-            lastnameReference: workExperienceFormValue.lastnameReference,
-            jobTitleReference: workExperienceFormValue.jobTitleReference,
-            phoneReference: workExperienceFormValue.phoneReference
-          })
-        }
+            addDoc(collectionRef, {
+              institutionWorkExperience: workExperienceFormValue.institutionWorkExperience,
+              jobTitleWorkExperience: workExperienceFormValue.jobTitleWorkExperience,
+              currentJobFlag: workExperienceFormValue.currentJobFlag,
+              startWorkExperienceCurrentJob: this.format(workExperienceFormValue.startWorkExperienceCurrentJob),
+              countryWorkExperience: workExperienceFormValue.countryWorkExperience,
+              cityWorkExperience: workExperienceFormValue.cityWorkExperience,
+              descriptionWorkExperience: workExperienceFormValue.descriptionWorkExperience,
+              nameReference: workExperienceFormValue.nameReference,
+              lastnameReference: workExperienceFormValue.lastnameReference,
+              jobTitleReference: workExperienceFormValue.jobTitleReference,
+              phoneReference: workExperienceFormValue.phoneReference
+            })
+          } else {
+            addDoc(collectionRef, {
+              institutionWorkExperience: workExperienceFormValue.institutionWorkExperience,
+              jobTitleWorkExperience: workExperienceFormValue.jobTitleWorkExperience,
+              currentJobFlag: workExperienceFormValue.currentJobFlag,
+              startWorkExperience: this.format(workExperienceFormValue.startWorkExperience),
+              endWorkExperience: this.format(workExperienceFormValue.endWorkExperience),
+              countryWorkExperience: workExperienceFormValue.countryWorkExperience,
+              cityWorkExperience: workExperienceFormValue.cityWorkExperience,
+              descriptionWorkExperience: workExperienceFormValue.descriptionWorkExperience,
+              nameReference: workExperienceFormValue.nameReference,
+              lastnameReference: workExperienceFormValue.lastnameReference,
+              jobTitleReference: workExperienceFormValue.jobTitleReference,
+              phoneReference: workExperienceFormValue.phoneReference
+            })
+          }
         }
       })
     },
@@ -322,15 +359,14 @@ export default {
       const documentRef = doc(database, 'instructors', this.idUser)
       const collectionRef = collection(documentRef, 'instructorJobs')
       this.instructorExperienceForms.forEach((instructorExperienceFormValue) => {
-        if(instructorExperienceFormValue.subjectInstructorExperience != ''){
+        if (instructorExperienceFormValue.subjectInstructorExperience != '') {
           addDoc(collectionRef, {
-          institutionInstructorExperience: instructorExperienceFormValue.institutionInstructorExperience,
-          subjectInstructorExperience: instructorExperienceFormValue.subjectInstructorExperience,
-          typeInstructor: instructorExperienceFormValue.typeInstructor,
-          academicLevel: instructorExperienceFormValue.academicLevel,
-          startInstructorExperience: this.format(instructorExperienceFormValue.startInstructorExperience),
-          endInstructorExperience: this.format(instructorExperienceFormValue.endInstructorExperience),
-        })
+            institutionInstructorExperience: instructorExperienceFormValue.institutionInstructorExperience,
+            subjectInstructorExperience: instructorExperienceFormValue.subjectInstructorExperience,
+            typeInstructor: instructorExperienceFormValue.typeInstructor,
+            academicLevel: instructorExperienceFormValue.academicLevel,
+            lastYearInstructorExperience: this.format(instructorExperienceFormValue.lastYearInstructorExperience),
+          })
         }
       })
     },
@@ -345,6 +381,3 @@ export default {
   }
 }
 </script>
-<style>
-
-</style>
