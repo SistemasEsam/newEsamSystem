@@ -34,14 +34,15 @@
       data() {
 
         return {
-          idUser:'aljiar23@gmail.com',
-          activeComponent: 'skills-profile',
+          idUser:'',
+          activeComponent: 'personal-profile',
           component: 'personalProfile',
         }
       },
       methods: {
-        showNextForm(nextComponent){
+        showNextForm(nextComponent,idUser){
           this.activeComponent = nextComponent
+          this.idUser =  idUser
           
         },
       }

@@ -70,9 +70,11 @@
       <v-btn prepend-icon="mdi-plus" v-if="languageForms.length < 3" @click="addLanguageForm()"
         class="fixed-bottom mr-2 button-form">AGREGAR
         NUEVO IDIOMA</v-btn>
+        <v-alert variant="elevated" density="compact" closable color="yellow" title="Atención" v-show="alertFlag"
+        text="Verifique que los datos ingresados sean correctos!"></v-alert>
     </v-container>
     <v-container>
-      <v-btn prepend-icon="mdi-content-save-outline" class="fixed-bottom mr-2 button-form" width="150px" density="default"
+      <v-btn @mouseover="alertFlag = true" prepend-icon="mdi-content-save-outline" class="fixed-bottom mr-2 button-form" width="150px" density="default"
         :to="{ name: 'pdf', params: { id: this.idUser } }" @click="saveDataSkills(); saveDataLanguages()">guardar</v-btn>
       <v-btn prepend-icon="mdi-arrow-left-bold-outline" class="fixed-bottom mr-2 button-form" width="150px"
         density="default" @click="showPreviusForm()">
@@ -93,7 +95,8 @@ export default {
   data() {
     return {
       idUser: this.userId,
-      dialogVisible: false,
+      // idUser: 'aljiar23@gmail.com',
+      alertFlag: false,
       local: '',
       estate: true,
       skillForms: [
@@ -117,7 +120,7 @@ export default {
   methods: {
     showPreviusForm() {
       let nextComponent = 'work-experience-profile'
-      this.$emit('show-next-form', nextComponent)
+      this.$emit('show-next-form', nextComponent, this.idUser)
     },
     addSkillForm() {
       if (this.skillForms.length < 5 && this.checkSkillList()) {

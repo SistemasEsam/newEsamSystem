@@ -1,6 +1,9 @@
 <template>
     <v-container width="1000" class="mx-auto">
         <h2 class="header-form">Diplomado/Maestria en Educación Superior</h2>
+        <h3>
+            {{ this.idUser }}
+        </h3>
         <v-card class="card-style">
             <v-row>
                 <v-col>
@@ -40,15 +43,20 @@
             <v-row>
                 <v-col>
                     <p style="text-align: left;">Adjuntar título escaneado</p>
-                    <v-file-input @change="loadHigherEducationFile($event)" accept="application/pdf"
+                    <v-file-input @change="loadHigherEducationFile($event); showAlert()" accept="application/pdf"
                         label="Seleccionar archivo PDF" outlined></v-file-input>
                 </v-col>
             </v-row>
-
+            <v-col>
+                <v-alert variant="elevated" closable density="compact" color="yellow" title="Atención" v-show="alertFlag"
+                    text="Verifique que los datos ingresados sean correctos!"></v-alert>
+            </v-col>
         </v-card>
     </v-container>
     <v-container>
-        <v-btn prepend-icon="mdi-content-save-outline" @click="showNextForm()" width="150px" density="default" class="fixed-bottom mr-2 button-form" end>guardar</v-btn>
+        <v-btn @mouseover="alertFlag = true" prepend-icon="mdi-content-save-outline"
+            @click="showNextForm(); uploadHigherEducationFile(); saveDataHigherEducation()" width="150px" density="default"
+            class="fixed-bottom mr-2 button-form" end>guardar</v-btn>
         <v-btn prepend-icon="mdi-arrow-left" @click="showPreviusForm()" width="150px" density="default"
             class="fixed-bottom mr-2 button-form">atras</v-btn>
     </v-container>
@@ -56,6 +64,7 @@
 <script>
 import VueDatePicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css';
+import { database } from '../firebase/firebase'
 import { addDoc, collection, doc } from "firebase/firestore";
 import { getStorage, ref, uploadBytes } from 'firebase/storage'
 
@@ -69,6 +78,7 @@ export default {
     data() {
         return {
             idUser: this.userId,
+            alertFlag: false,
             institutionName: '',
             nameHigherEducation: '',
             levelHigherEducation: '',
@@ -93,16 +103,19 @@ export default {
     methods: {
         showNextForm() {
             let nextComponent = 'superior-education-profile'
-            this.$emit('show-next-form', nextComponent);
+            this.$emit('show-next-form', nextComponent, this.idUser);
         },
         showPreviusForm() {
             let nextComponent = 'personal-profile'
-            this.$emit('show-next-form', nextComponent)
+            this.$emit('show-next-form', nextComponent, this.idUser)
+        },
+        showAlert() {
+            this.alertFlag = true
         },
         loadHigherEducationFile(e) {
             let newHigherEducationFile = e.target.files[0]
             this.higherEducationFile = newHigherEducationFile
-            console.log(newHigherEducationFile)
+            console.log(this.higherEducationFile.name)
 
         },
         saveDataHigherEducation() {
@@ -121,7 +134,8 @@ export default {
         uploadHigherEducationFile() {
             const storage = getStorage();
             let newIdUser = this.idUser
-            const storageRef = ref(storage, newIdUser + '/higherEducationFile/' + postDegreeFileValue.name)
+            const storageRef = ref(storage, newIdUser + '/higherEducationFile/' + this.higherEducationFile.name)
+            console.log(this.higherEducationFile.name)
             uploadBytes(storageRef, this.higherEducationFile).then((snapshot) => {
                 console.log('Uploaded a blob or file!');
             })

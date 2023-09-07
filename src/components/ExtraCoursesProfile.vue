@@ -95,10 +95,12 @@
       <v-btn prepend-icon="mdi-plus" v-if="publicationForms.length < 3" @click="addPublicationForm()"
         density="comfortable" class="fixed-bottom mr-2 button-form">Agregar
         formulario</v-btn>
+      <v-alert variant="elevated" closable density="compact" color="yellow" title="Atención" v-show="alertFlag"
+        text="Verifique que los datos ingresados sean correctos!"></v-alert>
     </v-container>
     <v-container>
-      <v-btn prepend-icon="mdi-content-save-outline" class="fixed-bottom mr-2 button-form" width="150px" density="default"
-        @click="showNextForm(); saveDataCourses(); saveDataPublication();">guardar</v-btn>
+      <v-btn @mouseover="alertFlag = true" prepend-icon="mdi-content-save-outline" class="fixed-bottom mr-2 button-form"
+        width="150px" density="default" @click="showNextForm(); saveDataCourses(); saveDataPublication();">guardar</v-btn>
       <v-btn prepend-icon="mdi-arrow-left" class="fixed-bottom mr-2 button-form" width="150px" density="default"
         @click="showPreviusForm()">atras</v-btn>
     </v-container>
@@ -117,7 +119,9 @@ export default {
   data() {
     return {
       idUser: this.userId,
+      // idUser: 'aljiar23@gmail.com',
       dialogVisible: false,
+      alertFlag: false,
       estate: true,
       local: '',
       currentYear: new Date().getFullYear(),
@@ -169,11 +173,11 @@ export default {
   methods: {
     showNextForm() {
       let nextComponent = 'work-experience-profile'
-      this.$emit('show-next-form', nextComponent)
+      this.$emit('show-next-form', nextComponent, this.idUser)
     },
     showPreviusForm() {
       let nextComponent = 'superior-education-profile'
-      this.$emit('show-next-form', nextComponent)
+      this.$emit('show-next-form', nextComponent, this.idUser)
     },
     addCourseForm() {
       if (this.courseForms.length < 3 && this.checkCourseList()) {
@@ -230,7 +234,7 @@ export default {
             publisher: publicationFormValue.publisher,
             typePublication: publicationFormValue.typePublication,
             countryPublication: publicationFormValue.countryPublication,
-            datePublication: publicationFormValue.datePublication,
+            datePublication: this.format(publicationFormValue.datePublication),
           })
         }
       })
@@ -273,12 +277,22 @@ export default {
           && publicationForm.datePublication
           // && publicationForm.publicationFilled
         ) {
-          listCourseFilled = true
+          listPublicationFilled = true
         } else {
           listPublicationFilled = false
         }
       })
       return listPublicationFilled
+    },
+    format(selectedDate) {
+      console.log(selectedDate)
+      const day = selectedDate.getDate();
+      const month = selectedDate.getMonth() + 1;
+      const year = selectedDate.getFullYear();
+      let formatedDate = `${day}/${month}/${year}`;
+      this.dateOfBirth = formatedDate;
+      console.log(formatedDate)
+      return formatedDate;
     },
     // uploadCourseFile() {
     //   const storage = getStorage()

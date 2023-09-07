@@ -119,10 +119,12 @@
       <v-btn prepend-icon="mdi-plus" v-if="postDegreeForms.length < 3" @click="addPostDegreeForm()" density="comfortable"
         class="fixed-bottom mr-2 button-form">
         AGREGAR NUEVO POSTGRADO</v-btn>
+      <v-alert variant="elevated" closable density="compact" color="yellow" title="Atención" v-show="alertFlag"
+        text="Verifique que los datos ingresados sean correctos!"></v-alert>
     </v-container>
     <v-container>
-      <v-btn prepend-icon="mdi-content-save-outline" class="fixed-bottom mr-2 button-form" width="150px" density="default"
-        @click="showNextForm(); saveDataDegrees(); saveDataPostDegrees()">guardar</v-btn>
+      <v-btn @mouseover="alertFlag = true" prepend-icon="mdi-content-save-outline" class="fixed-bottom mr-2 button-form"
+        width="150px" density="default" @click="showNextForm(); saveDataDegrees(); saveDataPostDegrees()">guardar</v-btn>
       <v-btn prepend-icon="mdi-arrow-left" class="fixed-bottom mr-2 button-form" width="150px" density="default"
         @click="showPreviusForm();">atras</v-btn>
     </v-container>
@@ -146,6 +148,8 @@ export default {
   data() {
     return {
       idUser: this.userId,
+      // idUser: 'aljiar23@gmail.com',
+      alertFlag: false,
       dialogVisible: false,
       estate: true,
       alert: false,
@@ -220,11 +224,11 @@ export default {
   methods: {
     showNextForm() {
       let nextComponent = 'extra-courses-profile'
-      this.$emit('show-next-form', nextComponent)
+      this.$emit('show-next-form', nextComponent, this.idUser)
     },
     showPreviusForm() {
       let nextComponent = 'higher-education-post-degree'
-      this.$emit('show-next-form', nextComponent)
+      this.$emit('show-next-form', nextComponent, this.idUser)
     },
     saveDataDegrees() {
       const documentRef = doc(database, 'instructors', this.idUser)

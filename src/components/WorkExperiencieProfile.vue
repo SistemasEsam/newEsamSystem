@@ -6,6 +6,9 @@
           <v-col class="d-flex justify-center aling-center">
             <h2 class="headline header-form">EXPERIENCIA LABORAL DE LOS ULTIMOS 3 AÑOS</h2>
           </v-col>
+          <v-col>
+            <h3>{{ this.idUser }}</h3>
+          </v-col>
           <v-btn append-icon class="icon-button" color="red" v-if="index !== 0" @click="deleteWorkExperinceForm(index)">
             <v-icon size="x-large">mdi-close-thick</v-icon>
           </v-btn>
@@ -20,8 +23,8 @@
               </v-col>
 
               <v-col>
-                <v-text-field v-model="workExperienceForm.cargoexplaboral" label="Cargo"
-                  @input="workExperienceForm.cargoexplaboral = workExperienceForm.cargoexplaboral.toUpperCase()"
+                <v-text-field v-model="workExperienceForm.jobTitleWorkExperience" label="Cargo"
+                  @input="workExperienceForm.jobTitleWorkExperience = workExperienceForm.jobTitleWorkExperience.toUpperCase()"
                   required></v-text-field>
               </v-col>
             </v-row>
@@ -151,10 +154,15 @@
       <v-btn prepend-icon="mdi-plus" v-if="instructorExperienceForms.length < 3" @click="addInstructorExperienceForm()"
         class="fixed-bottom mr-2 button-form">AGREGAR
         NUEVA EXPERIENCIA COMO DOCENTE</v-btn>
+      <v-alert variant="elevated" density="compact" closable color="yellow" title="Atención" v-show="alertFlag"
+        text="Verifique que los datos ingresados sean correctos!"></v-alert>
     </v-container>
     <v-container>
-      <v-btn prepend-icon="mdi-content-save-outline" class="fixed-bottom mr-2 button-form" width="150px" density="default"
+      <v-btn @mouseover="alertFlag = true" prepend-icon="mdi-content-save-outline" class="fixed-bottom mr-2 button-form"
+        width="150px" density="default"
         @click="showNextForm(); saveDataWorkExperience(); saveDateInstructorExperience()">guardar</v-btn>
+      <!-- <v-btn prepend-icon="mdi-content-save-outline" class="fixed-bottom mr-2 button-form" width="150px" density="default"
+        @click="saveDataWorkExperience()">guardar</v-btn> -->
       <v-btn prepend-icon="mdi-arrow-left" class="fixed-bottom mr-2 button-form" width="150px" density="default"
         @click="showPreviusForm()">atras</v-btn>
     </v-container>
@@ -177,7 +185,8 @@ export default {
   data() {
     return {
       idUser: this.userId,
-      dialogVisible: false,
+      // idUser: 'aljiar23@gmail.com',
+      alertFlag: false,
       isChecked: false,
       dateStart: null,
       menu1: false,
@@ -224,8 +233,8 @@ export default {
       ],
 
       instructorTypes: [
-        { instructorType: "Pregrado", code: "degree" },
-        { instructorType: "Postgrado", code: "postDegree" },
+        { instructorType: "Pregrado", code: "Pregrado" },
+        { instructorType: "Postgrado", code: "Postgrado" },
       ],
 
       academicLevels: [
@@ -241,15 +250,16 @@ export default {
   methods: {
     showNextForm() {
       let nextComponent = 'skills-profile'
-      this.$emit('show-next-form', nextComponent)
+      this.$emit('show-next-form', nextComponent, this.idUser)
     },
     showPreviusForm() {
       let nextComponent = 'extra-courses-profile'
-      this.$emit('show-next-form', nextComponent)
+      this.$emit('show-next-form', nextComponent, this.idUser)
     },
     checkWorkExperienceList() {
       let listWorkExperienceFilled = true
       this.workExperienceForms.forEach((workExperienceForm) => {
+        console.log(workExperienceForm.institutionWorkExperience)
         if (workExperienceForm.institutionWorkExperience
           && workExperienceForm.jobTitleWorkExperience
           && workExperienceForm.countryWorkExperience
@@ -264,6 +274,7 @@ export default {
           listWorkExperienceFilled = false
         }
       })
+      console.log(listWorkExperienceFilled)
       return listWorkExperienceFilled
     },
     checkInstructorExperienceList() {
@@ -282,7 +293,7 @@ export default {
       return listInstructorExperienceFilled
     },
     addWorkExperienceForm() {
-      if (this.workExperienceForms.length < 3) {
+      if (this.workExperienceForms.length < 3 && this.checkWorkExperienceList()) {
         this.workExperienceForms.push({
           institutionWorkExperience: '',
           jobTitleWorkExperience: '',
@@ -301,7 +312,7 @@ export default {
       }
     },
     addInstructorExperienceForm() {
-      if (this.instructorExperienceForms.length < 3) {
+      if (this.instructorExperienceForms.length < 3 && this.checkInstructorExperienceList()) {
         this.instructorExperienceForms.push({
           institutionInstructorExperience: '',
           subjectInstructorExperience: '',
@@ -321,6 +332,7 @@ export default {
       const documentRef = doc(database, 'instructors', this.idUser)
       const collectionRef = collection(documentRef, 'jobs')
       this.workExperienceForms.forEach((workExperienceFormValue) => {
+        console.log(workExperienceFormValue)
         if (workExperienceFormValue.jobTitleWorkExperience != '') {
           if (workExperienceFormValue.currentJobFlag) {
             addDoc(collectionRef, {
@@ -365,17 +377,19 @@ export default {
             subjectInstructorExperience: instructorExperienceFormValue.subjectInstructorExperience,
             typeInstructor: instructorExperienceFormValue.typeInstructor,
             academicLevel: instructorExperienceFormValue.academicLevel,
-            lastYearInstructorExperience: this.format(instructorExperienceFormValue.lastYearInstructorExperience),
+            lastYearInstructorExperience: instructorExperienceFormValue.lastYearInstructorExperience,
           })
         }
       })
     },
-    format(date) {
-      const day = dateOfBirth.getDate();
-      const month = dateOfBirth.getMonth() + 1;
-      const year = dateOfBirth.getFullYear();
-      let formatedBirthDate = `${day}/${month}/${year}`;
-      this.dateOfBirth = formatedBirthDate;
+    format(selectedDate) {
+      console.log(selectedDate)
+      const day = selectedDate.getDate();
+      const month = selectedDate.getMonth() + 1;
+      const year = selectedDate.getFullYear();
+      let formatedDate = `${day}/${month}/${year}`;
+      this.dateOfBirth = formatedDate;
+      console.log(formatedDate)
       return formatedDate;
     },
   }

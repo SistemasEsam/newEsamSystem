@@ -1,80 +1,235 @@
-<template>
-  <page size="letter">
-  <div class="component-with-shapes-and-description">
+<template >
+  <div class="component-with-shapes-and-image">
     <!-- Rectángulo amarillo -->
-
-    <div class="yellow-rectangle1"></div>
     <!-- Descripción del contenido -->
-    <div class="education2">
-      <div class="degrees2">
-        <h1>
-          Publicaciones
-        </h1>
-        <ol v-for="(publication, index) in publications" :key="index" class="cards1">
-          <p>{{ publication.publisher }}</p>
-          <p>{{ publication.namePublication }}</p>
-          <p>{{ publication.typePublication }}</p>
-          <p>{{ publication.countryPublication }}</p>
-          <p>{{ publication.datePublication }}</p>
-        </ol>
-      </div>
-      <div class="degrees2">
-        <h1>
-          Experiencia Laboral
-        </h1>
-        <ol v-for="(job, index) in jobs" :key="index" class="cards1">
-          <p>{{ job.jobTitleWorkExperience }}</p>
-          <p>{{ job.institutionWorkExperience }}</p>
-          <p>{{ job.cityWorkExperience + ',' + job.countryWorkExperience }}</p>
-          <p>{{ job.descriptionWorkExperience }}</p>
-          <p>{{ job.startWorkExperience + '/' + job.endWorkExperience }}</p>
-          <p>{{ job.nameReference + ' ' + job.lastnameReference }}</p>
-          <p>{{ job.jobTitleReference }}</p>
-          <p>{{ job.phoneReference }}</p>
-        </ol>
-      </div>
-      <div class="degrees2">
-        <h1>
-          Experiencia Docente
-        </h1>
-        <ol v-for="(instructorJob, index) in instructorJobs" :key="index" class="cards1">
-          <p>{{ instructorJob.subjectInstructorExperience }}</p>
-          <p>{{ instructorJob.typeInstructor }}</p>
-          <p>{{ instructorJob.academicLevel }}</p>
-          <p>{{ instructorJob.institutionInstructorExperience }}</p>
-          <p>{{ instructorJob.startInstructorExperience + '/' + instructorJob.endInstructorExperience }}</p>
-        </ol>
-      </div>
-      <div class="degrees2">
-        <h1>
-          Habilidades Blandas
-        </h1>
-        <ol v-for="(skill, index) in skills" :key="index" class="cards1">
-          <p>{{ skill.skill }}</p>
-        </ol>
-      </div>
-      <div class="degrees2">
-        <h1>
-          Idiomas
-        </h1>
-        <ol v-for="(language, index) in languajes" :key="index" class="cards1">
-          <p>{{ language.language }}</p>
-          <p>Escucha: {{ language.listenLevel }}</p>
-          <p>Lectura: {{ language.readLevel }}</p>
-          <p>Habla: {{ language.speakeLevel }}</p>
-          <p>Escritura: {{ language.writeLevel}}</p>
-        </ol>
-      </div>
+    <div class="full-page">
+      <v-row>
+        <v-col>
+          <v-container>
+            <h1>
+              Experiencia Laboral
+            </h1>
+            <v-card v-for="(job, index) in jobs" :key="index" class="card-style cards1">
+              <v-row>
+                <v-col class="mt-0 mb-0 pb-0">
+                  <p class="h3-customize"> Cargo </p>
+                </v-col>
+                <v-col>
+                  <p>{{ job.jobTitleWorkExperience }}</p>
+                </v-col>
+              </v-row>
+              <v-row>
+                <v-col class="mt-0 mb-0 pb-0">
+                  <p class="h3-customize"> Institución o Empresa </p>
+                </v-col>
+                <v-col>
+                  <p>{{ job.institutionWorkExperience }}</p>
+                </v-col>
+              </v-row>
+              <v-row>
+                <v-col class="mt-0 mb-0 pb-0">
+                  <p class="h3-customize"> Ciudad </p>
+                </v-col>
+                <v-col>
+                  <p>{{ job.cityWorkExperience + ',' + job.countryWorkExperience }}</p>
+                </v-col>
+              </v-row>
+              <v-row>
+                <v-col class="mt-0 mb-0 pb-0">
+                  <p class="h3-customize"> Fecha </p>
+                </v-col>
+                <v-col>
+                  <p>{{ job.startWorkExperienceCurrentJob + '/' + job.endWorkExperience }}</p>
+                </v-col>
+              </v-row>
+              <v-row>
+                <v-col class="mt-0 mb-0 pb-0">
+                  <p class="h3-customize"> Nombre de Referencia </p>
+                </v-col>
+                <v-col>
+                  <p>{{ job.nameReference + ' ' + job.lastnameReference }}</p>
+                </v-col>
+              </v-row>
+              <v-row>
+                <v-col class="mt-0 mb-0 pb-0">
+                  <p class="h3-customize"> Cargo </p>
+                </v-col>
+                <v-col>
+                  <p>{{ job.jobTitleReference }}</p>
+                </v-col>
+              </v-row>
+              <v-row>
+                <v-col class="mt-0 mb-0 pb-0">
+                  <p class="h3-customize"> Número de Contacto </p>
+                </v-col>
+                <v-col>
+                  <p>{{ job.phoneReference }}</p>
+                </v-col>
+              </v-row>
+              <v-row>
+                <v-col class="mt-0 mb-0 pb-2 pt-0">
+                  <p class="h3-customize"> Descripción de Actividades: </p>
+                </v-col>
+                <v-col>
+                  <p>{{ job.descriptionWorkExperience }}</p>
+                </v-col>
+              </v-row>
+            </v-card>
+          </v-container>
+        </v-col>
+        <v-col>
+          <v-container>
+            <h1>
+              Publicaciones
+            </h1>
+            <v-card class="card-style cards1" v-for="(publication, index) in publications" :key="index">
+              <v-row>
+                <v-col class="mt-0 mb-0 pb-0">
+                  <p class="h3-customize"> Nombre de la Publicación</p>
+                </v-col>
+                <v-col>
+                  <p>{{ publication.namePublication }}</p>
+                </v-col>
+              </v-row>
+              <v-row>
+                <v-col class="mt-0 mb-0 pb-0">
+                  <p class="h3-customize"> Enlace o Editorial</p>
+                </v-col>
+                <v-col>
+                  <p>{{ publication.publisher }}</p>
+                </v-col>
+              </v-row>
+              <v-row>
+                <v-col class="mt-0 mb-0 pb-0">
+                  <p class="h3-customize"> Tipo de Publicación</p>
+                </v-col>
+                <v-col>
+                  <p>{{ publication.typePublication }}</p>
+                </v-col>
+              </v-row>
+              <v-row>
+                <v-col class="mt-0 mb-0 pb-0">
+                  <p class="h3-customize"> País de Publicación</p>
+                </v-col>
+                <v-col>
+                  <p>{{ publication.countryPublication }}</p>
+                </v-col>
+              </v-row>
+              <v-row>
+                <v-col class="mt-0 mb-0 pb-2 pt-0">
+                  <p class="h3-customize"> Fecha de Publicación</p>
+                </v-col>
+                <v-col>
+                  <p>{{ publication.datePublication }}</p>
+                </v-col>
+              </v-row>
+            </v-card>
+          </v-container>
+        </v-col>
+      </v-row>
+      <v-row>
+        <v-col>
+          <v-container>
+            <h1>
+              Experiencia Docente
+            </h1>
+            <v-card v-for="(instructorJob, index) in instructorJobs" :key="index" class="cards1">
+              <v-row>
+                <v-col class="mt-0 mb-0 pb-0">
+                  <p class="h3-customize"> Materia Impartida:</p>
+                </v-col>
+                <v-col>
+                  <p>{{ instructorJob.subjectInstructorExperience }}</p>
+                </v-col>
+              </v-row>
+              <v-row>
+                <v-col class="mt-0 mb-0 pb-0">
+                  <p class="h3-customize"> Docente en calidad de:</p>
+                </v-col>
+                <v-col>
+                  <p>{{ instructorJob.typeInstructor }}</p>
+                </v-col>
+              </v-row>
+              <v-row>
+                <v-col class="mt-0 mb-0 pb-0">
+                  <p class="h3-customize"> Nivel impartido:</p>
+                </v-col>
+                <v-col>
+                  <p>{{ instructorJob.academicLevel }}</p>
+                </v-col>
+              </v-row>
+              <v-row>
+                <v-col class="mt-0 mb-0 pb-0">
+                  <p class="h3-customize"> Universidad o Institución:</p>
+                </v-col>
+                <v-col>
+                  <p>{{ instructorJob.institutionInstructorExperience }}</p>
+                </v-col>
+              </v-row>
+              <v-row>
+                <v-col class="mt-0 mb-0 pb-2 pt-0">
+                  <p class="h3-customize"> Último año de Docencia:</p>
+                </v-col>
+                <v-col>
+                  <p>{{ instructorJob.lastYearInstructorExperience }}</p>
+                </v-col>
+              </v-row>
+            </v-card>
+          </v-container>
+        </v-col>
+        <v-col>
+          <v-container>
+            <h1>
+              Habilidades Blandas
+            </h1>
+            <v-card>
+              <v-list>
+                <v-list-item v-for="(skill, index) in skills" :key="index" :value="skill" class="cards1 card-style">
+                  <template v-slot:prepend>
+                    <v-icon class="card-style" icon="mdi-check-circle-outline"></v-icon>
+                  </template>
+                  <v-list-item-title class="cards1">{{ skill.skill }}</v-list-item-title>
+                </v-list-item>
+              </v-list>
+            </v-card>
+          </v-container>
+        </v-col>
+      </v-row>
+      <v-row>
+        <v-col>
+          <v-container>
+            <h1>
+              Idiomas
+            </h1>
+            <v-card class="cards1">
+              <v-row>
+                <v-col class="cards1 title-grid">Idioma</v-col>
+                <v-col class="title-grid">Escucha</v-col>
+                <v-col class="title-grid">Lectura</v-col>
+                <v-col class="title-grid">Habla</v-col>
+                <v-col class="title-grid">Escritura</v-col>
+              </v-row>
+              <v-row v-for="(language, index) in languajes" :key="index" class="cards1">
+                <v-col>{{ language.language }}</v-col>
+                <v-col>{{ language.listenLevel }}</v-col>
+                <v-col> {{ language.readLevel }}</v-col>
+                <v-col>{{ language.speakeLevel }}</v-col>
+                <v-col>{{ language.writeLevel }}</v-col>
+              </v-row>
+            </v-card>
+          </v-container>
+        </v-col>
+      </v-row>
     </div>
-    </div>
-  </page>
+    <div class="yellow-bar"></div>
+  </div>
 </template>
   
 <script>
 import { database } from '../firebase/firebase'
 import { collection, getDocs } from 'firebase/firestore'
 export default {
-  props:[
+  props: [
     "userId"
   ],
   data() {
@@ -102,7 +257,7 @@ export default {
           publisher: publication.data().publisher,
           namePublication: publication.data().namePublication,
           typePublication: publication.data().typePublication,
-          countryPublication: publication.data().countryPublication,
+          countryPublication: (publication.data().countryPublication).toLowerCase(),
           datePublication: publication.data().datePublication,
 
         })
@@ -114,9 +269,10 @@ export default {
         this.jobs.push({
           jobTitleWorkExperience: job.data().jobTitleWorkExperience,
           institutionWorkExperience: job.data().institutionWorkExperience,
-          cityWorkExperience: job.data().cityWorkExperience,
-          countryWorkExperience: job.data().countryWorkExperience,
+          cityWorkExperience: (job.data().cityWorkExperience).toLowerCase(),
+          countryWorkExperience: (job.data().countryWorkExperience).toLowerCase(),
           descriptionWorkExperience: job.data().descriptionWorkExperience,
+          startWorkExperienceCurrentJob: job.data().startWorkExperienceCurrentJob,
           startWorkExperience: job.data().startWorkExperience,
           endWorkExperience: job.data().endWorkExperience,
           nameReference: job.data().nameReference,
@@ -135,26 +291,25 @@ export default {
           typeInstructor: instructorJob.data().typeInstructor,
           academicLevel: instructorJob.data().academicLevel,
           institutionInstructorExperience: instructorJob.data().institutionInstructorExperience,
-          startInstructorExperience: instructorJob.data().startInstructorExperience,
-          endInstructorExperience: instructorJob.data().endInstructorExperience,
+          lastYearInstructorExperience: instructorJob.data().lastYearInstructorExperience,
 
         })
       })
     },
-    async getSkills(){
+    async getSkills() {
       const dataSkills = await getDocs(collection(database, 'instructors', this.idUser, 'skills'))
-      dataSkills.forEach((skill) =>{
+      dataSkills.forEach((skill) => {
         this.skills.push({
           skill: skill.data().skill
         })
 
       })
     },
-    async getLanguajes(){
+    async getLanguajes() {
       const dataLanguages = await getDocs(collection(database, 'instructors', this.idUser, 'languages'))
-      dataLanguages.forEach((languaje) =>{
+      dataLanguages.forEach((languaje) => {
         this.languajes.push({
-          languaje: languaje.data().languaje,
+          language: languaje.data().language,
           listenLevel: languaje.data().listenLevel,
           readLevel: languaje.data().readLevel,
           speakeLevel: languaje.data().speakeLevel,
@@ -167,57 +322,3 @@ export default {
   }
 };
 </script>
-  
-<style>
-.yellow-rectangle1 {
-  position: absolute;  
-}
-
-.component-with-shapes-and-description {
-  width: 8.5in;
-  /* Ancho de hoja carta en pulgadas */
-  height: 18.5in;
-  /* Alto de hoja carta en pulgadas */
-  padding: 0;
-  /* Sin relleno */
-  margin: 0;
-  /* Sin márgenes */
-  position: relative;
-}
-
-.yellow-rectangle1 {
-  top: 17.77in;
-  /* Ajustar la posición vertical del rectángulo */
-  left: 0.0in;
-  /* Ajustar la posición horizontal del rectángulo */
-  width: 1375px;
-  /* Ancho del rectángulo */
-  height: 70px;
-  /* Alto del rectángulo */
-  background-color: #FFDF0B;
-  /* Color amarillo */
-}
-
-.cards1 {
-  font-family: Georgia, 'Times New Roman', Times, serif;
-  font-size: large;
-  color: #162D4A;
-  font-weight: bold;
-}
-
-.degrees2 {
-  width: 100%;
-  font-family: Georgia, 'Times New Roman', Times, serif;
-  padding-top: 5%;
-  padding-left: 30%;
-  color: #162D4A;
-}
-@page {
-  size: 8.5in 11in ;
-  width: 8.5in;
-  height: 11in;
-  margin: 0;
-}
-
-</style>
-  

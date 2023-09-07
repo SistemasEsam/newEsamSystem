@@ -62,13 +62,13 @@
       </v-row>
       <v-row>
         <v-col>
-          <VueDatePicker v-model="dateOfBirth" locale="es" :enable-time-picker="false" placeholder="Fecha de Nacimiento"
-            :year-range="[1950, 2003]">
+          <VueDatePicker v-model="dateOfBirth" locale="es" :teleport="true" :enable-time-picker="false"
+            placeholder="Fecha de Nacimiento" :year-range="[1950, 2003]">
           </VueDatePicker>
         </v-col>
         <v-col>
-          <v-text-field v-model="idAddNumber" label="Complemento" minlength="3" maxlength="3" :disabled="addOnFlag"
-            required></v-text-field>
+          <v-text-field v-model="idAddNumber" @input="idAddNumber = idAddNumber.toUpperCase()" label="Complemento"
+            minlength="3" maxlength="3" :disabled="addOnFlag" required></v-text-field>
         </v-col>
         <v-col>
           <v-radio-group label="Tiene complemento" inline>
@@ -90,18 +90,18 @@
         </v-col>
       </v-row>
       <v-col class="d-flex justify-center aling-center">
-        <v-file-input label="SELECCIONA UNA IMAGEN FORMAL" @change="loadPhotoFile($event); showAlert()"
+        <v-file-input label="SELECCIONA UNA IMAGEN FORMAL" @change="loadPhotoFile($event)"
           accept="image/*"></v-file-input>
       </v-col>
-      <v-col>
-        <v-alert closable density="compact" type="warning" title="Atención" v-show="alertFlag"
-          text="Verifique que los datos ingresados sean correctos!"></v-alert>
-      </v-col>
+      <v-alert variant="elevated" closable density="compact" color="yellow" title="Atención" v-show="alertFlag"
+        text="Verifique que los datos ingresados sean correctos!"></v-alert>
     </v-card>
   </v-container>
   <v-container>
-    <v-btn prepend-icon="mdi-content-save-outline" width="150px" density="default" @click="showNextForm()"
-      class="fixed-bottom mr-2 button-form">guardar</v-btn>
+    <v-btn @mouseover="alertFlag = true" prepend-icon="mdi-content-save-outline" width="150px" density="default"
+      @click="showNextForm(); addUser(); uploadPhotoProfile()" class="fixed-bottom mr-2 button-form">guardar</v-btn>
+    <!-- <v-btn prepend-icon="mdi-content-save-outline" width="150px" density="default" @click="showNextForm();"
+      class="fixed-bottom mr-2 button-form">guardar</v-btn> -->
   </v-container>
 </template>
  
@@ -230,7 +230,7 @@ export default {
     },
     showNextForm() {
       let nextComponent = 'higher-education-post-degree'
-      this.$emit('show-next-form', nextComponent);
+      this.$emit('show-next-form', nextComponent, this.email);
     },
     addUser() {
       let newIdUser = this.email
@@ -265,12 +265,12 @@ export default {
     loadPhotoFile(e) {
       this.personalPhotoFile = e.target.files[0]
       this.imageUrl = URL.createObjectURL(this.personalPhotoFile)
+      this.photoProfilePath = this.email + '/photoProfile/' + this.personalPhotoFile.name
+      console.log(this.photoProfilePath)
       console.log(this.personalPhotoFile)
     },
     uploadPhotoProfile() {
       const storage = getStorage();
-      let newIdUser = this.email
-      this.photoProfilePath = newIdUser + '/photoProfile' + '/' + this.personalPhotoFile.name
       const storageRef = ref(storage, this.photoProfilePath);
       uploadBytes(storageRef, this.personalPhotoFile).then((snapshot) => {
         console.log('Uploaded a blob or file!');
