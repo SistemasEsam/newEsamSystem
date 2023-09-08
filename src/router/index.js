@@ -6,6 +6,7 @@ import PDFView from '../views/PDFView.vue'
 import LoginView from '../views/LoginView.vue'
 import ProfileView from '../views/ProfileView.vue'
 import ContactView from '../views/ContactView.vue'
+import InstructorsView from '@/views/InstructorsView.vue'
 
 
 const routes = [
@@ -32,8 +33,6 @@ const routes = [
   name: 'pdf',
   component:PDFView
 
-
-
  },
 
 { 
@@ -55,7 +54,12 @@ const routes = [
   path:'/profile',
   name:'profile',
   component:ProfileView
-}
+},
+{
+  path:'/instructorFinder',
+  name: 'instructorFinder',
+  component: InstructorsView
+},
 
 
 
