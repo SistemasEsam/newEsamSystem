@@ -86,6 +86,51 @@
           <h1 class="sub-title">
             Estudios Postgrado
           </h1>
+          <v-card v-for="(higherEducationPostDegree, index) in higherEducationPostDegrees" :key="index"
+            class="cards mb-4 pb-4">
+            <v-row>
+              <v-col class="mt-0 mb-0 pb-0">
+                <p class="h3-customize"> Postgrado:</p>
+              </v-col>
+              <v-col class="content-style">
+                <p>{{ higherEducationPostDegree.levelHigherEducation }} en {{
+                  higherEducationPostDegree.nameHigherEducation }}</p>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col class="mt-0 mb-0 pb-0">
+                <p class="h3-customize"> Universidad/Instituto:</p>
+              </v-col>
+              <v-col class="content-style">
+                <p>{{ higherEducationPostDegree.institutionName }}</p>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col class="mt-0 mb-0 pb-0">
+                <p class="h3-customize"> País:</p>
+              </v-col>
+              <v-col class="content-style">
+                <p>{{ higherEducationPostDegree.countryHigherEducationName }}</p>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col class="mt-0 mb-0 pb-0">
+                <p class="h3-customize"> Año de Realización:</p>
+              </v-col>
+              <v-col class="content-style">
+                <p>{{ higherEducationPostDegree.graduationYearHigherEducation }}</p>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col class="mt-0 mb-0 pb-0">
+                <p class="h3-customize"> Modalidad de Graduación:</p>
+              </v-col>
+              <v-col class="content-style">
+                <p>{{ higherEducationPostDegree.graduationModalityHigherEducation }}</p>
+              </v-col>
+            </v-row>
+          </v-card>
+
           <v-card v-for="(postDegree, index) in postDegrees" :key="index" class="cards">
             <v-row>
               <v-col class="mt-0 mb-0 pb-0">
@@ -166,7 +211,6 @@
                 <p>{{ course.yearCourse }}</p>
               </v-col>
             </v-row>
-
           </v-card>
         </div>
       </div>
@@ -203,6 +247,7 @@ export default {
       gender: '',
       degrees: [],
       postDegrees: [],
+      higherEducationPostDegrees: [],
       courses: [],
       img: null,
       photoProfilePath: '',
@@ -214,6 +259,7 @@ export default {
     this.getDegrees()
     this.getPostDegrees()
     this.getCourses()
+    this.getHigherEducationPostDegree()
   },
 
   methods: {
@@ -252,6 +298,19 @@ export default {
         })
       })
     },
+    async getHigherEducationPostDegree() {
+      const higherEducationPostDegrees = await getDocs(collection(database, 'instructors', this.idUser, 'higherEducationPostDegree'))
+      higherEducationPostDegrees.forEach((higherEducationPostDegree) => {
+        this.higherEducationPostDegrees.push({
+          nameHigherEducation: higherEducationPostDegree.data().nameHigherEducation,
+          institutionName: higherEducationPostDegree.data().institutionName,
+          levelHigherEducation: higherEducationPostDegree.data().levelHigherEducation,
+          countryHigherEducationName: (higherEducationPostDegree.data().countryHigherEducationName).toLowerCase(),
+          graduationModalityHigherEducation: higherEducationPostDegree.data().graduationModalityHigherEducation,
+          graduationYearHigherEducation: higherEducationPostDegree.data().graduationYearHigherEducation,
+        })
+      })
+    },
     async getPostDegrees() {
       const dataPostDegrees = await getDocs(collection(database, 'instructors', this.idUser, 'postDegrees'))
       dataPostDegrees.forEach((postDegree) => {
@@ -284,7 +343,7 @@ export default {
         .then((url) => {
           // Or inserted into an <img> element
           const img = document.getElementById('photoProfile')
-          img.setAttribute('src',url)          
+          img.setAttribute('src', url)
         })
         .catch((error) => {
           // Handle any errors
