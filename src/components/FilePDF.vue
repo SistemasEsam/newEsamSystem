@@ -55,12 +55,12 @@ export default {
       // Exportar contenido de la primera página (File.vue)
       html2canvas(this.$refs.pdfComponent,{allowTaint:false, useCORS:true}  ,options).then(canvas => {
         const imgData = canvas.toDataURL('image/png');
-        pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight)
+        pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight, 'firstPage','FAST')
         // Exportar contenido de la segunda página (SecondPage.vue)
         pdf.addPage();
         html2canvas(this.$refs.secondPageComponent,{allowTaint:false, useCORS:true}, options).then(canvas => {
           const imgData2 = canvas.toDataURL('image/png');
-          pdf.addImage(imgData2, 'PNG', 0, 0, pdfWidth, pdfHeight);
+          pdf.addImage(imgData2, 'PNG', 0, 0, pdfWidth, pdfHeight, 'secondPage','FAST');
           pdf.save(this.idUser + 'CVESAM.pdf');
         });
       });
