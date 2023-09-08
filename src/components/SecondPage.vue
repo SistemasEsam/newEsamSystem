@@ -39,7 +39,7 @@
                   <p class="h3-customize"> Fecha </p>
                 </v-col>
                 <v-col class="content-style">
-                  <p>{{ job.startWorkExperienceCurrentJob + '/' + job.endWorkExperience }}</p>
+                  <p>{{ job.startWorkExperience + ' - ' + job.endWorkExperience }}</p>
                 </v-col>
               </v-row>
               <v-row>
@@ -67,7 +67,7 @@
                 </v-col>
               </v-row>
               <v-row class="mt-0 mb-0 pb-2 pt-2">
-                <v-col >
+                <v-col>
                   <p class="h3-customize"> Descripción de Actividades: </p>
                 </v-col>
                 <v-col class="content-style">
@@ -266,21 +266,38 @@ export default {
     async getJobs() {
       const dataJobs = await getDocs(collection(database, 'instructors', this.idUser, 'jobs'))
       dataJobs.forEach((job) => {
-        this.jobs.push({
-          jobTitleWorkExperience: job.data().jobTitleWorkExperience,
-          institutionWorkExperience: job.data().institutionWorkExperience,
-          cityWorkExperience: (job.data().cityWorkExperience).toLowerCase(),
-          countryWorkExperience: (job.data().countryWorkExperience).toLowerCase(),
-          descriptionWorkExperience: job.data().descriptionWorkExperience,
-          startWorkExperienceCurrentJob: job.data().startWorkExperienceCurrentJob,
-          startWorkExperience: job.data().startWorkExperience,
-          endWorkExperience: job.data().endWorkExperience,
-          nameReference: job.data().nameReference,
-          lastnameReference: job.data().lastnameReference,
-          jobTitleReference: job.data().jobTitleReference,
-          phoneReference: job.data().phoneReference,
+        console.log(job.data().endWorkExperience)
+        if (job.data().endWorkExperience != undefined) {
+          this.jobs.push({
+            jobTitleWorkExperience: job.data().jobTitleWorkExperience,
+            institutionWorkExperience: job.data().institutionWorkExperience,
+            cityWorkExperience: (job.data().cityWorkExperience).toLowerCase(),
+            countryWorkExperience: (job.data().countryWorkExperience).toLowerCase(),
+            descriptionWorkExperience: job.data().descriptionWorkExperience,
+            startWorkExperience: job.data().startWorkExperience,
+            endWorkExperience: job.data().endWorkExperience,
+            nameReference: job.data().nameReference,
+            lastnameReference: job.data().lastnameReference,
+            jobTitleReference: job.data().jobTitleReference,
+            phoneReference: job.data().phoneReference,
 
-        })
+          })
+        } else {
+          this.jobs.push({
+            jobTitleWorkExperience: job.data().jobTitleWorkExperience,
+            institutionWorkExperience: job.data().institutionWorkExperience,
+            cityWorkExperience: (job.data().cityWorkExperience).toLowerCase(),
+            countryWorkExperience: (job.data().countryWorkExperience).toLowerCase(),
+            descriptionWorkExperience: job.data().descriptionWorkExperience,
+            startWorkExperience: job.data().startWorkExperienceCurrentJob,
+            endWorkExperience: 'hasta la fecha',
+            nameReference: job.data().nameReference,
+            lastnameReference: job.data().lastnameReference,
+            jobTitleReference: job.data().jobTitleReference,
+            phoneReference: job.data().phoneReference,
+
+          })
+        }
       })
     },
     async getInstructorJobs() {
