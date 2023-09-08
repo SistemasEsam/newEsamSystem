@@ -35,7 +35,7 @@
       <!-- Rectángulo amarillo -->
       <div class="education">
         <div class="degrees">
-          <h1>
+          <h1 class="sub-title">
             Estudios Pregrado
           </h1>
           <v-card v-for="(degree, index) in degrees" :key="index" class="cards mb-6">
@@ -43,7 +43,7 @@
               <v-col class="mt-0 mb-0 pb-0">
                 <p class="h3-customize"> Carrera:</p>
               </v-col>
-              <v-col>
+              <v-col class="content-style">
                 <p>{{ degree.levelOfDegree }} en {{ degree.careerDegree }}</p>
               </v-col>
             </v-row>
@@ -51,7 +51,7 @@
               <v-col class="mt-0 mb-0 pb-0 pt-0">
                 <p class="h3-customize"> Universidad/Instituto:</p>
               </v-col>
-              <v-col>
+              <v-col class="content-style">
                 <p>{{ degree.universityDegree }}</p>
               </v-col>
             </v-row>
@@ -59,7 +59,7 @@
               <v-col class="mt-0 mb-0 pb-0 pt-0">
                 <p class="h3-customize"> País:</p>
               </v-col>
-              <v-col>
+              <v-col class="content-style">
                 <p>{{ degree.countryDegree }}</p>
               </v-col>
             </v-row>
@@ -67,7 +67,7 @@
               <v-col class="mt-0 mb-0 pb-0 pt-0">
                 <p class="h3-customize"> Año de Graduación:</p>
               </v-col>
-              <v-col>
+              <v-col class="content-style">
                 <p>{{ degree.graduationYearDegree }}</p>
               </v-col>
             </v-row>
@@ -75,7 +75,7 @@
               <v-col class="mt-0 mb-0 pb-0 pt-0">
                 <p class="h3-customize"> Modalidad de Graduación:</p>
               </v-col>
-              <v-col>
+              <v-col class="content-style">
                 <p>{{ degree.graduationModalityDegree }}</p>
               </v-col>
             </v-row>
@@ -83,7 +83,7 @@
           </v-card>
         </div>
         <div class="degrees">
-          <h1>
+          <h1 class="sub-title">
             Estudios Postgrado
           </h1>
           <v-card v-for="(postDegree, index) in postDegrees" :key="index" class="cards">
@@ -91,7 +91,7 @@
               <v-col class="mt-0 mb-0 pb-0">
                 <p class="h3-customize"> Postgrado:</p>
               </v-col>
-              <v-col>
+              <v-col class="content-style">
                 <p>{{ postDegree.titlePostDegree }} en {{ postDegree.namePostDegree }}</p>
               </v-col>
             </v-row>
@@ -99,7 +99,7 @@
               <v-col class="mt-0 mb-0 pb-0">
                 <p class="h3-customize"> Universidad/Instituto:</p>
               </v-col>
-              <v-col>
+              <v-col class="content-style">
                 <p>{{ postDegree.universityPostDegree }}</p>
               </v-col>
             </v-row>
@@ -107,7 +107,7 @@
               <v-col class="mt-0 mb-0 pb-0">
                 <p class="h3-customize"> País:</p>
               </v-col>
-              <v-col>
+              <v-col class="content-style">
                 <p>{{ postDegree.countryPostDegree }}</p>
               </v-col>
             </v-row>
@@ -115,7 +115,7 @@
               <v-col class="mt-0 mb-0 pb-0">
                 <p class="h3-customize"> Año de Realización:</p>
               </v-col>
-              <v-col>
+              <v-col class="content-style">
                 <p>{{ postDegree.graduationYearPostDegree }}</p>
               </v-col>
             </v-row>
@@ -123,14 +123,14 @@
               <v-col class="mt-0 mb-0 pb-0">
                 <p class="h3-customize"> Modalidad de Graduación:</p>
               </v-col>
-              <v-col>
+              <v-col class="content-style">
                 <p>{{ postDegree.graduationModalityPostDegree }}</p>
               </v-col>
             </v-row>
           </v-card>
         </div>
         <div class="degrees">
-          <h1>
+          <h1 class="sub-title">
             Cursos
           </h1>
           <v-card v-for="(course, index) in courses" :key="index" class="cards">
@@ -138,7 +138,7 @@
               <v-col class="mt-0 mb-0 pb-0">
                 <p class="h3-customize"> Curso </p>
               </v-col>
-              <v-col>
+              <v-col class="content-style">
                 <p>{{ course.nameCourse }}</p>
               </v-col>
             </v-row>
@@ -146,7 +146,7 @@
               <v-col class="mt-0 mb-0 pb-0">
                 <p class="h3-customize"> Universidad/Instituto:</p>
               </v-col>
-              <v-col>
+              <v-col class="content-style">
                 <p>{{ course.institutionCourse }}</p>
               </v-col>
             </v-row>
@@ -154,7 +154,7 @@
               <v-col class="mt-0 mb-0 pb-0">
                 <p class="h3-customize"> País:</p>
               </v-col>
-              <v-col>
+              <v-col class="content-style">
                 <p>{{ course.countryCourse }}</p>
               </v-col>
             </v-row>
@@ -162,7 +162,7 @@
               <v-col class="mt-0 mb-0 pb-0">
                 <p class="h3-customize"> Año de Realización:</p>
               </v-col>
-              <v-col>
+              <v-col class="content-style">
                 <p>{{ course.yearCourse }}</p>
               </v-col>
             </v-row>
@@ -259,7 +259,7 @@ export default {
           universityPostDegree: postDegree.data().universityPostDegree,
           namePostDegree: postDegree.data().namePostDegree,
           titlePostDegree: postDegree.data().titlePostDegree,
-          countryPostDegree: postDegree.data().countryPostDegree,
+          countryPostDegree: (postDegree.data().countryPostDegree).toLowerCase(),
           graduationYearPostDegree: postDegree.data().graduationYearPostDegree,
           graduationModalityPostDegree: postDegree.data().graduationModalityPostDegree
         })
@@ -271,7 +271,7 @@ export default {
         this.courses.push({
           institutionCourse: course.data().institutionCourse,
           nameCourse: course.data().nameCourse,
-          countryCourse: course.data().countryCourse,
+          countryCourse: (course.data().countryCourse).toLowerCase(),
           yearCourse: course.data().yearCourse
 
         })

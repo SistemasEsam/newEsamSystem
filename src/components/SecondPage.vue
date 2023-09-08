@@ -6,7 +6,7 @@
       <v-row>
         <v-col>
           <v-container>
-            <h1>
+            <h1 class="sub-title">
               Experiencia Laboral
             </h1>
             <v-card v-for="(job, index) in jobs" :key="index" class="card-style cards1">
@@ -14,7 +14,7 @@
                 <v-col class="mt-0 mb-0 pb-0">
                   <p class="h3-customize"> Cargo </p>
                 </v-col>
-                <v-col>
+                <v-col class="content-style">
                   <p>{{ job.jobTitleWorkExperience }}</p>
                 </v-col>
               </v-row>
@@ -22,7 +22,7 @@
                 <v-col class="mt-0 mb-0 pb-0">
                   <p class="h3-customize"> Institución o Empresa </p>
                 </v-col>
-                <v-col>
+                <v-col class="content-style">
                   <p>{{ job.institutionWorkExperience }}</p>
                 </v-col>
               </v-row>
@@ -30,7 +30,7 @@
                 <v-col class="mt-0 mb-0 pb-0">
                   <p class="h3-customize"> Ciudad </p>
                 </v-col>
-                <v-col>
+                <v-col class="content-style">
                   <p>{{ job.cityWorkExperience + ',' + job.countryWorkExperience }}</p>
                 </v-col>
               </v-row>
@@ -38,7 +38,7 @@
                 <v-col class="mt-0 mb-0 pb-0">
                   <p class="h3-customize"> Fecha </p>
                 </v-col>
-                <v-col>
+                <v-col class="content-style">
                   <p>{{ job.startWorkExperienceCurrentJob + '/' + job.endWorkExperience }}</p>
                 </v-col>
               </v-row>
@@ -46,7 +46,7 @@
                 <v-col class="mt-0 mb-0 pb-0">
                   <p class="h3-customize"> Nombre de Referencia </p>
                 </v-col>
-                <v-col>
+                <v-col class="content-style">
                   <p>{{ job.nameReference + ' ' + job.lastnameReference }}</p>
                 </v-col>
               </v-row>
@@ -54,7 +54,7 @@
                 <v-col class="mt-0 mb-0 pb-0">
                   <p class="h3-customize"> Cargo </p>
                 </v-col>
-                <v-col>
+                <v-col class="content-style">
                   <p>{{ job.jobTitleReference }}</p>
                 </v-col>
               </v-row>
@@ -62,15 +62,15 @@
                 <v-col class="mt-0 mb-0 pb-0">
                   <p class="h3-customize"> Número de Contacto </p>
                 </v-col>
-                <v-col>
+                <v-col class="content-style">
                   <p>{{ job.phoneReference }}</p>
                 </v-col>
               </v-row>
-              <v-row>
-                <v-col class="mt-0 mb-0 pb-2 pt-0">
+              <v-row class="mt-0 mb-0 pb-2 pt-2">
+                <v-col >
                   <p class="h3-customize"> Descripción de Actividades: </p>
                 </v-col>
-                <v-col>
+                <v-col class="content-style">
                   <p>{{ job.descriptionWorkExperience }}</p>
                 </v-col>
               </v-row>
@@ -79,7 +79,7 @@
         </v-col>
         <v-col>
           <v-container>
-            <h1>
+            <h1 class="sub-title">
               Publicaciones
             </h1>
             <v-card class="card-style cards1" v-for="(publication, index) in publications" :key="index">
@@ -87,7 +87,7 @@
                 <v-col class="mt-0 mb-0 pb-0">
                   <p class="h3-customize"> Nombre de la Publicación</p>
                 </v-col>
-                <v-col>
+                <v-col class="content-style">
                   <p>{{ publication.namePublication }}</p>
                 </v-col>
               </v-row>
@@ -95,7 +95,7 @@
                 <v-col class="mt-0 mb-0 pb-0">
                   <p class="h3-customize"> Enlace o Editorial</p>
                 </v-col>
-                <v-col>
+                <v-col class="content-style">
                   <p>{{ publication.publisher }}</p>
                 </v-col>
               </v-row>
@@ -103,7 +103,7 @@
                 <v-col class="mt-0 mb-0 pb-0">
                   <p class="h3-customize"> Tipo de Publicación</p>
                 </v-col>
-                <v-col>
+                <v-col class="content-style">
                   <p>{{ publication.typePublication }}</p>
                 </v-col>
               </v-row>
@@ -111,15 +111,15 @@
                 <v-col class="mt-0 mb-0 pb-0">
                   <p class="h3-customize"> País de Publicación</p>
                 </v-col>
-                <v-col>
+                <v-col class="content-style">
                   <p>{{ publication.countryPublication }}</p>
                 </v-col>
               </v-row>
-              <v-row>
-                <v-col class="mt-0 mb-0 pb-2 pt-0">
+              <v-row class="mt-0 mb-0 pb-2 pt-2">
+                <v-col>
                   <p class="h3-customize"> Fecha de Publicación</p>
                 </v-col>
-                <v-col>
+                <v-col class="content-style">
                   <p>{{ publication.datePublication }}</p>
                 </v-col>
               </v-row>
@@ -130,7 +130,7 @@
       <v-row>
         <v-col>
           <v-container>
-            <h1>
+            <h1 class="sub-title">
               Experiencia Docente
             </h1>
             <v-card v-for="(instructorJob, index) in instructorJobs" :key="index" class="cards1">
@@ -138,7 +138,7 @@
                 <v-col class="mt-0 mb-0 pb-0">
                   <p class="h3-customize"> Materia Impartida:</p>
                 </v-col>
-                <v-col>
+                <v-col class="content-style">
                   <p>{{ instructorJob.subjectInstructorExperience }}</p>
                 </v-col>
               </v-row>
@@ -146,7 +146,7 @@
                 <v-col class="mt-0 mb-0 pb-0">
                   <p class="h3-customize"> Docente en calidad de:</p>
                 </v-col>
-                <v-col>
+                <v-col class="content-style">
                   <p>{{ instructorJob.typeInstructor }}</p>
                 </v-col>
               </v-row>
@@ -154,7 +154,7 @@
                 <v-col class="mt-0 mb-0 pb-0">
                   <p class="h3-customize"> Nivel impartido:</p>
                 </v-col>
-                <v-col>
+                <v-col class="content-style">
                   <p>{{ instructorJob.academicLevel }}</p>
                 </v-col>
               </v-row>
@@ -162,15 +162,15 @@
                 <v-col class="mt-0 mb-0 pb-0">
                   <p class="h3-customize"> Universidad o Institución:</p>
                 </v-col>
-                <v-col>
+                <v-col class="content-style">
                   <p>{{ instructorJob.institutionInstructorExperience }}</p>
                 </v-col>
               </v-row>
-              <v-row>
-                <v-col class="mt-0 mb-0 pb-2 pt-0">
+              <v-row class="mt-0 mb-0 pb-2 pt-2">
+                <v-col>
                   <p class="h3-customize"> Último año de Docencia:</p>
                 </v-col>
-                <v-col>
+                <v-col class="content-style">
                   <p>{{ instructorJob.lastYearInstructorExperience }}</p>
                 </v-col>
               </v-row>
@@ -179,7 +179,7 @@
         </v-col>
         <v-col>
           <v-container>
-            <h1>
+            <h1 class="sub-title">
               Habilidades Blandas
             </h1>
             <v-card>
@@ -198,7 +198,7 @@
       <v-row>
         <v-col>
           <v-container>
-            <h1>
+            <h1 class="sub-title">
               Idiomas
             </h1>
             <v-card class="cards1">
@@ -210,11 +210,11 @@
                 <v-col class="title-grid">Escritura</v-col>
               </v-row>
               <v-row v-for="(language, index) in languajes" :key="index" class="cards1">
-                <v-col>{{ language.language }}</v-col>
-                <v-col>{{ language.listenLevel }}</v-col>
-                <v-col> {{ language.readLevel }}</v-col>
-                <v-col>{{ language.speakeLevel }}</v-col>
-                <v-col>{{ language.writeLevel }}</v-col>
+                <v-col class="language-style">{{ language.language }}</v-col>
+                <v-col class="content-style">{{ language.listenLevel }}</v-col>
+                <v-col class="content-style"> {{ language.readLevel }}</v-col>
+                <v-col class="content-style">{{ language.speakeLevel }}</v-col>
+                <v-col class="content-style">{{ language.writeLevel }}</v-col>
               </v-row>
             </v-card>
           </v-container>
