@@ -234,7 +234,7 @@ export default {
             publisher: publicationFormValue.publisher,
             typePublication: publicationFormValue.typePublication,
             countryPublication: publicationFormValue.countryPublication,
-            datePublication: this.format(publicationFormValue.datePublication),
+            datePublication: publicationFormValue.datePublication,
           })
         }
       })
@@ -283,16 +283,6 @@ export default {
         }
       })
       return listPublicationFilled
-    },
-    format(selectedDate) {
-      console.log(selectedDate)
-      const day = selectedDate.getDate();
-      const month = selectedDate.getMonth() + 1;
-      const year = selectedDate.getFullYear();
-      let formatedDate = `${day}/${month}/${year}`;
-      this.dateOfBirth = formatedDate;
-      console.log(formatedDate)
-      return formatedDate;
     },
     // uploadCourseFile() {
     //   const storage = getStorage()

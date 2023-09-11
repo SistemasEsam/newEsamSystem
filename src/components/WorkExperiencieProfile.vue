@@ -338,7 +338,7 @@ export default {
               institutionWorkExperience: workExperienceFormValue.institutionWorkExperience,
               jobTitleWorkExperience: workExperienceFormValue.jobTitleWorkExperience,
               currentJobFlag: workExperienceFormValue.currentJobFlag,
-              startWorkExperienceCurrentJob: this.format(workExperienceFormValue.startWorkExperienceCurrentJob),
+              startWorkExperienceCurrentJob: workExperienceFormValue.startWorkExperienceCurrentJob,
               countryWorkExperience: workExperienceFormValue.countryWorkExperience,
               cityWorkExperience: workExperienceFormValue.cityWorkExperience,
               descriptionWorkExperience: workExperienceFormValue.descriptionWorkExperience,
@@ -352,8 +352,8 @@ export default {
               institutionWorkExperience: workExperienceFormValue.institutionWorkExperience,
               jobTitleWorkExperience: workExperienceFormValue.jobTitleWorkExperience,
               currentJobFlag: workExperienceFormValue.currentJobFlag,
-              startWorkExperience: this.format(workExperienceFormValue.startWorkExperience),
-              endWorkExperience: this.format(workExperienceFormValue.endWorkExperience),
+              startWorkExperience: workExperienceFormValue.startWorkExperience,
+              endWorkExperience: workExperienceFormValue.endWorkExperience,
               countryWorkExperience: workExperienceFormValue.countryWorkExperience,
               cityWorkExperience: workExperienceFormValue.cityWorkExperience,
               descriptionWorkExperience: workExperienceFormValue.descriptionWorkExperience,
@@ -380,16 +380,6 @@ export default {
           })
         }
       })
-    },
-    format(selectedDate) {
-      console.log(selectedDate)
-      const day = selectedDate.getDate();
-      const month = selectedDate.getMonth() + 1;
-      const year = selectedDate.getFullYear();
-      let formatedDate = `${day}/${month}/${year}`;
-      this.dateOfBirth = formatedDate;
-      console.log(formatedDate)
-      return formatedDate;
     },
     saveData() {
       if (this.checkWorkExperienceList() && this.checkInstructorExperienceList()) {

@@ -270,7 +270,7 @@ export default {
         this.lastNameF = personalProfileData.data().lastNameF
         this.lastNameM = personalProfileData.data().lastNameM
         this.numberId = personalProfileData.data().numberId
-        this.dateOfBirth = personalProfileData.data().dateOfBirth
+        this.dateOfBirth = this.formatDate(personalProfileData.data().dateOfBirth)
         this.gender = personalProfileData.data().gender
         this.cityRadication = personalProfileData.data().cityRadication
         this.selectedCountry = personalProfileData.data().selectedCountry
@@ -348,6 +348,11 @@ export default {
         .catch((error) => {
           // Handle any errors
         });
+    },
+    formatDate(date) {
+      let dateFirebase = date.toDate()
+      let dateReturned = dateFirebase.getDate() + '/' + (dateFirebase.getMonth() + 1) + '/' + dateFirebase.getFullYear()
+      return dateReturned
     }
 
   },

@@ -274,8 +274,8 @@ export default {
             cityWorkExperience: (job.data().cityWorkExperience).toLowerCase(),
             countryWorkExperience: (job.data().countryWorkExperience).toLowerCase(),
             descriptionWorkExperience: job.data().descriptionWorkExperience,
-            startWorkExperience: job.data().startWorkExperience,
-            endWorkExperience: job.data().endWorkExperience,
+            startWorkExperience: this.formatDate(job.data().startWorkExperience),
+            endWorkExperience: this.formatDate(job.data().endWorkExperience),
             nameReference: job.data().nameReference,
             lastnameReference: job.data().lastnameReference,
             jobTitleReference: job.data().jobTitleReference,
@@ -289,7 +289,7 @@ export default {
             cityWorkExperience: (job.data().cityWorkExperience).toLowerCase(),
             countryWorkExperience: (job.data().countryWorkExperience).toLowerCase(),
             descriptionWorkExperience: job.data().descriptionWorkExperience,
-            startWorkExperience: job.data().startWorkExperienceCurrentJob,
+            startWorkExperience: this.formatDate(job.data().startWorkExperienceCurrentJob),
             endWorkExperience: 'hasta la fecha',
             nameReference: job.data().nameReference,
             lastnameReference: job.data().lastnameReference,
@@ -334,6 +334,11 @@ export default {
         })
       })
 
+    },
+    formatDate(date) {
+      let dateFirebase = date.toDate()
+      let dateReturned = dateFirebase.getDate() + '/' + (dateFirebase.getMonth() + 1) + '/' + dateFirebase.getFullYear()
+      return dateReturned
     }
 
   }

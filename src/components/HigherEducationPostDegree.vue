@@ -115,7 +115,6 @@ export default {
         loadHigherEducationFile(e) {
             let newHigherEducationFile = e.target.files[0]
             this.higherEducationFile = newHigherEducationFile
-            console.log(this.higherEducationFile.name)
 
         },
         saveDataHigherEducation() {
@@ -135,7 +134,6 @@ export default {
             const storage = getStorage();
             let newIdUser = this.idUser
             const storageRef = ref(storage, newIdUser + '/higherEducationFile/' + this.higherEducationFile.name)
-            console.log(this.higherEducationFile.name)
             uploadBytes(storageRef, this.higherEducationFile).then((snapshot) => {
                 console.log('Uploaded a blob or file!');
             })

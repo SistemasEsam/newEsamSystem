@@ -37,7 +37,8 @@
       </v-row>
       <v-row>
         <v-col>
-          <v-select v-model="selectedCountry" :items="countries" item-title="countryName" item-value="code" label="País">
+          <v-select :onchange="isBolivianID()" v-model="selectedCountry" :items="countries" item-title="countryName"
+            item-value="code" label="País">
           </v-select>
         </v-col>
         <v-col>
@@ -56,8 +57,8 @@
           <v-text-field v-model="numberId" label="Número de Documento" required></v-text-field>
         </v-col>
         <v-col>
-          <v-select v-model="idExtension" :items="cityExtension" item-title="cityName" item-value="code" label="Extensión"
-            outlined></v-select>
+          <v-select :disabled="bolivianID" v-model="idExtension" :items="cityExtension" item-title="cityName"
+            item-value="code" label="Extensión" outlined></v-select>
         </v-col>
       </v-row>
       <v-row>
@@ -71,7 +72,7 @@
             minlength="3" maxlength="3" :disabled="addOnFlag" required></v-text-field>
         </v-col>
         <v-col>
-          <v-radio-group label="Tiene complemento" inline>
+          <v-radio-group :disabled="bolivianID" label="Tiene complemento" inline>
             <v-radio label="Si" value=false @change="enableAddOn(false)"></v-radio>
             <v-radio label="No" value=true @change="enableAddOn(true)"></v-radio>
           </v-radio-group>
@@ -120,12 +121,14 @@ export default {
   data() {
     return {
       component: "SuperiorEducationProfile",
+      clearDate: false,
       photoFile: null,
       dialog: false,
       alertFlag: false,
       filledFlag: false,
       addOnFlag: true,
       formFilled: false,
+      bolivianID: true,
       name: '',
       lastNameF: '',
       lastNameM: '',
@@ -201,7 +204,7 @@ export default {
       ],
 
       documentTypes: [
-        'Carnet de Identidad',
+        'Documento de Identidad',
         'Pasaporte'
       ],
       genderType: [
@@ -237,7 +240,6 @@ export default {
     },
     addUser() {
       let newIdUser = this.email
-      console.log(this.dateOfBirth)
       setDoc(doc(database, 'instructors', newIdUser), {
         name: this.name,
         lastNameF: this.lastNameF,
@@ -252,25 +254,16 @@ export default {
         numberId: this.numberId,
         idExtension: this.idExtension,
         idAddNumber: this.idAddNumber,
-        dateOfBirth: this.format(this.dateOfBirth),
+        dateOfBirth: this.dateOfBirth,
         gender: this.gender,
         photoProfilePath: this.photoProfilePath
       })
-    },
-    format(dateOfBirth) {
-      const day = dateOfBirth.getDate();
-      const month = dateOfBirth.getMonth() + 1;
-      const year = dateOfBirth.getFullYear();
-      let formatedBirthDate = `${day}/${month}/${year}`;
-      this.dateOfBirth = formatedBirthDate;
-      return formatedBirthDate;
     },
     loadPhotoFile(e) {
       this.personalPhotoFile = e.target.files[0]
       this.imageUrl = URL.createObjectURL(this.personalPhotoFile)
       this.photoProfilePath = this.email + '/photoProfile/' + this.personalPhotoFile.name
-      console.log(this.photoProfilePath)
-      console.log(this.personalPhotoFile)
+
     },
     uploadPhotoProfile() {
       const storage = getStorage();
@@ -304,10 +297,18 @@ export default {
         this.addUser()
         this.uploadPhotoProfile()
         this.showNextForm()
+
       } else {
         this.filledFlag = true
       }
     },
+    isBolivianID() {
+      if (this.selectedCountry == 'BO') {
+        this.bolivianID = false
+      } else {
+        this.bolivianID = true
+      }
+    }
   },
 
 }
