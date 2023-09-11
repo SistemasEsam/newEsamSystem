@@ -43,19 +43,18 @@
             <v-row>
                 <v-col>
                     <p style="text-align: left;">Adjuntar título escaneado</p>
-                    <v-file-input @change="loadHigherEducationFile($event); showAlert()" accept="application/pdf"
-                        label="Seleccionar archivo PDF" outlined></v-file-input>
+                    <v-file-input @change="loadHigherEducationFile($event); showAlert(); checkFormFilled()"
+                        accept="application/pdf" label="Seleccionar archivo PDF" outlined></v-file-input>
                 </v-col>
             </v-row>
             <v-col>
-                <v-alert variant="elevated" closable density="compact" color="yellow" title="Atención" v-show="alertFlag"
+                <v-alert variant="elevated" closable density="compact" color="red" title="Atención" v-show="alertFlag"
                     text="Verifique que los datos ingresados sean correctos!"></v-alert>
             </v-col>
         </v-card>
     </v-container>
     <v-container>
-        <v-btn @mouseover="alertFlag = true" prepend-icon="mdi-content-save-outline"
-            @click="showNextForm(); uploadHigherEducationFile(); saveDataHigherEducation()" width="150px" density="default"
+        <v-btn prepend-icon="mdi-content-save-outline" @click="this.saveData()" width="150px" density="default"
             class="fixed-bottom mr-2 button-form" end>guardar</v-btn>
         <v-btn prepend-icon="mdi-arrow-left" @click="showPreviusForm()" width="150px" density="default"
             class="fixed-bottom mr-2 button-form">atras</v-btn>
@@ -87,6 +86,7 @@ export default {
             graduationYearHigherEducation: '',
             higherEducationFile: '',
             currentYear: new Date().getFullYear(),
+            formFilled: false,
 
 
             titlePostDegree: [
@@ -140,6 +140,29 @@ export default {
                 console.log('Uploaded a blob or file!');
             })
         },
+        checkFormFilled() {
+            if (this.institutionName &&
+                this.nameHigherEducation &&
+                this.levelHigherEducation &&
+                this.countryHigherEducationName &&
+                this.graduationModalityHigherEducation &&
+                this.graduationYearHigherEducation &&
+                this.higherEducationFile
+            ) {
+                this.formFilled = true
+            }
+            return this.formFilled
+
+        },
+        saveData() {
+            if (this.checkFormFilled()) {
+                this.showNextForm()
+                this.uploadHigherEducationFile()
+                this.saveDataHigherEducation()
+            } else {
+                this.alertFlag = true
+            }
+        }
     }
 }
 </script>

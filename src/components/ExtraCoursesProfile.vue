@@ -95,12 +95,12 @@
       <v-btn prepend-icon="mdi-plus" v-if="publicationForms.length < 3" @click="addPublicationForm()"
         density="comfortable" class="fixed-bottom mr-2 button-form">Agregar
         formulario</v-btn>
-      <v-alert variant="elevated" closable density="compact" color="yellow" title="Atención" v-show="alertFlag"
+      <v-alert variant="elevated" closable density="compact" color="red" title="Atención" v-show="alertFlag"
         text="Verifique que los datos ingresados sean correctos!"></v-alert>
     </v-container>
     <v-container>
-      <v-btn @mouseover="alertFlag = true" prepend-icon="mdi-content-save-outline" class="fixed-bottom mr-2 button-form"
-        width="150px" density="default" @click="showNextForm(); saveDataCourses(); saveDataPublication();">guardar</v-btn>
+      <v-btn prepend-icon="mdi-content-save-outline" class="fixed-bottom mr-2 button-form" width="150px" density="default"
+        @click="saveData()">guardar</v-btn>
       <v-btn prepend-icon="mdi-arrow-left" class="fixed-bottom mr-2 button-form" width="150px" density="default"
         @click="showPreviusForm()">atras</v-btn>
     </v-container>
@@ -314,7 +314,16 @@ export default {
     //     })
     //   })
     // },
-  }
+    saveData() {
+      if (this.checkCourseList() && this.checkPublicationList()) {
+        this.showNextForm()
+        this.saveDataCourses()
+        this.saveDataPublication();
+      } else {
+        this.alertFlag = true
+      }
+    },
+  },
 
 }
 </script>

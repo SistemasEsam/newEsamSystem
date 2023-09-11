@@ -154,13 +154,12 @@
       <v-btn prepend-icon="mdi-plus" v-if="instructorExperienceForms.length < 3" @click="addInstructorExperienceForm()"
         class="fixed-bottom mr-2 button-form">AGREGAR
         NUEVA EXPERIENCIA COMO DOCENTE</v-btn>
-      <v-alert variant="elevated" density="compact" closable color="yellow" title="Atención" v-show="alertFlag"
+      <v-alert variant="elevated" density="compact" closable color="red" title="Atención" v-show="alertFlag"
         text="Verifique que los datos ingresados sean correctos!"></v-alert>
     </v-container>
     <v-container>
-      <v-btn @mouseover="alertFlag = true" prepend-icon="mdi-content-save-outline" class="fixed-bottom mr-2 button-form"
-        width="150px" density="default"
-        @click="showNextForm(); saveDataWorkExperience(); saveDateInstructorExperience()">guardar</v-btn>
+      <v-btn prepend-icon="mdi-content-save-outline" class="fixed-bottom mr-2 button-form" width="150px" density="default"
+        @click="saveData()">guardar</v-btn>
       <!-- <v-btn prepend-icon="mdi-content-save-outline" class="fixed-bottom mr-2 button-form" width="150px" density="default"
         @click="saveDataWorkExperience()">guardar</v-btn> -->
       <v-btn prepend-icon="mdi-arrow-left" class="fixed-bottom mr-2 button-form" width="150px" density="default"
@@ -391,6 +390,15 @@ export default {
       this.dateOfBirth = formatedDate;
       console.log(formatedDate)
       return formatedDate;
+    },
+    saveData() {
+      if (this.checkWorkExperienceList() && this.checkInstructorExperienceList()) {
+        this.showNextForm()
+        this.saveDataWorkExperience()
+        this.saveDateInstructorExperience()
+      } else {
+        this.alertFlag = true
+      }
     },
   }
 }
