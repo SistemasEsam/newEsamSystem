@@ -11,7 +11,7 @@
       </div>
       <div class="blue-rectangle">
         <aside class="personalProfile">
-          <div>
+          <div class="align-personal-data">
             <p>
               {{ this.name + ' ' + this.lastNameF + ' ' + this.lastNameM }}</p>
             <p>

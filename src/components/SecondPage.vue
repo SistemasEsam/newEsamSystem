@@ -258,7 +258,7 @@ export default {
           namePublication: publication.data().namePublication,
           typePublication: publication.data().typePublication,
           countryPublication: (publication.data().countryPublication).toLowerCase(),
-          datePublication: publication.data().datePublication,
+          datePublication: this.formatDate(publication.data().datePublication),
 
         })
       })
