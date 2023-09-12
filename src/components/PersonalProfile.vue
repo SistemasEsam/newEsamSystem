@@ -283,7 +283,7 @@ export default {
         this.addres &&
         this.selectedDocumentType &&
         this.numberId &&
-        this.idExtension &&
+        // this.idExtension &&
         this.dateOfBirth &&
         this.gender &&
         this.photoProfilePath
