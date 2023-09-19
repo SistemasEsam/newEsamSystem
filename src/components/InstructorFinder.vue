@@ -13,7 +13,7 @@
                             <v-radio label="Cursos" id="courses" value="courses" @change="enableLevelPostDegree(true)">
                             </v-radio>
                         </v-radio-group>
-                        <v-btn @click="searchByFilter()">Buscar</v-btn>
+                        <v-btn class="button-form" @click="searchByFilter()">Buscar</v-btn>
                     </v-col>
                     <v-col>
                         <v-select :disabled="flagLevelPostDegree" v-model="levelPostDegree" label="Nivel Postgrado" :items="filterLevelPostDegree">
@@ -24,8 +24,10 @@
 
         </div>
         <div>
-            <v-card v-for="(instructor, index) in instructorFilteredList" :key="index">
-                <v-card-title>
+            <v-container>
+                <h1 class="sub-title">Resultados</h1>
+                <v-card class="mb-4" v-for="(instructor, index) in instructorList" :key="index">
+                <v-card-title class="sub-title">
                     {{ instructor.data().name }} {{ instructor.data().lastNameF }} {{ instructor.data().lastNameM }}
                 </v-card-title>
                 <v-card-subtitle>
@@ -36,11 +38,13 @@
                     Telefono: {{ instructor.data().personalPhone }}
                 </v-card-subtitle>
                 <v-card-actions>
-                    <v-btn :to="{ name: 'pdf', params: { id: instructor.data().email } }">
+                    <!-- <v-btn :to="{ name: 'pdf', params: { id: instructor.data().email }}" target ='_blank'> -->
+                    <v-btn class="button-card" @click="openCV(instructor.data().email)">
                         Abrir
                     </v-btn>
                 </v-card-actions>
             </v-card>
+            </v-container>
         </div>
     </div>
 </template>
@@ -48,6 +52,7 @@
 import { database } from '@/firebase/firebase';
 import { collection, getDocs } from 'firebase/firestore';
 import { ref } from 'vue';
+import router from '@/router';
 
 export default {
     data() {
@@ -57,6 +62,7 @@ export default {
             keyWordFilter: '',
             levelPostDegree: '',
             instructorList: ref([]),
+            initialInstructorList: ref([]),
             instructorIDList: [],
             instructorFilteredList: ref([]),
             filterLevelPostDegree: [
@@ -82,13 +88,13 @@ export default {
         async getInstructorsList() {
             const instructors = await getDocs(collection(database, 'instructors'))
             instructors.forEach((instructor) => {
-                this.instructorList.push(instructor)
+                this.initialInstructorList.push(instructor)
             })
+            this.instructorList = this.initialInstructorList
         },
         async searchByFilter() {
             this.instructorFilteredList = []
-            console.log(this.filterEducation)
-            this.instructorList.forEach(async (instructor) => {
+            this.initialInstructorList.forEach(async (instructor) => {
                 const dataListFiltered = await getDocs(collection(database, 'instructors', instructor.data().email, this.filterEducation))
                 dataListFiltered.forEach((dataFiltered) => {
                     switch (this.filterEducation) {
@@ -109,8 +115,16 @@ export default {
                             break
                     }
                 })
+                this.instructorList = this.instructorFilteredList
             })
         },
+        openCV(instructorID){
+        console.log(instructorID)
+            let newTab = router.resolve({name: 'pdf', params:  {id: instructorID }})
+            window.open(newTab.href)
+        },
+        restoreDefaultValueList(){
+        }
     }
 }
 </script>
