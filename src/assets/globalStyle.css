@@ -216,4 +216,7 @@
 }
 .align-personal-data{
   text-align: center;
+}.button-card{
+  background-color: #112533;
+  color: white ;
 }
