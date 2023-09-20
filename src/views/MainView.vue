@@ -2,7 +2,8 @@
    <NewNavBar/>
    <LitleNavBar/>
    <NewImages/>
-   <AboutusNewVue/>
+   <Programs/>
+ 
   </template>
   
   <script>
@@ -12,7 +13,8 @@
   import NewNavBar from '@/components/NewNavBar.vue'
   import LitleNavBar from '@/components/LitleNavBar.vue';
   import NewImages from '@/components/NewImages.vue';
-  import AboutusNewVue from '@/components/AboutusNew.vue';
+
+ 
   export default {
     name: 'MainView',
     components: {
@@ -22,7 +24,8 @@
       NewNavBar,
       LitleNavBar,
       NewImages,
-      AboutusNewVue
+     
+      
     },
     // Otras opciones y métodos de la vista
   };
