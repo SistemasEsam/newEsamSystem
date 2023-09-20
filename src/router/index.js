@@ -5,8 +5,6 @@ import MainView from '../views/MainView.vue'
 import PDFView from '../views/PDFView.vue'
 import LoginView from '../views/LoginView.vue'
 import ProfileView from '../views/ProfileView.vue'
-import ContactView from '../views/ContactView.vue'
-import InstructorsView from '@/views/InstructorsView.vue'
 
 
 const routes = [
@@ -29,20 +27,13 @@ const routes = [
     component : FormView
   },
  {
-  path: '/pdf/:id',
+  path: '/pdf',
   name: 'pdf',
   component:PDFView
 
+
+
  },
-
-{ 
-  path: '/contact',
-  name: 'contact',
-  component: ContactView
-
-},
-
-
  {
     path: '/login',
     name: 'login',
@@ -54,12 +45,7 @@ const routes = [
   path:'/profile',
   name:'profile',
   component:ProfileView
-},
-{
-  path:'/instructorFinder',
-  name: 'instructorFinder',
-  component: InstructorsView
-},
+}
 
 
 

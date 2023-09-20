@@ -1,5 +1,6 @@
 <template>
-    <FilePDFVue :user-id="idUser"/>
+
+    <FilePDFVue />
   </template>
   
   <script>
@@ -11,12 +12,6 @@ import FilePDFVue from '@/components/FilePDF.vue';
     components: {
         FilePDFVue
     },
-    data() {
-      return{
-        idUser: this.$route.params.id
-
-      }
-    }
   };
   </script>
   
