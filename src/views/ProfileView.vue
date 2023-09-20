@@ -1,31 +1,31 @@
 <template>
-    <div>
-      <nav-bar />
-      <!-- Contenido de la vista -->
-   <LoginProfileVue/>
+  <div>
+    <nav-bar />
+    <!-- Contenido de la vista -->
+    <LoginProfileVue />
 
-    
-<Footer />
 
-    </div>
-  </template>
+    <Footer />
+
+  </div>
+</template>
   
-  <script>
-  import NavBar from '@/components/NavBar.vue';
-  import Footer from '@/components/Footer.vue';
+<script>
+import NavBar from '@/components/NavBar.vue';
+import Footer from '@/components/Footer.vue';
 import LoginProfileVue from '@/components/LoginProfile.vue';
-  export default {
-    name: 'ProfileView',
-    components: {
-      NavBar,
-      Footer,
-      LoginProfileVue
-    },
-    // Otras opciones y métodos de la vista
-  };
-  </script>
+export default {
+  name: 'ProfileView',
+  components: {
+    NavBar,
+    Footer,
+    LoginProfileVue
+  },
+  // Otras opciones y métodos de la vista
+};
+</script>
   
-  <style scoped>
-  /* Estilos personalizados para la vista */
-  </style>
+<style scoped>
+/* Estilos personalizados para la vista */
+</style>
   

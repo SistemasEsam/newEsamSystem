@@ -70,12 +70,12 @@
       <v-btn prepend-icon="mdi-plus" v-if="languageForms.length < 3" @click="addLanguageForm()"
         class="fixed-bottom mr-2 button-form">AGREGAR
         NUEVO IDIOMA</v-btn>
-        <v-alert variant="elevated" density="compact" closable color="yellow" title="Atención" v-show="alertFlag"
+      <v-alert variant="elevated" density="compact" closable color="yellow" title="Atención" v-show="alertFlag"
         text="Verifique que los datos ingresados sean correctos!"></v-alert>
     </v-container>
     <v-container>
-      <v-btn @mouseover="alertFlag = true" prepend-icon="mdi-content-save-outline" class="fixed-bottom mr-2 button-form" width="150px" density="default"
-        :to="{ name: 'pdf', params: { id: this.idUser } }" @click="saveDataSkills(); saveDataLanguages()">guardar</v-btn>
+      <v-btn prepend-icon="mdi-content-save-outline" class="fixed-bottom mr-2 button-form" width="150px" density="default"
+        @click="saveData()">guardar</v-btn>
       <v-btn prepend-icon="mdi-arrow-left-bold-outline" class="fixed-bottom mr-2 button-form" width="150px"
         density="default" @click="showPreviusForm()">
         atras</v-btn>
@@ -87,6 +87,7 @@
 
 import { database } from '../firebase/firebase'
 import { addDoc, collection, doc } from "firebase/firestore";
+import router from '@/router';
 
 export default {
   props: [
@@ -198,6 +199,15 @@ export default {
         }
       })
       return listLanguagesFilled
+    },
+    saveData() {
+      if (this.checkSkillList() && this.checkLanguagesList()) {
+        router.push({name: 'pdf', params:  {id: this.idUser }})
+        this.saveDataSkills()
+        this.saveDataLanguages()
+      } else {
+        this.alertFlag = true
+      }
     }
   }
 }
