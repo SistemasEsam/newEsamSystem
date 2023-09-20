@@ -1,142 +1,355 @@
 <template>
   <div class="component-with-shapes-and-image">
     <!-- Círculo amarillo -->
-    <div class="yellow-circle"></div>
+    <v-container>
+      <div class="yellow-circle">
+        <div class="white-circle">
+          <v-avatar size="200">
+            <img id="photoProfile" :src="img" width="200" height="200">
+          </v-avatar>
+        </div>
+      </div>
+      <div class="blue-rectangle">
+        <aside class="personalProfile">
+          <div>
+            <p>
+              {{ this.name + ' ' + this.lastNameF + ' ' + this.lastNameM }}</p>
+            <p>
+              {{ this.numberId }}</p>
+            <p>
+              {{ this.dateOfBirth }}</p>
+            <p>
+              {{ this.gender }}</p>
+            <p>{{ this.cityRadication + ', ' + this.selectedCountry }}
+            </p>
+            <p> {{ this.addres }} </p>
+            <p>
+              {{ this.personalPhone }}
+            </p>
+            <p>
+              {{ this.email }}
+            </p>
+          </div>
+        </aside>
+      </div>
+      <!-- Rectángulo amarillo -->
+      <div class="education">
+        <div class="degrees">
+          <h1 class="sub-title">
+            Estudios Pregrado
+          </h1>
+          <v-card v-for="(degree, index) in degrees" :key="index" class="cards mb-6">
+            <v-row>
+              <v-col class="mt-0 mb-0 pb-0">
+                <p class="h3-customize"> Carrera:</p>
+              </v-col>
+              <v-col class="content-style">
+                <p>{{ degree.levelOfDegree }} en {{ degree.careerDegree }}</p>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col class="mt-0 mb-0 pb-0 pt-0">
+                <p class="h3-customize"> Universidad/Instituto:</p>
+              </v-col>
+              <v-col class="content-style">
+                <p>{{ degree.universityDegree }}</p>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col class="mt-0 mb-0 pb-0 pt-0">
+                <p class="h3-customize"> País:</p>
+              </v-col>
+              <v-col class="content-style">
+                <p>{{ degree.countryDegree }}</p>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col class="mt-0 mb-0 pb-0 pt-0">
+                <p class="h3-customize"> Año de Graduación:</p>
+              </v-col>
+              <v-col class="content-style">
+                <p>{{ degree.graduationYearDegree }}</p>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col class="mt-0 mb-0 pb-0 pt-0">
+                <p class="h3-customize"> Modalidad de Graduación:</p>
+              </v-col>
+              <v-col class="content-style">
+                <p>{{ degree.graduationModalityDegree }}</p>
+              </v-col>
+            </v-row>
+            <v-spacer></v-spacer>
+          </v-card>
+        </div>
+        <div class="degrees">
+          <h1 class="sub-title">
+            Estudios Postgrado
+          </h1>
+          <v-card v-for="(higherEducationPostDegree, index) in higherEducationPostDegrees" :key="index"
+            class="cards mb-4 pb-4">
+            <v-row>
+              <v-col class="mt-0 mb-0 pb-0">
+                <p class="h3-customize"> Postgrado:</p>
+              </v-col>
+              <v-col class="content-style">
+                <p>{{ higherEducationPostDegree.levelHigherEducation }} en {{
+                  higherEducationPostDegree.nameHigherEducation }}</p>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col class="mt-0 mb-0 pb-0">
+                <p class="h3-customize"> Universidad/Instituto:</p>
+              </v-col>
+              <v-col class="content-style">
+                <p>{{ higherEducationPostDegree.institutionName }}</p>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col class="mt-0 mb-0 pb-0">
+                <p class="h3-customize"> País:</p>
+              </v-col>
+              <v-col class="content-style">
+                <p>{{ higherEducationPostDegree.countryHigherEducationName }}</p>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col class="mt-0 mb-0 pb-0">
+                <p class="h3-customize"> Año de Realización:</p>
+              </v-col>
+              <v-col class="content-style">
+                <p>{{ higherEducationPostDegree.graduationYearHigherEducation }}</p>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col class="mt-0 mb-0 pb-0">
+                <p class="h3-customize"> Modalidad de Graduación:</p>
+              </v-col>
+              <v-col class="content-style">
+                <p>{{ higherEducationPostDegree.graduationModalityHigherEducation }}</p>
+              </v-col>
+            </v-row>
+          </v-card>
 
-    <!-- Rectángulo azul marino -->
-    <div class="blue-rectangle">
-      <v-container>
-        <v-col-3>
-          <label>
-            {{this.name}}
-          </label>
-        </v-col-3>
-        <v-col-9>
-          {{this.lastNameF}}
-        </v-col-9>
-      </v-container>
-    </div>
-
-    <!-- Rectángulo amarillo -->
-    <div class="yellow-rectangle"></div>
-
-    <!-- Descripción de la imagen -->
-    <div class="description-container">
-      <p class="description">Esta es una imagen con una descripción sobre ella.</p>
-    </div>
+          <v-card v-for="(postDegree, index) in postDegrees" :key="index" class="cards">
+            <v-row>
+              <v-col class="mt-0 mb-0 pb-0">
+                <p class="h3-customize"> Postgrado:</p>
+              </v-col>
+              <v-col class="content-style">
+                <p>{{ postDegree.titlePostDegree }} en {{ postDegree.namePostDegree }}</p>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col class="mt-0 mb-0 pb-0">
+                <p class="h3-customize"> Universidad/Instituto:</p>
+              </v-col>
+              <v-col class="content-style">
+                <p>{{ postDegree.universityPostDegree }}</p>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col class="mt-0 mb-0 pb-0">
+                <p class="h3-customize"> País:</p>
+              </v-col>
+              <v-col class="content-style">
+                <p>{{ postDegree.countryPostDegree }}</p>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col class="mt-0 mb-0 pb-0">
+                <p class="h3-customize"> Año de Realización:</p>
+              </v-col>
+              <v-col class="content-style">
+                <p>{{ postDegree.graduationYearPostDegree }}</p>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col class="mt-0 mb-0 pb-0">
+                <p class="h3-customize"> Modalidad de Graduación:</p>
+              </v-col>
+              <v-col class="content-style">
+                <p>{{ postDegree.graduationModalityPostDegree }}</p>
+              </v-col>
+            </v-row>
+          </v-card>
+        </div>
+        <div class="degrees">
+          <h1 class="sub-title">
+            Cursos
+          </h1>
+          <v-card v-for="(course, index) in courses" :key="index" class="cards">
+            <v-row>
+              <v-col class="mt-0 mb-0 pb-0">
+                <p class="h3-customize"> Curso </p>
+              </v-col>
+              <v-col class="content-style">
+                <p>{{ course.nameCourse }}</p>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col class="mt-0 mb-0 pb-0">
+                <p class="h3-customize"> Universidad/Instituto:</p>
+              </v-col>
+              <v-col class="content-style">
+                <p>{{ course.institutionCourse }}</p>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col class="mt-0 mb-0 pb-0">
+                <p class="h3-customize"> País:</p>
+              </v-col>
+              <v-col class="content-style">
+                <p>{{ course.countryCourse }}</p>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col class="mt-0 mb-0 pb-0">
+                <p class="h3-customize"> Año de Realización:</p>
+              </v-col>
+              <v-col class="content-style">
+                <p>{{ course.yearCourse }}</p>
+              </v-col>
+            </v-row>
+          </v-card>
+        </div>
+      </div>
+    </v-container>
+    <div class="yellow-bar"></div>
   </div>
 </template>
 
 <script>
 import { database } from '../firebase/firebase'
-import { doc, getDoc } from 'firebase/firestore'
+import { collection, doc, getDoc, getDocs } from 'firebase/firestore'
+import { getStorage, ref, getDownloadURL } from 'firebase/storage'
+
 export default {
+  props: [
+    "userId"
+  ],
   data() {
     return {
-      idUser: 'aljiar23@gmail.com',
-      name:'', 
-      lastNameF:'',
-      lastNameM:'',
+      idUser: this.userId,
+      name: '',
+      lastNameF: '',
+      lastNameM: '',
+      personalPhone: null,
+      personalPhoneAux: null,
+      email: '',
+      selectedCountry: '',
+      cityRadication: '',
+      addres: '',
+      selectedDocumentType: null,
+      numberId: '',
+      dateOfBirth: '',
+      formatedDateOfBrith: '',
+      gender: '',
+      degrees: [],
+      postDegrees: [],
+      higherEducationPostDegrees: [],
+      courses: [],
+      img: null,
+      photoProfilePath: '',
+
     }
   },
-  created(){
+  created() {
     this.getInstructorData()
+    this.getDegrees()
+    this.getPostDegrees()
+    this.getCourses()
+    this.getHigherEducationPostDegree()
   },
 
   methods: {
     async getInstructorData() {
-      const docSnap = await getDoc(doc(database, 'instructors', this.idUser))
-      if (docSnap.exists()) {
-        this.name = docSnap.data().name
-        this.lastNameF = docSnap.data().lastNameF
-        this.lastNameM= docSnap.data().lastNameM
-        console.log(this.name)
+      const personalProfileData = await getDoc(doc(database, 'instructors', this.idUser))
+      if (personalProfileData.exists()) {
+        this.name = personalProfileData.data().name
+        this.lastNameF = personalProfileData.data().lastNameF
+        this.lastNameM = personalProfileData.data().lastNameM
+        this.numberId = personalProfileData.data().numberId
+        this.dateOfBirth = personalProfileData.data().dateOfBirth
+        this.gender = personalProfileData.data().gender
+        this.cityRadication = personalProfileData.data().cityRadication
+        this.selectedCountry = personalProfileData.data().selectedCountry
+        this.addres = personalProfileData.data().addres
+        this.personalPhone = personalProfileData.data().personalPhone
+        this.email = personalProfileData.data().email
+        this.photoProfilePath = personalProfileData.data().photoProfilePath
+
       } else {
         console.log('Document does not exist')
       }
+      this.loadProfileImage()
+    },
+    async getDegrees() {
+      const dataDegrees = await getDocs(collection(database, 'instructors', this.idUser, 'degrees'))
+      dataDegrees.forEach((degree) => {
+        this.degrees.push({
+          careerDegree: degree.data().careerDegree,
+          countryDegree: (degree.data().countryDegree).toLowerCase(),
+          graduationModalityDegree: degree.data().graduationModalityDegree,
+          graduationYearDegree: degree.data().graduationYearDegree,
+          levelOfDegree: degree.data().levelOfDegree,
+          universityDegree: degree.data().universityDegree
+
+        })
+      })
+    },
+    async getHigherEducationPostDegree() {
+      const higherEducationPostDegrees = await getDocs(collection(database, 'instructors', this.idUser, 'higherEducationPostDegree'))
+      higherEducationPostDegrees.forEach((higherEducationPostDegree) => {
+        this.higherEducationPostDegrees.push({
+          nameHigherEducation: higherEducationPostDegree.data().nameHigherEducation,
+          institutionName: higherEducationPostDegree.data().institutionName,
+          levelHigherEducation: higherEducationPostDegree.data().levelHigherEducation,
+          countryHigherEducationName: (higherEducationPostDegree.data().countryHigherEducationName).toLowerCase(),
+          graduationModalityHigherEducation: higherEducationPostDegree.data().graduationModalityHigherEducation,
+          graduationYearHigherEducation: higherEducationPostDegree.data().graduationYearHigherEducation,
+        })
+      })
+    },
+    async getPostDegrees() {
+      const dataPostDegrees = await getDocs(collection(database, 'instructors', this.idUser, 'postDegrees'))
+      dataPostDegrees.forEach((postDegree) => {
+        this.postDegrees.push({
+          universityPostDegree: postDegree.data().universityPostDegree,
+          namePostDegree: postDegree.data().namePostDegree,
+          titlePostDegree: postDegree.data().titlePostDegree,
+          countryPostDegree: (postDegree.data().countryPostDegree).toLowerCase(),
+          graduationYearPostDegree: postDegree.data().graduationYearPostDegree,
+          graduationModalityPostDegree: postDegree.data().graduationModalityPostDegree
+        })
+      })
+    },
+    async getCourses() {
+      const dataCourses = await getDocs(collection(database, 'instructors', this.idUser, 'courses'))
+      dataCourses.forEach((course) => {
+        this.courses.push({
+          institutionCourse: course.data().institutionCourse,
+          nameCourse: course.data().nameCourse,
+          countryCourse: (course.data().countryCourse).toLowerCase(),
+          yearCourse: course.data().yearCourse
+
+        })
+      })
+    },
+    async loadProfileImage() {
+      const storage = getStorage();
+      console.log(this.photoProfilePath)
+      await getDownloadURL(ref(storage, this.photoProfilePath))
+        .then((url) => {
+          // Or inserted into an <img> element
+          const img = document.getElementById('photoProfile')
+          img.setAttribute('src', url)
+        })
+        .catch((error) => {
+          // Handle any errors
+        });
     }
+
   },
 };
 </script>
-
-<style>
-.component-with-shapes-and-image {
-  width: 8.5in;
-  /* Ancho de hoja carta en pulgadas */
-  height: 18.5in;
-  /* Alto de hoja carta en pulgadas */
-  padding: 0;
-  /* Sin relleno */
-  margin: 0;
-  /* Sin márgenes */
-  position: relative;
-}
-
-.yellow-circle,
-.blue-rectangle,
-.yellow-rectangle {
-  position: absolute;
-}
-
-.yellow-circle {
-  top: 0.5in;
-  /* Ajustar la posición vertical del círculo */
-  left: 0.7in;
-  /* Ajustar la posición horizontal del círculo */
-  width: 200px;
-  /* Diámetro del círculo */
-  height: 200px;
-  /* Diámetro del círculo */
-  border-radius: 50%;
-  background-color: #FFDF0B;
-  /* Color amarillo */
-  z-index: 1;
-  /* Asegura que el círculo esté por encima del rectángulo */
-}
-
-.blue-rectangle {
-  top: 0.0in;
-  /* Ajustar la posición vertical del rectángulo */
-  left: 0in;
-  /* Ajustar la posición horizontal del rectángulo */
-  width: 3.5in;
-  /* Ancho del rectángulo */
-  height: 18.5in;
-  /* Alto del rectángulo */
-  background-color: #162D4A;
-  /* Color azul marino */
-}
-
-.yellow-rectangle {
-  top: 17.77in;
-  /* Ajustar la posición vertical del rectángulo */
-  left: 0.0in;
-  /* Ajustar la posición horizontal del rectángulo */
-  width: 1375px;
-  /* Ancho del rectángulo */
-  height: 70px;
-  /* Alto del rectángulo */
-  background-color: #FFDF0B;
-  /* Color amarillo */
-}
-
-.description-container {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  text-align: center;
-}
-
-.description {
-  color: black;
-  /* Color del texto en negro */
-  font-size: 23px;
-  /* Tamaño de fuente 23px */
-  font-family: Arial, sans-serif;
-  /* Tipo de letra Arial */
-  background-color: rgba(255, 255, 255, 0.7);
-  /* Fondo transparente */
-  padding: 10px;
-  border-radius: 5px;
-}</style>

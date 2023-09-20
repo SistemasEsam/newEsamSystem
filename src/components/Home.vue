@@ -31,19 +31,22 @@
         activeIndex: 0,
         programs: [
           {
-            title: 'Programa de Ventas Estratégicas',
-            description: 'Aprende las mejores estrategias de ventas para maximizar tus resultados.',
-            image: require('../assets/GBYF.jpg')
+            title: 'MAESTRIA EN GRSTION HOSPITALARIA',
+            description: 'Formar posgraduados a nivel maestría con criterios y procesos de gestión hospitalaria en los servicios de salud, capaz de prever, como también transformar la calidad en la gestión hospitalaria',
+            image: require('../assets/PED.jpg'),
+            link: 'https://bit.ly/Inf-Mae-en-Gest-Hospitalaria'
           },
           {
-            title: 'Programa de Ventas Estratégicas',
-            description: 'Aprende las mejores estrategias de ventas para maximizar tus resultados.',
-            image: require('../assets/BG.jpg')
+            title: 'MAESTRIA EN BIG DATA Y ANALITICA DE DATOS',
+            description: 'Desarrollar competencias eficaces y eficientes en gestión de datos masivos “Big Data” con una visión global e integradora en la gestión de cambio.',
+            image: require('../assets/BG.jpg'),
+            link: 'https://wa.link/cgplrm'
           },
           {
-            title: 'Programa de Ventas Estratégicas',
-            description: 'Aprende las mejores estrategias de ventas para maximizar tus resultados.',
-            image: require('../assets/IQ.jpg')
+            title: 'MAESTRIA EN SALUD PUBLICA',
+            description: 'Proporcionar a los participantes las competencias científicas y multidisciplinarias suficientes para encarar los retos y problemas globales de la Salud Pública, como los que estamos viviendo, formando expertos de distintas disciplinas comprometidas con la salud en el amplio, desde un enfoque humanista con el que cuenta la Salud Pública.',
+            image: require('../assets/IQ.jpg'),
+            link: 'https://wa.link/cdxufx'
           },
           {
             title: 'Programa de Ventas Estratégicas',
@@ -66,6 +69,7 @@
     methods: {
       enroll(program) {
         // Lógica para redirigir a la página de inscripción del programa seleccionado
+        window.location.href = program.link;
       }
     }
   };

@@ -31,7 +31,7 @@
           // Agrega más elementos del menú según tus necesidades
         ],
         itemrout: {
-          path1: '/register',
+          path1: '/form-view',
           path2: '/login',
         },
         appBarColor: '#0D47A1',
