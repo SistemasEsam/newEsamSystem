@@ -1,92 +1,108 @@
 <template>
-  <v-sheet width="1000" class="mx-auto">
-
+  <v-container width="1000" class="mx-auto">
     <v-col class="d-flex justify-center aling-center">
-      <v-avatar size="150" color="warning">
+      <v-avatar size="150" color="#b2a612">
         <img class="mx-auto" :src="imageUrl" width="150" height="150">
       </v-avatar>
     </v-col>
     <v-col class="d-flex justify-center aling-center">
-      <p class="text-body-1 font-weight-bold">PERFIL PERSONAL</p>
+      <p class="text-body-1 font-weight-bold header-form">PERFIL PERSONAL</p>
     </v-col>
-    <v-row>
-      <v-col>
-        <v-text-field v-model="name" :rules="textoRules" label="Nombres" required></v-text-field>
-      </v-col>
-      <v-col>
-        <v-text-field v-model="lastNameF" :rules="textoRules1" label="Apellido Paterno" required></v-text-field>
-      </v-col>
-      <v-col>
-        <v-text-field v-model="lastNameM" :rules="textoRules2" label="Apellido Materno" required></v-text-field>
-      </v-col>
-    </v-row>
-    <v-row>
-      <v-col>
-        <v-text-field v-model="personalPhone" :rules="numeroRules2" label="Número de Contacto" required></v-text-field>
-      </v-col>
-      <v-col>
-        <v-text-field v-model="personalPhoneAux" :rules="numeroRules"
-          label="Número de Referencia (OPCIONAL)"></v-text-field>
-      </v-col>
-      <v-col>
-        <v-text-field v-model="email" :rules="emailRules" label="Correo Electrónico" required></v-text-field>
-      </v-col>
-    </v-row>
-    <v-row>
-      <v-col>
-        <v-select v-model="selectedCountry" :items="countries" item-title="countryName" item-value="code" label="País">
-        </v-select>
-      </v-col>
-      <v-col>
-        <v-text-field v-model="cityRadication" label="Ciudad de Radicación" required></v-text-field>
-      </v-col>
-      <v-col>
-        <v-text-field v-model="addres" label="Dirección" required></v-text-field>
-      </v-col>
-    </v-row>
-    <v-row>
-      <v-col>
-        <v-select v-model="selectedDocumentType" :items="documentTypes" label="Tipo de documento" outlined></v-select>
-      </v-col>
-      <v-col>
-        <v-text-field v-model="numberId" label="Número de Documento" required></v-text-field>
-      </v-col>
-      <v-col>
-        <VueDatePicker v-model="dateOfBirth" locale="es" :enable-time-picker="false"
-          placeholder="Fecha de Nacimiento">
-        </VueDatePicker>
-      </v-col>
-      <v-col>
-        <v-radio-group v-model="gender">
-          <v-radio label="Masculino" value="masculino"></v-radio>
-          <v-radio label="Femenino" value="femenino"></v-radio>
-          <v-radio label="Otro" value="otro"></v-radio>
-        </v-radio-group>
-        <p>Género seleccionado: {{ gender }}</p>
-      </v-col>
-    </v-row>
-    <v-col class="d-flex justify-center aling-center">
-      <v-file-input label="SELECCIONA UNA IMAGEN FORMAL" @change="loadPhotoFile($event)" accept="image/*"></v-file-input>
-    </v-col>
-    <v-col>
-      <!-- <v-btn @click="ableDegreeForm()" color="warning" class="fixed-bottom mr-2">guardar </v-btn> -->
-      <v-btn @click="uploadPhotoProfile(); ableDegreeForm(); addUser()" color="warning" class="fixed-bottom mr-2">guardar </v-btn>
-    </v-col>
+    <v-card>
+      <v-row>
+        <v-col>
+          <v-text-field v-model="name" :rules="textoRules" label="Nombres" @input="name = name.toUpperCase()"
+            required></v-text-field>
+        </v-col>
+        <v-col>
+          <v-text-field v-model="lastNameF" :rules="textoRules1" label="Apellido Paterno"
+            @input="lastNameF = lastNameF.toUpperCase()" required></v-text-field>
+        </v-col>
+        <v-col>
+          <v-text-field v-model="lastNameM" :rules="textoRules2" label="Apellido Materno"
+            @input="lastNameM = lastNameM.toUpperCase()" required></v-text-field>
+        </v-col>
+      </v-row>
+      <v-row>
+        <v-col>
+          <v-text-field v-model="personalPhone" :rules="numeroRules2" label="Número de Contacto" required></v-text-field>
+        </v-col>
+        <v-col>
+          <v-text-field v-model="personalPhoneAux" :rules="numeroRules"
+            label="Número de Referencia (OPCIONAL)"></v-text-field>
+        </v-col>
+        <v-col>
+          <v-text-field v-model="email" :rules="emailRules" label="Correo Electrónico" required></v-text-field>
+        </v-col>
+      </v-row>
+      <v-row>
+        <v-col>
+          <v-select v-model="selectedCountry" :items="countries" item-title="countryName" item-value="code" label="País">
+          </v-select>
+        </v-col>
+        <v-col>
+          <v-text-field v-model="cityRadication" label="Ciudad de Radicación"
+            @input="cityRadication = cityRadication.toUpperCase()" required></v-text-field>
+        </v-col>
+        <v-col>
+          <v-text-field v-model="addres" label="Dirección" @input="addres = addres.toUpperCase()" required></v-text-field>
+        </v-col>
+      </v-row>
+      <v-row>
+        <v-col>
+          <v-select v-model="selectedDocumentType" :items="documentTypes" label="Tipo de documento" outlined></v-select>
+        </v-col>
+        <v-col>
+          <v-text-field v-model="numberId" label="Número de Documento" required></v-text-field>
+        </v-col>
+        <v-col>
+          <v-select v-model="idExtension" :items="cityExtension" item-title="cityName" item-value="code" label="Extensión"
+            outlined></v-select>
+        </v-col>
+      </v-row>
+      <v-row>
+        <v-col>
+          <VueDatePicker v-model="dateOfBirth" locale="es" :teleport="true" :enable-time-picker="false"
+            placeholder="Fecha de Nacimiento" :year-range="[1950, 2003]">
+          </VueDatePicker>
+        </v-col>
+        <v-col>
+          <v-text-field v-model="idAddNumber" @input="idAddNumber = idAddNumber.toUpperCase()" label="Complemento"
+            minlength="3" maxlength="3" :disabled="addOnFlag" required></v-text-field>
+        </v-col>
+        <v-col>
+          <v-radio-group label="Tiene complemento" inline>
+            <v-radio label="Si" value=false @change="enableAddOn(false)"></v-radio>
+            <v-radio label="No" value=true @change="enableAddOn(true)"></v-radio>
+          </v-radio-group>
+        </v-col>
+      </v-row>
+      <v-row>
+        <v-col>
+          <v-select v-model="gender" label="Genero" :items="genderType">
+          </v-select>
+        </v-col>
+        <v-col>
 
-    <v-dialog v-model="dialogVisible" max-width="500px">
-      <v-card>
-        <v-card-title>
-          <span class="headline">Datos guardados</span>
-        </v-card-title>
-        <v-card-text>
-          <p>Los datos se han guardado exitosamente.</p>
-        </v-card-text>
-        <v-card-actions>
-          <v-btn color="primary" to="/form2">OK</v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
-  </v-sheet>
+        </v-col>
+        <v-col>
+
+        </v-col>
+      </v-row>
+      <v-col class="d-flex justify-center aling-center">
+        <v-file-input label="SELECCIONA UNA IMAGEN FORMAL" @change="loadPhotoFile($event)"
+          accept="image/*"></v-file-input>
+      </v-col>
+      <v-alert variant="elevated" closable density="compact" color="yellow" title="Atención" v-show="alertFlag"
+        text="Verifique que los datos ingresados sean correctos!"></v-alert>
+    </v-card>
+  </v-container>
+  <v-container>
+    <v-btn @mouseover="alertFlag = true" prepend-icon="mdi-content-save-outline" width="150px" density="default"
+      @click="showNextForm(); addUser(); uploadPhotoProfile()" class="fixed-bottom mr-2 button-form">guardar</v-btn>
+    <!-- <v-btn prepend-icon="mdi-content-save-outline" width="150px" density="default" @click="showNextForm();"
+      class="fixed-bottom mr-2 button-form">guardar</v-btn> -->
+  </v-container>
 </template>
  
 <script>
@@ -95,13 +111,18 @@ import { doc, setDoc } from "firebase/firestore";
 import { getStorage, ref, uploadBytes } from 'firebase/storage'
 import VueDatePicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css';
+import SuperiorEducationProfile from './SuperiorEducationProfile.vue';
 
 
 export default {
-  components: { VueDatePicker },
+  props: ["userId"],
+  components: { VueDatePicker, SuperiorEducationProfile },
   data() {
     return {
-      dialogVisible: false,
+      component: "SuperiorEducationProfile",
+      dialog: false,
+      alertFlag: false,
+      addOnFlag: true,
       name: '',
       lastNameF: '',
       lastNameM: '',
@@ -119,7 +140,10 @@ export default {
       estate: 1,
       personalPhotoFile: null,
       imageUrl: '',
-      idUser: '',
+      idUser: this.userId,
+      photoProfilePath: '',
+      idExtension: '',
+      idAddNumber: '',
 
       emailRules: [
         v => !!v || 'El correo electrónico es requerido',
@@ -170,7 +194,6 @@ export default {
         { countryName: "Canadá", code: "CA" },
         { countryName: "México", code: "MX" },
         { countryName: "Brasil", code: "BR" },
-        { countryName: "Chile", code: "CL" },
         { countryName: "Ecuador", code: "EC" },
       ],
 
@@ -178,15 +201,36 @@ export default {
         'Carnet de Identidad',
         'Pasaporte'
       ],
+      genderType: [
+        'Masculino',
+        'Femenino',
+        'Otro'
+      ],
+      cityExtension: [
+        { cityName: 'Beni', code: 'BN' },
+        { cityName: 'Chuquisaca', code: 'CH' },
+        { cityName: 'Cochabamba', code: 'CB' },
+        { cityName: 'La Paz', code: 'LP' },
+        { cityName: 'Oruro', code: 'OR' },
+        { cityName: 'Pando', code: 'PA' },
+        { cityName: 'Potosi', code: 'PT' },
+        { cityName: 'Santa Cruz', code: 'SC' },
+        { cityName: 'Tarija', code: 'TJ' },
+      ],
 
       menu: false,
     }
   },
   methods: {
-    ableDegreeForm() {
-      let newIdUser = this.email
-      console.log(newIdUser)
-      this.$emit('able-degree-form', newIdUser);
+    enableAddOn(flag) {
+      this.addOnFlag = flag
+    },
+    showAlert() {
+      this.alertFlag = true
+    },
+    showNextForm() {
+      let nextComponent = 'higher-education-post-degree'
+      this.$emit('show-next-form', nextComponent, this.email);
     },
     addUser() {
       let newIdUser = this.email
@@ -203,8 +247,11 @@ export default {
         addres: this.addres,
         selectedDocumentType: this.selectedDocumentType,
         numberId: this.numberId,
-        dateOfBirth: this.dateOfBirth,
+        idExtension: this.idExtension,
+        idAddNumber: this.idAddNumber,
+        dateOfBirth: this.format(this.dateOfBirth),
         gender: this.gender,
+        photoProfilePath: this.photoProfilePath
       })
     },
     format(dateOfBirth) {
@@ -218,12 +265,13 @@ export default {
     loadPhotoFile(e) {
       this.personalPhotoFile = e.target.files[0]
       this.imageUrl = URL.createObjectURL(this.personalPhotoFile)
+      this.photoProfilePath = this.email + '/photoProfile/' + this.personalPhotoFile.name
+      console.log(this.photoProfilePath)
       console.log(this.personalPhotoFile)
     },
     uploadPhotoProfile() {
       const storage = getStorage();
-      let newIdUser = this.email
-      const storageRef = ref(storage, newIdUser + '/photoProfile' + '/' + this.personalPhotoFile.name);
+      const storageRef = ref(storage, this.photoProfilePath);
       uploadBytes(storageRef, this.personalPhotoFile).then((snapshot) => {
         console.log('Uploaded a blob or file!');
       });
