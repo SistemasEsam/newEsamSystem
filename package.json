@@ -16,7 +16,6 @@
     "pdfjs-dist": "^3.8.162",
     "pdfvuer": "^2.0.1",
     "@vuepic/vue-datepicker": "^5.4.0",
-    "core-js": "^3.8.3",
     "firebase": "^10.1.0",
     "roboto-fontface": "*",
     "vue": "^3.2.13",

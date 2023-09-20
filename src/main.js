@@ -7,6 +7,7 @@ import { loadFonts } from './plugins/webfontloader'
 
 import VueDatePicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css';
+import './assets/globalStyle.css'
 
 loadFonts()
 

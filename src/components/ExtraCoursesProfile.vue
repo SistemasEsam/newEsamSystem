@@ -1,110 +1,110 @@
 <template>
-  <v-sheet width="1000" class="mx-auto">
-    <v-card v-for="(courseForm, index) in courseForms" :key="index" class="mb-4">
-      <v-card-title>
-        <v-col class="d-flex justify-center aling-center">
-          <h3 class="headline">CURSOS</h3>
-          <v-btn v-if="index !== 0" icon @click="deleteCourseForm(index)">
-            <v-icon>mdi-close</v-icon>
-          </v-btn>
-        </v-col>
-      </v-card-title>
-      <v-card-text>
-        <v-col>
-          <v-row>
-            <v-col>
-              <v-text-field v-model="courseForm.institutionCourse" label="Universidad o Institución"
-                required></v-text-field>
-            </v-col>
-            <v-col>
-              <v-text-field v-model="courseForm.nameCourse" label="Nombre de Curso o Taller" required></v-text-field>
-            </v-col>
-          </v-row>
-          <v-row>
-            <v-col>
-              <v-text-field v-model="courseForm.countryCourse" label="País" required></v-text-field>
-            </v-col>
-            <v-col>
-              <VueDatePicker v-model="courseForm.yearCourse" locale="es" year-picker :teleport="true"
-                placeholder="Año de realización" />
-            </v-col>
-            <v-col>
-              <v-file-input @change="loadCourseFile($event)" accept="application/pdf" label="Seleccionar archivo PDF"
-                outlined></v-file-input>
-              <p style="text-align: right;">Adjuntar certificado escaneado</p>
-            </v-col>
-          </v-row>
-        </v-col>
-      </v-card-text>
-    </v-card>
-    <v-col>
-      <v-btn v-if="courseForms.length < 3" @click="addCourseForm()" color="warning" class="fixed-bottom mr-2">AGREGAR
-        NUEVO CURSO</v-btn>
-    </v-col>
-    <v-col>
-    </v-col>
-    <v-card v-for="(publicationForm, index2) in publicationForms" :key="index2" class="mb-4">
-      <v-card-title>
-        <v-col class="d-flex justify-center aling-center">
-          <h3 class="headline">PRODUCCION INTELECTUAL</h3>
-          <v-btn v-if="index2 !== 0" icon @click="deletePublicationForm(index2)">
-            <v-icon>mdi-close</v-icon>
-          </v-btn>
-        </v-col>
-      </v-card-title>
-      <v-card-text>
-        <v-col>
-          <v-row>
-            <v-col>
-              <v-text-field v-model="publicationForm.namePublication" label="Nombre de publicación"
-                required></v-text-field>
-            </v-col>
-            <v-col>
-              <v-text-field v-model="publicationForm.publisher" label="Enlace o Editorial de Publicación"
-                required></v-text-field>
-            </v-col>
-            <v-col>
-              <v-select v-model="publicationForm.typePublication" :items="publishType" label="Tipo de publicación"
-                outlined></v-select>
-            </v-col>
-          </v-row>
-          <v-row>
-            <v-col>
-              <v-text-field v-model="publicationForm.countryPublication" label="País" required></v-text-field>
-            </v-col>
-            <v-col>
-              <VueDatePicker v-model="publicationForm.datePublication" locale="es" :teleport="true"
-                placeholder="Fecha de Publicación" :enable-time-picker="false" />
-            </v-col>
-            <v-col>
-              <v-file-input @change="loadPublicationFile($event)" accept="application/pdf"
-                label="Seleccionar archivo PDF" outlined></v-file-input>
-            </v-col>
-          </v-row>
-        </v-col>
-      </v-card-text>
-    </v-card>
-    <v-btn v-if="publicationForms.length < 3" @click="addPublicationForm()" color="warning"
-      class="fixed-bottom mr-2">Agregar
-      formulario</v-btn>
-    <v-col>
-      <v-btn @click="saveDataCourses(); saveDataPublication(); uploadCourseFile(); uploadPublicationFile()"
-        class="success">guardar</v-btn>
-    </v-col>
-    <v-dialog v-model="dialogVisible" max-width="500px">
-      <v-card>
+  <v-container width="1000" class="mx-auto">
+    <v-container>
+      <v-card v-for="(courseForm, index) in courseForms" :key="index" class="mb-4 card-style">
         <v-card-title>
-          <span class="headline">Datos guardados</span>
+          <v-col class="d-flex justify-center aling-center">
+            <h3 class="headline header-form">CURSOS</h3>
+            <v-btn append-icon class="icon-button" color="red" v-if="index !== 0" @click="deleteCourseForm(index)">
+              <v-icon size="x-large">mdi-close-thick</v-icon>
+            </v-btn>
+          </v-col>
         </v-card-title>
         <v-card-text>
-          <p>Los datos se han guardado exitosamente.</p>
+          <v-col>
+            <v-row>
+              <v-col>
+                <v-text-field v-model="courseForm.institutionCourse"
+                  @input="courseForm.institutionCourse = courseForm.institutionCourse.toUpperCase()"
+                  label="Universidad o Institución" required></v-text-field>
+              </v-col>
+              <v-col>
+                <v-text-field v-model="courseForm.nameCourse"
+                  @input="courseForm.nameCourse = courseForm.nameCourse.toUpperCase()" label="Nombre de Curso o Taller"
+                  required></v-text-field>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col>
+                <v-text-field v-model="courseForm.countryCourse"
+                  @input="courseForm.countryCourse = courseForm.countryCourse.toUpperCase()" label="País"
+                  required></v-text-field>
+              </v-col>
+              <v-col>
+                <VueDatePicker v-model="courseForm.yearCourse" locale="es" year-picker :year-range="[1950, currentYear]"
+                  :teleport="true" placeholder="Año de realización" />
+              </v-col>
+              <!-- <v-col>
+                <v-file-input @change="loadCourseFile($event)" accept="application/pdf" label="Seleccionar archivo PDF"
+                  outlined></v-file-input>
+                <p style="text-align: right;">Adjuntar certificado escaneado</p>
+              </v-col> -->
+            </v-row>
+          </v-col>
         </v-card-text>
-        <v-card-actions>
-          <v-btn color="primary" to="/form4">OK</v-btn>
-        </v-card-actions>
       </v-card>
-    </v-dialog>
-  </v-sheet>
+      <v-btn prepend-icon="mdi-plus" v-if="courseForms.length < 3" @click="addCourseForm()" density="comfortable"
+        class="fixed-bottom mr-2 button-form">AGREGAR
+        NUEVO CURSO</v-btn>
+    </v-container>
+    <v-container>
+      <v-card v-for="(publicationForm, index2) in publicationForms" :key="index2" class="mb-4 card-style">
+        <v-card-title>
+          <v-col class="d-flex justify-center aling-center">
+            <h3 class="headline header-form">PRODUCCIÓN INTELECTUAL</h3>
+            <v-btn append-icon class="icon-button" color="red" v-if="index2 !== 0" @click="deletePublicationForm(index2)">
+              <v-icon size="x-large">mdi-close-thick</v-icon>
+            </v-btn>
+          </v-col>
+        </v-card-title>
+        <v-card-text>
+          <v-col>
+            <v-row>
+              <v-col>
+                <v-text-field v-model="publicationForm.namePublication" label="Nombre de publicación"
+                  @input="publicationForm.namePublication = publicationForm.namePublication.toUpperCase()"
+                  required></v-text-field>
+              </v-col>
+              <v-col>
+                <v-text-field v-model="publicationForm.publisher" label="Enlace o Editorial de Publicación"
+                  @input="publicationForm.publisher = publicationForm.publisher.toUpperCase()" required></v-text-field>
+              </v-col>
+              <v-col>
+                <v-select v-model="publicationForm.typePublication" :items="publishType" label="Tipo de publicación"
+                  outlined></v-select>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col>
+                <v-text-field v-model="publicationForm.countryPublication" label="País"
+                  @input="publicationForm.countryPublication = publicationForm.countryPublication.toUpperCase()"
+                  required></v-text-field>
+              </v-col>
+              <v-col>
+                <VueDatePicker v-model="publicationForm.datePublication" locale="es" :teleport="true"
+                  :year-range="[1950, currentYear]" placeholder="Fecha de Publicación" :enable-time-picker="false" />
+              </v-col>
+              <!-- <v-col>
+                <v-file-input @change="loadPublicationFile($event)" accept="application/pdf"
+                  label="Seleccionar archivo PDF" outlined></v-file-input>
+              </v-col> -->
+            </v-row>
+          </v-col>
+        </v-card-text>
+      </v-card>
+      <v-btn prepend-icon="mdi-plus" v-if="publicationForms.length < 3" @click="addPublicationForm()"
+        density="comfortable" class="fixed-bottom mr-2 button-form">Agregar
+        formulario</v-btn>
+      <v-alert variant="elevated" closable density="compact" color="yellow" title="Atención" v-show="alertFlag"
+        text="Verifique que los datos ingresados sean correctos!"></v-alert>
+    </v-container>
+    <v-container>
+      <v-btn @mouseover="alertFlag = true" prepend-icon="mdi-content-save-outline" class="fixed-bottom mr-2 button-form"
+        width="150px" density="default" @click="showNextForm(); saveDataCourses(); saveDataPublication();">guardar</v-btn>
+      <v-btn prepend-icon="mdi-arrow-left" class="fixed-bottom mr-2 button-form" width="150px" density="default"
+        @click="showPreviusForm()">atras</v-btn>
+    </v-container>
+  </v-container>
 </template>
 
 <script>
@@ -118,19 +118,21 @@ export default {
   ],
   data() {
     return {
-      // idUser: this.userId,
-      idUser: 'aljiar23@gmail.com',
+      idUser: this.userId,
+      // idUser: 'aljiar23@gmail.com',
       dialogVisible: false,
+      alertFlag: false,
       estate: true,
       local: '',
+      currentYear: new Date().getFullYear(),
       courseForms: [
         {
           institutionCourse: '',
           nameCourse: '',
           countryCourse: '',
           yearCourse: '',
-          fileCourse: null,
-          courseFilled: false
+          // fileCourse: null,
+          // courseFilled: false
         }
       ],
       courseFiles: [],
@@ -141,15 +143,15 @@ export default {
           typePublication: '',
           countryPublication: '',
           datePublication: '',
-          filePublication: null,
-          publicationFilled: false
+          // filePublication: null,
+          // publicationFilled: false
         },
       ],
       publicationFiles: [],
       publishType: [
         'Libro',
         'Revista',
-        'Articulo'
+        'Artículo'
       ],
       NivelEstudio: [
         'Licenciado',
@@ -160,7 +162,7 @@ export default {
       ModalidadGraduacion: [
         'Tesis',
         'Trabajo Dirigido',
-        'Doble Titulacion',
+        'Doble Titulación',
         'Otro'
       ],
       menu: false,
@@ -169,14 +171,23 @@ export default {
     }
   },
   methods: {
+    showNextForm() {
+      let nextComponent = 'work-experience-profile'
+      this.$emit('show-next-form', nextComponent, this.idUser)
+    },
+    showPreviusForm() {
+      let nextComponent = 'superior-education-profile'
+      this.$emit('show-next-form', nextComponent, this.idUser)
+    },
     addCourseForm() {
       if (this.courseForms.length < 3 && this.checkCourseList()) {
+        // if (this.courseForms.length < 3) {
         this.courseForms.push({
           institutionCourse: '',
           nameCourse: '',
           countryCourse: '',
           yearCourse: '',
-          fileCourse: null,
+          // fileCourse: null,
           courseFilled: false
         })
       }
@@ -189,7 +200,7 @@ export default {
           typePublication: '',
           countryPublication: '',
           datePublication: '',
-          filePublication: null
+          // filePublication: null
         })
       }
     },
@@ -200,44 +211,46 @@ export default {
       this.publicationForms.splice(index, 1);
     },
     saveDataCourses() {
+      const documentRef = doc(database, 'instructors', this.idUser)
+      const collectionRef = collection(documentRef, 'courses')
       this.courseForms.forEach((courseFormValue) => {
-        const documentRef = doc(database, 'instructors', this.idUser)
-        const collectionRef = collection(documentRef, 'courses')
-        addDoc(collectionRef, {
-          institutionCourse: courseFormValue.institutionCourse,
-          nameCourse: courseFormValue.nameCourse,
-          countryCourse: courseFormValue.countryCourse,
-          yearCourse: courseFormValue.yearCourse,
-        })
-
+        if (courseFormValue.nameCourse != '') {
+          addDoc(collectionRef, {
+            institutionCourse: courseFormValue.institutionCourse,
+            nameCourse: courseFormValue.nameCourse,
+            countryCourse: courseFormValue.countryCourse,
+            yearCourse: courseFormValue.yearCourse,
+          })
+        }
       })
     },
     saveDataPublication() {
+      const documentRef = doc(database, 'instructors', this.idUser)
+      const collectionRef = collection(documentRef, 'publications')
       this.publicationForms.forEach((publicationFormValue) => {
-        const documentRef = doc(database, 'instructors', this.idUser)
-        const collectionRef = collection(documentRef, 'publications')
-        addDoc(collectionRef, {
-          namePublication: publicationFormValue.namePublication,
-          publisher: publicationFormValue.publisher,
-          typePublication: publicationFormValue.typePublication,
-          countryPublication: publicationFormValue.countryPublication,
-          datePublication: publicationFormValue.datePublication,
-        })
-
+        if (publicationFormValue.namePublication != '') {
+          addDoc(collectionRef, {
+            namePublication: publicationFormValue.namePublication,
+            publisher: publicationFormValue.publisher,
+            typePublication: publicationFormValue.typePublication,
+            countryPublication: publicationFormValue.countryPublication,
+            datePublication: this.format(publicationFormValue.datePublication),
+          })
+        }
       })
     },
-    loadCourseFile(e) {
-      let newFileCourse = e.target.files[0]
-      console.log(newFileCourse)
-      this.courseFiles.push(newFileCourse)
-      this.courseForms[this.courseForms.length - 1].courseFilled = true
-    },
-    loadPublicationFile(e) {
-      let newFilePublication = e.target.files[0]
-      console.log(newFilePublication)
-      this.publicationFiles.push(newFilePublication)
-      this.publicationForms[this.publicationForms.length - 1].publicationFilled = true
-    },
+    // loadCourseFile(e) {
+    //   let newFileCourse = e.target.files[0]
+    //   console.log(newFileCourse)
+    //   this.courseFiles.push(newFileCourse)
+    //   this.courseForms[this.courseForms.length - 1].courseFilled = true
+    // },
+    // loadPublicationFile(e) {
+    //   let newFilePublication = e.target.files[0]
+    //   console.log(newFilePublication)
+    //   this.publicationFiles.push(newFilePublication)
+    //   this.publicationForms[this.publicationForms.length - 1].publicationFilled = true
+    // },
     checkCourseList() {
       let listCourseFilled = true
       this.courseForms.forEach((courseForm) => {
@@ -245,7 +258,8 @@ export default {
           && courseForm.nameCourse
           && courseForm.countryCourse
           && courseForm.yearCourse
-          && courseForm.courseFilled) {
+          // && courseForm.courseFilled
+        ) {
           listCourseFilled = true
         } else {
           listCourseFilled = false
@@ -261,34 +275,45 @@ export default {
           && publicationForm.typePublication
           && publicationForm.countryPublication
           && publicationForm.datePublication
-          && publicationForm.publicationFilled) {
-          listCourseFilled = true
+          // && publicationForm.publicationFilled
+        ) {
+          listPublicationFilled = true
         } else {
           listPublicationFilled = false
         }
       })
       return listPublicationFilled
     },
-    uploadCourseFile() {
-      const storage = getStorage()
-      let newIdUser = this.idUser
-      this.courseFiles.forEach((courseFileValue) => {
-        const storageRef = ref(storage, newIdUser + '/courseFiles/' + courseFileValue.name)
-        uploadBytes(storageRef, courseFileValue).then((snapshot) => {
-          console.log('Upload course file')
-        })
-      })
+    format(selectedDate) {
+      console.log(selectedDate)
+      const day = selectedDate.getDate();
+      const month = selectedDate.getMonth() + 1;
+      const year = selectedDate.getFullYear();
+      let formatedDate = `${day}/${month}/${year}`;
+      this.dateOfBirth = formatedDate;
+      console.log(formatedDate)
+      return formatedDate;
     },
-    uploadPublicationFile() {
-      const storage = getStorage()
-      let newIdUser = this.idUser
-      this.publicationFiles.forEach((publicationFileValue) => {
-        const storageRef = ref(storage, newIdUser + '/publicationFiles/' + publicationFileValue.name)
-        uploadBytes(storageRef, publicationFileValue).then((snapshot) => {
-          console.log('Upload publication file')
-        })
-      })
-    },
+    // uploadCourseFile() {
+    //   const storage = getStorage()
+    //   let newIdUser = this.idUser
+    //   this.courseFiles.forEach((courseFileValue) => {
+    //     const storageRef = ref(storage, newIdUser + '/courseFiles/' + courseFileValue.name)
+    //     uploadBytes(storageRef, courseFileValue).then((snapshot) => {
+    //       console.log('Upload course file')
+    //     })
+    //   })
+    // },
+    // uploadPublicationFile() {
+    //   const storage = getStorage()
+    //   let newIdUser = this.idUser
+    //   this.publicationFiles.forEach((publicationFileValue) => {
+    //     const storageRef = ref(storage, newIdUser + '/publicationFiles/' + publicationFileValue.name)
+    //     uploadBytes(storageRef, publicationFileValue).then((snapshot) => {
+    //       console.log('Upload publication file')
+    //     })
+    //   })
+    // },
   }
 
 }

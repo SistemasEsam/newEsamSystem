@@ -1,92 +1,86 @@
 <template>
-  <v-sheet width="1000" class="mx-auto">
-
-    <v-card v-for="(skillForm, index) in skillForms" :key="index" class="mb-4">
-      <v-card-title>
-        <v-col class="d-flex justify-center aling-center">
-          <h2 class="headline">HABILIDADES</h2>
-          <v-btn v-if="index !== 0" icon @click="deleteSkillForm(index)">
-            <v-icon>mdi-close</v-icon>
-          </v-btn>
-        </v-col>
-      </v-card-title>
-      <v-card-text>
-        <v-col>
-          <v-row>
-            <v-col>
-              <v-text-field v-model="skillForm.skill" label="Habilidad" required></v-text-field>
-            </v-col>
-          </v-row>
-
-        </v-col>
-      </v-card-text>
-    </v-card>
-    <v-col>
-      <v-btn v-if="skillForms.length < 5" @click="addSkillForm()" color="warning" class="fixed-bottom mr-2">AGREGAR
-        NUEVA HABILIDAD</v-btn>
-    </v-col>
-    <v-col>
-    </v-col>
-    <v-card v-for="(languageForm, index2) in languageForms" :key="index2" class="mb-4">
-      <v-card-title>
-        <v-col class="d-flex justify-center aling-center">
-          <h2 class="headline">IDIOMAS</h2>
-          <v-btn v-if="index2 !== 0" icon @click="deleteLanguageForm(index2)">
-            <v-icon>mdi-close</v-icon>
-          </v-btn>
-        </v-col>
-      </v-card-title>
-      <v-card-text>
-        <v-col>
-          <v-row>
-            <v-select v-model="languageForm.language" :items="languages" label="Idioma" outlined></v-select>
-          </v-row>
-          <h3>Nivel de escritura:</h3>
-          <v-btn-toggle v-model="languageForm.writeLevel">
-            <v-btn value="basico">Basico</v-btn>
-            <v-btn value="medio">Medio</v-btn>
-            <v-btn value="avanzado">Avanzado</v-btn>
-          </v-btn-toggle>
-          <h3>Nivel oral:</h3>
-          <v-btn-toggle v-model="languageForm.speakeLevel">
-            <v-btn value="basico">Basico</v-btn>
-            <v-btn value="medio">Medio</v-btn>
-            <v-btn value="avanzado">Avanzado</v-btn>
-          </v-btn-toggle>
-          <h3>Nivel de lectura:</h3>
-          <v-btn-toggle v-model="languageForm.readLevel">
-            <v-btn value="basico">Basico</v-btn>
-            <v-btn value="medio">Medio</v-btn>
-            <v-btn value="avanzado">Avanzado</v-btn>
-          </v-btn-toggle>
-          <h3>Nivel de escucha:</h3>
-          <v-btn-toggle v-model="languageForm.listenLevel">
-            <v-btn value="basico">Basico</v-btn>
-            <v-btn value="medio">Medio</v-btn>
-            <v-btn value="avanzado">Avanzado</v-btn>
-          </v-btn-toggle>
-        </v-col>
-      </v-card-text>
-    </v-card>
-    <v-btn v-if="languageForms.length < 3" @click="addLanguageForm()" color="warning" class="fixed-bottom mr-2">AGREGAR
-      NUEVO IDIOMA</v-btn>
-    <v-col>
-      <v-btn class="success" @click="saveDataSkills(); saveDataLanguages() ">guardar</v-btn>
-    </v-col>
-    <v-dialog v-model="dialogVisible" max-width="500px">
-      <v-card>
+  <v-container width="1000" class="mx-auto">
+    <v-container>
+      <v-card v-for="(skillForm, index) in skillForms" :key="index" class="mb-4 card-style">
         <v-card-title>
-          <span class="headline">Datos guardados</span>
+          <v-col class="d-flex justify-center aling-center">
+            <h2 class="headline header-form">HABILIDADES</h2>
+            <v-btn append-icon class="icon-button" color="red" v-if="index !== 0" @click="deleteSkillForm(index)">
+              <v-icon size="x-large">mdi-close-thick</v-icon>
+            </v-btn>
+          </v-col>
         </v-card-title>
         <v-card-text>
-          <p>Los datos se han guardado exitosamente.</p>
+          <v-col>
+            <v-row>
+              <v-col>
+                <v-text-field v-model="skillForm.skill" label="Habilidad"
+                  @input="skillForm.skill = skillForm.skill.toUpperCase()" required></v-text-field>
+              </v-col>
+            </v-row>
+          </v-col>
         </v-card-text>
-        <v-card-actions>
-          <v-btn color="primary" to="/">OK</v-btn>
-        </v-card-actions>
       </v-card>
-    </v-dialog>
-  </v-sheet>
+      <v-btn prepend-icon="mdi-plus" v-if="skillForms.length < 5" @click="addSkillForm()"
+        class="fixed-bottom button-form">AGREGAR
+        NUEVA HABILIDAD</v-btn>
+    </v-container>
+    <v-container>
+      <v-card v-for="(languageForm, index2) in languageForms" :key="index2" class="mb-4 card-style">
+        <v-card-title>
+          <v-col class="d-flex justify-center aling-center">
+            <h2 class="headline header-form">IDIOMAS</h2>
+            <v-btn append-icon class="icon-button" color="red" v-if="index2 !== 0" @click="deleteLanguageForm(index2)">
+              <v-icon size="x-large">mdi-close-thick</v-icon>
+            </v-btn>
+          </v-col>
+        </v-card-title>
+        <v-card-text>
+          <v-col>
+            <v-row>
+              <v-select v-model="languageForm.language" :items="languages" label="Idioma" outlined></v-select>
+            </v-row>
+            <h3>Nivel de escritura:</h3>
+            <v-btn-toggle v-model="languageForm.writeLevel">
+              <v-btn value="básico">Básico</v-btn>
+              <v-btn value="medio">Medio</v-btn>
+              <v-btn value="avanzado">Avanzado</v-btn>
+            </v-btn-toggle>
+            <h3>Nivel oral:</h3>
+            <v-btn-toggle v-model="languageForm.speakeLevel">
+              <v-btn value="básico">Básico</v-btn>
+              <v-btn value="medio">Medio</v-btn>
+              <v-btn value="avanzado">Avanzado</v-btn>
+            </v-btn-toggle>
+            <h3>Nivel de lectura:</h3>
+            <v-btn-toggle v-model="languageForm.readLevel">
+              <v-btn value="básico">Básico</v-btn>
+              <v-btn value="medio">Medio</v-btn>
+              <v-btn value="avanzado">Avanzado</v-btn>
+            </v-btn-toggle>
+            <h3>Nivel de escucha:</h3>
+            <v-btn-toggle v-model="languageForm.listenLevel">
+              <v-btn value="básico">Básico</v-btn>
+              <v-btn value="medio">Medio</v-btn>
+              <v-btn value="avanzado">Avanzado</v-btn>
+            </v-btn-toggle>
+          </v-col>
+        </v-card-text>
+      </v-card>
+      <v-btn prepend-icon="mdi-plus" v-if="languageForms.length < 3" @click="addLanguageForm()"
+        class="fixed-bottom mr-2 button-form">AGREGAR
+        NUEVO IDIOMA</v-btn>
+        <v-alert variant="elevated" density="compact" closable color="yellow" title="Atención" v-show="alertFlag"
+        text="Verifique que los datos ingresados sean correctos!"></v-alert>
+    </v-container>
+    <v-container>
+      <v-btn @mouseover="alertFlag = true" prepend-icon="mdi-content-save-outline" class="fixed-bottom mr-2 button-form" width="150px" density="default"
+        :to="{ name: 'pdf', params: { id: this.idUser } }" @click="saveDataSkills(); saveDataLanguages()">guardar</v-btn>
+      <v-btn prepend-icon="mdi-arrow-left-bold-outline" class="fixed-bottom mr-2 button-form" width="150px"
+        density="default" @click="showPreviusForm()">
+        atras</v-btn>
+    </v-container>
+  </v-container>
 </template>
   
 <script>
@@ -95,12 +89,14 @@ import { database } from '../firebase/firebase'
 import { addDoc, collection, doc } from "firebase/firestore";
 
 export default {
-  props:[
+  props: [
     "userId"
   ],
   data() {
     return {
-      dialogVisible: false,
+      idUser: this.userId,
+      // idUser: 'aljiar23@gmail.com',
+      alertFlag: false,
       local: '',
       estate: true,
       skillForms: [
@@ -118,20 +114,24 @@ export default {
         }
       ],
 
-      languages: ['Español', 'Inglés', 'Francés', 'Alemán', 'Italiano', 'Portugues', 'Quechua', 'Aymara']
+      languages: ['Español', 'Inglés', 'Francés', 'Alemán', 'Italiano', 'Portugues', 'Quechua', 'Aymara', 'Guaraní', 'Chino', 'Koreano']
     }
   },
   methods: {
-    addSkillForm(){
-      if(this.skillForms.length<5){
+    showPreviusForm() {
+      let nextComponent = 'work-experience-profile'
+      this.$emit('show-next-form', nextComponent, this.idUser)
+    },
+    addSkillForm() {
+      if (this.skillForms.length < 5 && this.checkSkillList()) {
         this.skillForms.push({
           skill: ''
         })
 
       }
     },
-    addLanguageForm(){
-      if(this.languageForms.length<5){
+    addLanguageForm() {
+      if (this.languageForms.length < 5 && this.checkLanguagesList()) {
         this.languageForms.push({
           language: '',
           writeLevel: '',
@@ -141,35 +141,64 @@ export default {
         })
       }
     },
-    deleteSkillForm(index){
-      this.skillForms.splice(index,1)
+    deleteSkillForm(index) {
+      this.skillForms.splice(index, 1)
     },
-    deleteLanguageForm(index){
-      this.languageForms.splice(index,1)
+    deleteLanguageForm(index) {
+      this.languageForms.splice(index, 1)
     },
-    saveDataSkills(){
-      this.skillForms.forEach((skillFormValue) =>{
-        const documentRef = doc(database,'instructors',this.idUser)
-        const collectionRef = collection(documentRef,'skills')
-        addDoc(collectionRef,{
-          skill: skillFormValue.skill
-        })
+    saveDataSkills() {
+      const documentRef = doc(database, 'instructors', this.idUser)
+      const collectionRef = collection(documentRef, 'skills')
+      this.skillForms.forEach((skillFormValue) => {
+        if (skillFormValue.skill != '') {
+          addDoc(collectionRef, {
+            skill: skillFormValue.skill
+          })
+        }
       })
     },
-    saveDataLanguages(){
-      this.languageForms.forEach((languageFormValue) =>{
-        const documentRef = doc(database,'instructors',this.idUser)
-        const collectionRef = collection(documentRef,'languages')
-        addDoc(collectionRef,{
-          language: languageFormValue.language,
-          writeLevel: languageFormValue.writeLevel,
-          speakeLevel: languageFormValue.speakeLevel,
-          readLevel: languageFormValue.readLevel,
-          listenLevel: languageFormValue.listenLevel,
-        })
+    saveDataLanguages() {
+      const documentRef = doc(database, 'instructors', this.idUser)
+      const collectionRef = collection(documentRef, 'languages')
+      this.languageForms.forEach((languageFormValue) => {
+        if (languageFormValue.language != '') {
+          addDoc(collectionRef, {
+            language: languageFormValue.language,
+            writeLevel: languageFormValue.writeLevel,
+            speakeLevel: languageFormValue.speakeLevel,
+            readLevel: languageFormValue.readLevel,
+            listenLevel: languageFormValue.listenLevel,
+          })
+        }
       })
+    },
+    checkSkillList() {
+      let listSkillFilled = true
+      this.skillForms.forEach((skillForm) => {
+        if (skillForm.skill) {
+          listSkillFilled = true
+        } else {
+          listSkillFilled = false
+        }
+      })
+      return listSkillFilled
+    },
+    checkLanguagesList() {
+      let listLanguagesFilled = true
+      this.languageForms.forEach((languageForm) => {
+        if (languageForm.language
+          && languageForm.writeLevel
+          && languageForm.speakeLevel
+          && languageForm.readLevel
+          && languageForm.listenLevel) {
+          listLanguagesFilled = true
+        } else {
+          listLanguagesFilled = false
+        }
+      })
+      return listLanguagesFilled
     }
   }
 }
 </script>
-  
