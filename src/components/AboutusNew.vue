@@ -82,6 +82,7 @@ export default {
  
     text-align: right;
   margin-right: -65%;
+  right: -55%;
     position: relative;
    
 }
