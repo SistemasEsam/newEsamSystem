@@ -8,6 +8,7 @@ import ProfileView from '../views/ProfileView.vue'
 import ContactView from '../views/ContactView.vue'
 import InstructorsView from '@/views/InstructorsView.vue'
 import StaffMenuView from '@/views/StaffMenuView.vue'
+import AcademicStaffView from '@/views/AcademicStaffView.vue'
 
 
 const routes = [
@@ -65,6 +66,11 @@ const routes = [
   path:'/staffMenu',
   name: 'staffMenu',
   component: StaffMenuView
+},
+{
+  path:'/academicMenu',
+  name: 'academicMenu',
+  component: AcademicStaffView
 },
 
 
