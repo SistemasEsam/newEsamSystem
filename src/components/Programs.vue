@@ -31,27 +31,27 @@
         imageData: [
           {
             imageUrl: require("@/assets/M-AYCF.png"),
-            title: 'Título Imagen 1',
-            subtitle: 'Subtítulo Imagen 1',
-            description: 'Descripción Imagen 1',
+            title: 'MAESTRIA EN',
+            subtitle: 'AUDITORIA Y CONTROL FINANCIERO',
+            description: 'VERSION 1 GRUPO 2',
             button:'nuevo'
           },
           {
             imageUrl: require("@/assets/M-BIMM.png"),
-            title: 'Título Imagen 2',
-            subtitle: 'Subtítulo Imagen 2',
-            description: 'Descripción Imagen 2'
+            title: 'MAESTRIA EN ',
+            subtitle: 'BIM MANAGEMENT',
+            description: 'VERSION 1 GRUPO 1'
           },
           {
             imageUrl: require("@/assets/M-GHGS.png"),
-            title: 'Título Imagen 1',
-            subtitle: 'Subtítulo Imagen 1',
-            description: 'Descripción Imagen 1'
+            title: 'MAESTRIA EN',
+            subtitle: 'GESTION HOSPITALARIA Y GERENCIA DE LOS SERVICIOS DE SALUD',
+            description: 'VERSION 1 GRUPO 2'
           },  {
             imageUrl: require("@/assets/M-SPME.png"),
-            title: 'Título Imagen 1',
-            subtitle: 'Subtítulo Imagen 1',
-            description: 'Descripción Imagen 1'
+            title: 'MAESTRIA EN',
+            subtitle: 'SALUD PUBLICA',
+            description: 'VERSION 1 GRUPO 1'
           },          // ... Agrega más objetos para más imágenes
         ],
         buttonTexts: ['Botón 1', 'Botón 2','Botón 2','Botón 2'] // Agrega más textos para más botones
@@ -115,16 +115,17 @@
   position:relative
   }
   .custom-subtitle-program{
-    font-size: 30pt; /* Tamaño de fuente relativo */
+    font-size: 18pt; /* Tamaño de fuente relativo */
   font-weight: Black;
   color: #D8D2D2;
   text-align: center;
+  line-height: 100%;
 
   position:relative
   }
   .custom-description-program{
 
-    font-size: 10; /* Tamaño de fuente relativo */
+    font-size: 10PT; /* Tamaño de fuente relativo */
   font-weight: regular;
   color: #D8D2D2;
   text-align: center;

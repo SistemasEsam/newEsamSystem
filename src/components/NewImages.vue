@@ -10,12 +10,20 @@
           height="100%"
           class="d-flex flex-column align-center justify-center"
         >
-          <h2 class="custom-title">{{ item.title }}</h2>
-          <h3 class="custom-subtitle">{{ item.subtitle }}</h3>
+        <v-col cols="6">
+          <div class="content-right">
+          
+            <h2 class="custom-title">{{ item.title }}</h2>
+          <h3 class="custom-subtitle ">{{ item.subtitle }}</h3>
           <p class="custom-description">{{ item.description }}</p>
-          <v-btn class="custom-btn" color="#FFDF10">{{
+          
+          </div>
+          <v-btn class="custom-btn pt-2" color="#FFDF10">{{
             item.buttonText
           }}</v-btn>
+
+        </v-col>
+      
         </v-sheet>
       </v-carousel-item>
     </v-carousel>
@@ -58,19 +66,47 @@ Map
     return {
       carouselItems: [
         {
-          title: "Imagen 1",
-          subtitle: "Subtítulo de la Imagen 1",
-          description: "Descripción de la Imagen 1.",
-          buttonText: "Botón 1",
-          backgroundImage: require("@/assets/BANCA.png"),
+          title: "MAESTRIA EN",
+          subtitle: "AUDITORIA Y CONTROL FINANCIERO",
+          description: "Desarrolla habilidades en temas de control de gestión, estructura organizacional, tributación, modelo de negocio en auditoría y control financiero, para la gestión de las organizaciones públicas y privadas.",
+          buttonText: "QUIERO INSCRIBIRME",
+          backgroundImage: require("@/assets/AUDITORIA.png"),
         },
         {
-          title: "Imagen 2",
-          subtitle: "Subtítulo de la Imagen 2",
+          title: "MAESTRIA EN",
+          subtitle: "BIM MANAGEMENT",
+          description: "Capacitar a profesionales en los procesos que llevan a la planificación de una obra y con herramientas de software a través de tecnologías muy avanzada para el área de Arquitectura Digital y BIM.",
+          buttonText: "QUIERO INSCRIBIRME",
+          backgroundImage: require("@/assets/BIM.png"),
+        },
+        {
+          title: "MAESTRIA EN ",
+          subtitle: "DERECHO CIVIL Y PROCESAL CIVIL",
           description: "Descripción de la Imagen 2.",
-          buttonText: "Botón 2",
+          buttonText: "QUIERO INSCRIBIRME",
+          backgroundImage: require("@/assets/DERECHOCIVIL.png"),
+        },
+        {
+          title: "MAESTRIA EN",
+          subtitle: "GERENCIA TRIBUTARIA",
+          description: "Descripción de la Imagen 2.",
+          buttonText: "QUIERO INSCRIBIRME",
           backgroundImage: require("@/assets/GERENCIATRIBUTARIA.png"),
         },
+        {
+          title: "MAESTRIA EN",
+          subtitle: "GESTION HOSPITALARIA Y GERENCIA DE LOS SERVICIOS DE SALUD",
+          description: "Desarrolla habilidades y destrezas necesarias para diseñar y crear misiones administrativas, con calidad y solvencia mejorando la gestión en salud.",
+          buttonText: "QUIERO INSCRIBIRME",
+          backgroundImage: require("@/assets/GH1.png"),
+        },
+        {
+          title: "MAESTRIA EN",
+          subtitle: "SALUD PUBLICA",
+          description: "Descripción de la Imagen 2.",
+          buttonText: "QUIERO INSCRIBIRME",
+          backgroundImage: require("@/assets/SP1.png"),
+        }
       ],
     };
   },
@@ -91,7 +127,7 @@ position: absolute;
   font-weight: bold;
   color: #B2A612;
   text-align: right;
-  margin-right: -63%;
+  margin-right: -77%;
   position:relative
 }
 
@@ -100,8 +136,9 @@ position: absolute;
   font-weight: black;
   color: #D8D2D2;
   text-align: right;
-  margin-right: -35%;
-  position:relative
+  margin-right: -78%;
+  position:relative;
+  line-height: 100%;
 }
 
 .custom-description {
@@ -109,7 +146,7 @@ position: absolute;
   font-weight: regular;
   color: #D8D2D2;
   text-align: right;
-  margin-right: -59%;
+  margin-right: -77%;
   position:relative
 }
 
@@ -117,9 +154,11 @@ position: absolute;
   font-size: 1em;
   font-weight: bold;
   color: #112533;
-  text-align: right;
-  margin-right: -65%;
-  position:relative
+  text-align: left;
+  margin-left: 80%;
+  position: relative;
+  top: -15%;
+ 
 }
 
 .custome-more {
@@ -138,7 +177,7 @@ position: absolute;
   height: 3%;
   font-size: 2em;
   text-align: left ; /* Alineación a la izquierda */
-  margin-left: 47%;
+  margin-left: 45%;
  position: relative; /* Margen izquierdo para mover la descripción hacia la izquierda */
 }
 
@@ -161,4 +200,7 @@ position: absolute;
     background-color: #112533;
     
   }
+  .content-right {
+  padding: 20%; /* Espaciado para el contenido a la derecha */
+}
 </style>
