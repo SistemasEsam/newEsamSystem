@@ -20,26 +20,6 @@
                 </v-btn>
             </v-col>
         </v-row>
-        <v-row>
-            <v-col>
-                <v-btn class="button-style" size="300px">
-                    <v-icon size="200px"> mdi-account-question-outline </v-icon>
-                    <h3 class="text-position">Postulantes</h3>
-                </v-btn>
-            </v-col>
-            <v-col>
-                <v-btn class="button-style" size="300px">
-                    <v-icon size="200px"> mdi-calendar-clock-outline </v-icon>
-                    <h3 class="text-position">Reuniones Pendientes</h3>
-                </v-btn>
-            </v-col>
-            <v-col>
-                <v-btn class="button-style" size="300px">
-                    <v-icon size="200px"> mdi-certificate-outline </v-icon>
-                    <h3 class="text-position">Certifaciones Docentes</h3>
-                </v-btn>
-            </v-col>
-        </v-row>
     </v-container>
     
 </template>

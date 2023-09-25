@@ -9,6 +9,8 @@ import ContactView from '../views/ContactView.vue'
 import InstructorsView from '@/views/InstructorsView.vue'
 import StaffMenuView from '@/views/StaffMenuView.vue'
 import AcademicStaffView from '@/views/AcademicStaffView.vue'
+import StaffProfile from '@/components/StaffProfile.vue'
+import MarketingStaffMenu from '@/components/MarketingStaffMenu.vue'
 
 
 const routes = [
@@ -72,8 +74,16 @@ const routes = [
   name: 'academicMenu',
   component: AcademicStaffView
 },
-
-
+{
+  path:'/staffProfile',
+  name: 'staffProfile',
+  component: StaffProfile
+},
+{
+path:'/staffProfile',
+name: 'staffProfile',
+component: MarketingStaffMenu
+},
 
 ]
 
