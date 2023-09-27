@@ -38,44 +38,31 @@
           <h1 class="sub-title">
             Estudios Pregrado
           </h1>
-          <v-card v-for="(degree, index) in degrees" :key="index" class="cards mb-6">
+          <v-card v-for="(degree, index) in degrees" :key="index" class="cards mb-3">
             <v-row>
-              <v-col class="mt-0 mb-0 pb-0">
-                <p class="h3-customize"> Carrera:</p>
-              </v-col>
-              <v-col class="content-style">
-                <p>{{ degree.levelOfDegree }} en {{ degree.careerDegree }}</p>
+              <v-col class="mt-0 mb-0 pb-0 line-customize">
+                <p class="h3-customize pr-3"> Carrera: </p> <p class="content-style">{{ degree.levelOfDegree }} en {{ degree.careerDegree }}</p>
               </v-col>
             </v-row>
             <v-row>
-              <v-col class="mt-0 mb-0 pb-0 pt-0">
-                <p class="h3-customize"> Universidad/Instituto:</p>
-              </v-col>
-              <v-col class="content-style">
-                <p>{{ degree.universityDegree }}</p>
+              <v-col class="mt-0 mb-0 pb-0 pt-0 line-customize">
+                <p class="h3-customize pr-3"> Universidad/Instituto:</p> <p>{{ degree.universityDegree }}</p>
               </v-col>
             </v-row>
             <v-row>
-              <v-col class="mt-0 mb-0 pb-0 pt-0">
-                <p class="h3-customize"> País:</p>
-              </v-col>
-              <v-col class="content-style">
-                <p>{{ degree.countryDegree }}</p>
+              <v-col class="mt-0 mb-0 pb-0 pt-0 line-customize">
+                <p class="h3-customize pr-3"> País:</p> <p>{{ degree.countryDegree }}</p>
               </v-col>
             </v-row>
             <v-row>
-              <v-col class="mt-0 mb-0 pb-0 pt-0">
-                <p class="h3-customize"> Año de Graduación:</p>
-              </v-col>
-              <v-col class="content-style">
+              <v-col class="mt-0 mb-0 pb-0 pt-0 line-customize">
+                <p class="h3-customize pr-3"> Año de Graduación:</p>
                 <p>{{ degree.graduationYearDegree }}</p>
               </v-col>
             </v-row>
             <v-row>
-              <v-col class="mt-0 mb-0 pb-0 pt-0">
-                <p class="h3-customize"> Modalidad de Graduación:</p>
-              </v-col>
-              <v-col class="content-style">
+              <v-col class="mt-0 mb-0 pb-3 pt-0 line-customize">
+                <p class="h3-customize pr-3"> Modalidad de Graduación:</p>
                 <p>{{ degree.graduationModalityDegree }}</p>
               </v-col>
             </v-row>
@@ -87,88 +74,68 @@
             Estudios Postgrado
           </h1>
           <v-card v-for="(higherEducationPostDegree, index) in higherEducationPostDegrees" :key="index"
-            class="cards mb-4 pb-4">
+            class="cards mt-1 mb-1 pt-3">
             <v-row>
-              <v-col class="mt-0 mb-0 pb-0">
-                <p class="h3-customize"> Postgrado:</p>
-              </v-col>
-              <v-col class="content-style">
+              <v-col class="mt-0 mb-0 pb-0 pt-0 line-customize">
+                <p class="h3-customize pr-3"> Postgrado:</p> 
                 <p>{{ higherEducationPostDegree.levelHigherEducation }} en {{
                   higherEducationPostDegree.nameHigherEducation }}</p>
               </v-col>
             </v-row>
             <v-row>
-              <v-col class="mt-0 mb-0 pb-0">
-                <p class="h3-customize"> Universidad/Instituto:</p>
-              </v-col>
-              <v-col class="content-style">
+              <v-col class="mt-0 mb-0 pb-0 pt-0 line-customize">
+                <p class="h3-customize pr-3"> Universidad/Instituto:</p>
                 <p>{{ higherEducationPostDegree.institutionName }}</p>
               </v-col>
             </v-row>
             <v-row>
-              <v-col class="mt-0 mb-0 pb-0">
-                <p class="h3-customize"> País:</p>
-              </v-col>
-              <v-col class="content-style">
+              <v-col class="mt-0 mb-0 pb-0 line-customize">
+                <p class="h3-customize pr-3"> País:</p>
                 <p>{{ higherEducationPostDegree.countryHigherEducationName }}</p>
               </v-col>
             </v-row>
             <v-row>
-              <v-col class="mt-0 mb-0 pb-0">
-                <p class="h3-customize"> Año de Realización:</p>
-              </v-col>
-              <v-col class="content-style">
+              <v-col class="mt-0 mb-0 pb-0 line-customize">
+                <p class="h3-customize pr-3"> Año de Realización:</p>
                 <p>{{ higherEducationPostDegree.graduationYearHigherEducation }}</p>
               </v-col>
             </v-row>
             <v-row>
-              <v-col class="mt-0 mb-0 pb-0">
-                <p class="h3-customize"> Modalidad de Graduación:</p>
-              </v-col>
-              <v-col class="content-style">
+              <v-col class="mt-0 mb-0 pb-3 line-customize">
+                <p class="h3-customize pr-3"> Modalidad de Graduación:</p>
                 <p>{{ higherEducationPostDegree.graduationModalityHigherEducation }}</p>
               </v-col>
             </v-row>
           </v-card>
 
-          <v-card v-for="(postDegree, index) in postDegrees" :key="index" class="cards">
+          <v-card v-for="(postDegree, index) in postDegrees" :key="index" class="cards mt-1 mb-1">
             <v-row>
-              <v-col class="mt-0 mb-0 pb-0">
-                <p class="h3-customize"> Postgrado:</p>
-              </v-col>
-              <v-col class="content-style">
+              <v-col class="mt-0 mb-0 pb-0 pt-3 line-customize">
+                <p class="h3-customize pr-3"> Postgrado:</p>
                 <p>{{ postDegree.titlePostDegree }} en {{ postDegree.namePostDegree }}</p>
               </v-col>
             </v-row>
             <v-row>
-              <v-col class="mt-0 mb-0 pb-0">
-                <p class="h3-customize"> Universidad/Instituto:</p>
-              </v-col>
-              <v-col class="content-style">
+              <v-col class="mt-0 mb-0 pb-0 line-customize">
+                <p class="h3-customize pr-3"> Universidad/Instituto:</p>
                 <p>{{ postDegree.universityPostDegree }}</p>
               </v-col>
             </v-row>
             <v-row>
-              <v-col class="mt-0 mb-0 pb-0">
-                <p class="h3-customize"> País:</p>
-              </v-col>
-              <v-col class="content-style">
+              <v-col class="mt-0 mb-0 pb-0 line-customize">
+                <p class="h3-customize pr-3"> País:</p>
                 <p>{{ postDegree.countryPostDegree }}</p>
               </v-col>
             </v-row>
             <v-row>
-              <v-col class="mt-0 mb-0 pb-0">
-                <p class="h3-customize"> Año de Realización:</p>
-              </v-col>
-              <v-col class="content-style">
+              <v-col class="mt-0 mb-0 pb-0 line-customize">
+                <p class="h3-customize pr-3"> Año de Realización:</p>
                 <p>{{ postDegree.graduationYearPostDegree }}</p>
               </v-col>
             </v-row>
             <v-row>
-              <v-col class="mt-0 mb-0 pb-0">
-                <p class="h3-customize"> Modalidad de Graduación:</p>
-              </v-col>
-              <v-col class="content-style">
+              <v-col class="mt-0 mb-0 pb-3 line-customize">
+                <p class="h3-customize pr-3"> Modalidad de Graduación:</p>
                 <p>{{ postDegree.graduationModalityPostDegree }}</p>
               </v-col>
             </v-row>
@@ -178,36 +145,28 @@
           <h1 class="sub-title">
             Cursos
           </h1>
-          <v-card v-for="(course, index) in courses" :key="index" class="cards">
+          <v-card v-for="(course, index) in courses" :key="index" class="cards mt-1 mb-1">
             <v-row>
-              <v-col class="mt-0 mb-0 pb-0">
-                <p class="h3-customize"> Curso </p>
-              </v-col>
-              <v-col class="content-style">
+              <v-col class="mt-0 mb-0 pb-0 line-customize">
+                <p class="h3-customize pr-3"> Curso </p>
                 <p>{{ course.nameCourse }}</p>
               </v-col>
             </v-row>
             <v-row>
-              <v-col class="mt-0 mb-0 pb-0">
-                <p class="h3-customize"> Universidad/Instituto:</p>
-              </v-col>
-              <v-col class="content-style">
+              <v-col class="mt-0 mb-0 pb-0 line-customize">
+                <p class="h3-customize pr-3"> Universidad/Instituto:</p>
                 <p>{{ course.institutionCourse }}</p>
               </v-col>
             </v-row>
             <v-row>
-              <v-col class="mt-0 mb-0 pb-0">
-                <p class="h3-customize"> País:</p>
-              </v-col>
-              <v-col class="content-style">
+              <v-col class="mt-0 mb-0 pb-0 line-customize">
+                <p class="h3-customize pr-3"> País:</p>
                 <p>{{ course.countryCourse }}</p>
               </v-col>
             </v-row>
             <v-row>
-              <v-col class="mt-0 mb-0 pb-0">
-                <p class="h3-customize"> Año de Realización:</p>
-              </v-col>
-              <v-col class="content-style">
+              <v-col class="mt-0 mb-0 pb-3 line-customize">
+                <p class="h3-customize pr-3"> Año de Realización:</p>
                 <p>{{ course.yearCourse }}</p>
               </v-col>
             </v-row>
