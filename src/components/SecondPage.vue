@@ -11,10 +11,8 @@
             </h1>
             <v-card v-for="(job, index) in jobs" :key="index" class="card-style cards1">
               <v-row>
-                <v-col class="mt-0 mb-0 pb-0">
-                  <p class="h3-customize"> Cargo </p>
-                </v-col>
-                <v-col class="content-style">
+                <v-col class="mt-0 mb-0 pb-0 line-customize">
+                  <p class="h3-customize pr-3"> Cargo </p>
                   <p>{{ job.jobTitleWorkExperience }}</p>
                 </v-col>
               </v-row>
@@ -82,44 +80,34 @@
             <h1 class="sub-title">
               Publicaciones
             </h1>
-            <v-card class="card-style cards1" v-for="(publication, index) in publications" :key="index">
+            <v-card class="card-style cards1 mb-6" v-for="(publication, index) in publications" :key="index">
               <v-row>
-                <v-col class="mt-0 mb-0 pb-0">
-                  <p class="h3-customize"> Nombre de la Publicación</p>
-                </v-col>
-                <v-col class="content-style">
+                <v-col class="mt-0 mb-0 pb-0 line-customize">
+                  <p class="h3-customize pr-3"> Nombre de la Publicación</p>
                   <p>{{ publication.namePublication }}</p>
                 </v-col>
               </v-row>
               <v-row>
-                <v-col class="mt-0 mb-0 pb-0">
-                  <p class="h3-customize"> Enlace o Editorial</p>
-                </v-col>
-                <v-col class="content-style">
+                <v-col class="mt-0 mb-0 pb-0 line-customize">
+                  <p class="h3-customize pr-3"> Enlace o Editorial</p>
                   <p>{{ publication.publisher }}</p>
                 </v-col>
               </v-row>
               <v-row>
-                <v-col class="mt-0 mb-0 pb-0">
-                  <p class="h3-customize"> Tipo de Publicación</p>
-                </v-col>
-                <v-col class="content-style">
+                <v-col class="mt-0 mb-0 pb-0 line-customize">
+                  <p class="h3-customize pr-3"> Tipo de Publicación</p>
                   <p>{{ publication.typePublication }}</p>
                 </v-col>
               </v-row>
               <v-row>
-                <v-col class="mt-0 mb-0 pb-0">
-                  <p class="h3-customize"> País de Publicación</p>
-                </v-col>
-                <v-col class="content-style">
+                <v-col class="mt-0 mb-0 pb-0 line-customize">
+                  <p class="h3-customize pr-3"> País de Publicación</p>
                   <p>{{ publication.countryPublication }}</p>
                 </v-col>
               </v-row>
-              <v-row class="mt-0 mb-0 pb-2 pt-2">
+              <v-row class="mt-0 mb-0 pb-2 pt-2 line-customize">
                 <v-col>
-                  <p class="h3-customize"> Fecha de Publicación</p>
-                </v-col>
-                <v-col class="content-style">
+                  <p class="h3-customize pr-3"> Fecha de Publicación</p>
                   <p>{{ publication.datePublication }}</p>
                 </v-col>
               </v-row>
