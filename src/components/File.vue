@@ -38,7 +38,7 @@
           <h1 class="sub-title">
             Estudios Pregrado
           </h1>
-          <v-card v-for="(degree, index) in degrees" :key="index" class="cards mb-6">
+          <v-card v-for="(degree, index) in degrees" :key="index" class="cards mb-3">
             <v-row>
               <v-col class="mt-0 mb-0 pb-0 line-customize">
                 <p class="h3-customize pr-3"> Carrera: </p> <p class="content-style">{{ degree.levelOfDegree }} en {{ degree.careerDegree }}</p>
@@ -74,7 +74,7 @@
             Estudios Postgrado
           </h1>
           <v-card v-for="(higherEducationPostDegree, index) in higherEducationPostDegrees" :key="index"
-            class="cards mb-4 pb-4 pt-4">
+            class="cards mt-1 mb-1 pt-3">
             <v-row>
               <v-col class="mt-0 mb-0 pb-0 pt-0 line-customize">
                 <p class="h3-customize pr-3"> Postgrado:</p> 
@@ -101,7 +101,7 @@
               </v-col>
             </v-row>
             <v-row>
-              <v-col class="mt-0 mb-3 pb-3 line-customize">
+              <v-col class="mt-0 mb-0 pb-3 line-customize">
                 <p class="h3-customize pr-3"> Modalidad de Graduación:</p>
                 <p>{{ higherEducationPostDegree.graduationModalityHigherEducation }}</p>
               </v-col>
