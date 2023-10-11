@@ -10,6 +10,11 @@
   right: 0;
   top: 0px;
 }
+.checkbox-card {
+  position: absolute;
+  left: 0;
+  top: 0px;
+}
 .header-form {
   color: #112533;
 }

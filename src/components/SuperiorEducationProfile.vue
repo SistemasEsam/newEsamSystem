@@ -62,66 +62,71 @@
         AGREGAR NUEVA FORMACIÓN</v-btn>
     </v-container>
     <v-container>
-      <v-card v-for="(postDegreeForm, index2) in postDegreeForms" :key="index2" class="mb-4 card-style">
-        <v-card-title>
-          <v-col class="d-flex justify-center aling-center">
-            <h3 class="headline">FORMACIÓN DE POSTGRADO</h3>
-            <v-btn class="icon-button" density="comfortable" color="red" append-icon v-if="index2 !== 0"
-              @click="deletePostDegreeForm(index2)">
-              <v-icon size="x-large">mdi-close-thick</v-icon>
-            </v-btn>
-          </v-col>
-        </v-card-title>
-        <v-card-text>
-          <v-col>
-            <v-row>
-              <v-col>
-                <v-text-field v-model="postDegreeForm.universityPostDegree"
-                  @input="postDegreeForm.universityPostDegree = postDegreeForm.universityPostDegree.toUpperCase()"
-                  label="Universidad o Institución" required></v-text-field>
-              </v-col>
-              <v-col>
-                <v-text-field v-model="postDegreeForm.namePostDegree" label="Nombre del postgrado"
-                  @input="postDegreeForm.namePostDegree = postDegreeForm.namePostDegree.toUpperCase()"
-                  required></v-text-field>
-              </v-col>
-              <v-col>
-                <v-select v-model="postDegreeForm.titlePostDegree" :items="PostNivelEstudio" label="Grado"
-                  outlined></v-select>
-              </v-col>
-            </v-row>
-            <v-row>
-              <v-col>
-                <v-text-field v-model="postDegreeForm.countryPostDegree" label="País"
-                  @input="postDegreeForm.countryPostDegree = postDegreeForm.countryPostDegree.toUpperCase()"
-                  required></v-text-field>
-              </v-col>
-              <v-col>
-                <VueDatePicker v-model="postDegreeForm.graduationYearPostDegree" year-picker
-                  :year-range="[1950, currentYear]" :teleport="true" placeholder="Año de Titulación" />
-              </v-col>
-              <v-col>
-                <v-select v-model="postDegreeForm.graduationModalityPostDegree" :items="ModalidadGraduacionPost"
-                  label="Modalidad de graduación" outlined></v-select>
-              </v-col>
-            </v-row>
-            <!-- <v-row>
+      <v-checkbox @change="disablePostDegreeForm()" label="No se cuenta con más postgrados"></v-checkbox>
+      <v-container>
+        <v-card :disabled="postDegreeCardFlag" v-for="(postDegreeForm, index2) in postDegreeForms" :key="index2"
+          class="mb-4 card-style">
+          <v-card-title>
+            <v-col class="d-flex justify-center aling-center">
+              <h3 class="headline">FORMACIÓN DE POSTGRADO</h3>
+              <v-btn class="icon-button" density="comfortable" color="red" append-icon v-if="index2 !== 0"
+                @click="deletePostDegreeForm(index2)">
+                <v-icon size="x-large">mdi-close-thick</v-icon>
+              </v-btn>
+            </v-col>
+          </v-card-title>
+          <v-card-text>
+            <v-col>
+              <v-row>
+                <v-col>
+                  <v-text-field v-model="postDegreeForm.universityPostDegree"
+                    @input="postDegreeForm.universityPostDegree = postDegreeForm.universityPostDegree.toUpperCase()"
+                    label="Universidad o Institución" required></v-text-field>
+                </v-col>
+                <v-col>
+                  <v-text-field v-model="postDegreeForm.namePostDegree" label="Nombre del postgrado"
+                    @input="postDegreeForm.namePostDegree = postDegreeForm.namePostDegree.toUpperCase()"
+                    required></v-text-field>
+                </v-col>
+                <v-col>
+                  <v-select v-model="postDegreeForm.titlePostDegree" :items="PostNivelEstudio" label="Grado"
+                    outlined></v-select>
+                </v-col>
+              </v-row>
+              <v-row>
+                <v-col>
+                  <v-text-field v-model="postDegreeForm.countryPostDegree" label="País"
+                    @input="postDegreeForm.countryPostDegree = postDegreeForm.countryPostDegree.toUpperCase()"
+                    required></v-text-field>
+                </v-col>
+                <v-col>
+                  <VueDatePicker v-model="postDegreeForm.graduationYearPostDegree" year-picker
+                    :year-range="[1950, currentYear]" :teleport="true" placeholder="Año de Titulación" />
+                </v-col>
+                <v-col>
+                  <v-select v-model="postDegreeForm.graduationModalityPostDegree" :items="ModalidadGraduacionPost"
+                    label="Modalidad de graduación" outlined></v-select>
+                </v-col>
+              </v-row>
+              <!-- <v-row>
               <v-col>
                 <p style="text-align: left;">Adjuntar título escaneado</p>
                 <v-file-input v-model="postDegreeForm.filePostDegree" @change="loadPostDegreeFile($event)"
                   accept="application/pdf" label="Seleccionar archivo PDF" outlined></v-file-input>
               </v-col>
             </v-row> -->
-          </v-col>
-        </v-card-text>
+            </v-col>
+          </v-card-text>
 
-      </v-card>
-      <v-btn prepend-icon="mdi-plus" v-if="postDegreeForms.length < 3" @click="addPostDegreeForm()" density="comfortable"
-        class="fixed-bottom mr-2 button-form">
-        AGREGAR NUEVO POSTGRADO</v-btn>
-      <v-alert variant="elevated" closable density="compact" color="red" title="Atención" v-show="alertFlag"
-        text="Llene todos los campos!!!"></v-alert>
+        </v-card>
+        <v-btn prepend-icon="mdi-plus" v-if="postDegreeForms.length < 3" @click="addPostDegreeForm()"
+          density="comfortable" class="fixed-bottom mr-2 button-form">
+          AGREGAR NUEVO POSTGRADO</v-btn>
+        <v-alert variant="elevated" closable density="compact" color="red" title="Atención" v-show="alertFlag"
+          text="Llene todos los campos!!!"></v-alert>
+      </v-container>
     </v-container>
+
     <v-container>
       <v-btn prepend-icon="mdi-content-save-outline" class="fixed-bottom mr-2 button-form" width="150px" density="default"
         @click="checkFormsFilled()">guardar</v-btn>
@@ -149,6 +154,7 @@ export default {
     return {
       idUser: this.userId,
       // idUser: 'aljiar23@gmail.com',
+      postDegreeCardFlag: false,
       alertFlag: false,
       dialogVisible: false,
       estate: true,
@@ -351,7 +357,6 @@ export default {
           listPostDegreeFilled = false
         }
       })
-      console.log(listPostDegreeFilled)
       return listPostDegreeFilled
     },
     deleteDegreeForm(index) {
@@ -366,20 +371,33 @@ export default {
     //   this.degreeFiles.push(newFileDegree)
     //   this.degreeForms[this.degreeForms.length - 1].degreeFilled = true
     // },
-    // loadPostDegreeFile(e) {
+    // loadPostDegreeFile(e) { 
     //   let newFilePostDegree = e.target.files[0]
     //   console.log(newFilePostDegree)
     //   this.postDegreeFiles.push(newFilePostDegree)
     //   this.postDegreeForms[this.postDegreeForms.length - 1].postDegreeFilled = true
     // },
     checkFormsFilled() {
-      if (this.checkDegreeList() && this.checkPostDegreeList()) {
-        this.showNextForm()
-        this.saveDataDegrees()
-        this.saveDataPostDegrees()
+      if (this.postDegreeCardFlag == false) {
+        if (this.checkDegreeList() && this.checkPostDegreeList()) {
+          this.showNextForm()
+          this.saveDataDegrees()
+          this.saveDataPostDegrees()
+        } else {
+          this.alertFlag = true
+        }
       } else {
-        this.alertFlag = true
+        if (this.checkDegreeList()) {
+          this.showNextForm()
+          this.saveDataDegrees()
+          this.saveDataPostDegrees()
+        } else {
+          this.alertFlag = true
+        }
       }
+    },
+    disablePostDegreeForm() {
+      this.postDegreeCardFlag = !this.postDegreeCardFlag
     },
   },
 }

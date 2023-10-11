@@ -99,10 +99,6 @@
               </v-row>
             </v-card>
           </v-container>
-        </v-col>
-      </v-row>
-      <v-row>
-        <v-col>
           <v-container>
             <h1 class="sub-title">
               Experiencia Docente
@@ -141,22 +137,13 @@
             </v-card>
           </v-container>
         </v-col>
+      </v-row>
+      <v-row>
         <v-col>
-          <v-container>
-            <h1 class="sub-title">
-              Habilidades Blandas
-            </h1>
-            <v-card>
-              <v-list>
-                <v-list-item v-for="(skill, index) in skills" :key="index" :value="skill" class="cards1 card-style">
-                  <template v-slot:prepend>
-                    <v-icon class="card-style" icon="mdi-check-circle-outline"></v-icon>
-                  </template>
-                  <v-list-item-title class="cards1">{{ skill.skill }}</v-list-item-title>
-                </v-list-item>
-              </v-list>
-            </v-card>
-          </v-container>
+
+        </v-col>
+        <v-col>
+          
         </v-col>
       </v-row>
       <v-row>
@@ -202,7 +189,6 @@ export default {
       publications: [],
       jobs: [],
       instructorJobs: [],
-      skills: [],
       languajes: [],
     }
   },
@@ -210,7 +196,6 @@ export default {
     this.getPublications()
     this.getJobs()
     this.getInstructorJobs()
-    this.getSkills()
     this.getLanguajes()
   },
   methods: {
@@ -275,15 +260,6 @@ export default {
           lastYearInstructorExperience: instructorJob.data().lastYearInstructorExperience,
 
         })
-      })
-    },
-    async getSkills() {
-      const dataSkills = await getDocs(collection(database, 'instructors', this.idUser, 'skills'))
-      dataSkills.forEach((skill) => {
-        this.skills.push({
-          skill: skill.data().skill
-        })
-
       })
     },
     async getLanguajes() {

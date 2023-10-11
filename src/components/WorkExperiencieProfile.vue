@@ -1,7 +1,11 @@
 <template>
   <v-container width="1000" class="mx-auto">
     <v-container>
-      <v-card v-for="(workExperienceForm, index) in workExperienceForms" :key="index" class="mb-4 card-style">
+      <v-checkbox @change="disableJobForm()" label="No se cuenta con experiencia laboral"></v-checkbox>
+    </v-container>
+    <v-container>
+      <v-card :disabled="jobCardFlag" v-for="(workExperienceForm, index) in workExperienceForms" :key="index"
+        class="mb-4 card-style">
         <v-card-title>
           <v-col class="d-flex justify-center aling-center">
             <h2 class="headline header-form">EXPERIENCIA LABORAL DE LOS ULTIMOS 3 AÑOS</h2>
@@ -185,6 +189,7 @@ export default {
     return {
       idUser: this.userId,
       // idUser: 'aljiar23@gmail.com',
+      jobCardFlag: false,
       alertFlag: false,
       isChecked: false,
       dateStart: null,
@@ -382,14 +387,26 @@ export default {
       })
     },
     saveData() {
-      if (this.checkWorkExperienceList() && this.checkInstructorExperienceList()) {
-        this.showNextForm()
-        this.saveDataWorkExperience()
-        this.saveDateInstructorExperience()
+      if (this.jobCardFlag == true) {
+        if (this.checkInstructorExperienceList()) {
+          this.showNextForm()
+          this.saveDateInstructorExperience()
+        } else {
+          this.alertFlag = true
+        }
       } else {
-        this.alertFlag = true
+        if (this.checkWorkExperienceList() && this.checkInstructorExperienceList()) {
+          this.showNextForm()
+          this.saveDataWorkExperience()
+          this.saveDateInstructorExperience()
+        } else {
+          this.alertFlag = true
+        }
       }
     },
+    disableJobForm() {
+      this.jobCardFlag = !this.jobCardFlag
+    }
   }
 }
 </script>

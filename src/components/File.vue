@@ -172,6 +172,21 @@
             </v-row>
           </v-card>
         </div>
+        <div class="degrees">
+             <h1 class="sub-title">
+              Habilidades Blandas
+            </h1>
+            <v-card>
+              <v-list>
+                <v-list-item v-for="(skill, index) in skills" :key="index" :value="skill" class="cards1 card-style">
+                  <template v-slot:prepend>
+                    <v-icon class="card-style" icon="mdi-check-circle-outline"></v-icon>
+                  </template>
+                  <v-list-item-title class="cards1">{{ skill.skill }}</v-list-item-title>
+                </v-list-item>
+              </v-list>
+            </v-card>
+          </div>
       </div>
     </v-container>
     <div class="yellow-bar"></div>
@@ -210,6 +225,8 @@ export default {
       courses: [],
       img: null,
       photoProfilePath: '',
+      skills: [],
+
 
     }
   },
@@ -219,6 +236,8 @@ export default {
     this.getPostDegrees()
     this.getCourses()
     this.getHigherEducationPostDegree()
+    this.getSkills()
+
   },
 
   methods: {
@@ -293,6 +312,15 @@ export default {
           yearCourse: course.data().yearCourse
 
         })
+      })
+    },
+    async getSkills() {
+      const dataSkills = await getDocs(collection(database, 'instructors', this.idUser, 'skills'))
+      dataSkills.forEach((skill) => {
+        this.skills.push({
+          skill: skill.data().skill
+        })
+
       })
     },
     async loadProfileImage() {

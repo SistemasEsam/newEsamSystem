@@ -11,6 +11,7 @@ import StaffMenuView from '@/views/StaffMenuView.vue'
 import AcademicStaffView from '@/views/AcademicStaffView.vue'
 import StaffProfile from '@/components/StaffProfile.vue'
 import MarketingStaffMenu from '@/components/MarketingStaffMenu.vue'
+import BlogSingleView from '@/views/BlogSingleView.vue'
 
 
 const routes = [
@@ -80,9 +81,9 @@ const routes = [
   component: StaffProfile
 },
 {
-path:'/staffProfile',
-name: 'staffProfile',
-component: MarketingStaffMenu
+  path:'/blogSingleView',
+  name: 'blogSingleView',
+  component: BlogSingleView
 },
 
 ]
