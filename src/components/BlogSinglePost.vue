@@ -6,10 +6,9 @@
             <h3 class="single-blog-date"> Fecha de Publicación</h3>
         </div>
         <div class="vertical-line">
-            <v-img width="500" :src="require('../assets/esamlogo.png')"></v-img>
+            <img class="single-blog-image" :src="require('@/assets/esamlogo.png')"/>
             <H1 class="single-blog-title"> Título del Post </H1>
             <div class="single-blog-text">
-                <p>
                     Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean
                     massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam
                     felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede
@@ -45,11 +44,12 @@
                     volutpat nibh, nec pellentesque velit pede quis nunc. Vestibulum ante ipsum primis in faucibus orci
                     luctus et ultrices posuere cubilia Curae; Fusce id purus. Ut varius tincidunt libero. Phasellus dolor.
                     Maecenas vestibulum mollis
-                </p>
             </div>
-            <div class="blog-share-button">
+            <p class="p-spacer"></p>
+             <div class="blog-share-button">
                 <v-btn rounded="xl" color="#ffdf10"> Compartir </v-btn>
             </div>
+            <p class="p-spacer"></p>
         </div>
     </div>
 </template>
@@ -63,7 +63,7 @@ export default {
     position: absolute;
     border-left: 3px solid;
     color: #b2a612;
-    height: 11in;
+    height: auto;
     left: 25%;
     right: 10%;
 
@@ -74,7 +74,7 @@ export default {
 }
 
 .single-blog-text {
-    position: absolute;
+    position: relative;
     left: 10%;
     right: 10%;
     color: black;
@@ -100,7 +100,15 @@ export default {
 .blog-share-button{
     position: relative;
     left: 10%;
-    top: 90%;
+    bottom: 65%;
     color: #112533;
+}
+.single-blog-image{
+    position: relative;
+    left: 10%;
+    height: 300px;
+}
+.p-spacer{
+    height: 100px;
 }
 </style>
