@@ -82,14 +82,14 @@ Map
         {
           title: "MAESTRIA EN ",
           subtitle: "DERECHO CIVIL Y PROCESAL CIVIL",
-          description: "Descripción de la Imagen 2.",
+          description: "Aplica de manera coherente los principios del derecho civil en toda su amplitud manejando conocimientos avanzados en los procedimientos vinculados a su razonamiento jurídico que conlleve a la solución de problemas y casos, en el marco de las normas nacionales e instrumentos internacionales",
           buttonText: "QUIERO INSCRIBIRME",
           backgroundImage: require("@/assets/DERECHOCIVIL.png"),
         },
         {
           title: "MAESTRIA EN",
           subtitle: "GERENCIA TRIBUTARIA",
-          description: "Descripción de la Imagen 2.",
+          description: "Desarrolla habilidades prácticas en el área de tributación, con un alto espíritu investigativo y crítico, ética profesional y conciencia de la realidad nacional, capaz de promover y conducir al desarrollo nacional.",
           buttonText: "QUIERO INSCRIBIRME",
           backgroundImage: require("@/assets/GERENCIATRIBUTARIA.png"),
         },
@@ -103,7 +103,7 @@ Map
         {
           title: "MAESTRIA EN",
           subtitle: "SALUD PUBLICA",
-          description: "Descripción de la Imagen 2.",
+          description: "Desarrolla habilidades de análisis y ejecución integral en salud pública y epidemiología para enfrentar problemas de salud de manera efectiva y eficiente, promoviendo servicios de calidad",
           buttonText: "QUIERO INSCRIBIRME",
           backgroundImage: require("@/assets/SP1.png"),
         }

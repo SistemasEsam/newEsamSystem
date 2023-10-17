@@ -19,10 +19,10 @@
       </v-toolbar-title>
       
       <!-- Agregar botones a la derecha con espacio entre ellos -->
-      <v-btn  size="x-small" class="custom-button" id="button1" color="white">
+      <v-btn  size="x-small" class="custom-button" id="button1" color="white" @click="redirectTo('/form-view')">
         REGISTRARSE
       </v-btn>
-      <v-btn size="x-small" class="mx-2 custom-button" id="button2" color="white">
+      <v-btn size="x-small" class="mx-2 custom-button" id="button2" color="white" @click="redirectTo('/login')">
         INICIAR SESION
       </v-btn>
     </v-app-bar>
@@ -32,6 +32,7 @@
   export default {
     data() {
       return {
+    
         scrolled: false,
         visible: true,
         drawer: false,
@@ -45,6 +46,10 @@
       window.removeEventListener("scroll", this.handleScroll);
     },
     methods: {
+
+      redirectTo(route) {
+      this.$router.push(route);
+    },
       handleScroll() {
         const currentScroll = window.scrollY;
   
