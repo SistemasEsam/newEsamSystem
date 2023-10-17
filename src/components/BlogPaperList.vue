@@ -112,6 +112,77 @@
                     </v-col>
 
                 </v-row>
+                <v-row>
+                    <v-col>
+                        <v-card class="list-card">
+                            <v-img :src="require('@/assets/AboutUs.jpg')">
+                            </v-img>
+                            <v-card-title>
+                                Paper #4
+                            </v-card-title>
+                            <div class="vertical-line-list-paper">
+                            </div>
+                            <v-card-text>
+                                Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget
+                                dolor. Aenean
+                                massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
+                            </v-card-text>
+                            <div class="list-author">
+                                <div class="circle-list-author"></div>
+                                <v-card-subtitle class="list-paper-author-name">
+                                    Nombre del Autor
+                                </v-card-subtitle>
+                            </div>
+                        </v-card>
+                    </v-col>
+                    <v-spacer></v-spacer>
+                    <v-col>
+                        <v-card class="list-card">
+                            <v-img :src="require('@/assets/AboutUs.jpg')">
+                            </v-img>
+                            <v-card-title>
+                                Paper #5
+                            </v-card-title>
+                            <div class="vertical-line-list-paper">
+                            </div>
+                            <v-card-text>
+                                Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget
+                                dolor. Aenean
+                                massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
+                            </v-card-text>
+                            <div class="list-author">
+                                <div class="circle-list-author"></div>
+                                <v-card-subtitle class="list-paper-author-name">
+                                    Nombre del Autor
+                                </v-card-subtitle>
+                            </div>
+                        </v-card>
+                    </v-col>
+                    <v-spacer></v-spacer>
+                    <v-col>
+                        <v-card class="list-card">
+                            <v-img :src="require('@/assets/AboutUs.jpg')">
+                            </v-img>
+                            <v-card-title>
+                                Paper #6
+                            </v-card-title>
+                            <div class="vertical-line-list-paper">
+                            </div>
+                            <v-card-text>
+                                Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget
+                                dolor. Aenean
+                                massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
+                            </v-card-text>
+                            <div class="list-author">
+                                <div class="circle-list-author"></div>
+                                <v-card-subtitle class="list-paper-author-name">
+                                    Nombre del Autor
+                                </v-card-subtitle>
+                            </div>
+                        </v-card>
+                    </v-col>
+
+                </v-row>
             </v-container>
 
         </div>
@@ -203,6 +274,7 @@ export default {
     position: absolute;
     top: 50%;
     left: 10%;
+    margin-bottom: 200px;
 }
 
 .container-papers {
