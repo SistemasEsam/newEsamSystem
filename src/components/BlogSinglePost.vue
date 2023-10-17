@@ -95,6 +95,9 @@ export default {
 }
 </script>
 <style>
+.single-blog-main-page{
+    position:relative;
+}
 .vertical-line {
     position: absolute;
     border-left: 3px solid;
@@ -113,9 +116,9 @@ export default {
 }
 
 .author-date {
-    position: fixed;
-    top: 10%;
-    right: 77%;
+    position: relative;
+    top: 100px;
+    left: 10%;
     text-align: right;
     color: #112533;
 }
@@ -157,7 +160,7 @@ export default {
 
 .blog-buttons {
     position: absolute;
-    top: 110%;
+    top: 1000%;
     left: 26%;
 }
 
