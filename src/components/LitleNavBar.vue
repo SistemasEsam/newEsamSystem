@@ -4,8 +4,8 @@
       color="#172E4B"
       dark
       :elevation="0"
-      :height="navBarHeight + 'px'"
-      
+      :height="1+px"
+      class="litle"
     >
       <!-- Contenedor para alinear los botones a la derecha -->
       <v-spacer></v-spacer>
@@ -15,14 +15,24 @@
          Nosotros
       </v-btn>
       <v-btn  size="small" text>
+        Formacion Continua
+      </v-btn>
+      <v-btn  size="small" text>
         Programas
       </v-btn>
       <v-btn  size="small" text>
-        Blog
+        Postgrado
       </v-btn>
       <v-btn  size="small" text>
+        Blog
+      </v-btn>  <v-btn  size="small" text>
+        Boletin
+      </v-btn>  <v-btn  size="small" text>
         Contacto
+      </v-btn> <v-btn  class="moodle" size="small" text>
+       MOODLE
       </v-btn>
+      
       
     </v-app-bar>
   </template>
@@ -58,6 +68,13 @@
     margin-left: 8px; /* Ajusta el margen izquierdo según tus preferencias */
     margin-right: 8px; /* Ajusta el margen derecho según tus preferencias */
     color: #fff; /* Cambia el color del texto a blanco o el que desees */
+  }
+  .litle{
+position: relative
+  }
+  .moodle{
+    background-color: orangered;
+
   }
   </style>
   

@@ -1,4 +1,6 @@
 <template>
+
+    
     <div class="single-blog-main-page">
         <div class="autor-date">
             <h2>Nombre Autor</h2>
@@ -53,9 +55,22 @@
         </div>
     </div>
 </template>
-<script>
-export default {
 
+
+
+
+
+<script>
+import NewNavBarVue from '@/components/NewNavBar.vue';
+import LitleNavBar from '@/components/LitleNavBar.vue';
+import NewFront from '@/components/NewFront.vue';
+
+export default {
+    components:{
+    NewNavBarVue,
+    LitleNavBar,
+   NewFront
+}
 }
 </script>
 <style>

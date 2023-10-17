@@ -5,7 +5,7 @@
     <keep-alive>
       <component :is="activeComponent" @show-next-form="showNextForm" :user-id="idUser" />
     </keep-alive>
-<Footer/>
+
 
 </template>
     
@@ -18,7 +18,7 @@
     import workExperienceProfile from '../components/WorkExperiencieProfile.vue'
     import skillsProfile from '../components/SkillsProfile.vue'
     import NavBarForm from '@/components/NavBarForm.vue'
-    import Footer from '@/components/Footer.vue'
+ 
     export default {
       components: {
        personalProfile,
@@ -28,7 +28,7 @@
        workExperienceProfile,
        skillsProfile,
        NavBarForm,
-       Footer
+      
       },
     
       data() {
