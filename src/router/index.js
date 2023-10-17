@@ -9,9 +9,8 @@ import ContactView from '../views/ContactView.vue'
 import InstructorsView from '@/views/InstructorsView.vue'
 import StaffMenuView from '@/views/StaffMenuView.vue'
 import AcademicStaffView from '@/views/AcademicStaffView.vue'
-import StaffProfile from '@/components/StaffProfile.vue'
-import MarketingStaffMenu from '@/components/MarketingStaffMenu.vue'
 import BlogSingleView from '@/views/BlogSingleView.vue'
+import BlogListView from '@/views/BlogListView.vue'
 
 
 const routes = [
@@ -66,24 +65,14 @@ const routes = [
   component: InstructorsView
 },
 {
-  path:'/staffMenu',
-  name: 'staffMenu',
-  component: StaffMenuView
-},
-{
-  path:'/academicMenu',
-  name: 'academicMenu',
-  component: AcademicStaffView
-},
-{
-  path:'/staffProfile',
-  name: 'staffProfile',
-  component: StaffProfile
-},
-{
   path:'/blogSingleView',
   name: 'blogSingleView',
   component: BlogSingleView
+},
+{
+  path:'/blogListView',
+  name: 'blogListView',
+  component: BlogListView
 },
 
 ]
