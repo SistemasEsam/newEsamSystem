@@ -22,7 +22,7 @@ import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 import File from './File.vue';
 import SecondPage from './SecondPage.vue';
-import { database } from '../firebase/firebase'
+import { database } from '../../firebase/firebase'
 import { doc, getDoc } from 'firebase/firestore'
 
 

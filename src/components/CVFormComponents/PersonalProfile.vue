@@ -107,7 +107,7 @@
 </template>
  
 <script>
-import { database } from '../firebase/firebase'
+import { database } from '../../firebase/firebase'
 import { doc, setDoc } from "firebase/firestore";
 import { getStorage, ref, uploadBytes } from 'firebase/storage'
 import VueDatePicker from '@vuepic/vue-datepicker';

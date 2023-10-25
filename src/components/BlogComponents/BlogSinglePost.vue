@@ -1,16 +1,12 @@
 <template>
-
-    
     <div class="single-blog-main-page">
         <div class="author-date">
-            <v-row>
-                <div>
+                <div class="single-blog-author-name">
                     <h2>Nombre Autor</h2>
                     <h2> Apellido Autor</h2>
                     <h3 class="single-blog-date"> Fecha de Publicación</h3>
                 </div>
                 <div class="circle-author"></div>
-            </v-row>
         </div>
         <div class="vertical-line">
             <img class="single-blog-image" :src="require('@/assets/esamlogo.png')" />
@@ -61,8 +57,8 @@
                     <div class="blog-share-button pr-10">
                         <v-btn rounded="xl" color="#ffdf10"> Compartir </v-btn>
                     </div>
-                    <v-btn size="small" class="social-network-button" target="_blank" href="https://www.facebook.com/esamcochabambasucursal"
-                        icon="mdi-facebook">
+                    <v-btn size="small" class="social-network-button" target="_blank"
+                        href="https://www.facebook.com/esamcochabambasucursal" icon="mdi-facebook">
                     </v-btn>
                     <v-btn size="small" class="social-network-button" target="_blank"
                         href="https://www.linkedin.com/company/esam-cochabamba/" icon="mdi-linkedin">
@@ -87,25 +83,26 @@ import LitleNavBar from '@/components/LitleNavBar.vue';
 import NewFront from '@/components/NewFront.vue';
 
 export default {
-    components:{
-    NewNavBarVue,
-    LitleNavBar,
-   NewFront
-}
+    components: {
+        NewNavBarVue,
+        LitleNavBar,
+        NewFront
+    }
 }
 </script>
 <style>
-.single-blog-main-page{
-    position:relative;
-}
-.vertical-line {
+.single-blog-main-page {
     position: absolute;
+    display: inline;
+}
+
+.vertical-line {
+    position: relative;
     border-left: 3px solid;
     color: #b2a612;
     height: auto;
+    width: 60%;
     left: 25%;
-    right: 10%;
-
 }
 
 .single-blog-text {
@@ -117,18 +114,26 @@ export default {
 
 .author-date {
     position: relative;
-    top: 100px;
-    left: 10%;
     text-align: right;
     color: #112533;
+    width: 20%;
+    height: auto;
+    float: left;
+    left: 10%;
 }
 
 .circle-author {
-    height: 50px;
-    width: 50px;
+    position: relative;
+    height: 100px;
+    width: 100px;
     background-color: #112533;
     border-radius: 50%;
-    margin: 10px;
+    left: 5%;
+    float: left;
+}
+.single-blog-author-name{
+    position: relative;
+    float: left;
 }
 
 .single-blog-title {
@@ -138,6 +143,7 @@ export default {
 }
 
 .single-blog-date {
+    position: relative;
     color: lightgray;
 }
 
@@ -159,13 +165,14 @@ export default {
 }
 
 .blog-buttons {
-    position: absolute;
+    position: relative;
     top: 1000%;
     left: 26%;
 }
 
 .social-network-button {
     position: relative;
+    left:8%;
     margin-left: 5px;
     margin-right: 5px;
     color: white;

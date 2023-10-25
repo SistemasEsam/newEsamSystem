@@ -4,7 +4,7 @@
     
 </template>
 <script>
-import staffProfile from '@/components/StaffProfile.vue'
+import staffProfile from '@/components/CVFormComponents/StaffProfile.vue'
 export default {
     components:{
         staffProfile

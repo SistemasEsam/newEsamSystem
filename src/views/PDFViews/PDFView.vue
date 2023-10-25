@@ -3,10 +3,8 @@
   </template>
   
   <script>
-import FilePDFVue from '@/components/FilePDF.vue';
+import FilePDFVue from '@/components/PDFComponents/FilePDF.vue';
 
-
-  
   export default {
     components: {
         FilePDFVue

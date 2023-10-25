@@ -194,7 +194,7 @@
 </template>
 
 <script>
-import { database } from '../firebase/firebase'
+import { database } from '../../firebase/firebase'
 import { collection, doc, getDoc, getDocs } from 'firebase/firestore'
 import { getStorage, ref, getDownloadURL } from 'firebase/storage'
 

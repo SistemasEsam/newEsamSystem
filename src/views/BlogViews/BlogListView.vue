@@ -1,5 +1,5 @@
 <template>
-  <div class="maindiv">
+   <div class="maindiv">
     <div class="divone">
       <NewNavBarVue></NewNavBarVue>
       <LitleNavBar></LitleNavBar>
@@ -7,26 +7,27 @@
     </div>
 
     <div class="divtwo">
-      <BlogSinglePost />
+      <BlogPaperList />
     </div>
   </div>
 </template>
 <script>
-import BlogSinglePost from "@/components/BlogSinglePost.vue";
+import BlogPaperList from '@/components/BlogComponents/BlogPaperList.vue';
 import NewNavBarVue from "@/components/NewNavBar.vue";
 import LitleNavBar from "@/components/LitleNavBar.vue";
 import NewFront from "@/components/NewFront.vue";
-export default {
-  components: {
-    BlogSinglePost,
-    NewNavBarVue,
-    LitleNavBar,
-    NewFront,
-  },
-};
-</script>
 
-<style scoped>
+export default {
+    components: {
+        BlogPaperList,
+        NewNavBarVue,
+        LitleNavBar,
+        NewFront,
+    }
+
+}
+</script>
+<style>
 .maindiv {
   position: absolute;
   width: 100%;
@@ -38,6 +39,6 @@ export default {
 
 .divtwo {
   position: relative;
-  margin-top:2% ;
+  margin-top: 5%;
 }
 </style>

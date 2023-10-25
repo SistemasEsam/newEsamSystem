@@ -116,7 +116,7 @@
 </template>
 
 <script>
-import { database } from '../firebase/firebase'
+import { database } from '../../firebase/firebase'
 import { addDoc, collection, doc } from "firebase/firestore";
 import { getStorage, uploadBytes, ref } from 'firebase/storage';
 

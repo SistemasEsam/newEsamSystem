@@ -177,7 +177,7 @@
 </template>
   
 <script>
-import { database } from '../firebase/firebase'
+import { database } from '../../firebase/firebase'
 import { collection, getDocs } from 'firebase/firestore'
 export default {
   props: [
