@@ -1,17 +1,18 @@
 <template>
     <div class="main-page">
-        <div class="last-paper">
+        <v-card elevation="0" class="last-paper">
             <div class="last-paper-title">
                 ÚLTIMO<br>
                 ARTÍCULO<br>
                 PUBLICADO<br>
             </div>
-                <img class="last-paper-image" :src="require('@/assets/AboutUs.jpg')">
+            <img class="last-paper-image" :src="require('@/assets/AboutUs.jpg')">
             <div class="last-paper-text">
                 <div class="vertical-line-last-paper">
                 </div>
                 <div class="last-paper-name"> Nombre relevante del Paper</div>
-                <div class="last-paper-resume"> Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget
+                <div class="last-paper-resume"> Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo
+                    ligula eget
                     dolor. Aenean
                     massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
                     Donec
@@ -20,56 +21,55 @@
                 </div>
                 <div class="circle-author"></div>
                 <div class="last-paper-author-name">
-                        Nombre del Autor
+                    Nombre del Autor
                 </div>
 
             </div>
-        </div>
-        <div class="grid-papers">
-            <div class="grid-single-paper">
-                <img class="grid-single-image" :src="require('@/assets/AboutUs.jpg')">
-                <h2> Paper #1</h2>
-                <div class="vertical-line-list-paper"></div>
-                <div class="grid-single-text">
-                    Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget
-                    dolor. Aenean
-                    massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
-                </div>
-                <div class="circle-list-author"></div>
-                <div class="grid-paper-author-name"> Nombre del Autor</div>
-            </div>
-            <div class="grid-single-paper">
-                <img class="grid-single-image" :src="require('@/assets/AboutUs.jpg')">
-                <h2> Paper #2</h2>
-                <div class="vertical-line-list-paper"></div>
-                <div class="grid-single-text">
-                    Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget
-                    dolor. Aenean
-                    massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
-                </div>
-                <div class="circle-list-author"></div>
-                <div class="grid-paper-author-name"> Nombre del Autor</div>
-
-            </div>
-            <div class="grid-single-paper">
-                <img class="grid-single-image" :src="require('@/assets/AboutUs.jpg')">
-                <h2> Paper #3</h2>
-                <div class="vertical-line-list-paper"></div>
-                <div class="grid-single-text">
-                    Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget
-                    dolor. Aenean
-                    massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
-                </div>
-                <div class="circle-list-author"></div>
-                <div class="grid-paper-author-name"> Nombre del Autor</div>
-            </div>
-            <div class="spacer-paper"></div>
+        </v-card>
+        <div class="grid-cards">
+            <ul class="card-list">
+                <li v-for="(card, index) in cards" :key="index">
+                    <v-card elevation="0" class="grid-single-paper">
+                        <img class="grid-single-image" :src="require('@/assets/AboutUs.jpg')">
+                        <div class="grid-text-line">
+                            <div class="grid-vertical-line-list-paper"></div>
+                            <h2 class="grid-text-title"> Paper {{ index + 1 }}</h2>
+                            <div class="grid-text">
+                                <div class="grid-single-text">
+                                    Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget
+                                    dolor. Aenean
+                                    massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus
+                                    mus.
+                                </div>
+                                <div class="grid-circle-author">
+                                    <div class="circle-list-author"></div>
+                                    <div class="grid-paper-author-name"> Nombre del Autor</div>
+                                </div>
+                            </div>
+                        </div>
+                    </v-card>
+                </li>
+            </ul>
         </div>
     </div>
 </template>
 <script>
 export default {
-
+    data() {
+        return {
+            cards: [1, 2, 3, 4, 5],
+            numberOfColumns: 3,
+        }
+    },
+    computed: {
+        gridStyle() {
+            if (window.innerWidth > 1600) { this.numberOfColumns = 3 }
+            else { this.numberOfColumns = 2 }
+            return {
+                gridTemplateColumns: `repeat(${this.numberOfColumns}, minmax(100px, 1fr))`
+            }
+        }
+    },
 }
 </script>
 <style>
@@ -88,10 +88,12 @@ export default {
     top: 5%;
     height: 300px;
     display: flex;
-    flex-direction: row ;
+    flex-direction: row;
     vertical-align: middle;
     color: #112533;
+    margin-bottom: 5rem;
 }
+
 .last-paper-title {
     position: relative;
     font-size: 300%;
@@ -106,7 +108,8 @@ export default {
     height: fit-content;
     left: 4%;
 }
-.last-paper-resume{
+
+.last-paper-resume {
     position: relative;
     left: 2%;
 }
@@ -116,13 +119,15 @@ export default {
     font-size: 0.95rem;
     left: 4%;
 }
-.last-paper-name{
+
+.last-paper-name {
     position: relative;
     left: 2%;
     font-size: xx-large;
     font-weight: bold;
     letter-spacing: 0.1em;
 }
+
 
 .vertical-line-last-paper {
     position: relative;
@@ -135,73 +140,41 @@ export default {
     color: #b2a612
 }
 
+.grid-text {
+    position: relative;
+    left: 1rem;
+    width: 95%;
+}
+
 .circle-author {
     position: relative;
     width: 4.5rem;
     height: 4.5rem;
-    background-color: #112533;
-    float: left;
-    top: 10%;
-    left: 2%;
-
-}
-
-.last-paper-author-name {
-    position: relative;
-    left: 4%;
-    font-size: 1.2rem;
-    font-weight: bold;
-    float: left;
-    top: 17%;
-
-}
-
-.vertical-line-list-paper {
-    position: relative;
-    left: 0%;
-    height: 140px;
-    border-left: 4px solid;
-    color: #b2a612
-}
-
-.circle-list-author {
-    position: relative;
-    height: 50px;
-    width: 50px;
-    background-color: #112533;
     border-radius: 50%;
-    top: -33%;
-    left: 5%;
+    background-color: #112533;
+    float: left;
+    left: 2%;
 }
 
-
-.grid-paper-author-name {
+.grid-cards {
     position: relative;
-    top: -41%;
-    left: 20%;
-    font-weight: bold;
-
-}
-
-.grid-papers {
-    position: relative;
-    top: 15%;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    column-gap: 5%;
-    justify-content: space-evenly;
+    width: 70%;
     margin: auto;
-    width: 50%;
-    color: #112533;
+}
+
+.card-list {
+    display: grid;
+    row-gap: 5rem;
+    grid-auto-rows: 27rem;
+    grid-template-columns: repeat(auto-fill, minmax(25rem, 1fr));
+    list-style-type: none;
 }
 
 .grid-single-paper {
     position: relative;
-    border: 1px solid lightgray;
-    width: 400px;
-    height: 450px;
-    margin: 0%;
-    padding: 0%;
+    width: 25rem;
+    height: 28rem;
+    border-radius: 0%;
 }
 
 .grid-single-image {
@@ -209,21 +182,57 @@ export default {
     width: 100%;
     object-fit: contain;
     margin-top: -23%;
-    margin-bottom: -23%;
+    margin-bottom: -28%;
+}
+
+.grid-text-line {
+    position: relative;
+    width: 100%;
+    height: 10rem;
+    top: 0.9rem;
 }
 
 .grid-single-text {
     position: relative;
     font-size: smaller;
-    width: 90%;
-    height: 90px;
-    top: -32%;
-    left: 5%;
 }
 
 .spacer-paper {
     position: relative;
     height: 100px;
     bottom: 0%;
+}
+
+.grid-paper-author-name {
+    position: relative;
+    font-weight: bold;
+    left: 1rem;
+    top: 0.9rem;
+}
+
+.circle-list-author {
+    position: relative;
+    height: 3.5rem;
+    width: 3.5rem;
+    background-color: #112533;
+    border-radius: 50%;
+    float: left;
+}
+
+.grid-vertical-line-list-paper {
+    position: relative;
+    height: 115%;
+    border-left: 4px solid;
+    color: #b2a612;
+    float: left;
+}
+
+.grid-text-title {
+    position: relative;
+    left: 1rem;
+}
+.grid-circle-author{
+    position: relative;
+    top: 0.5rem;
 }
 </style>
