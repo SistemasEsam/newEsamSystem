@@ -11,6 +11,7 @@ import StaffMenuView from '@/views/StaffViews/StaffMenuView.vue'
 import AcademicStaffView from '@/views/StaffViews/AcademicStaffView.vue'
 import BlogSingleView from '@/views/BlogViews/BlogSingleView.vue'
 import BlogListView from '@/views/BlogViews/BlogListView.vue'
+import BlogFormView from '@/views/BlogViews/BlogFormView.vue'
 
 
 const routes = [
@@ -73,6 +74,11 @@ const routes = [
   path:'/blogListView',
   name: 'blogListView',
   component: BlogListView
+},
+{
+  path:'/blogFormView',
+  name: 'blogFormView',
+  component: BlogFormView
 },
 
 ]
