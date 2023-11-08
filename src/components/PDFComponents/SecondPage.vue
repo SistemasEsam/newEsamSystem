@@ -9,7 +9,7 @@
             <h1 class="sub-title">
               Experiencia Laboral
             </h1>
-            <v-card v-for="(job, index) in jobs" :key="index" class="card-style cards1">
+            <v-card v-for="(job, index) in jobs" :key="index" class="card-style cards1" flat="true">
               <v-row>
                 <v-col class="mt-0 mb-0 pb-0 line-customize">
                   <p class="h3-customize pr-3"> Cargo </p>
@@ -66,7 +66,7 @@
             <h1 class="sub-title">
               Publicaciones
             </h1>
-            <v-card class="card-style cards1 mb-6" v-for="(publication, index) in publications" :key="index">
+            <v-card class="card-style cards1 mb-6" v-for="(publication, index) in publications" :key="index" flat="true">
               <v-row>
                 <v-col class="mt-0 mb-0 pb-0 line-customize">
                   <p class="h3-customize pr-3"> Nombre de la Publicación</p>
@@ -103,7 +103,7 @@
             <h1 class="sub-title">
               Experiencia Docente
             </h1>
-            <v-card v-for="(instructorJob, index) in instructorJobs" :key="index" class="cards1">
+            <v-card v-for="(instructorJob, index) in instructorJobs" :key="index" class="cards1" flat="true">
               <v-row>
                 <v-col class="mt-0 mb-0 pb-0 line-customize">
                   <p class="h3-customize pr-3"> Materia Impartida:</p>
@@ -160,7 +160,7 @@
                 <v-col class="title-grid">Habla</v-col>
                 <v-col class="title-grid">Escritura</v-col>
               </v-row>
-              <v-row v-for="(language, index) in languajes" :key="index" class="cards1">
+              <v-row v-for="(language, index) in languajes" :key="index" class="cards1" flat="true">
                 <v-col class="language-style">{{ language.language }}</v-col>
                 <v-col class="content-style">{{ language.listenLevel }}</v-col>
                 <v-col class="content-style"> {{ language.readLevel }}</v-col>
