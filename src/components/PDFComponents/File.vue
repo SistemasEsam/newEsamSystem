@@ -1,4 +1,4 @@
-<template>
+<template class="page-size">
   <div class="component-with-shapes-and-image">
     <!-- Círculo amarillo -->
     <v-container>
@@ -345,3 +345,11 @@ export default {
   },
 };
 </script>
+<style>
+.page-size{
+  height: 11in;
+  width: 8.5in;
+
+}
+
+</style>

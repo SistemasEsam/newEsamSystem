@@ -1,13 +1,16 @@
 <template>
-    <FilePDFVue :user-id="idUser"/>
+    <!--<FilePDFVue :user-id="idUser"/> -->
+    <PDFFormationSection :user-id="idUser"/>
   </template>
-  
+
   <script>
 import FilePDFVue from '@/components/PDFComponents/FilePDF.vue';
+import PDFFormationSection from '@/components/PDFComponents/PDFFormationSection.vue';
 
   export default {
     components: {
-        FilePDFVue
+        FilePDFVue,
+        PDFFormationSection
     },
     data() {
       return{
@@ -17,4 +20,3 @@ import FilePDFVue from '@/components/PDFComponents/FilePDF.vue';
     }
   };
   </script>
-  
