@@ -92,39 +92,7 @@
   position: absolute;
 }
 
-.yellow-circle {
-  top: 0.5in;
-  /* Ajustar la posición vertical del círculo */
-  left: 0.4in;
-  /* Ajustar la posición horizontal del círculo */
-  width: 220px;
-  /* Diámetro del círculo */
-  height: 220px;
-  /* Diámetro del círculo */
-  border-radius: 50%;
-  background-color: #ffdf0b;
-  /* Color amarillo */
-  z-index: 1;
-  /* Asegura que el círculo esté por encima del rectángulo */
-  position: relative;
-}
 
-.white-circle {
-  top: 0.1in;
-  /* Ajustar la posición vertical del círculo */
-  left: 0.1in;
-  /* Ajustar la posición horizontal del círculo */
-  width: 200px;
-  /* Diámetro del círculo */
-  height: 200px;
-  /* Diámetro del círculo */
-  border-radius: 50%;
-  background-color: white;
-  /* Color amarillo */
-  z-index: 1;
-  /* Asegura que el círculo esté por encima del rectángulo */
-  position: relative;
-}
 
 .blue-rectangle {
   top: 0in;

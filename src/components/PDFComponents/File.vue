@@ -4,7 +4,7 @@
     <v-container>
       <div class="yellow-circle">
         <div class="white-circle">
-          <v-avatar size="200">
+          <v-avatar size="200" class="cv-image">
             <img id="photoProfile" :src="img" width="200" height="200">
           </v-avatar>
         </div>
