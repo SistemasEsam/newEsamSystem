@@ -173,7 +173,7 @@
 </template>
 
 <script>
-import { database } from '../firebase/firebase'
+import { database } from '../../firebase/firebase'
 import { addDoc, collection, doc } from "firebase/firestore";
 import VueDatePicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css';

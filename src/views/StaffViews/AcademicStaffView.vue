@@ -3,7 +3,7 @@
     <academicStaffMenu></academicStaffMenu>
 </template>
 <script>
-import academicStaffMenu from '@/components/AcademicStaffMenu.vue';
+import academicStaffMenu from '@/components/StaffComponents/AcademicStaffMenu.vue';
 export default{
     components:{
         academicStaffMenu

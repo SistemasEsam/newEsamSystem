@@ -85,7 +85,7 @@
   
 <script>
 
-import { database } from '../firebase/firebase'
+import { database } from '../../firebase/firebase'
 import { addDoc, collection, doc } from "firebase/firestore";
 import router from '@/router';
 

@@ -2,9 +2,7 @@
     <div>
       <nav-bar />
       <!-- Contenido de la vista -->
-   
-
-    
+  
 <Footer />
 
     </div>

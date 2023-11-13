@@ -63,7 +63,7 @@
 <script>
 import VueDatePicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css';
-import { database } from '../firebase/firebase'
+import { database } from '../../firebase/firebase'
 import { addDoc, collection, doc } from "firebase/firestore";
 import { getStorage, ref, uploadBytes } from 'firebase/storage'
 

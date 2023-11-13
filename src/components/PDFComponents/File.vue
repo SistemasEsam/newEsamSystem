@@ -1,10 +1,10 @@
-<template>
+<template class="page-size">
   <div class="component-with-shapes-and-image">
     <!-- Círculo amarillo -->
     <v-container>
       <div class="yellow-circle">
         <div class="white-circle">
-          <v-avatar size="200">
+          <v-avatar size="200" class="cv-image">
             <img id="photoProfile" :src="img" width="200" height="200">
           </v-avatar>
         </div>
@@ -38,7 +38,7 @@
           <h1 class="sub-title">
             Estudios Pregrado
           </h1>
-          <v-card v-for="(degree, index) in degrees" :key="index" class="cards mb-3">
+          <v-card v-for="(degree, index) in degrees" :key="index" class="cards mb-3" flat="true">
             <v-row>
               <v-col class="mt-0 mb-0 pb-0 line-customize">
                 <p class="h3-customize pr-3"> Carrera: </p> <p class="content-style">{{ degree.levelOfDegree }} en {{ degree.careerDegree }}</p>
@@ -74,7 +74,7 @@
             Estudios Postgrado
           </h1>
           <v-card v-for="(higherEducationPostDegree, index) in higherEducationPostDegrees" :key="index"
-            class="cards mt-1 mb-1 pt-3">
+            class="cards mt-1 mb-1 pt-3" flat="true">
             <v-row>
               <v-col class="mt-0 mb-0 pb-0 pt-0 line-customize">
                 <p class="h3-customize pr-3"> Postgrado:</p> 
@@ -108,7 +108,7 @@
             </v-row>
           </v-card>
 
-          <v-card v-for="(postDegree, index) in postDegrees" :key="index" class="cards mt-1 mb-1">
+          <v-card v-for="(postDegree, index) in postDegrees" :key="index" class="cards mt-1 mb-1" flat="true">
             <v-row>
               <v-col class="mt-0 mb-0 pb-0 pt-3 line-customize">
                 <p class="h3-customize pr-3"> Postgrado:</p>
@@ -145,7 +145,7 @@
           <h1 class="sub-title">
             Cursos
           </h1>
-          <v-card v-for="(course, index) in courses" :key="index" class="cards mt-1 mb-1">
+          <v-card v-for="(course, index) in courses" :key="index" class="cards mt-1 mb-1" flat="true">
             <v-row>
               <v-col class="mt-0 mb-0 pb-0 line-customize">
                 <p class="h3-customize pr-3"> Curso </p>
@@ -176,7 +176,7 @@
              <h1 class="sub-title">
               Habilidades Blandas
             </h1>
-            <v-card>
+            <v-card flat="true">
               <v-list>
                 <v-list-item v-for="(skill, index) in skills" :key="index" :value="skill" class="cards1 card-style">
                   <template v-slot:prepend>
@@ -194,7 +194,7 @@
 </template>
 
 <script>
-import { database } from '../firebase/firebase'
+import { database } from '../../firebase/firebase'
 import { collection, doc, getDoc, getDocs } from 'firebase/firestore'
 import { getStorage, ref, getDownloadURL } from 'firebase/storage'
 
@@ -345,3 +345,11 @@ export default {
   },
 };
 </script>
+<style>
+.page-size{
+  height: 11in;
+  width: 8.5in;
+
+}
+
+</style>

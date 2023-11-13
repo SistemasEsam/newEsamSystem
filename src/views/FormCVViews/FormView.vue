@@ -11,12 +11,12 @@
     
 <script>
     
-    import personalProfile from '../components/PersonalProfile.vue'
-    import higherEducationPostDegree from '@/components/HigherEducationPostDegree.vue'
-    import superiorEducationProfile from '../components/SuperiorEducationProfile.vue'
-    import extraCoursesProfile from '../components/ExtraCoursesProfile.vue'
-    import workExperienceProfile from '../components/WorkExperiencieProfile.vue'
-    import skillsProfile from '../components/SkillsProfile.vue'
+    import personalProfile from '../../components/CVFormComponents/PersonalProfile.vue'
+    import higherEducationPostDegree from '@/components/CVFormComponents/HigherEducationPostDegree.vue'
+    import superiorEducationProfile from '../../components/CVFormComponents/SuperiorEducationProfile.vue'
+    import extraCoursesProfile from '../../components/CVFormComponents/ExtraCoursesProfile.vue'
+    import workExperienceProfile from '../../components/CVFormComponents/WorkExperiencieProfile.vue'
+    import skillsProfile from '../../components/CVFormComponents/SkillsProfile.vue'
     import NavBarForm from '@/components/NavBarForm.vue'
  
     export default {
