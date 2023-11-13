@@ -11,29 +11,91 @@
             </v-avatar>
           </div>
         </div>
-        <aside class="personalProfile">
-          <div class="align-personal-data">
-            <p>
-              {{ this.name + ' ' + this.lastNameF + ' ' + this.lastNameM }}</p>
-            <p>
-              {{ this.numberId }}</p>
-            <p>
-              {{ this.dateOfBirth }}</p>
-            <p>
-              {{ this.gender }}</p>
-            <p>{{ this.cityRadication + ', ' + this.selectedCountry }}
-            </p>
-            <p> {{ this.addres }} </p>
-            <p>
+        <div class="cv-personal-info">
+          <v-container class="cv-container-info">
+            <v-label class="cv-label-info">
+              <v-icon class="mr-1"> mdi-account </v-icon>
+              {{ this.name }}
+              <br />
+              {{ this.lastNameF + " " + this.lastNameM }}
+              <br />
+            </v-label>
+            <v-label class="cv-label-info">
+              <v-icon class="mr-1">mdi-card-account-details-outline </v-icon>
+              {{ this.numberId }}
+            </v-label>
+            <v-label class="cv-label-info">
+              <v-icon class="mr-1"> mdi-cake </v-icon>
+              {{ this.dateOfBirth }}
+            </v-label>
+            <v-label class="cv-label-info">
+              <v-icon class="mr-1"> {{ this.genderIcon }} </v-icon>
+              {{ this.gender }}
+            </v-label>
+            <v-label class="cv-label-info">
+              <v-icon class="mr-1"> mdi-home-city-outline </v-icon>
+              {{ this.cityRadication + ", " + this.selectedCountry }}
+            </v-label>
+            <v-label class="cv-label-info">
+              <v-icon class="mr-1"> mdi-map-marker-outline </v-icon>
+              {{ this.addres }}
+            </v-label>
+            <v-label class="cv-label-info">
+              <v-icon class="mr-1"> mdi-cellphone-basic </v-icon>
               {{ this.personalPhone }}
-            </p>
-            <p>
+            </v-label>
+            <v-label class="cv-label-info">
+              <v-icon class="mr-1"> mdi-email-outline </v-icon>
               {{ this.email }}
-            </p>
-          </div>
-        </aside>
+            </v-label>
+          </v-container>
+        </div>
       </div>
-      <div class="education-section"></div>
+      <div class="education-section">
+        <div class="cv-degrees">
+          <h2 class="cv-sub-title ml-1">Estudios Pregrado</h2>
+          <v-card
+            v-for="(degree, index) in degrees"
+            :key="index"
+            class="cv-degree-cards ml-1 mb-3"
+            flat="true"
+          >
+            <v-row>
+              <v-col class="mt-0 mb-0 pb-0 line-customize">
+                <p class="h3-customize">Carrera:</p>
+                <p class="content-style">
+                  {{ degree.levelOfDegree }} en {{ degree.careerDegree }}
+                </p>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col class="mt-0 mb-0 pb-0 pt-0 line-customize">
+                <p class="h3-customize">Universidad/Instituto:</p>
+                <p>{{ degree.universityDegree }}</p>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col class="mt-0 mb-0 pb-0 pt-0 line-customize">
+                <p class="h3-customize">País:</p>
+                <p>{{ degree.countryDegree }}</p>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col class="mt-0 mb-0 pb-0 pt-0 line-customize">
+                <p class="h3-customize">Año de Graduación:</p>
+                <p>{{ degree.graduationYearDegree }}</p>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col class="mt-0 mb-0 pb-3 pt-0 line-customize">
+                <p class="h3-customize">Modalidad de Graduación:</p>
+                <p>{{ degree.graduationModalityDegree }}</p>
+              </v-col>
+            </v-row>
+            <v-spacer></v-spacer>
+          </v-card>
+        </div>
+      </div>
     </div>
     <div class="cv-page-separator"></div>
     <div ref="secondPage" class="cv-page">
@@ -73,6 +135,7 @@ export default {
       dateOfBirth: "",
       formatedDateOfBrith: "",
       gender: "",
+      genderIcon: "",
       degrees: [],
       postDegrees: [],
       higherEducationPostDegrees: [],
@@ -185,8 +248,13 @@ export default {
           personalProfileData.data().dateOfBirth
         );
         this.gender = personalProfileData.data().gender;
+        if (personalProfileData.data().gender == "Masculino") {
+          this.genderIcon = "mdi-gender-male";
+        } else {
+          this.genderIcon = "mdi-gender-female";
+        }
         this.cityRadication = personalProfileData.data().cityRadication;
-        this.selectedCountry = personalProfileData.data().selectedCountry;
+        this.selectedCountry = this.formatCountry(personalProfileData.data().selectedCountry);
         this.addres = personalProfileData.data().addres;
         this.personalPhone = personalProfileData.data().personalPhone;
         this.email = personalProfileData.data().email;
@@ -298,6 +366,10 @@ export default {
         "/" +
         dateFirebase.getFullYear();
       return dateReturned;
+    },
+    formatCountry(country) {
+      const countryFormated = country.charAt(0).toUpperCase() + country.slice(1);
+      return countryFormated;
     },
 
     // methos-second-page
@@ -424,46 +496,77 @@ export default {
   float: left;
 }
 .education-section {
-  background-color: #ffdf0b;
+  background-color: white;
   width: 5.97in;
   height: 11in;
   float: left;
 }
 .yellow-circle {
   top: 0.25in;
-  /* Ajustar la posición vertical del círculo */
   left: 0.5in;
-  /* Ajustar la posición horizontal del círculo */
   width: 1.5in;
-  /* Diámetro del círculo */
   height: 1.5in;
-  /* Diámetro del círculo */
   border-radius: 50%;
   background-color: #ffdf0b;
-  /* Color amarillo */
   z-index: 1;
-  /* Asegura que el círculo esté por encima del rectángulo */
   position: relative;
 }
 
 .white-circle {
   top: 0.05in;
-  /* Ajustar la posición vertical del círculo */
   left: 0.05in;
-  /* Ajustar la posición horizontal del círculo */
   width: 1.4in;
-  /* Diámetro del círculo */
   height: 1.4in;
-  /* Diámetro del círculo */
   border-radius: 50%;
   background-color: white;
-  /* Color amarillo */
   z-index: 1;
-  /* Asegura que el círculo esté por encima del rectángulo */
   position: relative;
 }
 
 .cv-image {
   position: relative;
+}
+.cv-personal-info {
+  position: relative;
+  width: 90%;
+  top: 0.5in;
+}
+.cv-container-info {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+.cv-label-info {
+  position: relative;
+  font-size: x-small;
+  color: white;
+  font-family: Georgia, "Times New Roman", Times, serif;
+  opacity: 1;
+  margin: 1%;
+  word-wrap: break-word;
+}
+.cv-degrees {
+  position: relative;
+  font-family: Georgia, "Times New Roman", Times, serif;
+  color: #162d4a;
+}
+.cv-sub-title {
+  color: #162d4a;
+}
+.cv-degree-cards {
+  font-family: Georgia, "Times New Roman", Times, serif;
+  font-size: x-small;
+  color: black;
+  font-weight: bold;
+  position: relative;
+}
+.h3-customize {
+  color: #162d4a;
+  font-size: x-small;
+  margin-right: 1%;
+}
+.line-customize {
+  display: flex;
+  justify-content: left;
 }
 </style>

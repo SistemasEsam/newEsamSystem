@@ -18,14 +18,6 @@
 .header-form {
   color: #112533;
 }
-.h3-customize {
-  color: #b2a612;
-  font-size: large;
-}
-.line-customize {
-  display: flex;
-  justify-content: left;
-}
 .cards1 {
   font-family: Georgia, "Times New Roman", Times, serif;
   font-size: large;
@@ -122,25 +114,6 @@
   position: absolute;
 }
 
-.personalProfile {
-  width: 100%;
-  font-family: Georgia, "Times New Roman", Times, serif;
-  font-size: large;
-  color: white;
-  padding-top: 100%;
-  padding-left: 1px;
-  margin-left: 1px;
-  float: right;
-  text-align-last: center;
-}
-
-.degrees {
-  width: 11in;
-  font-family: Georgia, "Times New Roman", Times, serif;
-  margin-left: 4in;
-  color: #162d4a;
-  margin-top: 0%;
-}
 
 .cards {
   font-family: Georgia, "Times New Roman", Times, serif;
@@ -184,15 +157,7 @@
   background-color: #112533;
   color: #f4f3f4;
 }
-.content-style {
-  color: #1e1e1c;
-}
-.sub-title {
-  color: #112533;
-}
-.align-personal-data {
-  text-align: center;
-}
+
 .button-card {
   background-color: #112533;
   color: white;
