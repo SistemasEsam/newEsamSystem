@@ -13,41 +13,56 @@
         </div>
         <div class="cv-personal-info">
           <v-container class="cv-container-info">
-            <v-label class="cv-label-info">
+            <p class="cv-label-info">
               <v-icon class="mr-1"> mdi-account </v-icon>
-              {{ this.name }}
+              {{ this.name +" "+this.lastNameF + " " + this.lastNameM }}
               <br />
-              {{ this.lastNameF + " " + this.lastNameM }}
-              <br />
-            </v-label>
-            <v-label class="cv-label-info">
+            </p>
+            <p class="cv-label-info">
               <v-icon class="mr-1">mdi-card-account-details-outline </v-icon>
               {{ this.numberId + " " + this.idExtension }}
-            </v-label>
-            <v-label class="cv-label-info">
+            </p>
+            <p class="cv-label-info">
               <v-icon class="mr-1"> mdi-cake </v-icon>
               {{ this.dateOfBirth }}
-            </v-label>
-            <v-label class="cv-label-info">
+            </p>
+            <p class="cv-label-info">
               <v-icon class="mr-1"> {{ this.genderIcon }} </v-icon>
               {{ this.gender }}
-            </v-label>
-            <v-label class="cv-label-info">
+            </p>
+            <p class="cv-label-info">
               <v-icon class="mr-1"> mdi-home-city-outline </v-icon>
               {{ this.cityRadication + ", " + this.selectedCountry }}
-            </v-label>
-            <v-label class="cv-label-info">
+            </p>
+            <p class="cv-label-info">
               <v-icon class="mr-1"> mdi-map-marker-outline </v-icon>
               {{ this.addres }}
-            </v-label>
-            <v-label class="cv-label-info">
+            </p>
+            <p class="cv-label-info">
               <v-icon class="mr-1"> mdi-cellphone-basic </v-icon>
               {{ this.personalPhone }}
-            </v-label>
-            <v-label class="cv-label-info">
+            </p>
+            <p class="cv-label-info">
               <v-icon class="mr-1"> mdi-email-outline </v-icon>
               {{ this.email }}
-            </v-label>
+            </p>
+          </v-container>
+          <v-container class="cv-soft-skills">
+            <h4 class="cv-skills-title">
+              Habilidades Blandas
+            </h4>
+            <p class="cv-label-info" v-for="(skill, index) in skills" :key="index" :value="skill">
+              <v-icon class="mr-1"> mdi-check-circle-outline </v-icon>
+              {{skill.skill}}
+            </p>
+          </v-container>
+          <v-container class="cv-soft-skills">
+            <h4 class="cv-skills-title">
+              Idiomas
+            </h4>
+            <p v-for="(language, index) in languajes" :key="index" :value="language">
+                {{ language.language }}
+            </p>
           </v-container>
         </div>
       </div>
@@ -63,7 +78,7 @@
             <v-row>
               <v-col class="mt-0 mb-0 pb-0 line-customize">
                 <p class="h3-customize">Carrera:</p>
-                <p class="content-style">
+                <p class="cv-content">
                   {{ degree.levelOfDegree }} en {{ degree.careerDegree }}
                 </p>
               </v-col>
@@ -71,25 +86,25 @@
             <v-row>
               <v-col class="mt-0 mb-0 pb-0 pt-0 line-customize">
                 <p class="h3-customize">Universidad/Instituto:</p>
-                <p>{{ degree.universityDegree }}</p>
+                <p class="cv-content">{{ degree.universityDegree }}</p>
               </v-col>
             </v-row>
             <v-row>
               <v-col class="mt-0 mb-0 pb-0 pt-0 line-customize">
                 <p class="h3-customize">País:</p>
-                <p>{{ degree.countryDegree }}</p>
+                <p class="cv-content">{{ degree.countryDegree }}</p>
               </v-col>
             </v-row>
             <v-row>
               <v-col class="mt-0 pb-0 pt-0 line-customize">
                 <p class="h3-customize">Año de Graduación:</p>
-                <p>{{ degree.graduationYearDegree }}</p>
+                <p class="cv-content">{{ degree.graduationYearDegree }}</p>
               </v-col>
             </v-row>
             <v-row>
               <v-col class="mt-0 mb-0 pb-3 pt-0 line-customize">
                 <p class="h3-customize">Modalidad de Graduación:</p>
-                <p>{{ degree.graduationModalityDegree }}</p>
+                <p class="cv-content">{{ degree.graduationModalityDegree }}</p>
               </v-col>
             </v-row>
           </v-card>
@@ -107,7 +122,7 @@
             <v-row>
               <v-col class="mt-3 mb-0 pb-0 pt-0 line-customize">
                 <p class="h3-customize">Postgrado:</p>
-                <p>
+                <p class="cv-content">
                   {{ higherEducationPostDegree.levelHigherEducation }} en
                   {{ higherEducationPostDegree.nameHigherEducation }}
                 </p>
@@ -116,13 +131,13 @@
             <v-row>
               <v-col class="mt-0 mb-0 pb-0 pt-0 line-customize">
                 <p class="h3-customize">Universidad/Instituto:</p>
-                <p>{{ higherEducationPostDegree.institutionName }}</p>
+                <p class="cv-content">{{ higherEducationPostDegree.institutionName }}</p>
               </v-col>
             </v-row>
             <v-row>
               <v-col class="mt-0 mb-0 pb-0 pt-0 line-customize">
                 <p class="h3-customize">País:</p>
-                <p>
+                <p class="cv-content">
                   {{ higherEducationPostDegree.countryHigherEducationName }}
                 </p>
               </v-col>
@@ -130,7 +145,7 @@
             <v-row>
               <v-col class="mt-0 mb-0 pb-0 pt-0 line-customize">
                 <p class="h3-customize">Año de Realización:</p>
-                <p>
+                <p class="cv-content">
                   {{ higherEducationPostDegree.graduationYearHigherEducation }}
                 </p>
               </v-col>
@@ -138,7 +153,7 @@
             <v-row>
               <v-col class="mt-0 mb-0 pb-3 pt-0 line-customize">
                 <p class="h3-customize">Modalidad de Graduación:</p>
-                <p>
+                <p class="cv-content">
                   {{
                     higherEducationPostDegree.graduationModalityHigherEducation
                   }}
@@ -156,7 +171,7 @@
             <v-row>
               <v-col class="mt-0 mb-0 pb-0 pt-3 line-customize">
                 <p class="h3-customize">Postgrado:</p>
-                <p>
+                <p class="cv-content">
                   {{ postDegree.titlePostDegree }} en
                   {{ postDegree.namePostDegree }}
                 </p>
@@ -165,25 +180,25 @@
             <v-row>
               <v-col class="mt-0 mb-0 pb-0 pt-0 line-customize">
                 <p class="h3-customize">Universidad/Instituto:</p>
-                <p>{{ postDegree.universityPostDegree }}</p>
+                <p class="cv-content">{{ postDegree.universityPostDegree }}</p>
               </v-col>
             </v-row>
             <v-row>
               <v-col class="mt-0 mb-0 pb-0 pt-0 line-customize">
                 <p class="h3-customize">País:</p>
-                <p>{{ postDegree.countryPostDegree }}</p>
+                <p class="cv-content">{{ postDegree.countryPostDegree }}</p>
               </v-col>
             </v-row>
             <v-row>
               <v-col class="mt-0 mb-0 pb-0 pt-0 line-customize">
                 <p class="h3-customize">Año de Realización:</p>
-                <p>{{ postDegree.graduationYearPostDegree }}</p>
+                <p class="cv-content">{{ postDegree.graduationYearPostDegree }}</p>
               </v-col>
             </v-row>
             <v-row>
               <v-col class="mt-0 mb-0 pb-3 pt-0 line-customize">
                 <p class="h3-customize">Modalidad de Graduación:</p>
-                <p>{{ postDegree.graduationModalityPostDegree }}</p>
+                <p class="cv-content">{{ postDegree.graduationModalityPostDegree }}</p>
               </v-col>
             </v-row>
           </v-card>
@@ -206,31 +221,31 @@
             <v-row>
               <v-col class="mt-0 mb-0 pb-0 line-customize">
                 <p class="h3-customize">Materia Impartida:</p>
-                <p>{{ instructorJob.subjectInstructorExperience }}</p>
+                <p class="cv-content">{{ instructorJob.subjectInstructorExperience }}</p>
               </v-col>
             </v-row>
             <v-row>
               <v-col class="mt-0 mb-0 pb-0 pt-0 line-customize">
                 <p class="h3-customize">Docente en calidad de:</p>
-                <p>{{ instructorJob.typeInstructor }}</p>
+                <p class="cv-content">{{ instructorJob.typeInstructor }}</p>
               </v-col>
             </v-row>
             <v-row>
               <v-col class="mt-0 mb-0 pb-0 pt-0 line-customize">
                 <p class="h3-customize">Nivel impartido:</p>
-                <p>{{ instructorJob.academicLevel }}</p>
+                <p class="cv-content">{{ instructorJob.academicLevel }}</p>
               </v-col>
             </v-row>
             <v-row>
               <v-col class="mt-0 mb-0 pb-0 pt-0 line-customize">
                 <p class="h3-customize">Universidad o Institución:</p>
-                <p>{{ instructorJob.institutionInstructorExperience }}</p>
+                <p class="cv-content">{{ instructorJob.institutionInstructorExperience }}</p>
               </v-col>
             </v-row>
             <v-row >
               <v-col class="mt-0 mb-0 pb-3 pt-0 line-customize">
                 <p class="h3-customize">Último año de Docencia:</p>
-                <p>{{ instructorJob.lastYearInstructorExperience }}</p>
+                <p class="cv-content">{{ instructorJob.lastYearInstructorExperience }}</p>
               </v-col>
             </v-row>
           </v-card>
@@ -242,56 +257,56 @@
               <v-row>
                 <v-col class="mt-0 mb-0 pb-0 line-customize">
                   <p class="h3-customize"> Cargo </p>
-                  <p>{{ job.jobTitleWorkExperience }}</p>
+                  <p class="cv-content">{{ job.jobTitleWorkExperience }}</p>
                 </v-col>
               </v-row>
               <v-row>
                 <v-col class="mt-0 mb-0 pb-0 pt-0 line-customize">
                   <p class="h3-customize"> Institución o Empresa </p>
-                  <p>{{ job.institutionWorkExperience }}</p>
+                  <p class="cv-content">{{ job.institutionWorkExperience }}</p>
                 </v-col>
               </v-row>
               <v-row>
                 <v-col class="mt-0 mb-0 pb-0 pt-0 line-customize">
                   <p class="h3-customize"> Ciudad </p>
-                  <p>{{ job.cityWorkExperience + ', ' + job.countryWorkExperience }}</p>
+                  <p class="cv-content">{{ job.cityWorkExperience + ', ' + job.countryWorkExperience }}</p>
                 </v-col>
               </v-row>
               <v-row>
                 <v-col class="mt-0 mb-0 pb-0 pt-0 line-customize">
                   <p class="h3-customize"> Fecha </p>
-                  <p>{{ job.startWorkExperience + ' - ' + job.endWorkExperience }}</p>
+                  <p class="cv-content">{{ job.startWorkExperience + ' - ' + job.endWorkExperience }}</p>
                 </v-col>
               </v-row>
               <v-row>
                 <v-col class="mt-0 mb-0 pb-0 pt-0 line-customize">
                   <p class="h3-customize"> Nombre de Referencia </p>
-                  <p>{{ job.nameReference + ' ' + job.lastnameReference }}</p>
+                  <p class="cv-content">{{ job.nameReference + ' ' + job.lastnameReference }}</p>
                 </v-col>
               </v-row>
               <v-row>
                 <v-col class="mt-0 mb-0 pb-0 pt-0 line-customize">
                   <p class="h3-customize"> Cargo </p>
-                  <p>{{ job.jobTitleReference }}</p>
+                  <p class="cv-content">{{ job.jobTitleReference }}</p>
                 </v-col>
               </v-row>
               <v-row>
                 <v-col class="mt-0 mb-0 pb-0 pt-0 line-customize">
                   <p class="h3-customize"> Número de Contacto </p>
-                  <p>{{ job.phoneReference }}</p>
+                  <p class="cv-content">{{ job.phoneReference }}</p>
                 </v-col>
               </v-row>
               <v-row class="mt-0 mb-0 pb-2 pt-0 line-customize">
                 <v-col>
                   <p class="h3-customize"> Descripción de Actividades: </p>
-                  <p>{{ job.descriptionWorkExperience }}</p>
+                  <p class="cv-content">{{ job.descriptionWorkExperience }}</p>
                 </v-col>
               </v-row>
             </v-card>
         </div>
-
       </div>
     </div>
+    <!-- third page -->
     <div class="cv-page-separator"></div>
     <div ref="thirdPage" class="cv-page">
       <div class="info-section"></div>
@@ -307,25 +322,25 @@
             <v-row>
               <v-col class="mt-0 mb-0 pb-0 line-customize">
                 <p class="h3-customize">Curso</p>
-                <p>{{ course.nameCourse }}</p>
+                <p class="cv-content">{{ course.nameCourse }}</p>
               </v-col>
             </v-row>
             <v-row>
               <v-col class="mt-0 mb-0 pb-0 pt-0 line-customize">
                 <p class="h3-customize">Universidad/Instituto:</p>
-                <p>{{ course.institutionCourse }}</p>
+                <p class="cv-content">{{ course.institutionCourse }}</p>
               </v-col>
             </v-row>
             <v-row>
               <v-col class="mt-0 mb-0 pb-0 pt-0 line-customize">
                 <p class="h3-customize">País:</p>
-                <p>{{ course.countryCourse }}</p>
+                <p class="cv-content">{{ course.countryCourse }}</p>
               </v-col>
             </v-row>
             <v-row>
               <v-col class="mt-0 mb-0 pb-3 pt-0 line-customize">
                 <p class="h3-customize">Año de Realización:</p>
-                <p>{{ course.yearCourse }}</p>
+                <p class="cv-content">{{ course.yearCourse }}</p>
               </v-col>
             </v-row>
           </v-card>
@@ -342,31 +357,31 @@
             <v-row>
               <v-col class="mt-0 mb-0 pb-0 line-customize">
                 <p class="h3-customize">Nombre de la Publicación</p>
-                <p>{{ publication.namePublication }}</p>
+                <p class="cv-content">{{ publication.namePublication }}</p>
               </v-col>
             </v-row>
             <v-row>
               <v-col class="mt-0 mb-0 pb-0 pt-0 line-customize">
                 <p class="h3-customize">Enlace o Editorial</p>
-                <p>{{ publication.publisher }}</p>
+                <p class="cv-content">{{ publication.publisher }}</p>
               </v-col>
             </v-row>
             <v-row>
               <v-col class="mt-0 mb-0 pb-0 pt-0 line-customize">
                 <p class="h3-customize">Tipo de Publicación</p>
-                <p>{{ publication.typePublication }}</p>
+                <p class="cv-content">{{ publication.typePublication }}</p>
               </v-col>
             </v-row>
             <v-row>
               <v-col class="mt-0 mb-0 pb-0 pt-0 line-customize">
                 <p class="h3-customize">País de Publicación</p>
-                <p>{{ publication.countryPublication }}</p>
+                <p class="cv-content">{{ publication.countryPublication }}</p>
               </v-col>
             </v-row>
             <v-row class="mt-0 mb-0 pb-0 pt-0 line-customize">
               <v-col>
                 <p class="h3-customize">Fecha de Publicación</p>
-                <p>{{ publication.datePublication }}</p>
+                <p class="cv-content">{{ publication.datePublication }}</p>
               </v-col>
             </v-row>
           </v-card>
@@ -817,7 +832,7 @@ export default {
 }
 .cv-label-info {
   position: relative;
-  font-size: x-small;
+  font-size: 11.5px;
   color: white;
   font-family: Georgia, "Times New Roman", Times, serif;
   opacity: 1;
@@ -847,5 +862,16 @@ export default {
 .line-customize {
   display: flex;
   justify-content: left;
+}
+.cv-content{
+  font-size: 11.5px;
+}
+.cv-soft-skills{
+  font-family: Georgia, "Times New Roman", Times, serif;
+
+}
+.cv-skills-title{
+  color: white;
+
 }
 </style>
