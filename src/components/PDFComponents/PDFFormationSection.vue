@@ -15,7 +15,7 @@
           <v-container class="cv-container-info">
             <p class="cv-label-info">
               <v-icon class="mr-1"> mdi-account </v-icon>
-              {{ this.name +" "+this.lastNameF + " " + this.lastNameM }}
+              {{ this.name + " " + this.lastNameF + " " + this.lastNameM }}
               <br />
             </p>
             <p class="cv-label-info">
@@ -48,20 +48,15 @@
             </p>
           </v-container>
           <v-container class="cv-soft-skills">
-            <h4 class="cv-skills-title">
-              Habilidades Blandas
-            </h4>
-            <p class="cv-label-info" v-for="(skill, index) in skills" :key="index" :value="skill">
+            <h4 class="cv-skills-title">Habilidades Blandas</h4>
+            <p
+              class="cv-label-info"
+              v-for="(skill, index) in skills"
+              :key="index"
+              :value="skill"
+            >
               <v-icon class="mr-1"> mdi-check-circle-outline </v-icon>
-              {{skill.skill}}
-            </p>
-          </v-container>
-          <v-container class="cv-soft-skills">
-            <h4 class="cv-skills-title">
-              Idiomas
-            </h4>
-            <p v-for="(language, index) in languajes" :key="index" :value="language">
-                {{ language.language }}
+              {{ skill.skill }}
             </p>
           </v-container>
         </div>
@@ -131,7 +126,9 @@
             <v-row>
               <v-col class="mt-0 mb-0 pb-0 pt-0 line-customize">
                 <p class="h3-customize">Universidad/Instituto:</p>
-                <p class="cv-content">{{ higherEducationPostDegree.institutionName }}</p>
+                <p class="cv-content">
+                  {{ higherEducationPostDegree.institutionName }}
+                </p>
               </v-col>
             </v-row>
             <v-row>
@@ -192,13 +189,17 @@
             <v-row>
               <v-col class="mt-0 mb-0 pb-0 pt-0 line-customize">
                 <p class="h3-customize">Año de Realización:</p>
-                <p class="cv-content">{{ postDegree.graduationYearPostDegree }}</p>
+                <p class="cv-content">
+                  {{ postDegree.graduationYearPostDegree }}
+                </p>
               </v-col>
             </v-row>
             <v-row>
               <v-col class="mt-0 mb-0 pb-3 pt-0 line-customize">
                 <p class="h3-customize">Modalidad de Graduación:</p>
-                <p class="cv-content">{{ postDegree.graduationModalityPostDegree }}</p>
+                <p class="cv-content">
+                  {{ postDegree.graduationModalityPostDegree }}
+                </p>
               </v-col>
             </v-row>
           </v-card>
@@ -208,7 +209,38 @@
     <!-- Second Page -->
     <div class="cv-page-separator"></div>
     <div ref="secondPage" class="cv-page">
-      <div class="info-section"></div>
+      <div class="info-section">
+        <v-container class="cv-soft-skills">
+          <h4 class="cv-skills-title">Idiomas</h4>
+          <v-card
+            class="cv-card-language"
+            v-for="(language, index) in languajes"
+            :key="index"
+            :value="language"
+            flat="true"
+          >
+            <v-card-title class="cv-card-language-title">
+              {{ language.language }}
+            </v-card-title>
+            <v-card-subtitle>
+              <v-icon class="mr-1"> mdi-account-voice </v-icon>
+              {{ language.speakeLevel }}</v-card-subtitle
+            >
+            <v-card-subtitle>
+              <v-icon class="mr-1"> mdi-book-open-variant </v-icon
+              >{{ language.readLevel }}</v-card-subtitle
+            >
+            <v-card-subtitle>
+              <v-icon class="mr-1"> mdi-ear-hearing </v-icon
+              >{{ language.listenLevel }}</v-card-subtitle
+            >
+            <v-card-subtitle
+              ><v-icon class="mr-1"> mdi-fountain-pen </v-icon>
+              {{ language.writeLevel }}</v-card-subtitle
+            >
+          </v-card>
+        </v-container>
+      </div>
       <div class="education-section">
         <div class="cv-degrees">
           <h2 class="cv-sub-title ml-1">Experiencia Docente</h2>
@@ -221,7 +253,9 @@
             <v-row>
               <v-col class="mt-0 mb-0 pb-0 line-customize">
                 <p class="h3-customize">Materia Impartida:</p>
-                <p class="cv-content">{{ instructorJob.subjectInstructorExperience }}</p>
+                <p class="cv-content">
+                  {{ instructorJob.subjectInstructorExperience }}
+                </p>
               </v-col>
             </v-row>
             <v-row>
@@ -239,13 +273,17 @@
             <v-row>
               <v-col class="mt-0 mb-0 pb-0 pt-0 line-customize">
                 <p class="h3-customize">Universidad o Institución:</p>
-                <p class="cv-content">{{ instructorJob.institutionInstructorExperience }}</p>
+                <p class="cv-content">
+                  {{ instructorJob.institutionInstructorExperience }}
+                </p>
               </v-col>
             </v-row>
-            <v-row >
+            <v-row>
               <v-col class="mt-0 mb-0 pb-3 pt-0 line-customize">
                 <p class="h3-customize">Último año de Docencia:</p>
-                <p class="cv-content">{{ instructorJob.lastYearInstructorExperience }}</p>
+                <p class="cv-content">
+                  {{ instructorJob.lastYearInstructorExperience }}
+                </p>
               </v-col>
             </v-row>
           </v-card>
@@ -253,56 +291,69 @@
 
         <div class="cv-degrees">
           <h2 class="cv-sub-title ml-1">Experiencia Laboral</h2>
-          <v-card v-for="(job, index) in jobs" :key="index" class="cv-degree-cards ml-1 mb-3" flat="true">
-              <v-row>
-                <v-col class="mt-0 mb-0 pb-0 line-customize">
-                  <p class="h3-customize"> Cargo </p>
-                  <p class="cv-content">{{ job.jobTitleWorkExperience }}</p>
-                </v-col>
-              </v-row>
-              <v-row>
-                <v-col class="mt-0 mb-0 pb-0 pt-0 line-customize">
-                  <p class="h3-customize"> Institución o Empresa </p>
-                  <p class="cv-content">{{ job.institutionWorkExperience }}</p>
-                </v-col>
-              </v-row>
-              <v-row>
-                <v-col class="mt-0 mb-0 pb-0 pt-0 line-customize">
-                  <p class="h3-customize"> Ciudad </p>
-                  <p class="cv-content">{{ job.cityWorkExperience + ', ' + job.countryWorkExperience }}</p>
-                </v-col>
-              </v-row>
-              <v-row>
-                <v-col class="mt-0 mb-0 pb-0 pt-0 line-customize">
-                  <p class="h3-customize"> Fecha </p>
-                  <p class="cv-content">{{ job.startWorkExperience + ' - ' + job.endWorkExperience }}</p>
-                </v-col>
-              </v-row>
-              <v-row>
-                <v-col class="mt-0 mb-0 pb-0 pt-0 line-customize">
-                  <p class="h3-customize"> Nombre de Referencia </p>
-                  <p class="cv-content">{{ job.nameReference + ' ' + job.lastnameReference }}</p>
-                </v-col>
-              </v-row>
-              <v-row>
-                <v-col class="mt-0 mb-0 pb-0 pt-0 line-customize">
-                  <p class="h3-customize"> Cargo </p>
-                  <p class="cv-content">{{ job.jobTitleReference }}</p>
-                </v-col>
-              </v-row>
-              <v-row>
-                <v-col class="mt-0 mb-0 pb-0 pt-0 line-customize">
-                  <p class="h3-customize"> Número de Contacto </p>
-                  <p class="cv-content">{{ job.phoneReference }}</p>
-                </v-col>
-              </v-row>
-              <v-row class="mt-0 mb-0 pb-2 pt-0 line-customize">
-                <v-col>
-                  <p class="h3-customize"> Descripción de Actividades: </p>
-                  <p class="cv-content">{{ job.descriptionWorkExperience }}</p>
-                </v-col>
-              </v-row>
-            </v-card>
+          <v-card
+            v-for="(job, index) in jobs"
+            :key="index"
+            class="cv-degree-cards ml-1 mb-3"
+            flat="true"
+          >
+            <v-row>
+              <v-col class="mt-0 mb-0 pb-0 line-customize">
+                <p class="h3-customize">Cargo</p>
+                <p class="cv-content">{{ job.jobTitleWorkExperience }}</p>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col class="mt-0 mb-0 pb-0 pt-0 line-customize">
+                <p class="h3-customize">Institución o Empresa</p>
+                <p class="cv-content">{{ job.institutionWorkExperience }}</p>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col class="mt-0 mb-0 pb-0 pt-0 line-customize">
+                <p class="h3-customize">Ciudad</p>
+                <p class="cv-content">
+                  {{
+                    job.cityWorkExperience + ", " + job.countryWorkExperience
+                  }}
+                </p>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col class="mt-0 mb-0 pb-0 pt-0 line-customize">
+                <p class="h3-customize">Fecha</p>
+                <p class="cv-content">
+                  {{ job.startWorkExperience + " - " + job.endWorkExperience }}
+                </p>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col class="mt-0 mb-0 pb-0 pt-0 line-customize">
+                <p class="h3-customize">Nombre de Referencia</p>
+                <p class="cv-content">
+                  {{ job.nameReference + " " + job.lastnameReference }}
+                </p>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col class="mt-0 mb-0 pb-0 pt-0 line-customize">
+                <p class="h3-customize">Cargo</p>
+                <p class="cv-content">{{ job.jobTitleReference }}</p>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col class="mt-0 mb-0 pb-0 pt-0 line-customize">
+                <p class="h3-customize">Número de Contacto</p>
+                <p class="cv-content">{{ job.phoneReference }}</p>
+              </v-col>
+            </v-row>
+            <v-row class="mt-0 mb-0 pb-2 pt-0 line-customize">
+              <v-col>
+                <p class="h3-customize">Descripción de Actividades:</p>
+                <p class="cv-content">{{ job.descriptionWorkExperience }}</p>
+              </v-col>
+            </v-row>
+          </v-card>
         </div>
       </div>
     </div>
@@ -349,9 +400,9 @@
         <div class="cv-degrees">
           <h2 class="cv-sub-title ml-1">Publicaciones</h2>
           <v-card
-            class="cv-degree-cards ml-1"
             v-for="(publication, index) in publications"
             :key="index"
+            class="cv-degree-cards ml-1 mt-1 mb-1"
             flat="true"
           >
             <v-row>
@@ -374,13 +425,13 @@
             </v-row>
             <v-row>
               <v-col class="mt-0 mb-0 pb-0 pt-0 line-customize">
-                <p class="h3-customize">País de Publicación</p>
+                <p class="h3-customize">País de Publicación:</p>
                 <p class="cv-content">{{ publication.countryPublication }}</p>
               </v-col>
             </v-row>
-            <v-row class="mt-0 mb-0 pb-0 pt-0 line-customize">
-              <v-col>
-                <p class="h3-customize">Fecha de Publicación</p>
+            <v-row>
+              <v-col class="mt-0 mb-0 pb-3 pt-0 line-customize">
+                <p class="h3-customize">Fecha de Publicación:</p>
                 <p class="cv-content">{{ publication.datePublication }}</p>
               </v-col>
             </v-row>
@@ -480,7 +531,7 @@ export default {
         pdf.addPage();
         html2canvas(
           this.$refs.secondPage,
-          { allowTaint: false, useCORS: true, scale: 5},
+          { allowTaint: false, useCORS: true, scale: 5 },
           options
         ).then((canvas) => {
           const imgData2 = canvas.toDataURL("image/png");
@@ -621,7 +672,7 @@ export default {
         this.courses.push({
           institutionCourse: course.data().institutionCourse,
           nameCourse: course.data().nameCourse,
-          countryCourse: course.data().countryCourse.toLowerCase(),
+          countryCourse: this.formatCountry(course.data().countryCourse.toLowerCase()),
           yearCourse: course.data().yearCourse,
         });
       });
@@ -660,7 +711,6 @@ export default {
       return dateReturned;
     },
     formatCountry(country) {
-      console.log(country);
       const countryFormated =
         country.charAt(0).toUpperCase() + country.slice(1);
       return countryFormated;
@@ -676,9 +726,9 @@ export default {
           publisher: publication.data().publisher,
           namePublication: publication.data().namePublication,
           typePublication: publication.data().typePublication,
-          countryPublication: publication
+          countryPublication: this.formatCountry(publication
             .data()
-            .countryPublication.toLowerCase(),
+            .countryPublication.toLowerCase()),
           datePublication: this.formatDate(publication.data().datePublication),
         });
       });
@@ -693,10 +743,12 @@ export default {
           this.jobs.push({
             jobTitleWorkExperience: job.data().jobTitleWorkExperience,
             institutionWorkExperience: job.data().institutionWorkExperience,
-            cityWorkExperience: this.formatCountry(job.data().cityWorkExperience.toLowerCase()),
-            countryWorkExperience: this.formatCountry(job
-              .data()
-              .countryWorkExperience.toLowerCase()),
+            cityWorkExperience: this.formatCountry(
+              job.data().cityWorkExperience.toLowerCase()
+            ),
+            countryWorkExperience: this.formatCountry(
+              job.data().countryWorkExperience.toLowerCase()
+            ),
             descriptionWorkExperience: job.data().descriptionWorkExperience,
             startWorkExperience: this.formatDate(
               job.data().startWorkExperience
@@ -711,10 +763,12 @@ export default {
           this.jobs.push({
             jobTitleWorkExperience: job.data().jobTitleWorkExperience,
             institutionWorkExperience: job.data().institutionWorkExperience,
-            cityWorkExperience: this.formatCountry(job.data().cityWorkExperience.toLowerCase()),
-            countryWorkExperience: this.formatCountry(job
-              .data()
-              .countryWorkExperience.toLowerCase()),
+            cityWorkExperience: this.formatCountry(
+              job.data().cityWorkExperience.toLowerCase()
+            ),
+            countryWorkExperience: this.formatCountry(
+              job.data().countryWorkExperience.toLowerCase()
+            ),
             descriptionWorkExperience: job.data().descriptionWorkExperience,
             startWorkExperience: this.formatDate(
               job.data().startWorkExperienceCurrentJob
@@ -863,15 +917,19 @@ export default {
   display: flex;
   justify-content: left;
 }
-.cv-content{
+.cv-content {
   font-size: 11.5px;
 }
-.cv-soft-skills{
+.cv-soft-skills {
   font-family: Georgia, "Times New Roman", Times, serif;
-
 }
-.cv-skills-title{
+.cv-skills-title {
   color: white;
-
+}
+.cv-card-language {
+  background-color: #162d4a;
+}
+.cv-card-language {
+  color: white;
 }
 </style>
