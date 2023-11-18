@@ -247,7 +247,7 @@
           <v-card
             v-for="(instructorJob, index) in instructorJobs"
             :key="index"
-            class="cv-degree-cards ml-1 mb-3"
+            class="cv-degree-cards ml-1 mb-2"
             flat="true"
           >
             <v-row>
@@ -294,7 +294,7 @@
           <v-card
             v-for="(job, index) in jobs"
             :key="index"
-            class="cv-degree-cards ml-1 mb-3"
+            class="cv-degree-cards ml-1 mb-2"
             flat="true"
           >
             <v-row>
@@ -347,8 +347,8 @@
                 <p class="cv-content">{{ job.phoneReference }}</p>
               </v-col>
             </v-row>
-            <v-row class="mt-0 mb-0 pb-2 pt-0 line-customize">
-              <v-col>
+            <v-row >
+              <v-col class="mt-0 mb-0 pb-3 pt-0 line-customize">
                 <p class="h3-customize">Descripción de Actividades:</p>
                 <p class="cv-content">{{ job.descriptionWorkExperience }}</p>
               </v-col>
