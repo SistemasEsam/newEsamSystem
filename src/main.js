@@ -9,9 +9,15 @@ import VueDatePicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css';
 import './assets/globalStyle.css'
 
+
+
 loadFonts()
 
+
 createApp(App)
+
+
+
   .use(router)
   .use(store)
   .use(vuetify)
