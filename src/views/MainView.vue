@@ -1,33 +1,25 @@
 <template>
-  <NewNavBar />
-  <LitleNavBar />
-  <NewImages />
-  <Programs />
-</template>
-  
-  <script>
-import NavBar from "@/components/NavBar.vue";
-import Footer from "@/components/Footer.vue";
-import Home from "@/components/Home.vue";
-import NewNavBar from "@/components/NewNavBar.vue";
-import LitleNavBar from "@/components/LitleNavBar.vue";
-import NewImages from "@/components/NewImages.vue";
+  <NavBar></NavBar>
+  <Main></Main>
+  <Footer></Footer>
 
+</template>
+<script>
+import Footer from '@/components/Footer.vue';
+import NavBar from '@/components/NavBar.vue';
+import Main from '@/components/Main.vue'
 export default {
   name: "MainView",
   components: {
-    NavBar,
     Footer,
-    Home,
-    NewNavBar,
-    LitleNavBar,
-    NewImages,
+    NavBar,
+    Main
   },
   // Otras opciones y métodos de la vista
 };
 </script>
   
-  <style>
+<style>
 /* Estilos personalizados para la vista */
 </style>
   
