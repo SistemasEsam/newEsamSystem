@@ -2,6 +2,7 @@
 
 
  import MainView from '../views/MainView.vue'
+ import FormView from '../views/FormCVViews/FormView.vue'
 
 
 const routes = [
@@ -9,6 +10,11 @@ const routes = [
     path: '/',
     name: 'main',
     component: MainView
+  },
+  {
+    path: '/form-cv-view',
+    name: 'formView',
+    component: FormView
   },
 ]
 const router = createRouter({
