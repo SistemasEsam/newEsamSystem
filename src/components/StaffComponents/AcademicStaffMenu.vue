@@ -14,7 +14,7 @@
                 </v-btn>
             </v-col>
             <v-col>
-                <v-btn @click="openInstructorFinder()" class="button-style" size="300px">
+                <v-btn class="button-style" size="300px">
                     <v-icon size="200px"> mdi-account-search-outline </v-icon>
                     <h3 class="text-position">Buscar Prospectos</h3>
                 </v-btn>
@@ -22,7 +22,7 @@
         </v-row>
         <v-row>
             <v-col>
-                <v-btn class="button-style" size="300px">
+                <v-btn @click="openInstructorFinder()"  class="button-style" size="300px">
                     <v-icon size="200px"> mdi-account-question-outline </v-icon>
                     <h3 class="text-position">Postulantes</h3>
                 </v-btn>
@@ -51,7 +51,7 @@ export default{
     methods:
     {
         openInstructorFinder(){
-            let instructorFinderTab = router.resolve({name: 'instructorFinder'})
+            let instructorFinderTab = router.resolve({name: 'instructorFinderView'})
             window.open(instructorFinderTab.href)
         },
         openStaffProfile(){
