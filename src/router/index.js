@@ -5,6 +5,7 @@
  import FormView from '../views/FormCVViews/FormView.vue'
  import StaffMenuView from '../views/StaffViews/StaffMenuView.vue'
  import InstructorFinderView from '../views/InstructorFinderViews/InstructorsView.vue'
+ import PDFView from '../views/PDFViews/PDFView.vue'
 
 
 const routes = [
@@ -16,6 +17,7 @@ const routes = [
   {
     path: '/form-cv-view',
     name: 'formView',
+    meta: {title: 'Formulario de Registro'},
     component: FormView
   },
   {
@@ -27,8 +29,15 @@ const routes = [
   {
     path: '/instructor-finder-view',
     name: 'instructorFinderView',
+    meta: {title: 'Prospectos'},
     component: InstructorFinderView
   },
+  {
+    path: '/pdf-view/:id',
+    name: 'PDFView',
+    component: PDFView
+  },
+
 ]
 const router = createRouter({
   history: createWebHashHistory(),

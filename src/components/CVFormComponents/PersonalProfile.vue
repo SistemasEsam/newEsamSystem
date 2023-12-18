@@ -256,7 +256,9 @@ export default {
         idAddNumber: this.idAddNumber,
         dateOfBirth: this.dateOfBirth,
         gender: this.gender,
-        photoProfilePath: this.photoProfilePath
+        photoProfilePath: this.photoProfilePath,
+        //set status of an instructor 0 = pending; 1 = approved; 2 = rejected
+        status: 0,
       })
     },
     loadPhotoFile(e) {

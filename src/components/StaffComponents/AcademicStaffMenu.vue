@@ -16,7 +16,7 @@
             <v-col>
                 <v-btn class="button-style" size="300px">
                     <v-icon size="200px"> mdi-account-search-outline </v-icon>
-                    <h3 class="text-position">Buscar Prospectos</h3>
+                    <h3 class="text-position">Docentes</h3>
                 </v-btn>
             </v-col>
         </v-row>
