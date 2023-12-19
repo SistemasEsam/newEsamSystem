@@ -27,9 +27,8 @@ const routes = [
   },
 
   {
-    path: '/instructor-finder-view',
+    path: '/instructor-finder-view/:status',
     name: 'instructorFinderView',
-    meta: {title: 'Prospectos'},
     component: InstructorFinderView
   },
   {

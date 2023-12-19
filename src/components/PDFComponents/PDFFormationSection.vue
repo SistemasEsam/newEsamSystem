@@ -1,7 +1,14 @@
 <template>
+  <NavBar></NavBar>
   <div class="cv-main-page">
-    <v-btn @click="exportToPDF">DESCARGAR PDF</v-btn>
-    <div class="cv-page-separator"></div>
+    <v-btn @click="exportToPDF()">DESCARGAR PDF</v-btn>
+    <br />
+    <v-btn @click="changeInstructorStatus()">Aprobar Docente {{ this.userId }}</v-btn>
+    <br />
+    <v-btn v-if="this.status == 0" @click="setMeeting(this.personalPhone)"
+      >Agendar Reunión</v-btn
+    >
+    <br />
     <div ref="firstPage" class="cv-page">
       <div class="info-section">
         <div class="yellow-circle">
@@ -347,7 +354,7 @@
                 <p class="cv-content">{{ job.phoneReference }}</p>
               </v-col>
             </v-row>
-            <v-row >
+            <v-row>
               <v-col class="mt-0 mb-0 pb-3 pt-0 line-customize">
                 <p class="h3-customize">Descripción de Actividades:</p>
                 <p class="cv-content">{{ job.descriptionWorkExperience }}</p>
@@ -446,11 +453,21 @@
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 import { database } from "../../firebase/firebase";
-import { collection, doc, getDoc, getDocs } from "firebase/firestore";
+import {
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  updateDoc,
+} from "firebase/firestore";
 import { getStorage, ref, getDownloadURL } from "firebase/storage";
+import NavBar from "../NavBar.vue";
 
 export default {
   props: ["userId"],
+  components: {
+    NavBar,
+  },
   data() {
     return {
       // first-page
@@ -471,6 +488,7 @@ export default {
       formatedDateOfBrith: "",
       gender: "",
       genderIcon: "",
+      status: null,
       degrees: [],
       postDegrees: [],
       higherEducationPostDegrees: [],
@@ -596,6 +614,7 @@ export default {
         this.personalPhone = personalProfileData.data().personalPhone;
         this.email = personalProfileData.data().email;
         this.photoProfilePath = personalProfileData.data().photoProfilePath;
+        this.status = personalProfileData.data().status;
       } else {
         console.log("Document does not exist");
       }
@@ -672,7 +691,9 @@ export default {
         this.courses.push({
           institutionCourse: course.data().institutionCourse,
           nameCourse: course.data().nameCourse,
-          countryCourse: this.formatCountry(course.data().countryCourse.toLowerCase()),
+          countryCourse: this.formatCountry(
+            course.data().countryCourse.toLowerCase()
+          ),
           yearCourse: course.data().yearCourse,
         });
       });
@@ -726,9 +747,9 @@ export default {
           publisher: publication.data().publisher,
           namePublication: publication.data().namePublication,
           typePublication: publication.data().typePublication,
-          countryPublication: this.formatCountry(publication
-            .data()
-            .countryPublication.toLowerCase()),
+          countryPublication: this.formatCountry(
+            publication.data().countryPublication.toLowerCase()
+          ),
           datePublication: this.formatDate(publication.data().datePublication),
         });
       });
@@ -803,14 +824,27 @@ export default {
       const dataLanguages = await getDocs(
         collection(database, "instructors", this.idUser, "languages")
       );
-      dataLanguages.forEach((languaje) => {
+      dataLanguages.forEach((language) => {
         this.languajes.push({
-          language: languaje.data().language,
-          listenLevel: languaje.data().listenLevel,
-          readLevel: languaje.data().readLevel,
-          speakeLevel: languaje.data().speakeLevel,
-          writeLevel: languaje.data().writeLevel,
+          language: language.data().language,
+          listenLevel: language.data().listenLevel,
+          readLevel: language.data().readLevel,
+          speakeLevel: language.data().speakeLevel,
+          writeLevel: language.data().writeLevel,
         });
+      });
+    },
+    setMeeting(phone) {
+      window.open(
+        "//api.whatsapp.com/send?phone=591" +
+          phone +
+          "&text=El equipo academico de ESAM quisiera programar una reunion con su persona para poder conocerlo mejor."
+      );
+    },
+    async changeInstructorStatus() {
+      const instructorStatusRef = doc(database, "instructors", this.idUser);
+      await updateDoc(instructorStatusRef, {
+        status: 1,
       });
     },
   },

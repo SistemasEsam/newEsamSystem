@@ -47,7 +47,7 @@
     </div>
     <div>
       <v-container>
-        <h1 class="sub-title">Resultados</h1>
+        <h1 class="sub-title">Resultados {{ this.status }}</h1>
         <v-card
           class="mb-4"
           v-for="(instructor, index) in instructorList"
@@ -81,11 +81,12 @@ import { database } from "@/firebase/firebase";
 import { collection, getDocs } from "firebase/firestore";
 import { ref } from "vue";
 import router from "@/router";
-import { connectStorageEmulator } from "firebase/storage";
 
 export default {
+  props: ["statusToShow"],
   data() {
     return {
+      status: this.statusToShow,
       filterEducation: "",
       flagLevelPostDegree: true,
       keyWordFilter: "",
@@ -115,9 +116,10 @@ export default {
       this.flagLevelPostDegree = flag;
     },
     async getInstructorsList() {
+      console.log("This is the current status"+ this.status)
       const instructors = await getDocs(collection(database, "instructors"));
       instructors.forEach((instructor) => {
-        if (instructor.data().status != 2) {
+        if (instructor.data().status < 1) {
           this.initialInstructorList.push(instructor);
         }
       });
@@ -172,14 +174,12 @@ export default {
       });
     },
     openCV(instructorID) {
-      console.log(instructorID);
       let newTab = router.resolve({
         name: "PDFView",
         params: { id: instructorID },
       });
       window.open(newTab.href);
     },
-    restoreDefaultValueList() {},
   },
 };
 </script>
