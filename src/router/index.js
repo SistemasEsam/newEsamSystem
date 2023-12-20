@@ -4,7 +4,7 @@
  import MainView from '../views/MainView.vue'
  import FormView from '../views/FormCVViews/FormView.vue'
  import StaffMenuView from '../views/StaffViews/StaffMenuView.vue'
- import InstructorFinderView from '../views/InstructorFinderViews/InstructorsView.vue'
+ import InstructorView from '../views/InstructorFinderViews/InstructorsView.vue'
  import PDFView from '../views/PDFViews/PDFView.vue'
 
 
@@ -27,9 +27,9 @@ const routes = [
   },
 
   {
-    path: '/instructor-finder-view/:status',
-    name: 'instructorFinderView',
-    component: InstructorFinderView
+    path: '/instructor-view/:status',
+    name: 'instructorView',
+    component: InstructorView
   },
   {
     path: '/pdf-view/:id',

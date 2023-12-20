@@ -52,22 +52,23 @@
 </template>
 <script>
 import router from "@/router";
+import {ref} from "vue"
 
 export default {
   methods: {
     openPendingInstructor(instructorStatus) {
-      let instructorFinderTab = router.resolve({
-        name: "instructorFinderView",
+      let pendingInstructorTab = router.resolve({
+        name: "instructorView",
         params: {status: instructorStatus }
       });
-      window.open(instructorFinderTab.href);
+      window.open(pendingInstructorTab.href);
     },
     openAprovedInstructor(instructorStatus) {
-      let instructorFinderTab = router.resolve({
-        name: "instructorFinderView",
+      let approvedInstructorTab = router.resolve({
+        name: "instructorView",
         params: {status: instructorStatus }
       });
-      window.open(instructorFinderTab.href);
+      window.open(approvedInstructorTab.href);
     },
     openStaffProfile() {
       let staffProfileTab = router.resolve({ name: "staffProfile" });

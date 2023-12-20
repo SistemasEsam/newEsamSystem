@@ -70,6 +70,9 @@
             <v-btn class="button-card" @click="openCV(instructor.data().email)">
               Abrir
             </v-btn>
+            <v-btn class="button-card" @click="sendInvitation()">
+              Invitar
+            </v-btn>
           </v-card-actions>
         </v-card>
       </v-container>
@@ -83,10 +86,10 @@ import { ref } from "vue";
 import router from "@/router";
 
 export default {
-  props: ["statusToShow"],
+  props: ["status"],
   data() {
     return {
-      status: this.statusToShow,
+      statusToShow: this.status,
       filterEducation: "",
       flagLevelPostDegree: true,
       keyWordFilter: "",
@@ -116,10 +119,10 @@ export default {
       this.flagLevelPostDegree = flag;
     },
     async getInstructorsList() {
-      console.log("This is the current status"+ this.status)
+      console.log("This is the current status: "+ this.status)
       const instructors = await getDocs(collection(database, "instructors"));
       instructors.forEach((instructor) => {
-        if (instructor.data().status < 1) {
+        if (instructor.data().status == this.statusToShow) {
           this.initialInstructorList.push(instructor);
         }
       });
