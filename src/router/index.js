@@ -6,6 +6,7 @@
  import StaffMenuView from '../views/StaffViews/StaffMenuView.vue'
  import InstructorView from '../views/InstructorFinderViews/InstructorsView.vue'
  import PDFView from '../views/PDFViews/PDFView.vue'
+ import AcademicProgramView from '../views/AcademicProgramViews/AcademicProgramView.vue'
 
 
 const routes = [
@@ -17,7 +18,6 @@ const routes = [
   {
     path: '/form-cv-view',
     name: 'formView',
-    meta: {title: 'Formulario de Registro'},
     component: FormView
   },
   {
@@ -35,6 +35,11 @@ const routes = [
     path: '/pdf-view/:id',
     name: 'PDFView',
     component: PDFView
+  },
+  {
+    path: '/academic-program-view',
+    name: 'academicProgramView',
+    component: AcademicProgramView
   },
 
 ]

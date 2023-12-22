@@ -8,7 +8,7 @@
         </v-btn>
       </v-col>
       <v-col>
-        <v-btn class="button-style" size="300px">
+        <v-btn @click="openProgramForm()" class="button-style" size="300px">
           <v-icon size="200px"> mdi-text-box-plus-outline </v-icon>
           <h3 class="text-position">Registro de Programas</h3>
         </v-btn>
@@ -52,7 +52,6 @@
 </template>
 <script>
 import router from "@/router";
-import {ref} from "vue"
 
 export default {
   methods: {
@@ -73,6 +72,10 @@ export default {
     openStaffProfile() {
       let staffProfileTab = router.resolve({ name: "staffProfile" });
       window.open(staffProfileTab.href);
+    },
+    openProgramForm() {
+      let programFormTab = router.resolve({ name: "academicProgramView" });
+      window.open(programFormTab.href);
     },
   },
 };

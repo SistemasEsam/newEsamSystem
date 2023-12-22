@@ -26,6 +26,7 @@
   </div>
 </template>
 <script>
+import router from '@/router';
 import Login from "./Login.vue";
 
 export default {
