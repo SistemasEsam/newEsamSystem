@@ -3,7 +3,7 @@
   <div class="cv-main-page">
     <v-btn @click="exportToPDF()">DESCARGAR PDF</v-btn>
     <br />
-    <v-btn @click="changeInstructorStatus()">Aprobar Docente {{ this.userId }}</v-btn>
+    <v-btn v-if="this.status == 0" @click="changeInstructorStatus()">Aprobar Docente {{ this.userId }}</v-btn>
     <br />
     <v-btn v-if="this.status == 0" @click="setMeeting(this.personalPhone)"
       >Agendar Reunión</v-btn

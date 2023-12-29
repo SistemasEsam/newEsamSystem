@@ -7,6 +7,7 @@
  import InstructorView from '../views/InstructorFinderViews/InstructorsView.vue'
  import PDFView from '../views/PDFViews/PDFView.vue'
  import AcademicProgramView from '../views/AcademicProgramViews/AcademicProgramView.vue'
+ import InvitationView from '../views/InvitationViews/InvitationView.vue'
 
 
 const routes = [
@@ -40,6 +41,11 @@ const routes = [
     path: '/academic-program-view',
     name: 'academicProgramView',
     component: AcademicProgramView
+  },
+  {
+    path: '/invitation-view',
+    name: 'invitationView',
+    component: InvitationView
   },
 
 ]

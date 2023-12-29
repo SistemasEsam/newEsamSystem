@@ -47,7 +47,7 @@
     </div>
     <div>
       <v-container>
-        <h1 class="sub-title">Resultados {{ this.status }}</h1>
+        <h1 class="sub-title">Resultados</h1>
         <v-card
           class="mb-4"
           v-for="(instructor, index) in instructorList"
@@ -64,13 +64,12 @@
             <br />
             Telefono: {{ instructor.data().personalPhone }}
           </v-card-subtitle>
-          <p v-if="instructor.data().status == 0">Estado: Pendiente</p>
           <v-card-actions>
             <!-- <v-btn :to="{ name: 'pdf', params: { id: instructor.data().email }}" target ='_blank'> -->
             <v-btn class="button-card" @click="openCV(instructor.data().email)">
               Abrir
             </v-btn>
-            <v-btn class="button-card" @click="sendInvitation()">
+            <v-btn v-if="this.status == 1" class="button-card" @click="sendInvitation()">
               Invitar
             </v-btn>
           </v-card-actions>
