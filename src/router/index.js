@@ -43,7 +43,7 @@ const routes = [
     component: AcademicProgramView
   },
   {
-    path: '/invitation-view',
+    path: '/invitation-view/:id',
     name: 'invitationView',
     component: InvitationView
   },

@@ -1,4 +1,6 @@
 <template>
+    <h1> {{this.idUser}}</h1>
+    <InvitationForm :user-id="idUser"></InvitationForm>
     
 </template>
 <script>
@@ -10,7 +12,12 @@ export default {
     },
     components:{
         InvitationForm,
-    }
+    },
+    data() {
+        return {
+            idUser: this.$route.params.id
+        }
+    },
 }
 </script>
 <style>

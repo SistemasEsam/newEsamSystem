@@ -69,7 +69,7 @@
             <v-btn class="button-card" @click="openCV(instructor.data().email)">
               Abrir
             </v-btn>
-            <v-btn v-if="this.status == 1" class="button-card" @click="sendInvitation()">
+            <v-btn v-if="this.status == 1" class="button-card" @click="sendInvitation(instructor.data().email)">
               Invitar
             </v-btn>
           </v-card-actions>
@@ -178,6 +178,13 @@ export default {
     openCV(instructorID) {
       let newTab = router.resolve({
         name: "PDFView",
+        params: { id: instructorID },
+      });
+      window.open(newTab.href);
+    },
+    sendInvitation(instructorID){
+      let newTab = router.resolve({
+        name: "invitationView",
         params: { id: instructorID },
       });
       window.open(newTab.href);
