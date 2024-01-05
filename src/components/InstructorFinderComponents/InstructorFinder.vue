@@ -84,6 +84,8 @@ import { collection, getDocs } from "firebase/firestore";
 import { ref } from "vue";
 import router from "@/router";
 
+//Maestría en Derecho Penal, Procesal Penal y Justicia Restaurativa
+
 export default {
   props: ["status"],
   data() {

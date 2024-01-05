@@ -3,20 +3,13 @@
     <v-container>
       <v-col>
         <v-row>
-          <h3>Código</h3>
-          <v-container>
-            <v-text-field
-              v-model="programId"
-              label="Código del Programa"
-            ></v-text-field>
-          </v-container>
-        </v-row>
-        <v-row>
           <h3>Programa</h3>
           <v-container>
             <v-text-field
               v-model="programName"
               label="Nombre del Programa"
+              :rules="nameRules"
+              required
             ></v-text-field>
           </v-container>
         </v-row>
@@ -29,6 +22,7 @@
               :items="programSites"
               item-title="siteName"
               item-value="siteCode"
+              required
             ></v-select>
           </v-container>
         </v-row>
@@ -55,14 +49,22 @@
         <v-row>
           <h3>Coordinador</h3>
           <v-container>
-            <v-text-field
+            <v-select
               v-model="programCoordinator"
               label="Coordinador del Programa"
-            ></v-text-field>
+              :items="[
+                'Mariajose del Cielo Castellon',
+                'Viviana Peña',
+                'Alejandra Rodriguez',
+                'Anahí Vega',
+                'Milenka Villarroel',
+              ]"
+              required
+            ></v-select>
           </v-container>
         </v-row>
         <v-row>
-          <h3>Modulos</h3>
+          <h3>Módulos</h3>
           <v-container>
             <v-form v-for="(moduleForm, index) in moduleForms" :key="index">
               <v-btn
@@ -73,7 +75,11 @@
               >
                 <v-icon size="x-large">mdi-close-thick</v-icon>
               </v-btn>
-              <v-text-field v-model="moduleForm.moduleName" label="Nombre del Modulo"></v-text-field>
+              <v-text-field
+                v-model="moduleForm.moduleName"
+                label="Nombre del Módulo"
+                :rules="nameRules"
+              ></v-text-field>
               <VueDatePicker
                 v-model="moduleForm.moduleDates"
                 :enable-time-picker="false"
@@ -81,16 +87,33 @@
                 placeholder="Fechas de clases"
               ></VueDatePicker>
               <br />
-              <v-textarea v-model="moduleForm.moduleContent" label="Contenido del Modulo"></v-textarea>
+              <v-textarea
+                v-model="moduleForm.moduleContent"
+                label="Contenido del Módulo"
+                :rules="moduleContenRules"
+              ></v-textarea>
             </v-form>
             <v-btn v-if="moduleForms.length < 9" @click="addModuleForm()">
-              Añadir Modulo
+              Añadir Módulo
             </v-btn>
           </v-container>
         </v-row>
       </v-col>
       <br />
       <v-btn @click="saveData()"> Guardar Programa</v-btn>
+      <v-dialog v-model="dialogFlag">
+        <v-card>
+          <v-card-text>
+            El código del programas es:
+            <b> {{ this.programId }} </b>
+          </v-card-text>
+          <v-card-actions>
+            <v-btn color="primary" block @click="closeDialog()"
+              >Close Dialog</v-btn
+            >
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
     </v-container>
   </v-form>
 </template>
@@ -98,7 +121,7 @@
 import VueDatePicker from "@vuepic/vue-datepicker";
 import "@vuepic/vue-datepicker/dist/main.css";
 import { database } from "../../firebase/firebase";
-import { doc, collection, setDoc } from "firebase/firestore";
+import { doc, collection, addDoc, getDocs, setDoc } from "firebase/firestore";
 
 export default {
   components: {
@@ -106,12 +129,53 @@ export default {
   },
   data() {
     return {
+      dialogFlag: false,
+      dateFlag: newDate().getFullYear(),
+
       programId: "",
       programName: "",
       programSite: "",
       programType: "",
       programArea: "",
       programCoordinator: "",
+
+      nameRules: [
+        (value) => {
+          if (value) return true;
+
+          return "Nombre obligatorio.";
+        },
+        (value) => {
+          if (value?.length <= 10) return true;
+
+          return "El nombre tiene que contener más de 10 caracteres.";
+        },
+      ],
+      programCoordinatorRules: [
+        (value) => {
+          if (value) return true;
+
+          return "Nombre de coordinador obligatorio.";
+        },
+        (value) => {
+          if (value?.length <= 10) return true;
+
+          return "El nombre del coordinador debe contener más de 10 caracteres.";
+        },
+      ],
+      moduleContenRules: [
+        (value) => {
+          if (value) return true;
+
+          return "Contenido del módulo obligatorio.";
+        },
+        (value) => {
+          if (value?.length <= 20) return true;
+
+          return "Contenido insuficiente. Debe ser más explícito.";
+        },
+      ],
+
       moduleForms: [
         {
           moduleName: "",
@@ -148,12 +212,19 @@ export default {
     };
   },
   setup() {},
+  created() {
+    this.getProgramsList();
+  },
   methods: {
+    async getProgramsList() {
+      const programs = await getDocs(collection(database, "postDegreePrograms"));
+      console.log(programs.size)
+    },
     addModuleForm() {
       this.moduleForms.push({
         moduleName: "",
         moduleCode: "",
-        moduleDates: "",
+        moduleDates: [],
         moduleContent: "",
       });
     },
@@ -183,27 +254,38 @@ export default {
       });
     },
     saveModules() {
-      const documentRef = doc(database, "postDegreePrograms", this.programId);
-      const collectionRef = collection(documentRef, "modules");
       this.moduleForms.forEach((moduleForm) => {
         const moduleInitials = moduleForm.moduleName
-        .split(" ")
-        .map((x) => x[0])
-        .join("");
-        console.log(moduleInitials)
-        this.moduleCode = this.programId+'-'+moduleInitials
-        
-        /* addDoc(collectionRef, {
-          moduleName: this.programId+'-'+moduleInitials,
-          moduleCode: this.moduleCode,
-          moduleDates: this.moduleDates,
-          moduleContent: this.moduleContent,
-        }); */
+          .split(" ")
+          .map((x) => x[0])
+          .join("");
+        this.moduleCode = this.programId + "-" + moduleInitials;
+        console.log();
+        const dates = JSON.parse(JSON.stringify(moduleForm.moduleDates));
+        setDoc(
+          doc(
+            database,
+            "postDegreePrograms",
+            this.programId,
+            "modules",
+            this.moduleCode
+          ),
+          {
+            moduleName: this.programId + "-" + moduleInitials,
+            moduleCode: this.moduleCode,
+            moduleDates: dates,
+            moduleContent: moduleForm.moduleContent,
+          }
+        );
       });
     },
-    saveData(){
-      this.saveProgram()
-      this.saveModules()
+    saveData() {
+      this.dialogFlag = true;
+      this.saveProgram();
+      this.saveModules();
+    },
+    closeDialog() {
+      this.dialogFlag = false;
     },
   },
 };
