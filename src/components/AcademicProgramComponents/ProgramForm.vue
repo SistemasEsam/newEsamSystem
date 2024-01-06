@@ -121,7 +121,7 @@
 import VueDatePicker from "@vuepic/vue-datepicker";
 import "@vuepic/vue-datepicker/dist/main.css";
 import { database } from "../../firebase/firebase";
-import { doc, collection, addDoc, getDocs, setDoc } from "firebase/firestore";
+import { doc, collection, getDocs, setDoc } from "firebase/firestore";
 
 export default {
   components: {
@@ -130,7 +130,7 @@ export default {
   data() {
     return {
       dialogFlag: false,
-      dateFlag: newDate().getFullYear(),
+      dateFlag: "",
 
       programId: "",
       programName: "",

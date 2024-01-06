@@ -1,5 +1,4 @@
 <template>
-    <h1> {{this.idUser}}</h1>
     <InvitationForm :user-id="idUser"></InvitationForm>
     
 </template>

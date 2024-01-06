@@ -529,7 +529,7 @@ export default {
       };
 
       // Exportar contenido de la primera página (File.vue)
-      html2canvas(
+      html2canvas( 
         this.$refs.firstPage,
         { allowTaint: false, useCORS: true, scale: 5 },
         options
