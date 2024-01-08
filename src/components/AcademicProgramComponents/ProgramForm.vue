@@ -271,7 +271,7 @@ export default {
             this.moduleCode
           ),
           {
-            moduleName: this.programId + "-" + moduleInitials,
+            moduleName: moduleForm.moduleName,
             moduleCode: this.moduleCode,
             moduleDates: dates,
             moduleContent: moduleForm.moduleContent,
