@@ -42,7 +42,7 @@
         <br>
       </v-card-subtitle>
       <v-card-actions>
-        <v-btn @click="openProgram()" variant="outlined"> Abrir Programa </v-btn>
+        <v-btn @click="openProgram(program.data().programId)" variant="outlined"> Abrir Programa </v-btn>
       </v-card-actions>
     </v-card>
   </v-container>
@@ -67,9 +67,9 @@ export default {
     this.getProgramsList();
   },
   methods: {
-    showNextForm(){
+    showNextForm(programIdSelected){
       let nextComponent = 'invitation-module-section'
-      this.$emit('show-next-form', nextComponent, this.idUser);
+      this.$emit('show-next-form', nextComponent, [this.idUser,programIdSelected]);
     },
     async getProgramsList() {
       const programs = await getDocs(
@@ -136,8 +136,8 @@ export default {
         }
       });
     },
-    openProgram(){
-      this.showNextForm()
+    openProgram(programId){
+      this.showNextForm(programId)
     },
   },
 };
