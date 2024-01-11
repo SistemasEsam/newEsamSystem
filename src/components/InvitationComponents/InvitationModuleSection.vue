@@ -15,7 +15,7 @@
             Fechas del Módulo: {{programModule.data().moduleDates}}
         </v-card-text>
         <v-card-actions>
-            <v-btn variant="outlined">
+            <v-btn @click="openLetter(programModule.data().moduleCode)" variant="outlined">
                 Seleccionar
             </v-btn>
         </v-card-actions>
@@ -26,7 +26,6 @@
 import { database } from "../../firebase/firebase";
 import { collection, getDocs } from "firebase/firestore";
 import { ref } from "vue";
-import { list } from 'firebase/storage';
 
 
 export default {
@@ -41,6 +40,10 @@ export default {
     this.getModulesList();
   },
   methods: {
+    showNextForm(moduleId){
+      let nextComponent = 'invitation-letter'
+      this.$emit('show-next-form', nextComponent, [this.idUser[0],moduleId]);
+    },
     async getModulesList() {
       const modules = await getDocs(
         collection(database, "postDegreePrograms",this.idUser[1],"modules")
@@ -60,6 +63,9 @@ export default {
         })
         console.log(formatedDates)
         return formatedDates
+    },
+    openLetter(moduleId){
+      this.showNextForm(moduleId)
     }
   },
 };

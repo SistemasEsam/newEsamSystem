@@ -7,6 +7,7 @@
 <script>
 import InvitationForm from '@/components/InvitationComponents/InvitationForm.vue'
 import InvitationModuleSection from '@/components/InvitationComponents/InvitationModuleSection.vue';
+import InvitationLetter from '@/components/InvitationComponents/InvitationLetter.vue';
 
 export default {
     setup() {
@@ -14,7 +15,8 @@ export default {
     },
     components:{
         InvitationForm,
-        InvitationModuleSection
+        InvitationModuleSection,
+        InvitationLetter
     },
     data() {
         return {
