@@ -1,4 +1,5 @@
 <template>
+  <nav-bar></nav-bar>
   <h1 class="header-form">
     Registro Docente
   </h1>
@@ -17,7 +18,7 @@
     import extraCoursesProfile from '../../components/CVFormComponents/ExtraCoursesProfile.vue'
     import workExperienceProfile from '../../components/CVFormComponents/WorkExperiencieProfile.vue'
     import skillsProfile from '../../components/CVFormComponents/SkillsProfile.vue'
-    import NavBarForm from '@/components/NavBarForm.vue'
+    import NavBar from '../../components/NavBar.vue'
  
     export default {
       components: {
@@ -27,7 +28,7 @@
        extraCoursesProfile,
        workExperienceProfile,
        skillsProfile,
-       NavBarForm,
+       NavBar,
       
       },
     

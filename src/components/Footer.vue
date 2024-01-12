@@ -35,7 +35,7 @@ export default {
 
 <style scoped>
 .custom-footer {
-  background-color: #0D47A1;
+  background-color: #162d4a;
   color: white;
 }
 
