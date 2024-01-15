@@ -49,7 +49,18 @@
       </div>
       <div>
         <h4>1. Cronograma y Contenido</h4>
-        Aqui va la tabla
+        <v-table>
+          <thead>
+            <th v-for="headData in headers" :key="headData.key">
+              {{headData.title}}
+            </th>
+            <tbody>
+              <tr>
+                <td> {{this.moduleData.moduleContent }}</td>
+              </tr>
+            </tbody>
+          </thead>
+        </v-table>
         <br />
         Los contenidos mínimos del módulo al cual se la invita a participar,
         pueden ser ampliados y mejorados siempre que cumpla con el enfoque del
@@ -186,6 +197,12 @@ export default {
         moduleContent: "",
         moduleDates: [],
       },
+      headers: [
+        {key:'content' , title:'Contenido Mínimo'},
+        {key:'activity' , title:'Actividad'},
+        {key:'date' , title:'Fecha'},
+        {key:'hour' , title:'Hora'}
+      ]
     };
   },
   created() {
