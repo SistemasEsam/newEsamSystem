@@ -1,5 +1,7 @@
 <template>
+ 
   <H1> Carta de Invitación</H1>
+  <invitationheader></invitationheader>
   <div class="instructor-coordinator">
     <div class="invitation-page">
       <div align="right" class="current-date">
@@ -206,14 +208,24 @@
         <br />Sin otro particular, me despido.
       </div>
       <br>
+      <InvitationFooterVue></InvitationFooterVue>
     </div>
   </div>
+
 </template>
 <script>
+
+import invitationheader from "../InvitationComponents/InvitationHeader.vue"
 import { database } from "../../firebase/firebase";
 import { doc, getDoc } from "firebase/firestore";
+import InvitationFooterVue from './InvitationFooter.vue';
 
 export default {
+  components:{
+    invitationheader,
+    InvitationFooterVue
+
+  },
   props: ["userId"],
   data() {
     return {
