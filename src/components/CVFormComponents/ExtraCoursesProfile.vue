@@ -1,40 +1,90 @@
 <template>
   <v-container width="1000" class="mx-auto">
     <v-container>
-      <v-checkbox @change="disableCoursesForm()" label="No se cuenta con cursos realizados"></v-checkbox>
+      <v-checkbox
+        @change="disableCoursesForm()"
+        label="No se cuenta con cursos realizados"
+      ></v-checkbox>
       <v-container>
-        <v-card :disabled="coursesFlag" v-for="(courseForm, index) in courseForms" :key="index" class="mb-4 card-style">
+        <v-card
+          :disabled="coursesFlag"
+          v-for="(courseForm, index) in courseForms"
+          :key="index"
+          class="mb-4 card-style"
+        >
           <v-card-title>
             <v-col class="d-flex justify-center aling-center">
               <h3 class="headline header-form">CURSOS</h3>
-              <v-btn append-icon class="icon-button" color="red" v-if="index !== 0" @click="deleteCourseForm(index)">
+              <v-btn
+                append-icon
+                class="icon-button"
+                color="red"
+                v-if="index !== 0"
+                @click="deleteCourseForm(index)"
+              >
                 <v-icon size="x-large">mdi-close-thick</v-icon>
               </v-btn>
             </v-col>
           </v-card-title>
           <v-card-text>
+            <v-container>
+              <v-row>
+                <b>
+                  <v-label>
+                    Llene el formulario con los cursos realizados más relevantes
+                    para el cargo.
+                    <br />Escribe los nombres completos de las instituciones sin
+                    abreviaturas y verifica la ortografía.
+                  </v-label>
+                </b>
+              </v-row>
+            </v-container>
             <v-col>
               <v-row>
                 <v-col>
-                  <v-text-field v-model="courseForm.institutionCourse"
-                    @input="courseForm.institutionCourse = courseForm.institutionCourse.toUpperCase()"
-                    label="Universidad o Institución" required></v-text-field>
+                  <v-text-field
+                    v-model="courseForm.institutionCourse"
+                    @input="
+                      courseForm.institutionCourse =
+                        courseForm.institutionCourse.toUpperCase()
+                    "
+                    label="Universidad o Institución"
+                    required
+                  ></v-text-field>
                 </v-col>
                 <v-col>
-                  <v-text-field v-model="courseForm.nameCourse"
-                    @input="courseForm.nameCourse = courseForm.nameCourse.toUpperCase()" label="Nombre de Curso o Taller"
-                    required></v-text-field>
+                  <v-text-field
+                    v-model="courseForm.nameCourse"
+                    @input="
+                      courseForm.nameCourse =
+                        courseForm.nameCourse.toUpperCase()
+                    "
+                    label="Nombre de Curso o Taller"
+                    required
+                  ></v-text-field>
                 </v-col>
               </v-row>
               <v-row>
                 <v-col>
-                  <v-text-field v-model="courseForm.countryCourse"
-                    @input="courseForm.countryCourse = courseForm.countryCourse.toUpperCase()" label="País"
-                    required></v-text-field>
+                  <v-text-field
+                    v-model="courseForm.countryCourse"
+                    @input="
+                      courseForm.countryCourse =
+                        courseForm.countryCourse.toUpperCase()
+                    "
+                    label="País"
+                    required
+                  ></v-text-field>
                 </v-col>
                 <v-col>
-                  <VueDatePicker v-model="courseForm.yearCourse" locale="es" year-picker :year-range="[1950, currentYear]"
-                    :teleport="true" placeholder="Año de realización" />
+                  <VueDatePicker
+                    v-model="courseForm.yearCourse"
+                    locale="es"
+                    year-picker
+                    :year-range="[1950, currentYear]"
+                    :teleport="true"
+                    placeholder="Año de realización"
+                  />
                 </v-col>
                 <!-- <v-col>
                 <v-file-input @change="loadCourseFile($event)" accept="application/pdf" label="Seleccionar archivo PDF"
@@ -45,51 +95,109 @@
             </v-col>
           </v-card-text>
         </v-card>
-        <v-btn prepend-icon="mdi-plus" v-if="courseForms.length < 3" @click="addCourseForm()" density="comfortable"
-          class="fixed-bottom mr-2 button-form">AGREGAR
-          NUEVO CURSO</v-btn>
+        <v-btn
+          prepend-icon="mdi-plus"
+          v-if="courseForms.length < 3"
+          @click="addCourseForm()"
+          density="comfortable"
+          class="fixed-bottom mr-2 button-form"
+          >AGREGAR NUEVO CURSO</v-btn
+        >
       </v-container>
     </v-container>
     <v-container>
-      <v-checkbox @change="disablePublicationForm()" label="No se cuenta con publicaciones realizadas"></v-checkbox>
+      <v-checkbox
+        @change="disablePublicationForm()"
+        label="No se cuenta con publicaciones realizadas"
+      ></v-checkbox>
       <v-container>
-        <v-card :disabled="publicationFlag" v-for="(publicationForm, index2) in publicationForms" :key="index2"
-          class="mb-4 card-style">
+        <v-card
+          :disabled="publicationFlag"
+          v-for="(publicationForm, index2) in publicationForms"
+          :key="index2"
+          class="mb-4 card-style"
+        >
           <v-card-title>
             <v-col class="d-flex justify-center aling-center">
               <h3 class="headline header-form">PRODUCCIÓN INTELECTUAL</h3>
-              <v-btn append-icon class="icon-button" color="red" v-if="index2 !== 0"
-                @click="deletePublicationForm(index2)">
+              <v-btn
+                append-icon
+                class="icon-button"
+                color="red"
+                v-if="index2 !== 0"
+                @click="deletePublicationForm(index2)"
+              >
                 <v-icon size="x-large">mdi-close-thick</v-icon>
               </v-btn>
             </v-col>
           </v-card-title>
           <v-card-text>
+            <v-container>
+              <v-row>
+                <b>
+                  <v-label>
+                    Llene el formulario con los artículos realizados más
+                    relevantes para el cargo.
+                    <br />Escribe los nombres completos de las instituciones sin
+                    abreviaturas y verifica la ortografía.
+                  </v-label>
+                </b>
+              </v-row>
+            </v-container>
             <v-col>
               <v-row>
                 <v-col>
-                  <v-text-field v-model="publicationForm.namePublication" label="Nombre de publicación"
-                    @input="publicationForm.namePublication = publicationForm.namePublication.toUpperCase()"
-                    required></v-text-field>
+                  <v-text-field
+                    v-model="publicationForm.namePublication"
+                    label="Nombre de publicación"
+                    @input="
+                      publicationForm.namePublication =
+                        publicationForm.namePublication.toUpperCase()
+                    "
+                    required
+                  ></v-text-field>
                 </v-col>
                 <v-col>
-                  <v-text-field v-model="publicationForm.publisher" label="Enlace o Editorial de Publicación"
-                    @input="publicationForm.publisher = publicationForm.publisher.toUpperCase()" required></v-text-field>
+                  <v-text-field
+                    v-model="publicationForm.publisher"
+                    label="Enlace o Editorial de Publicación"
+                    @input="
+                      publicationForm.publisher =
+                        publicationForm.publisher.toUpperCase()
+                    "
+                    required
+                  ></v-text-field>
                 </v-col>
                 <v-col>
-                  <v-select v-model="publicationForm.typePublication" :items="publishType" label="Tipo de publicación"
-                    outlined></v-select>
+                  <v-select
+                    v-model="publicationForm.typePublication"
+                    :items="publishType"
+                    label="Tipo de publicación"
+                    outlined
+                  ></v-select>
                 </v-col>
               </v-row>
               <v-row>
                 <v-col>
-                  <v-text-field v-model="publicationForm.countryPublication" label="País"
-                    @input="publicationForm.countryPublication = publicationForm.countryPublication.toUpperCase()"
-                    required></v-text-field>
+                  <v-text-field
+                    v-model="publicationForm.countryPublication"
+                    label="País"
+                    @input="
+                      publicationForm.countryPublication =
+                        publicationForm.countryPublication.toUpperCase()
+                    "
+                    required
+                  ></v-text-field>
                 </v-col>
                 <v-col>
-                  <VueDatePicker v-model="publicationForm.datePublication" locale="es" :teleport="true"
-                    :year-range="[1950, currentYear]" placeholder="Fecha de Publicación" :enable-time-picker="false" />
+                  <VueDatePicker
+                    v-model="publicationForm.datePublication"
+                    locale="es"
+                    :teleport="true"
+                    :year-range="[1950, currentYear]"
+                    placeholder="Fecha de Publicación"
+                    :enable-time-picker="false"
+                  />
                 </v-col>
                 <!-- <v-col>
                 <v-file-input @change="loadPublicationFile($event)" accept="application/pdf"
@@ -99,31 +207,55 @@
             </v-col>
           </v-card-text>
         </v-card>
-        <v-btn prepend-icon="mdi-plus" v-if="publicationForms.length < 3" @click="addPublicationForm()"
-          density="comfortable" class="fixed-bottom mr-2 button-form">Agregar
-          formulario</v-btn>
-        <v-alert variant="elevated" closable density="compact" color="red" title="Atención" v-show="alertFlag"
-          text="Verifique que los datos ingresados sean correctos!"></v-alert>
+        <v-btn
+          prepend-icon="mdi-plus"
+          v-if="publicationForms.length < 3"
+          @click="addPublicationForm()"
+          density="comfortable"
+          class="fixed-bottom mr-2 button-form"
+          >Agregar formulario</v-btn
+        >
+        <v-alert
+          variant="elevated"
+          closable
+          density="compact"
+          color="red"
+          title="Atención"
+          v-show="alertFlag"
+          text="Verifique que los datos ingresados sean correctos!"
+        ></v-alert>
       </v-container>
     </v-container>
     <v-container>
-      <v-btn prepend-icon="mdi-content-save-outline" class="fixed-bottom mr-2 button-form" width="150px" density="default"
-        @click="saveData()">guardar</v-btn>
-      <v-btn prepend-icon="mdi-arrow-left" class="fixed-bottom mr-2 button-form" width="150px" density="default"
-        @click="showPreviusForm()">atras</v-btn>
+      <!-- <v-btn prepend-icon="mdi-content-save-outline" class="fixed-bottom mr-2 button-form" width="150px" density="default"
+        @click="saveData()">guardar</v-btn> -->
+      <v-btn
+        prepend-icon="mdi-content-save-outline"
+        class="fixed-bottom mr-2 button-form"
+        width="150px"
+        density="default"
+        @click="showNextForm()"
+        >guardar</v-btn
+      >
+      <v-btn
+        prepend-icon="mdi-arrow-left"
+        class="fixed-bottom mr-2 button-form"
+        width="150px"
+        density="default"
+        @click="showPreviusForm()"
+        >atras</v-btn
+      >
     </v-container>
   </v-container>
 </template>
 
 <script>
-import { database } from '../../firebase/firebase'
+import { database } from "../../firebase/firebase";
 import { addDoc, collection, doc } from "firebase/firestore";
-import { getStorage, uploadBytes, ref } from 'firebase/storage';
+import { getStorage, uploadBytes, ref } from "firebase/storage";
 
 export default {
-  props: [
-    "userId"
-  ],
+  props: ["userId"],
   data() {
     return {
       idUser: this.userId,
@@ -133,85 +265,76 @@ export default {
       dialogVisible: false,
       alertFlag: false,
       estate: true,
-      local: '',
+      local: "",
       currentYear: new Date().getFullYear(),
       courseForms: [
         {
-          institutionCourse: '',
-          nameCourse: '',
-          countryCourse: '',
-          yearCourse: '',
+          institutionCourse: "",
+          nameCourse: "",
+          countryCourse: "",
+          yearCourse: "",
           // fileCourse: null,
           // courseFilled: false
-        }
+        },
       ],
       courseFiles: [],
       publicationForms: [
         {
-          namePublication: '',
-          publisher: '',
-          typePublication: '',
-          countryPublication: '',
-          datePublication: '',
+          namePublication: "",
+          publisher: "",
+          typePublication: "",
+          countryPublication: "",
+          datePublication: "",
           // filePublication: null,
           // publicationFilled: false
         },
       ],
       publicationFiles: [],
-      publishType: [
-        'Libro',
-        'Revista',
-        'Artículo'
-      ],
-      NivelEstudio: [
-        'Licenciado',
-        'Magister',
-        'Doctor',
-        'Otro'
-      ],
+      publishType: ["Libro", "Revista", "Artículo"],
+      NivelEstudio: ["Licenciado", "Magister", "Doctor", "Otro"],
       ModalidadGraduacion: [
-        'Tesis',
-        'Trabajo Dirigido',
-        'Doble Titulación',
-        'Otro'
+        "Tesis",
+        "Trabajo Dirigido",
+        "Doble Titulación",
+        "Otro",
       ],
       menu: false,
       menu2: false,
-      years: []
-    }
+      years: [],
+    };
   },
   methods: {
     showNextForm() {
-      let nextComponent = 'work-experience-profile'
-      this.$emit('show-next-form', nextComponent, this.idUser)
+      let nextComponent = "work-experience-profile";
+      this.$emit("show-next-form", nextComponent, this.idUser);
     },
     showPreviusForm() {
-      let nextComponent = 'superior-education-profile'
-      this.$emit('show-next-form', nextComponent, this.idUser)
+      let nextComponent = "superior-education-profile";
+      this.$emit("show-next-form", nextComponent, this.idUser);
     },
     addCourseForm() {
       if (this.courseForms.length < 3 && this.checkCourseList()) {
         // if (this.courseForms.length < 3) {
         this.courseForms.push({
-          institutionCourse: '',
-          nameCourse: '',
-          countryCourse: '',
-          yearCourse: '',
+          institutionCourse: "",
+          nameCourse: "",
+          countryCourse: "",
+          yearCourse: "",
           // fileCourse: null,
-          courseFilled: false
-        })
+          courseFilled: false,
+        });
       }
     },
     addPublicationForm() {
       if (this.publicationForms.length < 3 && this.checkPublicationList()) {
         this.publicationForms.push({
-          namePublication: '',
-          publisher: '',
-          typePublication: '',
-          countryPublication: '',
-          datePublication: '',
+          namePublication: "",
+          publisher: "",
+          typePublication: "",
+          countryPublication: "",
+          datePublication: "",
           // filePublication: null
-        })
+        });
       }
     },
     deleteCourseForm(index) {
@@ -221,33 +344,33 @@ export default {
       this.publicationForms.splice(index, 1);
     },
     saveDataCourses() {
-      const documentRef = doc(database, 'instructors', this.idUser)
-      const collectionRef = collection(documentRef, 'courses')
+      const documentRef = doc(database, "instructors", this.idUser);
+      const collectionRef = collection(documentRef, "courses");
       this.courseForms.forEach((courseFormValue) => {
-        if (courseFormValue.nameCourse != '') {
+        if (courseFormValue.nameCourse != "") {
           addDoc(collectionRef, {
             institutionCourse: courseFormValue.institutionCourse,
             nameCourse: courseFormValue.nameCourse,
             countryCourse: courseFormValue.countryCourse,
             yearCourse: courseFormValue.yearCourse,
-          })
+          });
         }
-      })
+      });
     },
     saveDataPublication() {
-      const documentRef = doc(database, 'instructors', this.idUser)
-      const collectionRef = collection(documentRef, 'publications')
+      const documentRef = doc(database, "instructors", this.idUser);
+      const collectionRef = collection(documentRef, "publications");
       this.publicationForms.forEach((publicationFormValue) => {
-        if (publicationFormValue.namePublication != '') {
+        if (publicationFormValue.namePublication != "") {
           addDoc(collectionRef, {
             namePublication: publicationFormValue.namePublication,
             publisher: publicationFormValue.publisher,
             typePublication: publicationFormValue.typePublication,
             countryPublication: publicationFormValue.countryPublication,
             datePublication: publicationFormValue.datePublication,
-          })
+          });
         }
-      })
+      });
     },
     // loadCourseFile(e) {
     //   let newFileCourse = e.target.files[0]
@@ -262,37 +385,39 @@ export default {
     //   this.publicationForms[this.publicationForms.length - 1].publicationFilled = true
     // },
     checkCourseList() {
-      let listCourseFilled = true
+      let listCourseFilled = true;
       this.courseForms.forEach((courseForm) => {
-        if (courseForm.institutionCourse
-          && courseForm.nameCourse
-          && courseForm.countryCourse
-          && courseForm.yearCourse
+        if (
+          courseForm.institutionCourse &&
+          courseForm.nameCourse &&
+          courseForm.countryCourse &&
+          courseForm.yearCourse
           // && courseForm.courseFilled
         ) {
-          listCourseFilled = true
+          listCourseFilled = true;
         } else {
-          listCourseFilled = false
+          listCourseFilled = false;
         }
-      })
-      return listCourseFilled
+      });
+      return listCourseFilled;
     },
     checkPublicationList() {
-      let listPublicationFilled = true
+      let listPublicationFilled = true;
       this.publicationForms.forEach((publicationForm) => {
-        if (publicationForm.namePublication
-          && publicationForm.publisher
-          && publicationForm.typePublication
-          && publicationForm.countryPublication
-          && publicationForm.datePublication
+        if (
+          publicationForm.namePublication &&
+          publicationForm.publisher &&
+          publicationForm.typePublication &&
+          publicationForm.countryPublication &&
+          publicationForm.datePublication
           // && publicationForm.publicationFilled
         ) {
-          listPublicationFilled = true
+          listPublicationFilled = true;
         } else {
-          listPublicationFilled = false
+          listPublicationFilled = false;
         }
-      })
-      return listPublicationFilled
+      });
+      return listPublicationFilled;
     },
     // uploadCourseFile() {
     //   const storage = getStorage()
@@ -316,30 +441,29 @@ export default {
     // },
     saveData() {
       if (this.coursesFlag && this.publicationFlag) {
-        this.showNextForm()
+        this.showNextForm();
       } else if (this.coursesFlag == true && this.publicationFlag == false) {
         if (this.checkPublicationList()) {
-          this.showNextForm()
+          this.showNextForm();
           this.saveDataPublication();
         } else {
-          this.alertFlag = true
+          this.alertFlag = true;
         }
       } else if (this.coursesFlag == false && this.publicationFlag == true) {
         if (this.checkCourseList()) {
-          this.showNextForm()
+          this.showNextForm();
           this.saveDataCourses();
         } else {
-          this.alertFlag = true
+          this.alertFlag = true;
         }
       }
     },
     disableCoursesForm() {
-      this.coursesFlag = !this.coursesFlag
+      this.coursesFlag = !this.coursesFlag;
     },
     disablePublicationForm() {
-      this.publicationFlag = !this.publicationFlag
+      this.publicationFlag = !this.publicationFlag;
     },
   },
-
-}
+};
 </script>

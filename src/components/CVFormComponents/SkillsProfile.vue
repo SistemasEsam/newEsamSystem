@@ -4,13 +4,22 @@
       <v-card v-for="(skillForm, index) in skillForms" :key="index" class="mb-4 card-style">
         <v-card-title>
           <v-col class="d-flex justify-center aling-center">
-            <h2 class="headline header-form">HABILIDADES</h2>
+            <h2 class="headline header-form">HABILIDADES BLANDAS</h2>
             <v-btn append-icon class="icon-button" color="red" v-if="index !== 0" @click="deleteSkillForm(index)">
               <v-icon size="x-large">mdi-close-thick</v-icon>
             </v-btn>
           </v-col>
         </v-card-title>
         <v-card-text>
+          <v-container>
+            <v-row>
+              <b>
+                <v-label>
+                  En este apartado usar palabras claves para definir sus cualidades de manera concisa.
+                </v-label>
+              </b>
+            </v-row>
+          </v-container>
           <v-col>
             <v-row>
               <v-col>
@@ -36,6 +45,15 @@
           </v-col>
         </v-card-title>
         <v-card-text>
+          <v-container>
+            <v-row>
+              <b>
+                <v-label>
+                  Seleccione los idiomas más relevantes que domina.
+                </v-label>
+              </b>
+            </v-row>
+          </v-container>
           <v-col>
             <v-row>
               <v-select v-model="languageForm.language" :items="languages" label="Idioma" outlined></v-select>
