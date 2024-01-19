@@ -11,9 +11,7 @@
     <v-app-bar app :color="appBarColor" :dark="appBarDark" :clipped-left="clipped">
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
       <v-toolbar-title class="font-italic">{{ appBarTitle }}</v-toolbar-title>
-      <v-spacer></v-spacer>
-      <v-btn class="warning" :to="itemrout.path1">Registrate</v-btn>
-      <v-btn class="success" :to="itemrout.path2">Iniciar</v-btn>
+      
     </v-app-bar>
   </template>
   
