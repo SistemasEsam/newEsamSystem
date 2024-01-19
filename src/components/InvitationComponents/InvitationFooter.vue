@@ -14,7 +14,7 @@
   <style scoped>
   .footer-container {
     height: 20px; /* Altura del pie de página */
-    background: linear-gradient(to right, #6e213d, navy); /* Degradado de guindo a azul marino */
+    background: linear-gradient(to right, #7f1d1d, #142033); /* Degradado de guindo a azul marino */
     color: white; /* Color del texto en el pie de página */
     display: flex;
     align-items: center;

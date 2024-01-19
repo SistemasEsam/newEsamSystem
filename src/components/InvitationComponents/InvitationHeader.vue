@@ -15,7 +15,7 @@
     name: 'LetterHeaderComponent',
     computed: {
       logoUrl() {
-        return require('@/assets/logosigloxx.webp');
+        return require('@/assets/escudo.svg');
       }
     }
   };
