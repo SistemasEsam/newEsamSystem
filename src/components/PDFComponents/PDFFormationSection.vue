@@ -1,0 +1,969 @@
+<template>
+  <NavBar></NavBar>
+  <div class="cv-main-page">
+    <v-btn @click="exportToPDF()">DESCARGAR PDF</v-btn>
+    <br />
+    <v-btn v-if="this.status == 0" @click="changeInstructorStatus()">Aprobar Docente {{ this.userId }}</v-btn>
+    <br />
+    <v-btn v-if="this.status == 0" @click="setMeeting(this.personalPhone)"
+      >Agendar Reunión</v-btn
+    >
+    <br />
+    <div ref="firstPage" class="cv-page">
+      <div class="info-section">
+        <div class="yellow-circle">
+          <div class="white-circle">
+            <v-avatar size="135" class="cv-image">
+              <img id="photoProfile" :src="img" width="155" height="155" />
+            </v-avatar>
+          </div>
+        </div>
+        <div class="cv-personal-info">
+          <v-container class="cv-container-info">
+            <p class="cv-label-info">
+              <v-icon class="mr-1"> mdi-account </v-icon>
+              {{ this.name + " " + this.lastNameF + " " + this.lastNameM }}
+              <br />
+            </p>
+            <p class="cv-label-info">
+              <v-icon class="mr-1">mdi-card-account-details-outline </v-icon>
+              {{ this.numberId + " " + this.idExtension }}
+            </p>
+            <p class="cv-label-info">
+              <v-icon class="mr-1"> mdi-cake </v-icon>
+              {{ this.dateOfBirth }}
+            </p>
+            <p class="cv-label-info">
+              <v-icon class="mr-1"> {{ this.genderIcon }} </v-icon>
+              {{ this.gender }}
+            </p>
+            <p class="cv-label-info">
+              <v-icon class="mr-1"> mdi-home-city-outline </v-icon>
+              {{ this.cityRadication + ", " + this.selectedCountry }}
+            </p>
+            <p class="cv-label-info">
+              <v-icon class="mr-1"> mdi-map-marker-outline </v-icon>
+              {{ this.addres }}
+            </p>
+            <p class="cv-label-info">
+              <v-icon class="mr-1"> mdi-cellphone-basic </v-icon>
+              {{ this.personalPhone }}
+            </p>
+            <p class="cv-label-info">
+              <v-icon class="mr-1"> mdi-email-outline </v-icon>
+              {{ this.email }}
+            </p>
+          </v-container>
+          <v-container class="cv-soft-skills">
+            <h4 class="cv-skills-title">Habilidades Blandas</h4>
+            <p
+              class="cv-label-info"
+              v-for="(skill, index) in skills"
+              :key="index"
+              :value="skill"
+            >
+              <v-icon class="mr-1"> mdi-check-circle-outline </v-icon>
+              {{ skill.skill }}
+            </p>
+          </v-container>
+        </div>
+      </div>
+      <div class="education-section">
+        <div class="cv-degrees">
+          <h2 class="cv-sub-title ml-1">Estudios Pregrado</h2>
+          <v-card
+            v-for="(degree, index) in degrees"
+            :key="index"
+            class="cv-degree-cards ml-1 mb-3"
+            flat="true"
+          >
+            <v-row>
+              <v-col class="mt-0 mb-0 pb-0 line-customize">
+                <p class="h3-customize">Carrera:</p>
+                <p class="cv-content">
+                  {{ degree.levelOfDegree }} en {{ degree.careerDegree }}
+                </p>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col class="mt-0 mb-0 pb-0 pt-0 line-customize">
+                <p class="h3-customize">Universidad/Instituto:</p>
+                <p class="cv-content">{{ degree.universityDegree }}</p>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col class="mt-0 mb-0 pb-0 pt-0 line-customize">
+                <p class="h3-customize">País:</p>
+                <p class="cv-content">{{ degree.countryDegree }}</p>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col class="mt-0 pb-0 pt-0 line-customize">
+                <p class="h3-customize">Año de Graduación:</p>
+                <p class="cv-content">{{ degree.graduationYearDegree }}</p>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col class="mt-0 mb-0 pb-3 pt-0 line-customize">
+                <p class="h3-customize">Modalidad de Graduación:</p>
+                <p class="cv-content">{{ degree.graduationModalityDegree }}</p>
+              </v-col>
+            </v-row>
+          </v-card>
+        </div>
+        <div class="cv-degrees">
+          <h2 class="cv-sub-title ml-1">Estudios Postgrado</h2>
+          <v-card
+            v-for="(
+              higherEducationPostDegree, index
+            ) in higherEducationPostDegrees"
+            :key="index"
+            class="cv-degree-cards ml-1 mb-3"
+            flat="true"
+          >
+            <v-row>
+              <v-col class="mt-3 mb-0 pb-0 pt-0 line-customize">
+                <p class="h3-customize">Postgrado:</p>
+                <p class="cv-content">
+                  {{ higherEducationPostDegree.levelHigherEducation }} en
+                  {{ higherEducationPostDegree.nameHigherEducation }}
+                </p>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col class="mt-0 mb-0 pb-0 pt-0 line-customize">
+                <p class="h3-customize">Universidad/Instituto:</p>
+                <p class="cv-content">
+                  {{ higherEducationPostDegree.institutionName }}
+                </p>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col class="mt-0 mb-0 pb-0 pt-0 line-customize">
+                <p class="h3-customize">País:</p>
+                <p class="cv-content">
+                  {{ higherEducationPostDegree.countryHigherEducationName }}
+                </p>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col class="mt-0 mb-0 pb-0 pt-0 line-customize">
+                <p class="h3-customize">Año de Realización:</p>
+                <p class="cv-content">
+                  {{ higherEducationPostDegree.graduationYearHigherEducation }}
+                </p>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col class="mt-0 mb-0 pb-3 pt-0 line-customize">
+                <p class="h3-customize">Modalidad de Graduación:</p>
+                <p class="cv-content">
+                  {{
+                    higherEducationPostDegree.graduationModalityHigherEducation
+                  }}
+                </p>
+              </v-col>
+            </v-row>
+          </v-card>
+
+          <v-card
+            v-for="(postDegree, index) in postDegrees"
+            :key="index"
+            class="cv-degree-cards ml-1 mt-1 mb-1"
+            flat="true"
+          >
+            <v-row>
+              <v-col class="mt-0 mb-0 pb-0 pt-3 line-customize">
+                <p class="h3-customize">Postgrado:</p>
+                <p class="cv-content">
+                  {{ postDegree.titlePostDegree }} en
+                  {{ postDegree.namePostDegree }}
+                </p>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col class="mt-0 mb-0 pb-0 pt-0 line-customize">
+                <p class="h3-customize">Universidad/Instituto:</p>
+                <p class="cv-content">{{ postDegree.universityPostDegree }}</p>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col class="mt-0 mb-0 pb-0 pt-0 line-customize">
+                <p class="h3-customize">País:</p>
+                <p class="cv-content">{{ postDegree.countryPostDegree }}</p>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col class="mt-0 mb-0 pb-0 pt-0 line-customize">
+                <p class="h3-customize">Año de Realización:</p>
+                <p class="cv-content">
+                  {{ postDegree.graduationYearPostDegree }}
+                </p>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col class="mt-0 mb-0 pb-3 pt-0 line-customize">
+                <p class="h3-customize">Modalidad de Graduación:</p>
+                <p class="cv-content">
+                  {{ postDegree.graduationModalityPostDegree }}
+                </p>
+              </v-col>
+            </v-row>
+          </v-card>
+        </div>
+      </div>
+    </div>
+    <!-- Second Page -->
+    <div class="cv-page-separator"></div>
+    <div ref="secondPage" class="cv-page">
+      <div class="info-section">
+        <v-container class="cv-soft-skills">
+          <h4 class="cv-skills-title">Idiomas</h4>
+          <v-card
+            class="cv-card-language"
+            v-for="(language, index) in languajes"
+            :key="index"
+            :value="language"
+            flat="true"
+          >
+            <v-card-title class="cv-card-language-title">
+              {{ language.language }}
+            </v-card-title>
+            <v-card-subtitle>
+              <v-icon class="mr-1"> mdi-account-voice </v-icon>
+              {{ language.speakeLevel }}</v-card-subtitle
+            >
+            <v-card-subtitle>
+              <v-icon class="mr-1"> mdi-book-open-variant </v-icon
+              >{{ language.readLevel }}</v-card-subtitle
+            >
+            <v-card-subtitle>
+              <v-icon class="mr-1"> mdi-ear-hearing </v-icon
+              >{{ language.listenLevel }}</v-card-subtitle
+            >
+            <v-card-subtitle
+              ><v-icon class="mr-1"> mdi-fountain-pen </v-icon>
+              {{ language.writeLevel }}</v-card-subtitle
+            >
+          </v-card>
+        </v-container>
+      </div>
+      <div class="education-section">
+        <div class="cv-degrees">
+          <h2 class="cv-sub-title ml-1">Experiencia Docente</h2>
+          <v-card
+            v-for="(instructorJob, index) in instructorJobs"
+            :key="index"
+            class="cv-degree-cards ml-1 mb-2"
+            flat="true"
+          >
+            <v-row>
+              <v-col class="mt-0 mb-0 pb-0 line-customize">
+                <p class="h3-customize">Materia Impartida:</p>
+                <p class="cv-content">
+                  {{ instructorJob.subjectInstructorExperience }}
+                </p>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col class="mt-0 mb-0 pb-0 pt-0 line-customize">
+                <p class="h3-customize">Docente en calidad de:</p>
+                <p class="cv-content">{{ instructorJob.typeInstructor }}</p>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col class="mt-0 mb-0 pb-0 pt-0 line-customize">
+                <p class="h3-customize">Nivel impartido:</p>
+                <p class="cv-content">{{ instructorJob.academicLevel }}</p>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col class="mt-0 mb-0 pb-0 pt-0 line-customize">
+                <p class="h3-customize">Universidad o Institución:</p>
+                <p class="cv-content">
+                  {{ instructorJob.institutionInstructorExperience }}
+                </p>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col class="mt-0 mb-0 pb-3 pt-0 line-customize">
+                <p class="h3-customize">Último año de Docencia:</p>
+                <p class="cv-content">
+                  {{ instructorJob.lastYearInstructorExperience }}
+                </p>
+              </v-col>
+            </v-row>
+          </v-card>
+        </div>
+
+        <div class="cv-degrees">
+          <h2 class="cv-sub-title ml-1">Experiencia Laboral</h2>
+          <v-card
+            v-for="(job, index) in jobs"
+            :key="index"
+            class="cv-degree-cards ml-1 mb-2"
+            flat="true"
+          >
+            <v-row>
+              <v-col class="mt-0 mb-0 pb-0 line-customize">
+                <p class="h3-customize">Cargo</p>
+                <p class="cv-content">{{ job.jobTitleWorkExperience }}</p>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col class="mt-0 mb-0 pb-0 pt-0 line-customize">
+                <p class="h3-customize">Institución o Empresa</p>
+                <p class="cv-content">{{ job.institutionWorkExperience }}</p>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col class="mt-0 mb-0 pb-0 pt-0 line-customize">
+                <p class="h3-customize">Ciudad</p>
+                <p class="cv-content">
+                  {{
+                    job.cityWorkExperience + ", " + job.countryWorkExperience
+                  }}
+                </p>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col class="mt-0 mb-0 pb-0 pt-0 line-customize">
+                <p class="h3-customize">Fecha</p>
+                <p class="cv-content">
+                  {{ job.startWorkExperience + " - " + job.endWorkExperience }}
+                </p>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col class="mt-0 mb-0 pb-0 pt-0 line-customize">
+                <p class="h3-customize">Nombre de Referencia</p>
+                <p class="cv-content">
+                  {{ job.nameReference + " " + job.lastnameReference }}
+                </p>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col class="mt-0 mb-0 pb-0 pt-0 line-customize">
+                <p class="h3-customize">Cargo</p>
+                <p class="cv-content">{{ job.jobTitleReference }}</p>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col class="mt-0 mb-0 pb-0 pt-0 line-customize">
+                <p class="h3-customize">Número de Contacto</p>
+                <p class="cv-content">{{ job.phoneReference }}</p>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col class="mt-0 mb-0 pb-3 pt-0 line-customize">
+                <p class="h3-customize">Descripción de Actividades:</p>
+                <p class="cv-content">{{ job.descriptionWorkExperience }}</p>
+              </v-col>
+            </v-row>
+          </v-card>
+        </div>
+      </div>
+    </div>
+    <!-- third page -->
+    <div class="cv-page-separator"></div>
+    <div ref="thirdPage" class="cv-page">
+      <div class="info-section"></div>
+      <div class="education-section">
+        <div class="cv-degrees">
+          <h2 class="cv-sub-title ml-1">Cursos</h2>
+          <v-card
+            v-for="(course, index) in courses"
+            :key="index"
+            class="cv-degree-cards ml-1 mt-1 mb-1"
+            flat="true"
+          >
+            <v-row>
+              <v-col class="mt-0 mb-0 pb-0 line-customize">
+                <p class="h3-customize">Curso</p>
+                <p class="cv-content">{{ course.nameCourse }}</p>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col class="mt-0 mb-0 pb-0 pt-0 line-customize">
+                <p class="h3-customize">Universidad/Instituto:</p>
+                <p class="cv-content">{{ course.institutionCourse }}</p>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col class="mt-0 mb-0 pb-0 pt-0 line-customize">
+                <p class="h3-customize">País:</p>
+                <p class="cv-content">{{ course.countryCourse }}</p>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col class="mt-0 mb-0 pb-3 pt-0 line-customize">
+                <p class="h3-customize">Año de Realización:</p>
+                <p class="cv-content">{{ course.yearCourse }}</p>
+              </v-col>
+            </v-row>
+          </v-card>
+        </div>
+
+        <div class="cv-degrees">
+          <h2 class="cv-sub-title ml-1">Publicaciones</h2>
+          <v-card
+            v-for="(publication, index) in publications"
+            :key="index"
+            class="cv-degree-cards ml-1 mt-1 mb-1"
+            flat="true"
+          >
+            <v-row>
+              <v-col class="mt-0 mb-0 pb-0 line-customize">
+                <p class="h3-customize">Nombre de la Publicación</p>
+                <p class="cv-content">{{ publication.namePublication }}</p>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col class="mt-0 mb-0 pb-0 pt-0 line-customize">
+                <p class="h3-customize">Enlace o Editorial</p>
+                <p class="cv-content">{{ publication.publisher }}</p>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col class="mt-0 mb-0 pb-0 pt-0 line-customize">
+                <p class="h3-customize">Tipo de Publicación</p>
+                <p class="cv-content">{{ publication.typePublication }}</p>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col class="mt-0 mb-0 pb-0 pt-0 line-customize">
+                <p class="h3-customize">País de Publicación:</p>
+                <p class="cv-content">{{ publication.countryPublication }}</p>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col class="mt-0 mb-0 pb-3 pt-0 line-customize">
+                <p class="h3-customize">Fecha de Publicación:</p>
+                <p class="cv-content">{{ publication.datePublication }}</p>
+              </v-col>
+            </v-row>
+          </v-card>
+        </div>
+      </div>
+    </div>
+    <div class="cv-page-separator"></div>
+  </div>
+</template>
+<script>
+import html2canvas from "html2canvas";
+import jsPDF from "jspdf";
+import { database } from "../../firebase/firebase";
+import {
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  updateDoc,
+} from "firebase/firestore";
+import { getStorage, ref, getDownloadURL } from "firebase/storage";
+import NavBar from "../NavBar.vue";
+
+export default {
+  props: ["userId"],
+  components: {
+    NavBar,
+  },
+  data() {
+    return {
+      // first-page
+      idUser: this.userId,
+      name: "",
+      lastNameF: "",
+      lastNameM: "",
+      personalPhone: null,
+      personalPhoneAux: null,
+      email: "",
+      selectedCountry: "",
+      cityRadication: "",
+      addres: "",
+      selectedDocumentType: "",
+      numberId: "",
+      idExtension: "",
+      dateOfBirth: "",
+      formatedDateOfBrith: "",
+      gender: "",
+      genderIcon: "",
+      status: null,
+      degrees: [],
+      postDegrees: [],
+      higherEducationPostDegrees: [],
+      courses: [],
+      img: null,
+      photoProfilePath: "",
+      skills: [],
+
+      // second-page
+      publications: [],
+      jobs: [],
+      instructorJobs: [],
+      languajes: [],
+    };
+  },
+  created() {
+    // first-page
+    this.getInstructorData();
+    this.getDegrees();
+    this.getPostDegrees();
+    this.getCourses();
+    this.getHigherEducationPostDegree();
+    this.getSkills();
+    // second-page
+    this.getPublications();
+    this.getJobs();
+    this.getInstructorJobs();
+    this.getLanguajes();
+  },
+  methods: {
+    exportToPDF() {
+      const pdfWidth = 8.5 * 72; // Ancho de hoja carta en puntos (1 pulgada = 72 puntos)
+      const pdfHeight = 11 * 72; // Alto de hoja carta en puntos (1 pulgada = 72 puntos)
+      const pdf = new jsPDF("p", "pt", [pdfWidth, pdfHeight]);
+
+      const options = {
+        background: "white",
+      };
+
+      // Exportar contenido de la primera página (File.vue)
+      html2canvas( 
+        this.$refs.firstPage,
+        { allowTaint: false, useCORS: true, scale: 5 },
+        options
+      ).then((canvas) => {
+        const imgData = canvas.toDataURL("image/png");
+        pdf.addImage(
+          imgData,
+          "PNG",
+          0,
+          0,
+          pdfWidth,
+          pdfHeight,
+          "firstPage",
+          "MEDIUM"
+        );
+        // Exportar contenido de la segunda página (SecondPage.vue)
+        pdf.addPage();
+        html2canvas(
+          this.$refs.secondPage,
+          { allowTaint: false, useCORS: true, scale: 5 },
+          options
+        ).then((canvas) => {
+          const imgData2 = canvas.toDataURL("image/png");
+          pdf.addImage(
+            imgData2,
+            "PNG",
+            0,
+            0,
+            pdfWidth,
+            pdfHeight,
+            "secondPage",
+            "MEDIUM"
+          );
+          pdf.addPage();
+          html2canvas(
+            this.$refs.thirdPage,
+            { allowTaint: false, useCORS: true, scale: 5 },
+            options
+          ).then((canvas) => {
+            const imgData2 = canvas.toDataURL("image/png");
+            pdf.addImage(
+              imgData2,
+              "PNG",
+              0,
+              0,
+              pdfWidth,
+              pdfHeight,
+              "thirdPage",
+              "MEDIUM"
+            );
+            pdf.save(this.idUser + "CVESAM.pdf");
+          });
+        });
+      });
+    },
+
+    // methods-first-page
+
+    async getInstructorData() {
+      const personalProfileData = await getDoc(
+        doc(database, "instructors", this.idUser)
+      );
+      if (personalProfileData.exists()) {
+        this.name = personalProfileData.data().name;
+        this.lastNameF = personalProfileData.data().lastNameF;
+        this.lastNameM = personalProfileData.data().lastNameM;
+        this.numberId = personalProfileData.data().numberId;
+        this.idExtension = personalProfileData.data().idExtension;
+        this.documentType = personalProfileData.data().selectedDocumentType;
+        this.dateOfBirth = this.formatDate(
+          personalProfileData.data().dateOfBirth
+        );
+        this.gender = personalProfileData.data().gender;
+        if (personalProfileData.data().gender == "Masculino") {
+          this.genderIcon = "mdi-gender-male";
+        } else {
+          this.genderIcon = "mdi-gender-female";
+        }
+        this.cityRadication = personalProfileData.data().cityRadication;
+        this.selectedCountry = personalProfileData.data().selectedCountry;
+        this.addres = personalProfileData.data().addres;
+        this.personalPhone = personalProfileData.data().personalPhone;
+        this.email = personalProfileData.data().email;
+        this.photoProfilePath = personalProfileData.data().photoProfilePath;
+        this.status = personalProfileData.data().status;
+      } else {
+        console.log("Document does not exist");
+      }
+      this.loadProfileImage();
+    },
+    async getDegrees() {
+      const dataDegrees = await getDocs(
+        collection(database, "instructors", this.idUser, "degrees")
+      );
+      dataDegrees.forEach((degree) => {
+        this.degrees.push({
+          careerDegree: degree.data().careerDegree,
+          countryDegree: this.formatCountry(
+            degree.data().countryDegree.toLowerCase()
+          ),
+          graduationModalityDegree: degree.data().graduationModalityDegree,
+          graduationYearDegree: degree.data().graduationYearDegree,
+          levelOfDegree: degree.data().levelOfDegree,
+          universityDegree: degree.data().universityDegree,
+        });
+      });
+    },
+    async getHigherEducationPostDegree() {
+      const higherEducationPostDegrees = await getDocs(
+        collection(
+          database,
+          "instructors",
+          this.idUser,
+          "higherEducationPostDegree"
+        )
+      );
+      higherEducationPostDegrees.forEach((higherEducationPostDegree) => {
+        this.higherEducationPostDegrees.push({
+          nameHigherEducation:
+            higherEducationPostDegree.data().nameHigherEducation,
+          institutionName: higherEducationPostDegree.data().institutionName,
+          levelHigherEducation:
+            higherEducationPostDegree.data().levelHigherEducation,
+          countryHigherEducationName: this.formatCountry(
+            higherEducationPostDegree
+              .data()
+              .countryHigherEducationName.toLowerCase()
+          ),
+          graduationModalityHigherEducation:
+            higherEducationPostDegree.data().graduationModalityHigherEducation,
+          graduationYearHigherEducation:
+            higherEducationPostDegree.data().graduationYearHigherEducation,
+        });
+      });
+    },
+    async getPostDegrees() {
+      const dataPostDegrees = await getDocs(
+        collection(database, "instructors", this.idUser, "postDegrees")
+      );
+      dataPostDegrees.forEach((postDegree) => {
+        this.postDegrees.push({
+          universityPostDegree: postDegree.data().universityPostDegree,
+          namePostDegree: postDegree.data().namePostDegree,
+          titlePostDegree: postDegree.data().titlePostDegree,
+          countryPostDegree: this.formatCountry(
+            postDegree.data().countryPostDegree.toLowerCase()
+          ),
+          graduationYearPostDegree: postDegree.data().graduationYearPostDegree,
+          graduationModalityPostDegree:
+            postDegree.data().graduationModalityPostDegree,
+        });
+      });
+    },
+    async getCourses() {
+      const dataCourses = await getDocs(
+        collection(database, "instructors", this.idUser, "courses")
+      );
+      dataCourses.forEach((course) => {
+        this.courses.push({
+          institutionCourse: course.data().institutionCourse,
+          nameCourse: course.data().nameCourse,
+          countryCourse: this.formatCountry(
+            course.data().countryCourse.toLowerCase()
+          ),
+          yearCourse: course.data().yearCourse,
+        });
+      });
+    },
+    async getSkills() {
+      const dataSkills = await getDocs(
+        collection(database, "instructors", this.idUser, "skills")
+      );
+      dataSkills.forEach((skill) => {
+        this.skills.push({
+          skill: skill.data().skill,
+        });
+      });
+    },
+    async loadProfileImage() {
+      const storage = getStorage();
+      console.log(this.photoProfilePath);
+      await getDownloadURL(ref(storage, this.photoProfilePath))
+        .then((url) => {
+          // Or inserted into an <img> element
+          const img = document.getElementById("photoProfile");
+          img.setAttribute("src", url);
+        })
+        .catch((error) => {
+          // Handle any errors
+        });
+    },
+    formatDate(date) {
+      let dateFirebase = date.toDate();
+      let dateReturned =
+        dateFirebase.getDate() +
+        "/" +
+        (dateFirebase.getMonth() + 1) +
+        "/" +
+        dateFirebase.getFullYear();
+      return dateReturned;
+    },
+    formatCountry(country) {
+      const countryFormated =
+        country.charAt(0).toUpperCase() + country.slice(1);
+      return countryFormated;
+    },
+
+    // methos-second-page
+    async getPublications() {
+      const dataPublications = await getDocs(
+        collection(database, "instructors", this.idUser, "publications")
+      );
+      dataPublications.forEach((publication) => {
+        this.publications.push({
+          publisher: publication.data().publisher,
+          namePublication: publication.data().namePublication,
+          typePublication: publication.data().typePublication,
+          countryPublication: this.formatCountry(
+            publication.data().countryPublication.toLowerCase()
+          ),
+          datePublication: this.formatDate(publication.data().datePublication),
+        });
+      });
+    },
+    async getJobs() {
+      const dataJobs = await getDocs(
+        collection(database, "instructors", this.idUser, "jobs")
+      );
+      dataJobs.forEach((job) => {
+        console.log(job.data().endWorkExperience);
+        if (job.data().endWorkExperience != undefined) {
+          this.jobs.push({
+            jobTitleWorkExperience: job.data().jobTitleWorkExperience,
+            institutionWorkExperience: job.data().institutionWorkExperience,
+            cityWorkExperience: this.formatCountry(
+              job.data().cityWorkExperience.toLowerCase()
+            ),
+            countryWorkExperience: this.formatCountry(
+              job.data().countryWorkExperience.toLowerCase()
+            ),
+            descriptionWorkExperience: job.data().descriptionWorkExperience,
+            startWorkExperience: this.formatDate(
+              job.data().startWorkExperience
+            ),
+            endWorkExperience: this.formatDate(job.data().endWorkExperience),
+            nameReference: job.data().nameReference,
+            lastnameReference: job.data().lastnameReference,
+            jobTitleReference: job.data().jobTitleReference,
+            phoneReference: job.data().phoneReference,
+          });
+        } else {
+          this.jobs.push({
+            jobTitleWorkExperience: job.data().jobTitleWorkExperience,
+            institutionWorkExperience: job.data().institutionWorkExperience,
+            cityWorkExperience: this.formatCountry(
+              job.data().cityWorkExperience.toLowerCase()
+            ),
+            countryWorkExperience: this.formatCountry(
+              job.data().countryWorkExperience.toLowerCase()
+            ),
+            descriptionWorkExperience: job.data().descriptionWorkExperience,
+            startWorkExperience: this.formatDate(
+              job.data().startWorkExperienceCurrentJob
+            ),
+            endWorkExperience: "hasta la fecha",
+            nameReference: job.data().nameReference,
+            lastnameReference: job.data().lastnameReference,
+            jobTitleReference: job.data().jobTitleReference,
+            phoneReference: job.data().phoneReference,
+          });
+        }
+      });
+    },
+    async getInstructorJobs() {
+      const dataInstructorJobs = await getDocs(
+        collection(database, "instructors", this.idUser, "instructorJobs")
+      );
+      dataInstructorJobs.forEach((instructorJob) => {
+        this.instructorJobs.push({
+          subjectInstructorExperience:
+            instructorJob.data().subjectInstructorExperience,
+          typeInstructor: instructorJob.data().typeInstructor,
+          academicLevel: instructorJob.data().academicLevel,
+          institutionInstructorExperience:
+            instructorJob.data().institutionInstructorExperience,
+          lastYearInstructorExperience:
+            instructorJob.data().lastYearInstructorExperience,
+        });
+      });
+    },
+    async getLanguajes() {
+      const dataLanguages = await getDocs(
+        collection(database, "instructors", this.idUser, "languages")
+      );
+      dataLanguages.forEach((language) => {
+        this.languajes.push({
+          language: language.data().language,
+          listenLevel: language.data().listenLevel,
+          readLevel: language.data().readLevel,
+          speakeLevel: language.data().speakeLevel,
+          writeLevel: language.data().writeLevel,
+        });
+      });
+    },
+    setMeeting(phone) {
+      window.open(
+        "//api.whatsapp.com/send?phone=591" +
+          phone +
+          "&text=El equipo academico de ESAM quisiera programar una reunion con su persona para poder conocerlo mejor."
+      );
+    },
+    async changeInstructorStatus() {
+      const instructorStatusRef = doc(database, "instructors", this.idUser);
+      await updateDoc(instructorStatusRef, {
+        status: 1,
+      });
+    },
+  },
+};
+</script>
+<style>
+.cv-main-page {
+  width: 100%;
+  position: absolute;
+  display: grid;
+  place-content: center;
+}
+
+.cv-page {
+  position: relative;
+  width: 8.5in;
+  height: 11in;
+  background-color: white;
+  border: 1px solid black;
+}
+.cv-page-separator {
+  position: relative;
+  width: 8.5in;
+  height: 1in;
+  color: white;
+}
+.info-section {
+  background-color: #162d4a;
+  width: 2.5in;
+  height: 11in;
+  float: left;
+}
+.education-section {
+  background-color: white;
+  width: 5.97in;
+  height: 10.97in;
+  float: left;
+}
+.yellow-circle {
+  top: 0.25in;
+  left: 0.5in;
+  width: 1.5in;
+  height: 1.5in;
+  border-radius: 50%;
+  background-color: #ffdf0b;
+  z-index: 1;
+  position: relative;
+}
+
+.white-circle {
+  top: 0.05in;
+  left: 0.05in;
+  width: 1.4in;
+  height: 1.4in;
+  border-radius: 50%;
+  background-color: white;
+  z-index: 1;
+  position: relative;
+}
+
+.cv-image {
+  position: relative;
+}
+.cv-personal-info {
+  position: relative;
+  width: 90%;
+  top: 0.5in;
+}
+.cv-container-info {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+.cv-label-info {
+  position: relative;
+  font-size: 11.5px;
+  color: white;
+  font-family: Georgia, "Times New Roman", Times, serif;
+  opacity: 1;
+  margin: 1%;
+  word-wrap: break-word;
+}
+.cv-degrees {
+  position: relative;
+  font-family: Georgia, "Times New Roman", Times, serif;
+  color: #162d4a;
+}
+.cv-sub-title {
+  color: #162d4a;
+}
+.cv-degree-cards {
+  font-family: Georgia, "Times New Roman", Times, serif;
+  font-size: small;
+  color: black;
+  font-weight: bold;
+  position: relative;
+}
+.h3-customize {
+  color: #162d4a;
+  font-size: small;
+  margin-right: 1%;
+}
+.line-customize {
+  display: flex;
+  justify-content: left;
+}
+.cv-content {
+  font-size: 11.5px;
+}
+.cv-soft-skills {
+  font-family: Georgia, "Times New Roman", Times, serif;
+}
+.cv-skills-title {
+  color: white;
+}
+.cv-card-language {
+  background-color: #162d4a;
+}
+.cv-card-language {
+  color: white;
+}
+</style>
