@@ -18,6 +18,7 @@
     import extraCoursesProfile from '../../components/CVFormComponents/ExtraCoursesProfile.vue'
     import workExperienceProfile from '../../components/CVFormComponents/WorkExperiencieProfile.vue'
     import skillsProfile from '../../components/CVFormComponents/SkillsProfile.vue'
+    import menuProfile from '@/components/CVFormComponents/MenuProfile.vue'
     import NavBar from '../../components/NavBar.vue'
  
     export default {
@@ -28,6 +29,7 @@
        extraCoursesProfile,
        workExperienceProfile,
        skillsProfile,
+       menuProfile,
        NavBar,
       
       },
@@ -36,8 +38,8 @@
 
         return {
           idUser:'',
-          activeComponent: 'personal-profile',
-          component: 'personalProfile',
+          activeComponent: 'menu-profile',
+          component: 'menuProfile',
         }
       },
       methods: {
