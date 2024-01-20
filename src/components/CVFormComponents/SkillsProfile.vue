@@ -1,11 +1,21 @@
 <template>
   <v-container width="1000" class="mx-auto">
     <v-container>
-      <v-card v-for="(skillForm, index) in skillForms" :key="index" class="mb-4 card-style">
+      <v-card
+        v-for="(skillForm, index) in skillForms"
+        :key="index"
+        class="mb-4 card-style"
+      >
         <v-card-title>
           <v-col class="d-flex justify-center aling-center">
             <h2 class="headline header-form">HABILIDADES BLANDAS</h2>
-            <v-btn append-icon class="icon-button" color="red" v-if="index !== 0" @click="deleteSkillForm(index)">
+            <v-btn
+              append-icon
+              class="icon-button"
+              color="red"
+              v-if="index !== 0"
+              @click="deleteSkillForm(index)"
+            >
               <v-icon size="x-large">mdi-close-thick</v-icon>
             </v-btn>
           </v-col>
@@ -15,7 +25,8 @@
             <v-row>
               <b>
                 <v-label>
-                  En este apartado usar palabras claves para definir sus cualidades de manera concisa.
+                  En este apartado usar palabras claves para definir sus
+                  cualidades de manera concisa.
                 </v-label>
               </b>
             </v-row>
@@ -23,23 +34,41 @@
           <v-col>
             <v-row>
               <v-col>
-                <v-text-field v-model="skillForm.skill" label="Habilidad"
-                  @input="skillForm.skill = skillForm.skill.toUpperCase()" required></v-text-field>
+                <v-text-field
+                  v-model="skillForm.skill"
+                  label="Habilidad"
+                  @input="skillForm.skill = skillForm.skill.toUpperCase()"
+                  required
+                ></v-text-field>
               </v-col>
             </v-row>
           </v-col>
         </v-card-text>
       </v-card>
-      <v-btn prepend-icon="mdi-plus" v-if="skillForms.length < 5" @click="addSkillForm()"
-        class="fixed-bottom button-form">AGREGAR
-        NUEVA HABILIDAD</v-btn>
+      <v-btn
+        prepend-icon="mdi-plus"
+        v-if="skillForms.length < 5"
+        @click="addSkillForm()"
+        class="fixed-bottom button-form"
+        >AGREGAR NUEVA HABILIDAD</v-btn
+      >
     </v-container>
     <v-container>
-      <v-card v-for="(languageForm, index2) in languageForms" :key="index2" class="mb-4 card-style">
+      <v-card
+        v-for="(languageForm, index2) in languageForms"
+        :key="index2"
+        class="mb-4 card-style"
+      >
         <v-card-title>
           <v-col class="d-flex justify-center aling-center">
             <h2 class="headline header-form">IDIOMAS</h2>
-            <v-btn append-icon class="icon-button" color="red" v-if="index2 !== 0" @click="deleteLanguageForm(index2)">
+            <v-btn
+              append-icon
+              class="icon-button"
+              color="red"
+              v-if="index2 !== 0"
+              @click="deleteLanguageForm(index2)"
+            >
               <v-icon size="x-large">mdi-close-thick</v-icon>
             </v-btn>
           </v-col>
@@ -56,7 +85,12 @@
           </v-container>
           <v-col>
             <v-row>
-              <v-select v-model="languageForm.language" :items="languages" label="Idioma" outlined></v-select>
+              <v-select
+                v-model="languageForm.language"
+                :items="languages"
+                label="Idioma"
+                outlined
+              ></v-select>
             </v-row>
             <h3>Nivel de escritura:</h3>
             <v-btn-toggle v-model="languageForm.writeLevel">
@@ -85,148 +119,187 @@
           </v-col>
         </v-card-text>
       </v-card>
-      <v-btn prepend-icon="mdi-plus" v-if="languageForms.length < 3" @click="addLanguageForm()"
-        class="fixed-bottom mr-2 button-form">AGREGAR
-        NUEVO IDIOMA</v-btn>
-      <v-alert variant="elevated" density="compact" closable color="yellow" title="Atención" v-show="alertFlag"
-        text="Verifique que los datos ingresados sean correctos!"></v-alert>
+      <v-btn
+        prepend-icon="mdi-plus"
+        v-if="languageForms.length < 3"
+        @click="addLanguageForm()"
+        class="fixed-bottom mr-2 button-form"
+        >AGREGAR NUEVO IDIOMA</v-btn
+      >
+      <v-alert
+        variant="elevated"
+        density="compact"
+        closable
+        color="yellow"
+        title="Atención"
+        v-show="alertFlag"
+        text="Verifique que los datos ingresados sean correctos!"
+      ></v-alert>
     </v-container>
     <v-container>
-      <v-btn prepend-icon="mdi-content-save-outline" class="fixed-bottom mr-2 button-form" width="150px" density="default"
-        @click="saveData()">guardar</v-btn>
-      <v-btn prepend-icon="mdi-arrow-left-bold-outline" class="fixed-bottom mr-2 button-form" width="150px"
-        density="default" @click="showPreviusForm()">
-        atras</v-btn>
+      <v-btn
+        prepend-icon="mdi-content-save-outline"
+        class="fixed-bottom mr-2 button-form"
+        width="150px"
+        density="default"
+        @click="saveData()"
+        >guardar</v-btn
+      >
+      <!-- <v-btn prepend-icon="mdi-content-save-outline" class="fixed-bottom mr-2 button-form" width="150px" density="default"
+        @click="showNextForm()">guardar</v-btn> -->
+      <v-btn
+        prepend-icon="mdi-arrow-left-bold-outline"
+        class="fixed-bottom mr-2 button-form"
+        width="150px"
+        density="default"
+        @click="showPreviusForm()"
+      >
+        atras</v-btn
+      >
     </v-container>
   </v-container>
 </template>
   
 <script>
-
-import { database } from '../../firebase/firebase'
+import { database } from "../../firebase/firebase";
 import { addDoc, collection, doc } from "firebase/firestore";
-import router from '@/router';
+import router from "@/router";
 
 export default {
-  props: [
-    "userId"
-  ],
+  props: ["userId"],
   data() {
     return {
       idUser: this.userId,
       // idUser: 'aljiar23@gmail.com',
       alertFlag: false,
-      local: '',
+      local: "",
       estate: true,
       skillForms: [
         {
-          skill: ''
-        }
+          skill: "",
+        },
       ],
       languageForms: [
         {
-          language: '',
-          writeLevel: '',
-          speakeLevel: '',
-          readLevel: '',
-          listenLevel: '',
-        }
+          language: "",
+          writeLevel: "",
+          speakeLevel: "",
+          readLevel: "",
+          listenLevel: "",
+        },
       ],
 
-      languages: ['Español', 'Inglés', 'Francés', 'Alemán', 'Italiano', 'Portugues', 'Quechua', 'Aymara', 'Guaraní', 'Chino', 'Koreano']
-    }
+      languages: [
+        "Español",
+        "Inglés",
+        "Francés",
+        "Alemán",
+        "Italiano",
+        "Portugues",
+        "Quechua",
+        "Aymara",
+        "Guaraní",
+        "Chino",
+        "Koreano",
+      ],
+    };
   },
   methods: {
+    showNextForm() {
+      let nextComponent = "gratitude-profile";
+      this.$emit("show-next-form", nextComponent, this.email);
+    },
     showPreviusForm() {
-      let nextComponent = 'work-experience-profile'
-      this.$emit('show-next-form', nextComponent, this.idUser)
+      let nextComponent = "work-experience-profile";
+      this.$emit("show-next-form", nextComponent, this.idUser);
     },
     addSkillForm() {
       if (this.skillForms.length < 5 && this.checkSkillList()) {
         this.skillForms.push({
-          skill: ''
-        })
-
+          skill: "",
+        });
       }
     },
     addLanguageForm() {
       if (this.languageForms.length < 5 && this.checkLanguagesList()) {
         this.languageForms.push({
-          language: '',
-          writeLevel: '',
-          speakeLevel: '',
-          readLevel: '',
-          listenLevel: '',
-        })
+          language: "",
+          writeLevel: "",
+          speakeLevel: "",
+          readLevel: "",
+          listenLevel: "",
+        });
       }
     },
     deleteSkillForm(index) {
-      this.skillForms.splice(index, 1)
+      this.skillForms.splice(index, 1);
     },
     deleteLanguageForm(index) {
-      this.languageForms.splice(index, 1)
+      this.languageForms.splice(index, 1);
     },
     saveDataSkills() {
-      const documentRef = doc(database, 'instructors', this.idUser)
-      const collectionRef = collection(documentRef, 'skills')
+      const documentRef = doc(database, "instructors", this.idUser);
+      const collectionRef = collection(documentRef, "skills");
       this.skillForms.forEach((skillFormValue) => {
-        if (skillFormValue.skill != '') {
+        if (skillFormValue.skill != "") {
           addDoc(collectionRef, {
-            skill: skillFormValue.skill
-          })
+            skill: skillFormValue.skill,
+          });
         }
-      })
+      });
     },
     saveDataLanguages() {
-      const documentRef = doc(database, 'instructors', this.idUser)
-      const collectionRef = collection(documentRef, 'languages')
+      const documentRef = doc(database, "instructors", this.idUser);
+      const collectionRef = collection(documentRef, "languages");
       this.languageForms.forEach((languageFormValue) => {
-        if (languageFormValue.language != '') {
+        if (languageFormValue.language != "") {
           addDoc(collectionRef, {
             language: languageFormValue.language,
             writeLevel: languageFormValue.writeLevel,
             speakeLevel: languageFormValue.speakeLevel,
             readLevel: languageFormValue.readLevel,
             listenLevel: languageFormValue.listenLevel,
-          })
+          });
         }
-      })
+      });
     },
     checkSkillList() {
-      let listSkillFilled = true
+      let listSkillFilled = true;
       this.skillForms.forEach((skillForm) => {
         if (skillForm.skill) {
-          listSkillFilled = true
+          listSkillFilled = true;
         } else {
-          listSkillFilled = false
+          listSkillFilled = false;
         }
-      })
-      return listSkillFilled
+      });
+      return listSkillFilled;
     },
     checkLanguagesList() {
-      let listLanguagesFilled = true
+      let listLanguagesFilled = true;
       this.languageForms.forEach((languageForm) => {
-        if (languageForm.language
-          && languageForm.writeLevel
-          && languageForm.speakeLevel
-          && languageForm.readLevel
-          && languageForm.listenLevel) {
-          listLanguagesFilled = true
+        if (
+          languageForm.language &&
+          languageForm.writeLevel &&
+          languageForm.speakeLevel &&
+          languageForm.readLevel &&
+          languageForm.listenLevel
+        ) {
+          listLanguagesFilled = true;
         } else {
-          listLanguagesFilled = false
+          listLanguagesFilled = false;
         }
-      })
-      return listLanguagesFilled
+      });
+      return listLanguagesFilled;
     },
     saveData() {
       if (this.checkSkillList() && this.checkLanguagesList()) {
-        router.push({name: 'pdf', params:  {id: this.idUser }})
-        this.saveDataSkills()
-        this.saveDataLanguages()
+        this.saveDataSkills();
+        this.saveDataLanguages();
+        this.showNextForm();
       } else {
-        this.alertFlag = true
+        this.alertFlag = true;
       }
-    }
-  }
-}
+    },
+  },
+};
 </script>

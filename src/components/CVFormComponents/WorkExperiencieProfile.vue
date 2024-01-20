@@ -342,7 +342,7 @@
       >
       <!-- <v-btn prepend-icon="mdi-content-save-outline" class="fixed-bottom mr-2 button-form" width="150px" density="default"
         @click="saveDataWorkExperience()">guardar</v-btn> -->
-        <!-- <v-btn
+      <!-- <v-btn
         prepend-icon="mdi-content-save-outline"
         class="fixed-bottom mr-2 button-form"
         width="150px"
