@@ -4,12 +4,13 @@
     <v-row>
       <v-col>
         <v-card>
+          <v-img
+          src="@/assets/ESAM-R1.webp"
+          cover
+          >
+          </v-img>
           <v-card-title class="headline text-center"
             >¡Gracias por registrarte!</v-card-title
-          >
-          <v-card-subtitle class="text-center"
-            >Te agradecemos por completar el formulario de
-            registro.</v-card-subtitle
           >
         </v-card>
       </v-col>
@@ -22,27 +23,26 @@
           <v-card-text class="">
             <!-- Contenido de agradecimiento personalizado -->
             <p>
-              <b>Estimado [Nombre del Postulante]</b>
-              <br>Queremos expresar nuestro
-              sincero agradecimiento por haber completado exitosamente el
-              formulario de registro para [nombre del programa o posición]. Tu
-              interés y participación son fundamentales para nosotros, y estamos
-              emocionados de considerarte como parte de nuestro proceso de
-              selección. Valoramos tu dedicación y estamos seguros de que tu
-              participación contribuirá significativamente a nuestra comunidad.
-              Por favor, mantente atento(a) a tus medios de contacto, ya que
-              nuestro departamento académico se comunicará contigo próximamente
-              para compartir más detalles sobre el siguiente paso en el proceso
-              de selección. ¡Gracias nuevamente y te deseamos mucho éxito en tu
-              postulación! 
-              <br>
+              <b>Estimado {{ this.applicant.name +" "+this.applicant.lastNameF +" "+this.applicant.lastNameM }}</b>
+              <br />Queremos expresar nuestro sincero agradecimiento por haber
+              completado exitosamente el formulario de registro para Docente. Tu interés y participación son fundamentales
+              para nosotros, y estamos emocionados de considerarte como parte de
+              nuestro proceso de selección. Valoramos tu dedicación y estamos
+              seguros de que tu participación contribuirá significativamente a
+              nuestra comunidad. Por favor, mantente atento(a) a tus medios de
+              contacto, ya que nuestro departamento académico se comunicará
+              contigo próximamente para compartir más detalles sobre el
+              siguiente paso en el proceso de selección. ¡Gracias nuevamente y
+              te deseamos mucho éxito en tu postulación!
+              <br />
               <b>Atentamente, Departamento Académico</b>
             </p>
 
             <!-- Puedes personalizar más el mensaje según tus necesidades -->
 
             <!-- Botón para volver al formulario o a otra sección -->
-            <v-btn @click="showMenuForm()" color="primary">Volver</v-btn>
+            <br>
+            <v-btn @click="showMenuForm()" color="white">Volver</v-btn>
           </v-card-text>
         </v-card>
       </v-col>
@@ -50,24 +50,46 @@
   </v-container>
 </template>
 <script>
+import { database } from "../../firebase/firebase";
+import { getDoc, doc } from "firebase/firestore";
+
 export default {
-  props: [
-    "userId"
-  ],
+  props: ["userId"],
   data() {
-    return {};
+    return {
+      idUser: this.userId,
+      /* idUser: "Alan Jimenez Arandia" */
+      applicant: {
+        name: "",
+        lastNameF: "",
+        lastNameM: "",
+      },
+    };
   },
-  methods:{
+  created() {
+    this.getApplicantData();
+  },
+  methods: {
+    async getApplicantData() {
+      const docRef = doc(database, "instructors", this.idUser);
+      const docSnap = await getDoc(docRef);
+      if (docSnap.exists()) {
+        (this.applicant.name = docSnap.data().name),
+          (this.applicant.lastNameF = docSnap.data().lastNameF),
+          (this.applicant.lastNameM = docSnap.data().lastNameM);
+      } else {
+        console.log("No such document!");
+      }
+    },
     showMenuForm() {
       let nextComponent = "menu-profile";
-      this.$emit("show-next-form", nextComponent, this.email);
+      this.$emit("show-next-form", nextComponent, this.idUser);
     },
   },
-
 };
 </script>
 <style>
-.gratitude-main-page{
+.gratitude-main-page {
   width: 40rem;
 }
 </style>

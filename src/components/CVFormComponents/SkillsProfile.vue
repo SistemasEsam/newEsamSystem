@@ -207,7 +207,7 @@ export default {
   methods: {
     showNextForm() {
       let nextComponent = "gratitude-profile";
-      this.$emit("show-next-form", nextComponent, this.email);
+      this.$emit("show-next-form", nextComponent, this.idUser);
     },
     showPreviusForm() {
       let nextComponent = "work-experience-profile";
