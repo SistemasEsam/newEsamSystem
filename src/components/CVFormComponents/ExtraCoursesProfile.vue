@@ -227,16 +227,16 @@
       </v-container>
     </v-container>
     <v-container>
-      <!-- <v-btn prepend-icon="mdi-content-save-outline" class="fixed-bottom mr-2 button-form" width="150px" density="default"
-        @click="saveData()">guardar</v-btn> -->
-      <v-btn
+      <v-btn prepend-icon="mdi-content-save-outline" class="fixed-bottom mr-2 button-form" width="150px" density="default"
+        @click="saveData()">guardar</v-btn>
+      <!-- <v-btn
         prepend-icon="mdi-content-save-outline"
         class="fixed-bottom mr-2 button-form"
         width="150px"
         density="default"
         @click="showNextForm()"
         >guardar</v-btn
-      >
+      > -->
       <v-btn
         prepend-icon="mdi-arrow-left"
         class="fixed-bottom mr-2 button-form"

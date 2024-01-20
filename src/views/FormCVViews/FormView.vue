@@ -20,6 +20,7 @@
     import skillsProfile from '../../components/CVFormComponents/SkillsProfile.vue'
     import menuProfile from '@/components/CVFormComponents/MenuProfile.vue'
     import NavBar from '../../components/NavBar.vue'
+    import gratitudeProfile from '@/components/CVFormComponents/GratitudeProfile.vue'
  
     export default {
       components: {
@@ -31,7 +32,7 @@
        skillsProfile,
        menuProfile,
        NavBar,
-      
+       gratitudeProfile,
       },
     
       data() {

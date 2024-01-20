@@ -212,22 +212,22 @@
     </v-card>
   </v-container>
   <v-container>
-    <!-- <v-btn
+    <v-btn
       prepend-icon="mdi-content-save-outline"
       width="150px"
       density="default"
       @click="saveData()"
       class="fixed-bottom mr-2 button-form"
       >guardar</v-btn
-    > -->
-    <v-btn
+    >
+    <!-- <v-btn
       prepend-icon="mdi-content-save-outline"
       width="150px"
       density="default"
       @click="showNextForm()"
       class="fixed-bottom mr-2 button-form"
       >guardar</v-btn
-    >
+    > -->
   </v-container>
 </template>
  

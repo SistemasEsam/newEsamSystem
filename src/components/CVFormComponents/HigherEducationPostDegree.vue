@@ -108,7 +108,7 @@
     </v-card>
   </v-container>
   <v-container>
-    <!-- <v-btn
+    <v-btn
       prepend-icon="mdi-content-save-outline"
       @click="this.saveData()"
       width="150px"
@@ -116,8 +116,8 @@
       class="fixed-bottom mr-2 button-form"
       end
       >guardar</v-btn
-    > -->
-    <v-btn
+    >
+    <!-- <v-btn
       prepend-icon="mdi-content-save-outline"
       @click="this.showNextForm()"
       width="150px"
@@ -125,7 +125,7 @@
       class="fixed-bottom mr-2 button-form"
       end
       >guardar</v-btn
-    >
+    > -->
     <v-btn
       prepend-icon="mdi-arrow-left"
       @click="showPreviusForm()"
