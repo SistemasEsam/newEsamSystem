@@ -377,6 +377,7 @@ export default {
     return {
       idUser: this.userId,
       // idUser: 'aljiar23@gmail.com',
+      componentFlag: false,
       jobCardFlag: false,
       alertFlag: false,
       isChecked: false,
@@ -593,24 +594,29 @@ export default {
       );
     },
     saveData() {
-      if (this.jobCardFlag == true) {
-        if (this.checkInstructorExperienceList()) {
-          this.showNextForm();
-          this.saveDateInstructorExperience();
+      if (this.componentFlag == false) {
+        this.componentFlag = true;
+        if (this.jobCardFlag == true) {
+          if (this.checkInstructorExperienceList()) {
+            this.showNextForm();
+            this.saveDateInstructorExperience();
+          } else {
+            this.alertFlag = true;
+          }
         } else {
-          this.alertFlag = true;
+          if (
+            this.checkWorkExperienceList() &&
+            this.checkInstructorExperienceList()
+          ) {
+            this.showNextForm();
+            this.saveDataWorkExperience();
+            this.saveDateInstructorExperience();
+          } else {
+            this.alertFlag = true;
+          }
         }
       } else {
-        if (
-          this.checkWorkExperienceList() &&
-          this.checkInstructorExperienceList()
-        ) {
-          this.showNextForm();
-          this.saveDataWorkExperience();
-          this.saveDateInstructorExperience();
-        } else {
-          this.alertFlag = true;
-        }
+        this.showNextForm();
       }
     },
     disableJobForm() {

@@ -171,6 +171,7 @@ export default {
     return {
       idUser: this.userId,
       // idUser: 'aljiar23@gmail.com',
+      componentFlag: false,
       alertFlag: false,
       local: "",
       estate: true,
@@ -292,12 +293,17 @@ export default {
       return listLanguagesFilled;
     },
     saveData() {
-      if (this.checkSkillList() && this.checkLanguagesList()) {
-        this.saveDataSkills();
-        this.saveDataLanguages();
-        this.showNextForm();
+      if (this.componentFlag == false) {
+        this.componentFlag = true;
+        if (this.checkSkillList() && this.checkLanguagesList()) {
+          this.saveDataSkills();
+          this.saveDataLanguages();
+          this.showNextForm();
+        } else {
+          this.alertFlag = true;
+        }
       } else {
-        this.alertFlag = true;
+        this.showNextForm();
       }
     },
   },
