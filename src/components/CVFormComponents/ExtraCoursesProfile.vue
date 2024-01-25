@@ -227,8 +227,14 @@
       </v-container>
     </v-container>
     <v-container>
-      <v-btn prepend-icon="mdi-content-save-outline" class="fixed-bottom mr-2 button-form" width="150px" density="default"
-        @click="saveData()">guardar</v-btn>
+      <v-btn
+        prepend-icon="mdi-content-save-outline"
+        class="fixed-bottom mr-2 button-form"
+        width="150px"
+        density="default"
+        @click="saveData()"
+        >guardar</v-btn
+      >
       <!-- <v-btn
         prepend-icon="mdi-content-save-outline"
         class="fixed-bottom mr-2 button-form"
@@ -260,6 +266,7 @@ export default {
     return {
       idUser: this.userId,
       // idUser: 'aljiar23@gmail.com',
+      componentFlag: false,
       coursesFlag: false,
       publicationFlag: false,
       dialogVisible: false,
@@ -440,22 +447,27 @@ export default {
     //   })
     // },
     saveData() {
-      if (this.coursesFlag && this.publicationFlag) {
+      if (this.componentFlag == false) {
+        this.componentFlag = true;
+        if (this.coursesFlag && this.publicationFlag) {
+          this.showNextForm();
+        } else if (this.coursesFlag == true && this.publicationFlag == false) {
+          if (this.checkPublicationList()) {
+            this.showNextForm();
+            this.saveDataPublication();
+          } else {
+            this.alertFlag = true;
+          }
+        } else if (this.coursesFlag == false && this.publicationFlag == true) {
+          if (this.checkCourseList()) {
+            this.showNextForm();
+            this.saveDataCourses();
+          } else {
+            this.alertFlag = true;
+          }
+        }
+      } else {
         this.showNextForm();
-      } else if (this.coursesFlag == true && this.publicationFlag == false) {
-        if (this.checkPublicationList()) {
-          this.showNextForm();
-          this.saveDataPublication();
-        } else {
-          this.alertFlag = true;
-        }
-      } else if (this.coursesFlag == false && this.publicationFlag == true) {
-        if (this.checkCourseList()) {
-          this.showNextForm();
-          this.saveDataCourses();
-        } else {
-          this.alertFlag = true;
-        }
       }
     },
     disableCoursesForm() {

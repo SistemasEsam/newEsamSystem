@@ -140,7 +140,7 @@
 import VueDatePicker from "@vuepic/vue-datepicker";
 import "@vuepic/vue-datepicker/dist/main.css";
 import { database } from "../../firebase/firebase";
-import { addDoc, collection, doc } from "firebase/firestore";
+import { addDoc, collection, doc, getDocs } from "firebase/firestore";
 import { getStorage, ref, uploadBytes } from "firebase/storage";
 
 export default {
@@ -151,7 +151,9 @@ export default {
   data() {
     return {
       idUser: this.userId,
+      //idUser: "aljiar23@gmail.com",
       alertFlag: false,
+      componentFlag: false,
       institutionName: "",
       nameHigherEducation: "",
       levelHigherEducation: "",
@@ -164,6 +166,8 @@ export default {
 
       titlePostDegree: ["Diplomado", "Maestria"],
       graduationModality: ["Monografia", "Tesis", "Otros"],
+
+      collectionSize: 0,
     };
   },
   methods: {
@@ -224,12 +228,18 @@ export default {
       return this.formFilled;
     },
     saveData() {
-      if (this.checkFormFilled()) {
-        this.showNextForm();
-        this.uploadHigherEducationFile();
-        this.saveDataHigherEducation();
+      if (this.componentFlag == false) {
+        if (this.checkFormFilled()) {
+          this.componentFlag = true
+          console.log(this.componentFlag)
+          this.showNextForm();
+          this.uploadHigherEducationFile();
+          this.saveDataHigherEducation();
+        } else {
+          this.alertFlag = true;
+        }
       } else {
-        this.alertFlag = true;
+        this.showNextForm();
       }
     },
   },

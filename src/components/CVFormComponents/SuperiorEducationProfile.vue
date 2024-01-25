@@ -306,6 +306,7 @@ export default {
     return {
       idUser: this.userId,
       // idUser: 'aljiar23@gmail.com',
+      componentFlag: false,
       postDegreeCardFlag: false,
       alertFlag: false,
       dialogVisible: false,
@@ -530,22 +531,29 @@ export default {
     //   this.postDegreeForms[this.postDegreeForms.length - 1].postDegreeFilled = true
     // },
     checkFormsFilled() {
-      if (this.postDegreeCardFlag == false) {
-        if (this.checkDegreeList() && this.checkPostDegreeList()) {
-          this.showNextForm();
-          this.saveDataDegrees();
-          this.saveDataPostDegrees();
+      if (this.componentFlag == false) {
+        this.componentFlag = true
+
+        
+        if (this.postDegreeCardFlag == false) {
+          if (this.checkDegreeList() && this.checkPostDegreeList()) {
+            this.showNextForm();
+            this.saveDataDegrees();
+            this.saveDataPostDegrees();
+          } else {
+            this.alertFlag = true;
+          }
         } else {
-          this.alertFlag = true;
+          if (this.checkDegreeList()) {
+            this.showNextForm();
+            this.saveDataDegrees();
+            this.saveDataPostDegrees();
+          } else {
+            this.alertFlag = true;
+          }
         }
       } else {
-        if (this.checkDegreeList()) {
-          this.showNextForm();
-          this.saveDataDegrees();
-          this.saveDataPostDegrees();
-        } else {
-          this.alertFlag = true;
-        }
+        this.showNextForm();
       }
     },
     disablePostDegreeForm() {

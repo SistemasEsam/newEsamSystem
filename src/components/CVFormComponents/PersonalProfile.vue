@@ -245,6 +245,7 @@ export default {
   data() {
     return {
       component: "SuperiorEducationProfile",
+      componentFlag: false,
       clearDate: false,
       photoFile: null,
       dialog: false,
@@ -415,12 +416,17 @@ export default {
       return this.formFilled;
     },
     saveData() {
-      if (this.checkFormFilled()) {
-        this.addUser();
-        this.uploadPhotoProfile();
-        this.showNextForm();
+      if (this.componentFlag == false) {
+        if (this.checkFormFilled()) {
+          this.componentFlag = true;
+          this.addUser();
+          this.uploadPhotoProfile();
+          this.showNextForm();
+        } else {
+          this.filledFlag = true;
+        }
       } else {
-        this.filledFlag = true;
+        this.showNextForm();
       }
     },
     isBolivianID() {
