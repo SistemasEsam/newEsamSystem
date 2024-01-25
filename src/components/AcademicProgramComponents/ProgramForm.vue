@@ -9,6 +9,7 @@
               v-model="programName"
               label="Nombre del Programa"
               :rules="nameRules"
+              @input="programName = programName.toUpperCase()"
               required
             ></v-text-field>
           </v-container>
@@ -49,18 +50,18 @@
         <v-row>
           <h3>Coordinador</h3>
           <v-container>
-            <v-select
-              v-model="programCoordinator"
-              label="Coordinador del Programa"
-              :items="[
-                'Mariajose del Cielo Castellon',
-                'Viviana Peña',
-                'Alejandra Rodriguez',
-                'Anahí Vega',
-                'Milenka Villarroel',
-              ]"
+            <v-text-field
+              v-model="programCoordinatorName"
+              label="Nombre"
               required
-            ></v-select>
+            ></v-text-field>
+            <v-text-field
+              v-model="programCoordinatorLastname"
+              label="Apellidos"
+              required
+            ></v-text-field>
+            <v-text-field v-model="programCoordinatorEmail" label="Correo">
+            </v-text-field>
           </v-container>
         </v-row>
         <v-row>
@@ -80,6 +81,11 @@
                 label="Nombre del Módulo"
                 :rules="nameRules"
               ></v-text-field>
+              <v-select
+              v-model="moduleForm.moduleInstructorName"
+              label="Docente"
+              >
+              </v-select>
               <VueDatePicker
                 v-model="moduleForm.moduleDates"
                 :enable-time-picker="false"
@@ -131,14 +137,25 @@ export default {
     return {
       dialogFlag: false,
       dateFlag: "",
+      instructorStatus: 1,
+      instructorList:[
+        {
+          instructorName:"",
+          instructorLastnameF:"",
+          instructorLastnameM:"",
+          instructorEmail:"",
+          instructorPersonalPhone:0,
+        }
+      ],
 
       programId: "",
       programName: "",
       programSite: "",
       programType: "",
       programArea: "",
-      programCoordinator: "",
-
+      programCoordinatorName: "",
+      programCoordinatorLastname: "",
+      programCoordinatorEmail: "",
       nameRules: [
         (value) => {
           if (value) return true;
@@ -182,10 +199,12 @@ export default {
           moduleCode: "",
           moduleDates: "",
           moduleContent: "",
+          moduleInstructorName:"",
+          moduleInstructorEmail:"",
+          moduleInstructorPhone:"",
         },
       ],
-      programESAMSites
-      : [
+      programESAMSites: [
         { siteName: "ESAM Sucre", siteCode: "1" },
         { siteName: "ESAM Potosí", siteCode: "2" },
         { siteName: "ESAM Camargo", siteCode: "3" },
@@ -207,14 +226,24 @@ export default {
       ],
     };
   },
-  setup() {},
   created() {
     this.getProgramsList();
+    this.getInstructorsList();
   },
   methods: {
+    async getInstructorsList() {
+      const instructors = await getDocs(collection(database, "instructors"));
+      instructors.forEach((instructor) => {
+        if (instructor.data().status == this.instructorStatus) {
+          this.instructorList.push(instructor);
+        }
+      });
+    },
     async getProgramsList() {
-      const programs = await getDocs(collection(database, "postDegreePrograms"));
-      console.log(programs.size)
+      const programs = await getDocs(
+        collection(database, "postDegreePrograms")
+      );
+      console.log(programs.size);
     },
     addModuleForm() {
       this.moduleForms.push({
@@ -232,6 +261,7 @@ export default {
         .split(" ")
         .map((x) => x[0])
         .join("");
+      console.log(programInitials);
       const date = new Date();
       this.programId =
         programInitials.toUpperCase() +
@@ -246,7 +276,9 @@ export default {
         programSite: this.programSite,
         programType: this.programType,
         programArea: this.programArea,
-        programCoordinator: this.programCoordinator,
+        programCoordinatorName: this.programCoordinatorName,
+        programCoordinatorLastame: this.programCoordinatorLastname,
+        programCoordinatorEmail: this.programCoordinatorEmail,
       });
     },
     saveModules() {
@@ -271,10 +303,18 @@ export default {
             moduleCode: this.moduleCode,
             moduleDates: dates,
             moduleContent: moduleForm.moduleContent,
+            moduleInstructorName:"",
+            moduleInstructorEmail:"",
+            moduleInstructorPhone:"",
           }
         );
       });
     },
+    /* saveData() {
+      this.dialogFlag = true;
+      this.saveProgram();
+      this.saveModules();
+    }, */
     saveData() {
       this.dialogFlag = true;
       this.saveProgram();
