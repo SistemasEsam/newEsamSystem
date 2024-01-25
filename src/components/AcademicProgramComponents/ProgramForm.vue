@@ -19,7 +19,7 @@
             <v-select
               v-model="programSite"
               label="Sede del Programa"
-              :items="programSites"
+              :items="programESAMSites"
               item-title="siteName"
               item-value="siteCode"
               required
@@ -184,30 +184,26 @@ export default {
           moduleContent: "",
         },
       ],
-      programSites: [
-        { siteName: "ESAM Tarija 1", siteCode: "1" },
-        { siteName: "ESAM Tarija 2", siteCode: "2" },
-        { siteName: "ESAM Sucre", siteCode: "3" },
-        { siteName: "ESAM Potosí", siteCode: "4" },
-        { siteName: "ESAM Santa Cruz", siteCode: "5" },
+      programESAMSites
+      : [
+        { siteName: "ESAM Sucre", siteCode: "1" },
+        { siteName: "ESAM Potosí", siteCode: "2" },
+        { siteName: "ESAM Camargo", siteCode: "3" },
+        { siteName: "ESAM Santa Cruz", siteCode: "4" },
+        { siteName: "ESAM Cochabamba", siteCode: "5" },
         { siteName: "ESAM Yacuiba", siteCode: "6" },
-        { siteName: "ESAM Camargo", siteCode: "7" },
-        { siteName: "ESAM Cochabamba", siteCode: "8" },
+        { siteName: "ESAM Tarija", siteCode: "7" },
+        { siteName: "ESAM Tarija Sucursal", siteCode: "8" },
         { siteName: "ESAM La Paz", siteCode: "9" },
         { siteName: "ESAM Santa Cruz Sucursal", siteCode: "10" },
-        { siteName: "ESAM Monteagudo", siteCode: "11" },
-        { siteName: "Benito Juarez", siteCode: "12" },
+        { siteName: "ESAM LATAM", siteCode: "11" },
+        { siteName: "ESAM Monteagudo", siteCode: "12" },
         { siteName: "ESAM Sucre Sucursal", siteCode: "13" },
         { siteName: "ESAM La Paz Sucursal", siteCode: "14" },
         { siteName: "ESAM Cochabamba Sucursal", siteCode: "15" },
         { siteName: "ESAM Oruro", siteCode: "16" },
         { siteName: "ESAM Potosí Sucursal", siteCode: "17" },
         { siteName: "ESAM Tarija 3", siteCode: "18" },
-        {
-          siteName: "Dirección Nacional de Formación Continua",
-          siteCode: "19",
-        },
-        { siteName: "Grupo Coorporativo", siteCode: "20" },
       ],
     };
   },
