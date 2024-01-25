@@ -533,6 +533,8 @@ export default {
     checkFormsFilled() {
       if (this.componentFlag == false) {
         this.componentFlag = true
+
+        
         if (this.postDegreeCardFlag == false) {
           if (this.checkDegreeList() && this.checkPostDegreeList()) {
             this.showNextForm();
