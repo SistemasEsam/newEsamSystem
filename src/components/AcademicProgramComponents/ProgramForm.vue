@@ -1,7 +1,25 @@
 <template>
-  <v-form>
-    <v-container>
+  <v-form class="program-main">
+    <v-container class="program-form">
       <v-col>
+        <v-row>
+          <h3>Código de Programa</h3>
+          <v-container>
+            <v-checkbox
+              label="Programa Nuevo"
+              @change="disableProgramIdField()"
+            >
+            </v-checkbox>
+            <v-label>Código contable del programa. </v-label>
+            <v-text-field
+              v-model="programId"
+              label="Código del Programa"
+              @input="programId = programId.toUpperCase()"
+              :disabled="programIdFlag"
+              required
+            ></v-text-field>
+          </v-container>
+        </v-row>
         <v-row>
           <h3>Programa</h3>
           <v-container>
@@ -12,6 +30,19 @@
               @input="programName = programName.toUpperCase()"
               required
             ></v-text-field>
+          </v-container>
+        </v-row>
+        <v-row>
+          <h3>Gestión</h3>
+          <v-container>
+            <VueDatePicker
+              v-model="programYear"
+              :teleport="true"
+              year-picker
+              placeholder="Año de inicio"
+              :year-range="[2010, currentYear]"
+            >
+            </VueDatePicker>
           </v-container>
         </v-row>
         <v-row>
@@ -82,15 +113,36 @@
                 :rules="nameRules"
               ></v-text-field>
               <v-select
-              v-model="moduleForm.moduleInstructorName"
-              label="Docente"
+                v-model="moduleForm.moduleInstructorName"
+                label="Docente"
+                :items="instructorList"
+                return-object
               >
               </v-select>
+              <v-checkbox @change="disableInvoice()" label="Internacional">
+              </v-checkbox>
+              <v-radio-group v-model="invoice" label="FACTURA" inline :disabled="invoiceFlag">
+                <v-radio label="Si" value="1"></v-radio>
+                <v-radio label="No" value="2"></v-radio>
+              </v-radio-group>
+
               <VueDatePicker
                 v-model="moduleForm.moduleDates"
                 :enable-time-picker="false"
                 multi-dates
                 placeholder="Fechas de clases"
+              ></VueDatePicker>
+              <br />
+              <VueDatePicker
+                v-model="moduleForm.startHour"
+                time-picker
+                placeholder="Hora Inicio"
+              ></VueDatePicker>
+              <br />
+              <VueDatePicker
+                v-model="moduleForm.endHour"
+                time-picker
+                placeholder="Hora Fin"
               ></VueDatePicker>
               <br />
               <v-textarea
@@ -138,18 +190,15 @@ export default {
       dialogFlag: false,
       dateFlag: "",
       instructorStatus: 1,
-      instructorList:[
-        {
-          instructorName:"",
-          instructorLastnameF:"",
-          instructorLastnameM:"",
-          instructorEmail:"",
-          instructorPersonalPhone:0,
-        }
-      ],
+      instructorList: [],
+      programIdFlag: false,
+      currentYear: new Date().getFullYear(),
+      invoiceFlag: false,
+      invoice: 0,
 
       programId: "",
       programName: "",
+      programYear:"",
       programSite: "",
       programType: "",
       programArea: "",
@@ -196,12 +245,16 @@ export default {
       moduleForms: [
         {
           moduleName: "",
+          moduleInstructorName:"",
+          moduleInvoice:0,
           moduleCode: "",
           moduleDates: "",
+          moduleStartHour: "",
+          moduleEndHour: "",
           moduleContent: "",
-          moduleInstructorName:"",
-          moduleInstructorEmail:"",
-          moduleInstructorPhone:"",
+          moduleInstructorName: "",
+          moduleInstructorEmail: "",
+          moduleInstructorPhone: "",
         },
       ],
       programESAMSites: [
@@ -235,7 +288,13 @@ export default {
       const instructors = await getDocs(collection(database, "instructors"));
       instructors.forEach((instructor) => {
         if (instructor.data().status == this.instructorStatus) {
-          this.instructorList.push(instructor);
+          this.instructorList.push(
+            instructor.data().name +
+              " " +
+              instructor.data().lastNameF +
+              " " +
+              instructor.data().lastNameM
+          );
         }
       });
     },
@@ -252,6 +311,12 @@ export default {
         moduleDates: [],
         moduleContent: "",
       });
+    },
+    disableProgramIdField() {
+      this.programIdFlag = !this.programIdFlag;
+    },
+    disableInvoice() {
+      this.invoiceFlag = !this.invoiceFlag;
     },
     deleteModuleForm(index) {
       this.moduleForms.splice(index, 1);
@@ -303,9 +368,9 @@ export default {
             moduleCode: this.moduleCode,
             moduleDates: dates,
             moduleContent: moduleForm.moduleContent,
-            moduleInstructorName:"",
-            moduleInstructorEmail:"",
-            moduleInstructorPhone:"",
+            moduleInstructorName: "",
+            moduleInstructorEmail: "",
+            moduleInstructorPhone: "",
           }
         );
       });
@@ -327,4 +392,8 @@ export default {
 };
 </script>
 <style>
+.program-form{
+  position: relative;
+  width: 65rem;
+}
 </style>
