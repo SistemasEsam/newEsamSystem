@@ -121,7 +121,12 @@
               </v-select>
               <v-checkbox @change="disableInvoice()" label="Internacional">
               </v-checkbox>
-              <v-radio-group v-model="invoice" label="FACTURA" inline :disabled="invoiceFlag">
+              <v-radio-group
+                v-model="invoice"
+                label="FACTURA"
+                inline
+                :disabled="invoiceFlag"
+              >
                 <v-radio label="Si" value="1"></v-radio>
                 <v-radio label="No" value="2"></v-radio>
               </v-radio-group>
@@ -198,7 +203,7 @@ export default {
 
       programId: "",
       programName: "",
-      programYear:"",
+      programYear: "",
       programSite: "",
       programType: "",
       programArea: "",
@@ -245,8 +250,8 @@ export default {
       moduleForms: [
         {
           moduleName: "",
-          moduleInstructorName:"",
-          moduleInvoice:0,
+          moduleInstructorName: "",
+          moduleInvoice: 0,
           moduleCode: "",
           moduleDates: "",
           moduleStartHour: "",
@@ -322,19 +327,20 @@ export default {
       this.moduleForms.splice(index, 1);
     },
     saveProgram() {
-      const programInitials = this.programName
-        .split(" ")
-        .map((x) => x[0])
-        .join("");
-      console.log(programInitials);
-      const date = new Date();
-      this.programId =
-        programInitials.toUpperCase() +
-        "-" +
-        this.programSite * 1000 +
-        "-" +
-        (date.getFullYear() + "").substring(2, 4);
-      console.log(this.programId);
+      if (this.programIdFlag) {
+        const programInitials = this.programName
+          .split(" ")
+          .map((x) => x[0])
+          .join("");
+        console.log(programInitials);
+        const date = new Date();
+        this.programId =
+          programInitials.toUpperCase() +
+          "-" +
+          this.programSite * 1000 +
+          "-" +
+          (date.getFullYear() + "").substring(2, 4);
+      }
       setDoc(doc(database, "postDegreePrograms", this.programId), {
         programId: this.programId,
         programName: this.programName,
@@ -392,7 +398,7 @@ export default {
 };
 </script>
 <style>
-.program-form{
+.program-form {
   position: relative;
   width: 65rem;
 }
