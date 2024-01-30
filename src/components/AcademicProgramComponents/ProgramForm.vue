@@ -112,17 +112,22 @@
                 label="Nombre del Módulo"
                 :rules="nameRules"
               ></v-text-field>
+              <v-checkbox
+                @change="instructorNotDefine()"
+                label="Docente no definido"
+              ></v-checkbox>
               <v-select
                 v-model="moduleForm.moduleInstructorName"
                 label="Docente"
                 :items="instructorList"
                 return-object
+                :disabled="instructorFlag"
               >
               </v-select>
               <v-checkbox @change="disableInvoice()" label="Internacional">
               </v-checkbox>
               <v-radio-group
-                v-model="invoice"
+                v-model="moduleInvoice"
                 label="FACTURA"
                 inline
                 :disabled="invoiceFlag"
@@ -139,13 +144,13 @@
               ></VueDatePicker>
               <br />
               <VueDatePicker
-                v-model="moduleForm.startHour"
+                v-model="moduleForm.moduleStartHour"
                 time-picker
                 placeholder="Hora Inicio"
               ></VueDatePicker>
               <br />
               <VueDatePicker
-                v-model="moduleForm.endHour"
+                v-model="moduleForm.moduleEndHour"
                 time-picker
                 placeholder="Hora Fin"
               ></VueDatePicker>
@@ -185,6 +190,7 @@ import VueDatePicker from "@vuepic/vue-datepicker";
 import "@vuepic/vue-datepicker/dist/main.css";
 import { database } from "../../firebase/firebase";
 import { doc, collection, getDocs, setDoc } from "firebase/firestore";
+import { ref } from "vue";
 
 export default {
   components: {
@@ -200,6 +206,8 @@ export default {
       currentYear: new Date().getFullYear(),
       invoiceFlag: false,
       invoice: 0,
+      instructorFlag: false,
+      programsQuantity: 0,
 
       programId: "",
       programName: "",
@@ -307,18 +315,26 @@ export default {
       const programs = await getDocs(
         collection(database, "postDegreePrograms")
       );
-      console.log(programs.size);
+      this.programsQuantity = programs.size;
+      console.log("Cantidad de programas: " + this.programsQuantity);
     },
     addModuleForm() {
       this.moduleForms.push({
         moduleName: "",
+        moduleInstructorName: "",
+        moduleInvoice: 0,
         moduleCode: "",
-        moduleDates: [],
+        moduleDates: "",
+        moduleStartHour: "",
+        moduleEndHour: "",
         moduleContent: "",
       });
     },
     disableProgramIdField() {
       this.programIdFlag = !this.programIdFlag;
+    },
+    instructorNotDefine() {
+      this.instructorFlag = !this.instructorFlag;
     },
     disableInvoice() {
       this.invoiceFlag = !this.invoiceFlag;
@@ -332,18 +348,18 @@ export default {
           .split(" ")
           .map((x) => x[0])
           .join("");
-        console.log(programInitials);
         const date = new Date();
         this.programId =
-          programInitials.toUpperCase() +
+          programInitials.toUpperCase().substring(0, 5) +
           "-" +
-          this.programSite * 1000 +
-          "-" +
-          (date.getFullYear() + "").substring(2, 4);
+          (this.programSite * 1000 + this.programsQuantity + 1);
+        "-" + (date.getFullYear() + "").substring(2, 4);
+        console.log(this.programId);
       }
       setDoc(doc(database, "postDegreePrograms", this.programId), {
         programId: this.programId,
         programName: this.programName,
+        programYear: this.programYear,
         programSite: this.programSite,
         programType: this.programType,
         programArea: this.programArea,
@@ -358,10 +374,14 @@ export default {
           .split(" ")
           .map((x) => x[0])
           .join("");
-        this.moduleCode = this.programId + "-" + moduleInitials;
-        console.log();
+        this.moduleCode = this.programId + "-" + moduleInitials.substring(0, 5);
         const dates = JSON.parse(JSON.stringify(moduleForm.moduleDates));
-        setDoc(
+        const startHour = JSON.parse(JSON.stringify(moduleForm.moduleStartHour));
+        const endHour = JSON.parse(JSON.stringify(moduleForm.moduleEndHour));
+        console.log(startHour)
+        console.log(startHour.hours+":"+startHour.minutes)
+
+        /* setDoc(
           doc(
             database,
             "postDegreePrograms",
@@ -371,14 +391,15 @@ export default {
           ),
           {
             moduleName: moduleForm.moduleName,
+            moduleInstructorName: moduleForm.moduleInstructorName,
+            moduleInvoice: moduleForm.moduleInvoice,
             moduleCode: this.moduleCode,
             moduleDates: dates,
+            moduleStartHour: startHour.hour+":"+startHour.minutes,
+            moduleEndHour: endHour.hour+":"+endHour.minutes,
             moduleContent: moduleForm.moduleContent,
-            moduleInstructorName: "",
-            moduleInstructorEmail: "",
-            moduleInstructorPhone: "",
           }
-        );
+        ); */
       });
     },
     /* saveData() {
@@ -388,7 +409,7 @@ export default {
     }, */
     saveData() {
       this.dialogFlag = true;
-      this.saveProgram();
+      //this.saveProgram();
       this.saveModules();
     },
     closeDialog() {
