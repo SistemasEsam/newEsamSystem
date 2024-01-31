@@ -113,24 +113,35 @@
                 :rules="nameRules"
               ></v-text-field>
               <v-checkbox
-                @change="instructorNotDefine()"
+                @change="
+                  moduleForm.moduleInstructorFlag =
+                    !moduleForm.moduleInstructorFlag
+                "
                 label="Docente no definido"
               ></v-checkbox>
               <v-select
-                v-model="moduleForm.moduleInstructorName"
+                v-model="moduleForm.moduleInstructor"
                 label="Docente"
                 :items="instructorList"
+                item-title="instructorName"
                 return-object
-                :disabled="instructorFlag"
+                filled
+                :disabled="moduleForm.moduleInstructorFlag"
               >
               </v-select>
-              <v-checkbox @change="disableInvoice()" label="Internacional">
+              <v-checkbox
+                @change="
+                  moduleForm.moduleInvoiceFlag =
+                    !moduleForm.moduleInvoiceFlag
+                "
+                label="Internacional"
+              >
               </v-checkbox>
               <v-radio-group
-                v-model="moduleInvoice"
+                v-model="moduleForm.moduleInvoice"
                 label="FACTURA"
                 inline
-                :disabled="invoiceFlag"
+                :disabled="moduleForm.moduleInvoiceFlag"
               >
                 <v-radio label="Si" value="1"></v-radio>
                 <v-radio label="No" value="2"></v-radio>
@@ -204,9 +215,6 @@ export default {
       instructorList: [],
       programIdFlag: false,
       currentYear: new Date().getFullYear(),
-      invoiceFlag: false,
-      invoice: 0,
-      instructorFlag: false,
       programsQuantity: 0,
 
       programId: "",
@@ -258,14 +266,16 @@ export default {
       moduleForms: [
         {
           moduleName: "",
+          moduleInstructorFlag: false,
           moduleInstructorName: "",
+          moduleInvoiceFlag: false,
           moduleInvoice: 0,
           moduleCode: "",
           moduleDates: "",
           moduleStartHour: "",
           moduleEndHour: "",
           moduleContent: "",
-          moduleInstructorName: "",
+          moduleInstructor: null,
           moduleInstructorEmail: "",
           moduleInstructorPhone: "",
         },
@@ -301,15 +311,19 @@ export default {
       const instructors = await getDocs(collection(database, "instructors"));
       instructors.forEach((instructor) => {
         if (instructor.data().status == this.instructorStatus) {
-          this.instructorList.push(
-            instructor.data().name +
+          this.instructorList.push({
+            instructorName:
+              instructor.data().name +
               " " +
               instructor.data().lastNameF +
               " " +
-              instructor.data().lastNameM
-          );
+              instructor.data().lastNameM,
+            instructorEmail: instructor.data().email,
+            instructorPhone: instructor.data().personalPhone,
+          });
         }
       });
+      console.log(this.instructorList[0].instructorName);
     },
     async getProgramsList() {
       const programs = await getDocs(
@@ -333,8 +347,8 @@ export default {
     disableProgramIdField() {
       this.programIdFlag = !this.programIdFlag;
     },
-    instructorNotDefine() {
-      this.instructorFlag = !this.instructorFlag;
+    instructorNotDefine(moduleInstructorFlag) {
+      return !moduleInstructorFlag;
     },
     disableInvoice() {
       this.invoiceFlag = !this.invoiceFlag;
@@ -376,12 +390,11 @@ export default {
           .join("");
         this.moduleCode = this.programId + "-" + moduleInitials.substring(0, 5);
         const dates = JSON.parse(JSON.stringify(moduleForm.moduleDates));
-        const startHour = JSON.parse(JSON.stringify(moduleForm.moduleStartHour));
+        const startHour = JSON.parse(
+          JSON.stringify(moduleForm.moduleStartHour)
+        );
         const endHour = JSON.parse(JSON.stringify(moduleForm.moduleEndHour));
-        console.log(startHour)
-        console.log(startHour.hours+":"+startHour.minutes)
-
-        /* setDoc(
+        setDoc(
           doc(
             database,
             "postDegreePrograms",
@@ -395,11 +408,15 @@ export default {
             moduleInvoice: moduleForm.moduleInvoice,
             moduleCode: this.moduleCode,
             moduleDates: dates,
-            moduleStartHour: startHour.hour+":"+startHour.minutes,
-            moduleEndHour: endHour.hour+":"+endHour.minutes,
+            moduleStartHour: this.formatHour(startHour),
+            moduleEndHour: this.formatHour(endHour),
             moduleContent: moduleForm.moduleContent,
+            moduleInstructorName: moduleForm.moduleInstructor.instructorName,
+            moduleInstructorEmail: moduleForm.moduleInstructor.instructorEmail,
+            moduleInstructorPhone: moduleForm.moduleInstructor.instructorPhone,
+            
           }
-        ); */
+        );
       });
     },
     /* saveData() {
@@ -407,9 +424,20 @@ export default {
       this.saveProgram();
       this.saveModules();
     }, */
+    formatHour(hour) {
+      let hourFormated;
+      let minutesFormated;
+      if (hour.minutes < 10) {
+        minutesFormated = 0 + "" + hour.minutes;
+      } else {
+        minutesFormated = hour.minutes;
+      }
+      hourFormated = hour.hours + ":" + minutesFormated;
+      return hourFormated;
+    },
     saveData() {
       this.dialogFlag = true;
-      //this.saveProgram();
+      this.saveProgram();
       this.saveModules();
     },
     closeDialog() {
