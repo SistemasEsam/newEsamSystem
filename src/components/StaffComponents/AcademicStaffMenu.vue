@@ -36,7 +36,7 @@
         </v-btn>
       </v-col>
       <v-col>
-        <v-btn class="button-style" size="300px">
+        <v-btn @click="openProgram()" class="button-style" size="300px">
           <v-icon size="200px"> mdi-text-box-outline </v-icon>
           <h3 class="text-position">Programas</h3>
         </v-btn>
@@ -75,6 +75,10 @@ export default {
     },
     openProgramForm() {
       let programFormTab = router.resolve({ name: "academicProgramView" });
+      window.open(programFormTab.href);
+    },
+    openProgram() {
+      let programFormTab = router.resolve({ name: "programView" });
       window.open(programFormTab.href);
     },
   },
