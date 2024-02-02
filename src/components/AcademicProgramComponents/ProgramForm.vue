@@ -5,6 +5,10 @@
         <v-row>
           <h3>Código de Programa</h3>
           <v-container>
+            <v-label>
+              Nota: Si el proyecto a ingresar no cuenta con el código contable
+              marcar la casilla "Programa Nuevo".
+            </v-label>
             <v-checkbox
               label="Programa Nuevo"
               @change="disableProgramIdField()"
@@ -23,6 +27,10 @@
         <v-row>
           <h3>Programa</h3>
           <v-container>
+            <v-label>
+              Nota: Escriba el nombre completo del programa, tome en cuenta la
+              ortografía.
+            </v-label>
             <v-text-field
               v-model="programName"
               label="Nombre del Programa"
@@ -33,14 +41,18 @@
           </v-container>
         </v-row>
         <v-row>
-          <h3>Gestión</h3>
+          <h3>Cronograma</h3>
           <v-container>
+            <v-label>
+              Nota: Ingrese la fecha de inicio y la fecha de finalización.
+            </v-label>
             <VueDatePicker
               v-model="programYear"
               :teleport="true"
-              year-picker
-              placeholder="Año de inicio"
-              :year-range="[2010, currentYear]"
+              range
+              :partial-range="false"
+              :enable-time-picker="false"
+              placeholder="Inicio y Fin"
             >
             </VueDatePicker>
           </v-container>
@@ -48,6 +60,9 @@
         <v-row>
           <h3>Sede</h3>
           <v-container>
+            <v-label>
+              Nota: Seleccione la sucursal a la que corresponde el programa.
+            </v-label>
             <v-select
               v-model="programSite"
               label="Sede del Programa"
@@ -61,6 +76,7 @@
         <v-row>
           <h3>Tipo de Programa</h3>
           <v-container>
+            <v-label> Nota: Seleccione el tipo de programa. </v-label>
             <v-select
               v-model="programType"
               label="Tipo de Programa"
@@ -71,6 +87,9 @@
         <v-row>
           <h3>Area del Programa</h3>
           <v-container>
+            <v-label>
+              Nota: Seleccione el area a la que pertenece el programa.
+            </v-label>
             <v-select
               v-model="programArea"
               label="Area"
@@ -81,6 +100,9 @@
         <v-row>
           <h3>Coordinador</h3>
           <v-container>
+            <v-label>
+              Nota: Ingrese los datos del coordinador/encargado del programa.
+            </v-label>
             <v-text-field
               v-model="programCoordinatorName"
               label="Nombre"
@@ -107,11 +129,19 @@
               >
                 <v-icon size="x-large">mdi-close-thick</v-icon>
               </v-btn>
+              <v-label>
+                Nota: Ingrese el nombre del módulo, tome en cuenta la
+                ortografía.
+              </v-label>
               <v-text-field
                 v-model="moduleForm.moduleName"
                 label="Nombre del Módulo"
                 :rules="nameRules"
               ></v-text-field>
+              <v-label>
+                Nota: Ingrese el nombre del docente designado, si no se ha
+                elegido docente marque la casilla "Docente no definido".
+              </v-label>
               <v-checkbox
                 @change="
                   moduleForm.moduleInstructorFlag =
@@ -129,14 +159,21 @@
                 :disabled="moduleForm.moduleInstructorFlag"
               >
               </v-select>
+              <v-label>
+                Nota: Si el docente designado es del exterior marque la casilla
+                "Internacional".
+              </v-label>
               <v-checkbox
                 @change="
-                  moduleForm.moduleInvoiceFlag =
-                    !moduleForm.moduleInvoiceFlag
+                  moduleForm.moduleInvoiceFlag = !moduleForm.moduleInvoiceFlag
                 "
                 label="Internacional"
               >
               </v-checkbox>
+              <v-label>
+                Nota: En caso de que el docente facture, marque sí; caso
+                contrario, marque no.
+              </v-label>
               <v-radio-group
                 v-model="moduleForm.moduleInvoice"
                 label="FACTURA"
@@ -146,7 +183,10 @@
                 <v-radio label="Si" value="1"></v-radio>
                 <v-radio label="No" value="2"></v-radio>
               </v-radio-group>
-
+              <v-label>
+                Nota: Seleccione todas las fechas en las cuales se llevara a
+                cabo el módulo.
+              </v-label>
               <VueDatePicker
                 v-model="moduleForm.moduleDates"
                 :enable-time-picker="false"
@@ -154,6 +194,10 @@
                 placeholder="Fechas de clases"
               ></VueDatePicker>
               <br />
+              <v-label>
+                Nota: Seleccione la hora de inicio y la hora de finalización del
+                módulo.
+              </v-label>
               <VueDatePicker
                 v-model="moduleForm.moduleStartHour"
                 time-picker
@@ -166,6 +210,10 @@
                 placeholder="Hora Fin"
               ></VueDatePicker>
               <br />
+              <v-label>
+                Nota: Ingrese el contenido tentativo para el desarrollo del
+                módulo.
+              </v-label>
               <v-textarea
                 v-model="moduleForm.moduleContent"
                 label="Contenido del Módulo"
@@ -175,6 +223,18 @@
             <v-btn v-if="moduleForms.length < 9" @click="addModuleForm()">
               Añadir Módulo
             </v-btn>
+          </v-container>
+        </v-row>
+        <v-row>
+          <v-container>
+            <v-label> Nota: Seleccione el documento del proytecto. </v-label>
+            <v-file-input
+              @change="loadProgramProject($event)"
+              label="Subir proyecto"
+              chips
+              accept="application/pdf"
+            >
+            </v-file-input>
           </v-container>
         </v-row>
       </v-col>
@@ -201,7 +261,7 @@ import VueDatePicker from "@vuepic/vue-datepicker";
 import "@vuepic/vue-datepicker/dist/main.css";
 import { database } from "../../firebase/firebase";
 import { doc, collection, getDocs, setDoc } from "firebase/firestore";
-import { ref } from "vue";
+import { getStorage, ref, uploadBytes } from "firebase/storage";
 
 export default {
   components: {
@@ -226,6 +286,8 @@ export default {
       programCoordinatorName: "",
       programCoordinatorLastname: "",
       programCoordinatorEmail: "",
+      programProjectFile: null,
+
       nameRules: [
         (value) => {
           if (value) return true;
@@ -363,17 +425,20 @@ export default {
           .map((x) => x[0])
           .join("");
         const date = new Date();
+
+        console.log((date.getFullYear() + "").substring(2, 4));
         this.programId =
-          programInitials.toUpperCase().substring(0, 5) +
+          programInitials.substring(0, 5) +
           "-" +
-          (this.programSite * 1000 + this.programsQuantity + 1);
-        "-" + (date.getFullYear() + "").substring(2, 4);
+          (this.programSite * 1000 + this.programsQuantity + 1) +
+          "-" +
+          (date.getFullYear() + "").substring(2, 4);
         console.log(this.programId);
       }
       setDoc(doc(database, "postDegreePrograms", this.programId), {
         programId: this.programId,
         programName: this.programName,
-        programYear: this.programYear,
+        programYear: JSON.parse(JSON.stringify(this.programYear)),
         programSite: this.programSite,
         programType: this.programType,
         programArea: this.programArea,
@@ -414,16 +479,24 @@ export default {
             moduleInstructorName: moduleForm.moduleInstructor.instructorName,
             moduleInstructorEmail: moduleForm.moduleInstructor.instructorEmail,
             moduleInstructorPhone: moduleForm.moduleInstructor.instructorPhone,
-            
           }
         );
       });
     },
-    /* saveData() {
-      this.dialogFlag = true;
-      this.saveProgram();
-      this.saveModules();
-    }, */
+    loadProgramProject(e) {
+      this.programProjectFile = e.target.files[0];
+    },
+    saveFile() {
+      const storage = getStorage();
+      let newIdProgram = this.programId;
+      const storageRef = ref(
+        storage,
+        "/Programs/" + newIdProgram + "/Project/" + this.programProjectFile.name
+      );
+      uploadBytes(storageRef, this.programProjectFile).then((snapshot) => {
+        console.log("Uploaded project file!");
+      });
+    },
     formatHour(hour) {
       let hourFormated;
       let minutesFormated;
@@ -439,6 +512,7 @@ export default {
       this.dialogFlag = true;
       this.saveProgram();
       this.saveModules();
+      this.saveFile();
     },
     closeDialog() {
       this.dialogFlag = false;
