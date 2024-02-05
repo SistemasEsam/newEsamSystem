@@ -19,6 +19,9 @@
     </v-container>
 </template>
 <script>
+import { ref } from "vue";
+import { database } from "../../firebase/firebase";
+import { collection, getDocs } from "firebase/firestore";
 
 export default {
   data() {
