@@ -9,7 +9,7 @@
  import AcademicProgramView from '../views/AcademicProgramViews/AcademicProgramView.vue'
  import InvitationView from '../views/InvitationViews/InvitationView.vue'
 import ProgramView from '../views/AcademicProgramViews/ProgramView.vue'
-import ExampleView from '../components/MKTreports/Example.vue'
+import MKTreportView from  '../views/MKTreportViews/MKTreportView.vue'
 
 const routes = [
   {
@@ -54,9 +54,9 @@ const routes = [
     component: InvitationView
   },
   {
-    path: '/example',
-    name: 'example',
-    component: ExampleView
+    path: '/MKTreport',
+    name: 'MKTreport',
+    component: MKTreportView
   },
 
 ]
