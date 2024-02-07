@@ -9,17 +9,11 @@
               Nota: Si el proyecto a ingresar no cuenta con el código contable
               marcar la casilla "Programa Nuevo".
             </v-label>
-            <v-checkbox
-              label="Programa Nuevo"
-              @change="disableProgramIdField()"
-            >
-            </v-checkbox>
             <v-label>Código contable del programa. </v-label>
             <v-text-field
               v-model="programId"
               label="Código del Programa"
               @input="programId = programId.toUpperCase()"
-              :disabled="programIdFlag"
               required
             ></v-text-field>
           </v-container>
@@ -156,7 +150,7 @@
                   moduleForm.moduleName = moduleForm.moduleName.toUpperCase()
                 "
               ></v-text-field>
-              <h4> Requerimientos:</h4>
+              <h4>Requerimientos:</h4>
               <v-select
                 v-model="moduleForm.moduleInstructorOption"
                 label="Docente"
@@ -172,13 +166,21 @@
                 item-title="instructorName"
                 return-object
                 filled
-                :disabled="moduleForm.moduleInstructorFlag"
               >
               </v-select>
               <v-form v-else-if="moduleForm.moduleInstructorOption == 2">
-                <v-text-field label="Nombre del Docente"></v-text-field>
-                <v-text-field label="Correo del Docente"></v-text-field>
-                <v-text-field label="Telefono del Docente"></v-text-field>
+                <v-text-field
+                  v-model="moduleForm.moduleInstructorName"
+                  label="Nombre del Docente"
+                ></v-text-field>
+                <v-text-field
+                  v-model="moduleForm.moduleInstructorEmail"
+                  label="Correo del Docente"
+                ></v-text-field>
+                <v-text-field
+                  v-model="moduleForm.moduleInstructorPhone"
+                  label="Telefono del Docente"
+                ></v-text-field>
               </v-form>
               <v-select
                 v-model="moduleForm.moduleInvoice"
@@ -234,7 +236,7 @@
         <v-row>
           <v-container>
             <h4>Archivo:</h4>
-            <v-label> Nota: Seleccione el documento del proytecto. </v-label>
+            <v-label> Nota: Seleccione el documento del proyecto. </v-label>
             <v-file-input
               @change="loadProgramProject($event)"
               label="Subir proyecto"
@@ -280,7 +282,6 @@ export default {
       dateFlag: "",
       instructorStatus: 1,
       instructorList: [],
-      programIdFlag: false,
       currentYear: new Date().getFullYear(),
       programsQuantity: 0,
 
@@ -335,17 +336,17 @@ export default {
       moduleForms: [
         {
           moduleName: "",
-          moduleInstructorFlag: false,
-          moduleInstructorName: "",
-          moduleInvoiceFlag: false,
-          moduleInvoice: "",
           moduleCode: "",
+          moduleInstructorOption: "",
+          moduleInstructor: null,
+          moduleInstructorName: "",
+          moduleInstructorEmail: "",
+          moduleInstructorPhone: "",
+          moduleInvoice: "",
           moduleDates: "",
           moduleStartHour: "",
           moduleEndHour: "",
           moduleContent: "",
-          moduleInstructor: null,
-          moduleInstructorOption: "",
         },
       ],
       programESAMSites: [
@@ -369,14 +370,20 @@ export default {
         { siteName: "ESAM Tarija 3", siteCode: "18" },
       ],
       instructorOptionList: [
-        { optionName: "No definido (En proceso de selección)", optionCode: "0" },
+        {
+          optionName: "No definido (En proceso de selección)",
+          optionCode: "0",
+        },
         { optionName: "Antiguo (Presente en la base datos)", optionCode: "1" },
         { optionName: "Nuevo (Primera experiencia laboral)", optionCode: "2" },
       ],
       invoiceOptionList: [
         { invoiceName: "Factura", invoiceCode: "0" },
         { invoiceName: "Retención", invoiceCode: "1" },
-        { invoiceName: "Internacional (No aplica facturación)", invoiceCode: "2" },
+        {
+          invoiceName: "Internacional (No aplica facturación)",
+          invoiceCode: "2",
+        },
       ],
     };
   },
@@ -413,21 +420,18 @@ export default {
     addModuleForm() {
       this.moduleForms.push({
         moduleName: "",
-        moduleInstructorFlag: false,
-        moduleInstructorName: "",
-        moduleInvoiceFlag: false,
-        moduleInvoice: "",
         moduleCode: "",
+        moduleInstructorOption: "",
+        moduleInstructor: null,
+        moduleInstructorName: "",
+        moduleInstructorEmail: "",
+        moduleInstructorPhone: "",
+        moduleInvoice: "",
         moduleDates: "",
         moduleStartHour: "",
         moduleEndHour: "",
         moduleContent: "",
-        moduleInstructor: null,
-        moduleInstructorOption: "",
       });
-    },
-    disableProgramIdField() {
-      this.programIdFlag = !this.programIdFlag;
     },
     instructorNotDefine(moduleInstructorFlag) {
       return !moduleInstructorFlag;
@@ -482,14 +486,18 @@ export default {
         let instructorName;
         let instructorEmail;
         let instructorPhone;
-        if (!moduleForm.moduleInstructorFlag) {
-          instructorName = moduleForm.moduleInstructor.instructorName;
-          instructorEmail = moduleForm.moduleInstructor.instructorEmail;
-          instructorPhone = moduleForm.moduleInstructor.instructorPhone;
-        } else {
+        if(moduleForm.moduleInstructorOption == 0){
           instructorName = "";
           instructorEmail = "";
           instructorPhone = "";
+        }else if(moduleForm.moduleInstructorOption == 1){
+          instructorName = moduleForm.moduleInstructor.instructorName;
+          instructorEmail = moduleForm.moduleInstructor.instructorEmail;
+          instructorPhone = moduleForm.moduleInstructor.instructorPhone;
+        }else if(moduleForm.moduleInstructorOption == 2){
+          instructorName = moduleForm.moduleInstructorName;
+          instructorEmail = moduleForm.moduleInstructorEmail;
+          instructorPhone = moduleForm.moduleInstructorPhone;
         }
         setDoc(
           doc(
@@ -501,15 +509,15 @@ export default {
           ),
           {
             moduleName: moduleForm.moduleName,
-            moduleInvoice: moduleForm.moduleInvoice,
             moduleCode: this.moduleCode,
+            moduleInstructorName: instructorName,
+            moduleInstructorEmail: instructorEmail,
+            moduleInstructorPhone: instructorPhone,
+            moduleInvoice: moduleForm.moduleInvoice,
             moduleDates: dates,
             moduleStartHour: this.formatHour(startHour),
             moduleEndHour: this.formatHour(endHour),
             moduleContent: moduleForm.moduleContent,
-            moduleInstructorName: instructorName,
-            moduleInstructorEmail: instructorEmail,
-            moduleInstructorPhone: instructorPhone,
           }
         );
       });
