@@ -335,6 +335,7 @@ export default {
 
       moduleForms: [
         {
+          moduleOrder: "",
           moduleName: "",
           moduleCode: "",
           moduleInstructorOption: "",
@@ -419,6 +420,7 @@ export default {
     },
     addModuleForm() {
       this.moduleForms.push({
+        moduleOrder: "",
         moduleName: "",
         moduleCode: "",
         moduleInstructorOption: "",
@@ -472,7 +474,8 @@ export default {
       });
     },
     saveModules() {
-      this.moduleForms.forEach((moduleForm) => {
+      this.moduleForms.forEach((moduleForm, index) => {
+        console.log("Módulo: "+index)
         const moduleInitials = moduleForm.moduleName
           .split(" ")
           .map((x) => x[0])
@@ -508,6 +511,7 @@ export default {
             this.moduleCode
           ),
           {
+            moduleOrder: ("M"+index),
             moduleName: moduleForm.moduleName,
             moduleCode: this.moduleCode,
             moduleInstructorName: instructorName,
