@@ -67,13 +67,14 @@
             item-value="invoiceCode"
           ></v-select>
         </v-form>
+        <v-btn>Actualizar módulo</v-btn>
       </v-card-item>
     </v-card>
   </v-container>
 </template>
 <script>
 import { database } from "../../firebase/firebase";
-import { doc, collection, getDocs, setDoc, orderBy } from "firebase/firestore";
+import { updateDoc, collection, getDocs} from "firebase/firestore";
 import { ref } from "vue";
 
 export default {
@@ -83,8 +84,6 @@ export default {
       moduleList: ref([]),
       instructorList: [],
       instructorStatus: 1,
-
-
 
       instructorOptionList: [
         { optionName: "Antiguo (Presente en la base datos)", optionCode: "1" },
