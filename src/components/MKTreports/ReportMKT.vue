@@ -1,46 +1,76 @@
 <template>
+  <v-container>
+    <v-row>
+      <v-col>
+        <v-label>Seleccione Asesor</v-label>
+        <v-select
+          v-model="asesor"
+          :items="filterAsesores">
+        </v-select>
+      </v-col>
+      <v-col>
+        <v-label>Seleccione mes</v-label>
+        <v-select
+          v-model="mes"
+          :items="filterMes">
+        </v-select>
+      </v-col>
+      <v-col>
+        <v-label>Seleccione la gestion</v-label>
+        <v-select
+          v-model="gesti"
+          :items="filterGestion">
+        </v-select>
+      </v-col>
+    </v-row>
+  </v-container> 
   <body>
-    <form @submit.prevent="handleSubmit">
-      <label for="">Seleccione el asesor:</label>
-        <select  v-model="asesor">
-         <option v-for="ase in asesores" :key="ase.ci" value="nombre">
-             {{ ase.nombre }}
-          </option>
-         </select> <br>
-      <label for="">Seleccione el mes:</label>
-          <select  v-model="mes">
-           <option v-for="m in meses" :key="m.id_mes" value="ames">
-              {{ m.nombre_mes }}
-           </option>
-          </select> <br>
-      <label for="">Seleccione la gestion:</label>
-        <select  v-model="gesti">
-          <option v-for="g in gestion" :key="g.id_gest" value="gest">
-               {{ g.id_gest }}
-           </option>
-        </select>
-      <label>Programas del Mes</label>
-      <input type="text" v-model="tempList" @keyup.alt="addList">
-      <div v-for="program in list" :key="program" class="pill">
-        {{ program }}
-      </div>
-      <div class="submit">
-        <button>GENERAR REPORTE</button>
-      </div>   
-      </form>
-    <p>INFORME MENSUAL DE ACTIVIDADES</p>
-    <p style="text-align: left;">A:  ESCUELA DE NEGOCIOS ESAM S.R.L. </p>
-    <p style="text-align: left;">DE: {{asesor}} </p>
-    <p style="text-align: left;">REF: INFORME: Actividades del mes de {{mes}} </p>
-    <p style="text-align: left;">GESTION: {{gesti}} </p>
-    <p style="text-align: left;">ANTECENDENTES:</p>
-    <p>Mediante la presente hago llegar mi informe mensual de actividades correspondientes desde el -- de {{mes}} al -- {{mes}} {{gesti}}.</p><br>
-    <p style="text-align: left;">Quiero informar que durante este periodo se estuvo trabajando con los siguientes programas:</p> 
-   
-    </body>  
+    <div>
+        <h4>INFORME MENSUAL DE ACTIVIDADES</h4>
+        <p style="text-align: left;">A:  ESCUELA DE NEGOCIOS ESAM S.R.L. </p>
+        <p style="text-align: left;">DE: {{asesor}} </p>
+        <p style="text-align: left;">REF: INFORME: Actividades del mes de {{mes}} </p>
+        <p style="text-align: left;">GESTION: {{gesti}} </p>
+        <p style="text-align: left;">ANTECENDENTES:</p>
+        <p style="text-align: left;">Mediante la presente hago llegar mi informe mensual de actividades correspondientes desde el -- de {{mes}} al -- {{mes}} {{gesti}}. Quiero informar que durante este periodo se estuvo trabajando con los siguientes programas:</p> 
+    </div>   
+    <div>
+      <h4>PROGRAMAS</h4>
+      <h4>INSCRITOS</h4>
+      <v-container>
+        <v-row>
+          <v-col class="row-sessions"> Programa </v-col>
+          <v-col class="row-sessions"> Participante</v-col>
+          <v-col class="row-sessions"> Forma de pago </v-col>
+          <v-col class="row-sessions"> Nro Cuotas </v-col>
+          <v-col class="row-sessions"> Fecha </v-col>
+          <v-col class="row-sessions"> Recibo </v-col>
+          <v-col class="row-sessions"> Monto </v-col>
+        </v-row>
+        <v-row>
+          <v-col>
+            <v-row></v-row>
+                
+            
+           </v-col><v-col>
+            <v-row>
+              
+            </v-row> </v-col
+          ><v-col>
+            <v-row>
+              
+            </v-row>
+          </v-col>
+        </v-row>
+      </v-container>
+      <br/>
+    </div> 
+  </body>  
  </template>
 
 <script>
+import Z from 'webfontloader';
+
 export default{
   data() {
     return{
@@ -49,75 +79,27 @@ export default{
       gesti:'',
       tempList: '',
       list: [],
-      asesores: [
-        {
-          ci:'1234',
-          nombre: 'Claudia Mireya Quenallata',
-          cargo: 'Asesor de marketing'
-        },
-        {
-          ci:'4567',
-          nombre: 'Fabian Humberto Quiros',
-          cargo: 'Asesor de marketing'
-        }
+      filterAsesores: [
+        "Claudia Mireya Quenallata",
+        "Fabian Humberto Quiros",
+      
       ],
-      meses: [
-        {
-          id_mes:'1',
-          nombre_mes:'Enero'
-        },
-        {
-          id_mes:'2',
-          nombre_mes:'Febrero'
-        },
-        {
-          id_mes:'3',
-          nombre_mes:'Marzo'
-        },
-        {
-          id_mes:'4',
-          nombre_mes:'Abril'
-        },
-        {
-          id_mes:'5',
-          nombre_mes:'Mayo'
-        },
-        {
-          id_mes:'6',
-          nombre_mes:'Junio'
-        },
-        {
-          id_mes:'7',
-          nombre_mes:'Julio'
-        },
-        {
-          id_mes:'8',
-          nombre_mes:'Agosto'
-        },
-        {
-          id_mes:'9',
-          nombre_mes:'Septiembre'
-        },
-        {
-          id_mes:'10',
-          nombre_mes:'Octubre'
-        },
-        {
-          id_mes:'11',
-          nombre_mes:'Noviembre'
-        },
-        {
-          id_mes:'12',
-          nombre_mes:'Diciembre'
-        }
+      filterMes: [
+        "Enero",
+        "Febrero",
+        "Marzo",
+        "Abril",
+        "Mayo",
+        "Junio",
+        "Julio",
+        "Agosto",
+        "Septiembre",
+        "Octubre",
+        "Noviembre",
+        "Diciembre",
       ],
-      gestion: [
-        {
-          id_gest:'2023'
-        },
-        {
-          id_gest:'2024'
-        }
+      filterGestion: [
+        "2023","2024",
       ],
 
     }
