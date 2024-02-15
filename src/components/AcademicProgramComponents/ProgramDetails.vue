@@ -67,14 +67,15 @@
             item-value="invoiceCode"
           ></v-select>
         </v-form>
-        <v-btn>Actualizar módulo</v-btn>
+        <v-btn variant="outlined" @click="updateModule()">Actualizar módulo</v-btn>
+        <v-btn variant="outlined" @click="openLetter(programModule.instructorEmail, programModule.moduleCode)">Invitación</v-btn>
       </v-card-item>
     </v-card>
   </v-container>
 </template>
 <script>
 import { database } from "../../firebase/firebase";
-import { updateDoc, collection, getDocs} from "firebase/firestore";
+import { collection, getDocs} from "firebase/firestore";
 import { ref } from "vue";
 
 export default {
@@ -120,7 +121,6 @@ export default {
           });
         }
       });
-      console.log(this.instructorList[0].instructorName);
     },
     async getModulesList() {
       let finalModuleList = [];
@@ -162,12 +162,17 @@ export default {
           listDate.getFullYear();
         formatedDates.push(newDate);
       });
-      console.log(formatedDates);
       return formatedDates;
     },
     compareByModuleOrder(module1, module2) {
-      console.log(module1.moduleOrder);
       return module1.moduleOrder.localeCompare(module2.moduleOrder);
+    },
+    openLetter(moduleInstructor, moduleCode){
+      this.showNextComponent(moduleInstructor, moduleCode)
+    },
+    showNextComponent(moduleInstructor, moduleCode){
+      let nextComponent = 'invitation-letter'
+      this.$emit('show-next-form', nextComponent, [moduleInstructor, moduleCode]);
     },
   },
 };

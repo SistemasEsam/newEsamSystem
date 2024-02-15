@@ -11,12 +11,14 @@
 import NavBar from "@/components/NavBar.vue";
 import ProgramMenu from "@/components/AcademicProgramComponents/ProgramMenu.vue";
 import ProgramDetails from "@/components/AcademicProgramComponents/ProgramDetails.vue";
+import InvitationLetter from "@/components/InvitationComponents/InvitationLetter.vue";
 
 export default {
   components: {
     NavBar,
     ProgramMenu,
     ProgramDetails,
+    InvitationLetter,
   },
   data() {
     return {
