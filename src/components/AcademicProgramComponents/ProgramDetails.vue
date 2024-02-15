@@ -172,7 +172,7 @@ export default {
     },
     showNextComponent(moduleInstructor, moduleCode){
       let nextComponent = 'invitation-letter'
-      this.$emit('show-next-form', nextComponent, [moduleInstructor, moduleCode]);
+      this.$emit('show-next-component', nextComponent, [moduleInstructor, moduleCode]);
     },
   },
 };
