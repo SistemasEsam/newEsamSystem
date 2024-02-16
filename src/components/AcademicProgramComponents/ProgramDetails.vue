@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <h2>Detalles del Programa: {{ this.programId }}</h2>
+    <h2>Detalles del Programa: {{ this.idProgram }}</h2>
     <v-card
       class="mb-2"
       v-for="(programModule, index) in moduleList"
@@ -68,7 +68,7 @@
           ></v-select>
         </v-form>
         <v-btn variant="outlined" @click="updateModule()">Actualizar módulo</v-btn>
-        <v-btn variant="outlined" @click="openLetter(programModule.instructorEmail, programModule.moduleCode)">Invitación</v-btn>
+        <v-btn variant="outlined" @click="openLetter(programModule.moduleInstructorEmail, programModule.moduleCode)">Invitación</v-btn>
       </v-card-item>
     </v-card>
   </v-container>
@@ -79,9 +79,10 @@ import { collection, getDocs} from "firebase/firestore";
 import { ref } from "vue";
 
 export default {
-  props: ["programId"],
+  props: ["idArray"],
   data() {
     return {
+      idProgram: this.idArray,
       moduleList: ref([]),
       instructorList: [],
       instructorStatus: 1,
@@ -125,7 +126,7 @@ export default {
     async getModulesList() {
       let finalModuleList = [];
       const modules = await getDocs(
-        collection(database, "postDegreePrograms", this.programId, "modules")
+        collection(database, "postDegreePrograms", this.idProgram, "modules")
       );
       modules.forEach((module) => {
         let moduleDates = this.formatDate(module.data().moduleDates);
@@ -171,6 +172,7 @@ export default {
       this.showNextComponent(moduleInstructor, moduleCode)
     },
     showNextComponent(moduleInstructor, moduleCode){
+      console.log(moduleInstructor)
       let nextComponent = 'invitation-letter'
       this.$emit('show-next-component', nextComponent, [moduleInstructor, moduleCode]);
     },

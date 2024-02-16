@@ -1,6 +1,6 @@
 <template>
     <keep-alive>
-      <component :is="activeComponent" @show-next-form="showNextForm" :user-id="idUser" />
+      <component :is="activeComponent" @show-next-form="showNextForm" :id-array="idUser" />
     </keep-alive>
     
 </template>

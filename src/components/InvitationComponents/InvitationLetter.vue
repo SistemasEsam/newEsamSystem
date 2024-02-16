@@ -1,5 +1,4 @@
 <template>
- 
   <H1> Carta de Invitación</H1>
   <invitationheader></invitationheader>
   <div class="instructor-coordinator">
@@ -27,7 +26,7 @@
         }}
       </div>
       <div>
-        {{ "De: " + this.programData.programCoordinator }}
+        {{ "De: " + this.programData.programCoordinator}}
         <br />
         <div class="bold-data">
           Coordinadora de Programa
@@ -38,6 +37,8 @@
           "Ref: Invitacion para impartir docencia en: "
         </div>
         {{ this.moduleData.moduleName }}
+        <br>
+        {{this.programData.programName}}
       </div>
       <br>
       <div>
@@ -145,7 +146,7 @@
         al cronograma establecido de forma obligatoria, debiendo, además, enviar
         como respaldo la planilla de notas al
         <br />
-        Correo Electrónico:
+        Correo Electrónico: {{this.programData.programCoordinatorEmail}}
       </div>
       <div>
         <h4>5. Obligaciones del docente</h4>
@@ -226,10 +227,10 @@ export default {
     InvitationFooterVue
 
   },
-  props: ["userId"],
+  props: ["idArray"],
   data() {
     return {
-      idUser: this.userId,
+      idUser: this.idArray,
       currentDate: new Date(),
       instructorData: {
         name: "",
@@ -240,6 +241,7 @@ export default {
         programCoordinator: "",
         programName: "",
         programId: "",
+        programCoordinatorEmail: "",
       },
       moduleData: {
         moduleCode: "",
@@ -286,9 +288,10 @@ export default {
       );
       if (programDataSaved.exists()) {
         this.programData.programCoordinator =
-          programDataSaved.data().programCoordinator;
+          programDataSaved.data().programCoordinatorName+" "+programDataSaved.data().programCoordinatorLastame;
         this.programData.programName = programDataSaved.data().programName;
         this.programData.programId = programDataSaved.data().programId;
+        this.programData.programCoordinatorEmail = (programDataSaved.data().programCoordinatorEmail).toLowerCase();
       } else {
         console.log("Document does not exist");
       }

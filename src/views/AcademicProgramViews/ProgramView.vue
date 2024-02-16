@@ -3,7 +3,7 @@
   <v-container>
     <h1 class="programs-title">Programas</h1>
     <keep-alive>
-      <component :is="activeComponent" @show-next-component="showNextComponent" :program-id="idProgram"></component>
+      <component :is="activeComponent" @show-next-component="showNextComponent" :idArray="idProgram"></component>
     </keep-alive>
   </v-container>
 </template>
