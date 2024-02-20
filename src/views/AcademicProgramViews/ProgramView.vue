@@ -1,11 +1,11 @@
 <template>
   <nav-bar></nav-bar>
-  <v-container>
+  <div>
     <h1 class="programs-title">Programas</h1>
     <keep-alive>
       <component :is="activeComponent" @show-next-component="showNextComponent" :idArray="idProgram"></component>
     </keep-alive>
-  </v-container>
+  </div>
 </template>
 <script>
 import NavBar from "@/components/NavBar.vue";

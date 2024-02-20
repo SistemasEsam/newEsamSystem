@@ -1,7 +1,9 @@
 <template>
   <div class="header-container">
     <div class="header-text">
+      <div>
         <img :src="logoUrl" alt="Logo" class="logo" />
+      </div>
       <div class="title-header">
         <h3>UNIVERSIDAD NACIONAL SIGLO XX</h3>
         <p>Escuela de Postgrado</p>
@@ -29,27 +31,33 @@ export default {
   display: grid;
   align-items: center;
   float: left;
+  width: 8in;
+  height: 1in;
 }
 
 .logo {
-  height: 140px;
+  height: 100px;
 }
 
 .header-text{
   font-weight: bold;
   display:inline-flex;
 }
-.image
-{
-}
-.title-header{
-}
-
 .line {
   height: 2px; /* Controla el grosor de la línea */
-  width: 8.5in; /* Controla el ancho de la línea */
+  width: 8.5 in; /* Controla el ancho de la línea */
   background-color: navy; /* Color azul marino */
-  position: relative;
+}
+.title-header{
+  display: flex;
+  flex-direction: column;
+  place-content: center;
+  margin-left: 0.3in;
+  margin-top: -0.2in;
+  font-size: large;
+}
+h3{
+  font-weight:900;
 }
 </style>
   

@@ -1,5 +1,5 @@
 <template>
-  <div class="main-view">
+  <div>
     <keep-alive>
       <component
         :is="activeComponent"
@@ -36,7 +36,5 @@ export default {
 };
 </script>
 <style>
-.main-view{
-    position: absolute;
-}
+
 </style>
