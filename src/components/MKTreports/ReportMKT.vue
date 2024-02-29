@@ -1,4 +1,5 @@
 <template>
+
   <v-container>
     <v-row>
       <v-col>
@@ -15,6 +16,8 @@
           :items="filterMes">
         </v-select>
       </v-col>
+    </v-row>
+    <v-row>
       <v-col>
         <v-label>Seleccione la gestion</v-label>
         <v-select
@@ -22,7 +25,53 @@
           :items="filterGestion">
         </v-select>
       </v-col>
+      <v-col>
+        <v-label>Seleccione la sede</v-label>
+        <v-select
+          v-model="sede"
+          :items="filterSede">
+        </v-select>
+      </v-col>
     </v-row>
+    <v-row>
+      <v-col>
+        <v-label>Ingrese el programa</v-label>
+        <v-text-field v-model="tempProgram" @keyup="addProgram"> </v-text-field>
+        
+      </v-col>
+    </v-row>
+    <v-row>
+      <v-col>
+        <v-label>Ingrese el inscrito</v-label>
+        <v-text-field v-model="tempPart" @keyup="addPart"> </v-text-field>
+        
+      </v-col>
+    </v-row>
+    <v-row>
+      <v-col>
+        <v-label>Ingrese la forma de pago</v-label>
+        <v-text-field v-model="tempFp" @keyup="addPart"> </v-text-field>
+        
+      </v-col>
+      <v-col>
+        <v-label>Ingrese el numero de cuotas</v-label>
+        <v-text-field v-model="tempNc" @keyup="addPart"> </v-text-field>
+        
+      </v-col>
+      <v-col>
+        <v-label>Ingrese el monto</v-label>
+        <v-text-field v-model="tempMonto" @keyup="addPart"> </v-text-field>
+        
+      </v-col>
+      <v-col>
+        <v-label>Ingrese el numero de recibo</v-label>
+        <v-text-field v-model="tempRecibo" @keyup="addPart"> </v-text-field>
+        
+      </v-col>
+    </v-row>
+    <v-btn class="button-card">
+      GENERAR REPORTE
+    </v-btn>
   </v-container> 
   <body>
     <div>
@@ -30,35 +79,126 @@
         <p style="text-align: left;">A:  ESCUELA DE NEGOCIOS ESAM S.R.L. </p>
         <p style="text-align: left;">DE: {{asesor}} </p>
         <p style="text-align: left;">REF: INFORME: Actividades del mes de {{mes}} </p>
-        <p style="text-align: left;">GESTION: {{gesti}} </p>
+        <p style="text-align: left;">Lugar y Fecha: {{sede}}  de {{ mes }} de {{gesti}} </p>
         <p style="text-align: left;">ANTECENDENTES:</p>
         <p style="text-align: left;">Mediante la presente hago llegar mi informe mensual de actividades correspondientes desde el -- de {{mes}} al -- {{mes}} {{gesti}}. Quiero informar que durante este periodo se estuvo trabajando con los siguientes programas:</p> 
     </div>   
     <div>
       <h4>PROGRAMAS</h4>
-      <h4>INSCRITOS</h4>
+      <li v-for="program in Programs">
+          {{ program}}
+      </li>
+      <h4>INSCRITOS PROGRAMAS DE CORTO ALCANCE</h4>
       <v-container>
         <v-row>
-          <v-col class="row-sessions"> Programa </v-col>
+          <v-col class="row-sessions"> Programa</v-col>
           <v-col class="row-sessions"> Participante</v-col>
-          <v-col class="row-sessions"> Forma de pago </v-col>
-          <v-col class="row-sessions"> Nro Cuotas </v-col>
-          <v-col class="row-sessions"> Fecha </v-col>
-          <v-col class="row-sessions"> Recibo </v-col>
-          <v-col class="row-sessions"> Monto </v-col>
+          <v-col class="row-sessions"> Forma de Pago</v-col>
+          <v-col class="row-sessions"> Nro Cuotas</v-col>
+          <v-col class="row-sessions"> Monto</v-col>
+          <v-col class="row-sessions"> Recibo</v-col>
         </v-row>
         <v-row>
           <v-col>
-            <v-row></v-row>
-                
-            
-           </v-col><v-col>
-            <v-row>
-              
-            </v-row> </v-col
-          ><v-col>
-            <v-row>
-              
+            <v-row
+            class="row-sessions"
+            v-for="program in ProgramsC" >
+              {{ program }}
+            </v-row>
+          </v-col>
+          <v-col>
+            <v-row
+            class="row-sessions"
+            v-for="inscrito in Participants" >
+              {{ inscrito }}
+            </v-row>
+          </v-col>
+          <v-col>
+            <v-row
+            class="row-sessions"
+            v-for="fpago in Pagos" >
+              {{ fpago }}
+            </v-row>
+          </v-col>
+          <v-col>
+            <v-row
+            class="row-sessions"
+            v-for="ncuo in Ncuotas" >
+              {{ ncuo }}
+            </v-row>
+          </v-col>
+          <v-col>
+            <v-row
+            class="row-sessions"
+            v-for="mont in Montos" >
+              {{ mont }}
+            </v-row>
+          </v-col>
+          <v-col>
+            <v-row
+            class="row-sessions"
+            v-for="reb in Recibos" >
+              {{ reb }}
+            </v-row>
+          </v-col>
+        </v-row>
+      </v-container>
+      <h4>INSCRITOS PROGRAMAS DE LARGO ALCANCE</h4>
+      <v-container>
+        <v-row>
+          <v-col class="row-sessions"> Programa</v-col>
+          <v-col class="row-sessions"> Participante</v-col>
+          <v-col class="row-sessions"> Forma de Pago</v-col>
+          <v-col class="row-sessions"> Descuento</v-col>
+          <v-col class="row-sessions"> Colegiatura menos el descuento</v-col>
+          <v-col class="row-sessions"> Nro Cuotas Matricula</v-col>
+          <v-col class="row-sessions"> Monto Matricula</v-col>
+          <v-col class="row-sessions"> Recibo Matricula</v-col>
+          <v-col class="row-sessions"> Nro Cuotas Colegiatura</v-col>
+          <v-col class="row-sessions"> Monto Colegiatura</v-col>
+          <v-col class="row-sessions"> Recibo Colegiatura</v-col>
+        </v-row>
+        <v-row>
+          <v-col>
+            <v-row
+            class="row-sessions"
+            v-for="programC in ProgramsC" >
+              {{ programC }}
+            </v-row>
+          </v-col>
+          <v-col>
+            <v-row
+            class="row-sessions"
+            v-for="inscritoC in CursParticipants" >
+              {{ inscritoC }}
+            </v-row>
+          </v-col>
+          <v-col>
+            <v-row
+            class="row-sessions"
+            v-for="fpago in Pagos" >
+              {{ fpago }}
+            </v-row>
+          </v-col>
+          <v-col>
+            <v-row
+            class="row-sessions"
+            v-for="ncuo in Ncuotas" >
+              {{ ncuo }}
+            </v-row>
+          </v-col>
+          <v-col>
+            <v-row
+            class="row-sessions"
+            v-for="mont in Montos" >
+              {{ mont }}
+            </v-row>
+          </v-col>
+          <v-col>
+            <v-row
+            class="row-sessions"
+            v-for="reb in Recibos" >
+              {{ reb }}
             </v-row>
           </v-col>
         </v-row>
@@ -69,7 +209,7 @@
  </template>
 
 <script>
-import Z from 'webfontloader';
+
 
 export default{
   data() {
@@ -77,8 +217,20 @@ export default{
       asesor: '',
       mes: '',
       gesti:'',
-      tempList: '',
-      list: [],
+      sede:'',
+      tempProgram: '',
+      ProgramsC: [],
+      ProgramsL: [],
+      tempPart: '',
+      CursParticipants: [],
+      tempFp: '',
+      Pagos: [],
+      tempNc: '',
+      Ncuotas: [],
+      tempMonto: [],
+      Montos: [],
+      tempRecibo: [],
+      Recibos: [],
       filterAsesores: [
         "Claudia Mireya Quenallata",
         "Fabian Humberto Quiros",
@@ -101,68 +253,47 @@ export default{
       filterGestion: [
         "2023","2024",
       ],
+      filterFpago: [
+        "Contado","Cuotas",
+      ],
+      filterSede: [
+        "Cochabamba Sucursal",
+        "La Paz Central",
+        "La Paz Sucursal",
+      ]
 
     }
   },
   methods: {
-    addList(e){
-      if(e.key ===',' && this.tempList){
-        if(!this.list.include(this.tempList)){
-          this.list.push(this.tempList)
+    addProgram(e){
+      if(e.key ==='.' && this.tempProgram){
+        if(this.tempProgram.includes('Curso')){
+          this.ProgramsC.push(this.tempProgram)
         }
-        this.tempList = ''
+        else{
+          this.ProgramsL.push(this.tempProgram)
+        }
+        this.tempProgram = ''
       }
-    }
+    },
+   addPart(f){
+      if(f.key ==='-' && this.tempPart && this.tempFp && this.tempNc && this.tempMonto  && this.tempRecibo){
+          this.CursParticipants.push(this.tempPart)
+          this.Pagos.push(this.tempFp)
+          this.Ncuotas.push(this.tempNc)
+          this.Montos.push(this.tempMonto)
+          this.Recibos.push(this.tempRecibo)
+          this.tempPart = ''
+          this.tempFp = ''
+          this.tempNc = ''
+          this.tempMonto = ''
+          this.tempRecibo = ''
+      }
+    },
    }
 }
 </script>
 
 <style>
-body {
-    font-family: Avenir, Helvetica, Arial ,sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    text-align: center;
-    color: #2c2c2c;
-    margin-top: 60px;
-    margin: 0;
-    background: #eee;
-}
-form {
-  max-width: 420px;
-  margin: 30px auto;
-  background: white;
-  text-align: left;
-  padding: 40px;
-  border-radius: 10px;
-}
-label { 
-  color: #aaa;
-  display: inline-block;
-  margin: 25px 0 15px;
-  font-size: 0.6em;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  font-weight: bold;
-}
-input,select {
-  display: block;
-  padding: 10px 6px;
-  width: 100%;
-  box-sizing: border-box;
-  border: none;
-  border-bottom: 1px solid #ddd;
-  color: #555;  
-}
-button {
-  background: #090135;
-  border: 0;
-  padding: 10px 20px;
-  margin-top: 20px;
-  color: white;
-  border-radius: 20px;
-}
-.submit { 
-  text-align: center;
-}
+
 </style>
