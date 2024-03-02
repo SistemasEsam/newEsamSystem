@@ -53,10 +53,10 @@ import { database } from "../../firebase/firebase";
 import { collection, getDocs } from "firebase/firestore";
 
 export default {
-  props: ["userId"],
+  props: ["idArray"],
   data() {
     return {
-      idUser: this.userId,
+      idUser: this.idArray,
       programFilter: "",
       keyWordProgram: "",
       programList: ref([]),

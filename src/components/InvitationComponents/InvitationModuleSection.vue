@@ -29,10 +29,10 @@ import { ref } from "vue";
 
 
 export default {
-  props: ["userId"],
+  props: ["idArray"],
   data() {
     return {
-      idUser: this.userId,
+      idUser: this.idArray,
       moduleList: ref([]),
     };
   },
