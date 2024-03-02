@@ -67,7 +67,7 @@
             item-value="invoiceCode"
           ></v-select>
         </v-form>
-        <v-btn variant="outlined" @click="updateModule()">Actualizar módulo</v-btn>
+        <v-btn :disabled="!programModule.updateModuleData" variant="outlined" @click="updateModule(programModule)">Actualizar módulo</v-btn>
         <v-btn variant="outlined" @click="openLetter(programModule.moduleInstructorEmail, programModule.moduleCode)">Invitación</v-btn>
       </v-card-item>
     </v-card>
@@ -75,7 +75,7 @@
 </template>
 <script>
 import { database } from "../../firebase/firebase";
-import { collection, getDocs} from "firebase/firestore";
+import { setDoc, doc, updateDoc, collection, getDocs} from "firebase/firestore";
 import { ref } from "vue";
 
 export default {
@@ -130,7 +130,6 @@ export default {
       );
       modules.forEach((module) => {
         let moduleDates = this.formatDate(module.data().moduleDates);
-        console.log(module.data().moduleDates);
         finalModuleList.push({
           moduleOrder: module.data().moduleOrder,
           moduleCode: module.data().moduleCode,
@@ -172,9 +171,30 @@ export default {
       this.showNextComponent(moduleInstructor, moduleCode)
     },
     showNextComponent(moduleInstructor, moduleCode){
-      console.log(moduleInstructor)
       let nextComponent = 'invitation-letter'
       this.$emit('show-next-component', nextComponent, [moduleInstructor, moduleCode]);
+    },
+    async updateModule(programModule){
+      const moduleRef = doc(database, "postDegreePrograms", this.idProgram, "modules", programModule.moduleCode)
+      if(programModule.moduleInstructorOption == 1){
+        console.log(programModule.moduleCode)
+        programModule.moduleInstructorName = programModule.moduleInstructor.instructorName
+        programModule.moduleInstructorEmail = programModule.moduleInstructor.instructorEmail
+        programModule.moduleInstructorPhone = programModule.moduleInstructor.instructorPhone
+
+        await updateDoc(moduleRef,{
+          moduleInstructorName : programModule.moduleInstructor.instructorName,
+          moduleInstructorEmail : programModule.moduleInstructor.instructorEmail,
+          moduleInstructorPhone : programModule.moduleInstructor.instructorPhone,
+
+        })
+      }else{
+        await updateDoc(moduleRef,{
+          moduleInstructorName : (programModule.moduleInstructorName).toUpperCase(),
+          moduleInstructorEmail : programModule.moduleInstructorEmail,
+          moduleInstructorPhone : programModule.moduleInstructorPhone,
+        })
+      }
     },
   },
 };
