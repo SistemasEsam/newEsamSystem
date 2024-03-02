@@ -1,61 +1,83 @@
 <template>
-    <div class="header-container">
-      <img :src="logoUrl" alt="Logo" class="logo">
-      <div class="header-text">
-        <h1>UNIVERSIDAD NACIONAL SIGLO XX</h1>
+  <div class="header-container">
+    <div class="header-text">
+      <div>
+        <img :src="this.imageSrc" alt="Logo" class="logo" />
+      </div>
+      <div class="title-header">
+        <h3>UNIVERSIDAD NACIONAL SIGLO XX</h3>
         <p>Escuela de Postgrado</p>
         <p>Cochabamba</p>
-        <div class="line"></div> <!-- Línea agregada aquí -->
       </div>
     </div>
-  </template>
+    <div class="line"></div>
+    <!-- Línea agregada aquí -->
+  </div>
+</template>
   
-  <script>
-  export default {
-    name: 'LetterHeaderComponent',
-    computed: {
-      logoUrl() {
-        return require('@/assets/escudo.svg');
-      }
+
+<script>
+import { getStorage, ref, getDownloadURL } from "firebase/storage";
+
+export default {
+  name: "LetterHeaderComponent",
+  data() {
+    return {
+      imageSrc: "",
     }
-  };
-  </script>
+  },
+  created() {
+    this.loadImage();
+  },
+  methods: {
+    loadImage() {
+      const storage = getStorage();
+      getDownloadURL(ref(storage, "esam-logos/MARCAUNSXXESCUDO.webp"))
+        .then((url) => {
+          // `url` is the download URL for 'images/stars.jpg'
+          // Or inserted into an <img> element
+          this.imageSrc = url;
+        })
+        .catch((error) => {
+          // Handle any errors
+        });
+    },
+  },
+};
+</script>
   
-  <style scoped>
-  .header-container {
-    display: flex;
-    align-items: center;
-    padding: 10px;
-  }
-  
-  .logo {
-    height: 140px;
-    margin-right: 219px;
-    transform: translateX(220px);
-    margin-top: 0px;
-  }
-  
- .header-text h1 {
-  margin: 0;
-  font-weight: bold;
-  font-size: 18px; /* Ajusta el tamaño de la fuente para el título */
+  <style>
+.header-container {
+  display: grid;
+  align-items: center;
+  float: left;
+  width: 8in;
+  height: 1in;
 }
 
-.header-text p {
-  margin: 0;
-  font-size: 16px; /* Ajusta el tamaño de la fuente para los párrafos */
+.logo {
+  height: 100px;
 }
-  
+
+.header-text {
+  font-weight: bold;
+  display: inline-flex;
+}
 .line {
   height: 2px; /* Controla el grosor de la línea */
-  width: 250%; /* Controla el ancho de la línea */
+  width: 8.5 in; /* Controla el ancho de la línea */
   background-color: navy; /* Color azul marino */
-  margin-top: 10px; /* Espaciado vertical desde el texto hasta la línea */
-  margin-left: 50px; /* Mueve la línea horizontalmente a la derecha */
-  margin-right: 50px; /* Ajusta el margen derecho si es necesario */
-  position: relative;
-  top: 36px; /* Mueve la línea verticalmente hacia abajo */
-  left: -100px; /* Mueve la línea horizontalmente hacia la derecha */
 }
-  </style>
+.title-header {
+  display: flex;
+  flex-direction: column;
+  place-content: center;
+  margin-left: 0.3in;
+  margin-top: -0.2in;
+  font-size: large;
+}
+h3 {
+  font-weight: 900;
+}
+</style>
   

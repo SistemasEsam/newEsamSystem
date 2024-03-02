@@ -3,7 +3,7 @@
   <v-container>
     <v-card v-for="(programModule, index) in moduleList" :key="index">
         <v-card-title>
-           Nombre del Módulo {{programModule.data().moduleName}}
+           Nombre del Módulo {{programModule.data().moduleOrder+"-"+programModule.data().moduleName}}
         </v-card-title>
         <v-card-subtitle>
             Código del Módulo {{ programModule.data().moduleCode }}
@@ -29,10 +29,10 @@ import { ref } from "vue";
 
 
 export default {
-  props: ["userId"],
+  props: ["idArray"],
   data() {
     return {
-      idUser: this.userId,
+      idUser: this.idArray,
       moduleList: ref([]),
     };
   },
