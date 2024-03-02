@@ -261,7 +261,7 @@ export default {
     this.getCourses()
     this.getHigherEducationPostDegree()
   },
-  
+
   methods: {
     async getInstructorData() {
       const personalProfileData = await getDoc(doc(database, 'instructors', this.idUser))
