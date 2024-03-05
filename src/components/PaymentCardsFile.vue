@@ -193,7 +193,6 @@ p {
   font-size: 12pt;
   font-family: "Times New Roman", serif;
 }
-
 @page WordSection1 {
   size: 612pt 792pt;
   margin: 70.85pt 3cm 70.85pt 3cm;

@@ -13,7 +13,6 @@ export default {
   ],
   components: {
     PaymentCardsFiles,
-
   },
   data() {
     return {
