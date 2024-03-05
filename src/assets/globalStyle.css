@@ -1,0 +1,216 @@
+.button-form{
+    background-color: #b2a612;
+    color: #f4f3f4;
+  }
+  .card-style{
+    color: #112533;
+  }
+  .icon-button{
+    position: absolute;
+    right: 0;
+    top: 0px;
+  }
+  .header-form{
+    color: #112533;
+  }
+  .h3-customize{
+    color: #b2a612;
+    font-size: large;
+  }
+  .cards1 {
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: large;
+    color: #162D4A;
+    font-weight: bold;
+    position: relative;
+  }
+  .yellow-rectangle1 {
+    position: absolute;  
+  }
+  
+  .component-with-shapes-and-description {
+    width: 8.5in;
+    /* Ancho de hoja carta en pulgadas */
+    height: 18.5in;
+    /* Alto de hoja carta en pulgadas */
+    padding: 0;
+    /* Sin relleno */
+    margin: 0;
+    bottom: 0;
+    /* Sin márgenes */
+    position: relative;
+  }
+  
+  .yellow-rectangle1 {
+    top: 17.77in;
+    /* Ajustar la posición vertical del rectángulo */
+    left: 0.0in;
+    /* Ajustar la posición horizontal del rectángulo */
+    width: 1375px;
+    /* Ancho del rectángulo */
+    height: 70px;
+    /* Alto del rectángulo */
+    background-color: #FFDF0B;
+    /* Color amarillo */
+  }
+  .degrees2 {
+    width: 100%;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    padding-top: 5%;
+    padding-left: 30%;
+    color: #162D4A;
+  }
+  @page {
+    size: 8.5in 11in ;
+    width: 8.5in;
+    height: 11in;
+    margin: 0;
+  }
+  .component-with-shapes-and-image {
+  width: 8.5in;
+  /* Ancho de hoja carta en pulgadas */
+  height: 18.5in;
+  /* Alto de hoja carta en pulgadas */
+  padding: 0;
+  /* Sin relleno */
+  margin: 0;
+  /* Sin márgenes */
+  position: relative;
+}
+
+.blue-rectangle,
+.education {
+  position: absolute;
+}
+
+.yellow-circle {
+  top: 0.5in;
+  /* Ajustar la posición vertical del círculo */
+  left: 0.4in;
+  /* Ajustar la posición horizontal del círculo */
+  width: 220px;
+  /* Diámetro del círculo */
+  height: 220px;
+  /* Diámetro del círculo */
+  border-radius: 50%;
+  background-color: #FFDF0B;
+  /* Color amarillo */
+  z-index: 1;
+  /* Asegura que el círculo esté por encima del rectángulo */
+  position: relative;
+}
+
+.white-circle {
+  top: 0.1in;
+  /* Ajustar la posición vertical del círculo */
+  left: 0.1in;
+  /* Ajustar la posición horizontal del círculo */
+  width: 200px;
+  /* Diámetro del círculo */
+  height: 200px;
+  /* Diámetro del círculo */
+  border-radius: 50%;
+  background-color: white;
+  /* Color amarillo */
+  z-index: 1;
+  /* Asegura que el círculo esté por encima del rectángulo */
+  position: relative;
+}
+
+.blue-rectangle {
+  top: 0.0in;
+  /* Ajustar la posición vertical del rectángulo */
+  left: 0in;
+  /* Ajustar la posición horizontal del rectángulo */
+  width: 3.5in;
+  /* Ancho del rectángulo */
+  height: 18.5in;
+  /* Alto del rectángulo */
+  background-color: #162D4A;
+  /* Color azul marino */
+  bottom: 0.0in;
+}
+
+
+.yellow-rectangle {
+  bottom: 0px;
+  /* Ajustar la posición vertical del rectángulo */
+  left: 0.0in;
+  /* Ajustar la posición horizontal del rectángulo */
+  width: 18in;
+  /* Ancho del rectángulo */
+  height: 70px;
+  /* Alto del rectángulo */
+  background-color: #FFDF0B;
+  /* Color amarillo */
+  position: absolute;
+}
+
+.personalProfile {
+  width: 100%;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-size: large;
+  color: white;
+  padding-top: 100%;
+  padding-left: 1px;
+  margin-left: 1px;
+  float: right;
+  text-align-last: center;
+}
+
+.degrees {
+  width: 11in;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  margin-left: 4in;
+  color: #162D4A;
+  margin-top: 0%;
+}
+
+.cards {
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-size: large;
+  color: #162D4A;
+  font-weight: bold;
+  position: relative;
+}
+
+@page {
+  size: 8.5in 11in;
+  width: 8.5in;
+  height: 11in;
+  margin: 0;
+}
+
+.education {
+  top: 0%;
+}
+.full-page{
+  width: 15in;
+  margin-left: 5%;
+}
+.yellow-bar {
+  width: 18in;
+  height: 70px;
+  background-color: #FFDF0B;
+  bottom: 0px;
+  position: absolute;
+}
+
+.paper-size {
+  width: 8.5in;
+  height: 18.5in;
+}
+.title-grid{
+  background-color: #b2a612;
+  color: #f4f3f4;
+}
+.language-style{
+  background-color: #112533;
+  color: #f4f3f4;
+}
+.content-style{
+  color: #1e1e1c;
+}
+.sub-title{
+  color: #112533;
+}

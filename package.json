@@ -1,0 +1,50 @@
+{
+  "name": "esam-system",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build"
+  },
+  "dependencies": {
+    "@mdi/font": "5.9.55",
+    "@pdftron/webviewer": "^10.2.3",
+    "@vuelidate/core": "^2.0.3",
+    "@vuelidate/validators": "^2.0.4",
+    "@vuepic/vue-datepicker": "^5.4.0",
+    "axios": "^1.6.7",
+    "buefy": "^0.9.28",
+    "core-js": "^3.8.3",
+    "firebase": "^10.1.0",
+    "html2canvas": "^1.4.1",
+    "html2pdf.js": "^0.10.1",
+    "jspdf": "^2.5.1",
+    "pdfjs-dist": "^3.8.162",
+    "pdfvuer": "^2.0.1",
+    "roboto-fontface": "*",
+    "v-autocomplete": "^1.8.2",
+    "vee-validate": "^4.12.4",
+    "vue": "^3.2.13",
+    "vue-pdf": "^4.3.0",
+    "vue-router": "^4.0.3",
+    "vuefire": "^3.1.22",
+    "vuetify": "^3.5.1",
+    "vuex": "^4.0.0",
+    "webfontloader": "^1.0.0"
+  },
+  "devDependencies": {
+    "@babel/plugin-transform-private-methods": "^7.22.5",
+    "@vue/cli-plugin-babel": "~5.0.0",
+    "@vue/cli-plugin-router": "~5.0.0",
+    "@vue/cli-plugin-vuex": "~5.0.0",
+    "@vue/cli-service": "~5.0.0",
+    "vue-cli-plugin-vuetify": "~2.5.8",
+    "webpack-plugin-vuetify": "^2.0.0-alpha.0"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead",
+    "not ie 11"
+  ]
+}
