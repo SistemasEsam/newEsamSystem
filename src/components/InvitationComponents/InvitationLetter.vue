@@ -2,7 +2,7 @@
   <div class="instructor-coordinator">
     <H1> Carta de Invitación</H1>
     <v-btn @click="exportToPDF()">DESCARGAR PDF</v-btn>
-    <br>
+    <br />
     <div ref="firstPage" class="invitation-page">
       <div class="letter-header">
         <invitationheader></invitationheader>
@@ -225,8 +225,8 @@
             A la conclusión del módulo en fechas establecidas en cronograma de
             clases, deberá realizar la presentación de las actas 01, 02 ,03, 04
             de manera obligatoria y 05 si corresponde, para realizar la
-            solicitud de desembolso de honorarios de 650$ SEISCIENTOS CINCUENTA
-            00/100 DÓLARES AMERICANOS, los cuales serán depositados al número de
+            solicitud de desembolso de honorarios de <b>{{this.programData.programPayment}}</b>
+            los cuales serán depositados al número de
             cuenta que sea brindado por su persona para el abono en fechas 11 o
             26 del mes.
             <b
@@ -282,6 +282,8 @@ export default {
         programName: "",
         programId: "",
         programCoordinatorEmail: "",
+        programType: "",
+        programPayment: "",
       },
       moduleData: {
         moduleCode: "",
@@ -333,9 +335,20 @@ export default {
           programDataSaved.data().programCoordinatorLastame;
         this.programData.programName = programDataSaved.data().programName;
         this.programData.programId = programDataSaved.data().programId;
-        this.programData.programCoordinatorEmail = programDataSaved
+        this.programData.programCoordinatorEmail = programDataSaved  
           .data()
           .programCoordinatorEmail.toLowerCase();
+        this.programData.programType = programDataSaved.data().programType;
+        switch (programDataSaved.data().programType) {
+          case "Diplomado":
+            this.programData.programPayment =
+              "1775 Un Mil Setecientos Setenta y Cinco 00/100 Bolivianos";
+            break;
+          case "Maestria":
+            this.programData.programPayment =
+              "3550 Tres Mil Quinientos Cincuenta 00/100 Bolivianos";
+            break;
+        }
       } else {
         console.log("Document does not exist");
       }
@@ -393,7 +406,7 @@ export default {
       };
 
       // Exportar contenido de la primera página (File.vue)
-      html2canvas( 
+      html2canvas(
         this.$refs.firstPage,
         { allowTaint: false, useCORS: true, scale: 5 },
         options
@@ -444,7 +457,7 @@ export default {
               "thirdPage",
               "MEDIUM"
             );
-            pdf.save(this.idUser[0]+"invitation.pdf");
+            pdf.save(this.idUser[0] + "invitation.pdf");
           });
         });
       });
@@ -484,7 +497,7 @@ export default {
   margin: 0;
   height: 1.5in;
 }
-.letter-footer{
+.letter-footer {
   position: absolute;
   width: 7in;
   height: 1.5in;
