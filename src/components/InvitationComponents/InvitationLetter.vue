@@ -40,7 +40,7 @@
             <div class="bold-data">
               Ref: Invitacion para impartir docencia en:
             </div>
-            {{ this.moduleData.moduleName }}
+            {{ this.moduleData.moduleOrder+": "+this.moduleData.moduleName }}
             <br />
             {{ this.programData.programName }}
           </div>
@@ -100,7 +100,7 @@
                     v-for="(dateSelected, index) in this.moduleData.moduleDates"
                     :key="index"
                   >
-                    {{ dateSelected }}
+                    {{ this.moduleData.moduleSchedule }}
                   </v-row>
                 </v-col>
               </v-row>
@@ -225,10 +225,10 @@
             A la conclusión del módulo en fechas establecidas en cronograma de
             clases, deberá realizar la presentación de las actas 01, 02 ,03, 04
             de manera obligatoria y 05 si corresponde, para realizar la
-            solicitud de desembolso de honorarios de <b>{{this.programData.programPayment}}</b>
-            los cuales serán depositados al número de
-            cuenta que sea brindado por su persona para el abono en fechas 11 o
-            26 del mes.
+            solicitud de desembolso de honorarios de
+            <b>{{ this.programData.programPayment+" "+this.moduleData.moduleInvoice }}</b>
+            los cuales serán depositados al número de cuenta que sea brindado
+            por su persona para el abono en fechas 11 o 26 del mes.
             <b
               >En caso de no presentar las actas, no se procede al cumplimiento
               del depósito en fechas estipuladas,</b
@@ -289,6 +289,9 @@ export default {
         moduleCode: "",
         moduleName: "",
         moduleContent: "",
+        moduleSchedule: "",
+        moduleOrder:"",
+        moduleInvoice: "",
         moduleDates: [],
       },
       headers: [
@@ -335,7 +338,7 @@ export default {
           programDataSaved.data().programCoordinatorLastame;
         this.programData.programName = programDataSaved.data().programName;
         this.programData.programId = programDataSaved.data().programId;
-        this.programData.programCoordinatorEmail = programDataSaved  
+        this.programData.programCoordinatorEmail = programDataSaved
           .data()
           .programCoordinatorEmail.toLowerCase();
         this.programData.programType = programDataSaved.data().programType;
@@ -374,6 +377,21 @@ export default {
         this.moduleData.moduleCode = moduleDataSaved.data().moduleCode;
         this.moduleData.moduleName = moduleDataSaved.data().moduleName;
         this.moduleData.moduleContent = moduleDataSaved.data().moduleContent;
+        this.moduleData.moduleOrder = moduleDataSaved.data().moduleOrder;
+        switch (moduleDataSaved.data().moduleInvoice) {
+          case "0":
+          this.moduleData.moduleInvoice =
+              "Con Factura";
+            break;
+          case "1":
+          this.moduleData.moduleInvoice =
+              "Con Retención";
+            break;
+        }
+        this.moduleData.moduleSchedule =
+          moduleDataSaved.data().moduleStartHour +
+          "-" +
+          moduleDataSaved.data().moduleEndHour;
         this.moduleData.moduleDates = this.formatDate(
           moduleDataSaved.data().moduleDates
         );
