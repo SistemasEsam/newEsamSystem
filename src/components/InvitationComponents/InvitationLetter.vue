@@ -84,7 +84,7 @@
                     v-for="(dateSelected, index) in this.moduleData.moduleDates"
                     :key="index"
                   >
-                    Sesion Clase {{ index + 1 }}
+                    Sesión Clase {{ index + 1 }}
                   </v-row> </v-col
                 ><v-col>
                   <v-row
@@ -113,7 +113,7 @@
         </div>
       </div>
       <div class="letter-footer">
-        <InvitationFooterVue></InvitationFooterVue>
+        <InvitationFooterVue :programSite=" this.programData.programSite "></InvitationFooterVue>
       </div>
     </div>
     <br />
@@ -210,7 +210,7 @@
         </div>
       </div>
       <div class="letter-footer">
-        <InvitationFooterVue></InvitationFooterVue>
+        <InvitationFooterVue :programSite=" this.programData.programSite "></InvitationFooterVue>
       </div>
     </div>
     <br />
@@ -249,7 +249,7 @@
         </div>
       </div>
       <div class="letter-footer">
-        <InvitationFooterVue></InvitationFooterVue>
+        <InvitationFooterVue :programSite=" this.programData.programSite "></InvitationFooterVue>
       </div>
     </div>
   </div>
@@ -284,6 +284,7 @@ export default {
         programCoordinatorEmail: "",
         programType: "",
         programPayment: "",
+        programSite:"",
       },
       moduleData: {
         moduleCode: "",
@@ -338,6 +339,7 @@ export default {
           programDataSaved.data().programCoordinatorLastame;
         this.programData.programName = programDataSaved.data().programName;
         this.programData.programId = programDataSaved.data().programId;
+        this.programData.programSite = programDataSaved.data().programSite;
         this.programData.programCoordinatorEmail = programDataSaved
           .data()
           .programCoordinatorEmail.toLowerCase();
@@ -526,6 +528,7 @@ export default {
   border: 1px solid black;
   align-items: center;
   justify-content: center;
+  height: 2.5rem;
 }
 .row-content {
   border: 1px solid black;
