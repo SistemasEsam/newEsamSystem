@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+
+
+    <link rel="stylesheet" href="CSS/styleRegistroPro.css">
+    <link rel="stylesheet" href="CSS/stylesfile.css">
+    
+</head>
+<body>
+    <header>
+       
+        <a id="logoEsam" href="inicio.html"></a>
+        <h1 id="titulo">SISTEMA ACADÉMICO</h1>
+        
+    </header>
+    <div class="barraAmarilla"></div>
+    <main>
+        <form action="#">
+
+            <div>
+                <h2>Registro Programa</h2>
+            </div>
+    
+            <div class="grupoForm">
+                <h4>Código de Programa</h4>
+                <div class="margen">
+                    <div id="lineaCheck">
+                        <input id="cuadr" type="checkbox" >
+                        <p id="parr01">Nota: Si el proyecto a ingresar no cuenta con el código contable marcar la casilla "Programa Nuevo".Código contable del programa</p>
+                    </div>
+                    
+                    <input type="text" placeholder="Código de Programa">
+                </div>
+                
+            </div>
+                
+            <div class="grupoForm">
+                <h4>Programa</h4>
+                <div class="margen">
+                    <p>Nota: Escriba el nombre completo del programa, tome en cuenta la ortografía.</p>
+                    <input type="text" placeholder="Programa">
+                </div>                
+            </div>
+    
+            <div class="grupoForm">
+                <h4>Cronograma</h4>
+                <div class="margen">
+                    <p>Nota: Ingrese la fecha de inicio y la fecha de finalización.</p>
+                    <input type="text" name="rango" value="" />
+                    <!-- <input type="date"> -->
+                </div>
+            </div>
+    
+            <div class="grupoForm">
+                <h4>Sede</h4>
+                <div class="margen">
+                    <select name="" id="" >
+                        <option value="" disabled selected hidden> -- Seleccione la sucursal del programa --</option>
+                        <option value="ESAM Sucre">ESAM Sucre</option>
+                        <option value="ESAM Sucre Sucursal">ESAM Sucre Sucursal</option>
+                        <option value="ESAM Potosí">ESAM Potosí</option>
+                        <option value="ESAM Potosí Sucursal">ESAM Potosí Sucursal</option>
+                        <option value="ESAM Camargo">ESAM Camargo</option>
+                        <option value="ESAM Santa Cruz">ESAM Santa Cruz</option>
+                        <option value="ESAM Santa Cruz Sucursal">ESAM Santa Cruz Sucursal</option>
+                        <option value="ESAM Cochabamba">ESAM Cochabamba</option>
+                        <option value="ESAM Cochabamba Sucursal">ESAM Cochabamba Sucursal</option>
+                        <option value="ESAM Yacuiba">ESAM Yacuiba</option>
+                        <option value="ESAM Tarija">ESAM Tarija</option>
+                        <option value="ESAM Tarija Sucursal">ESAM Tarija Sucursal</option>
+                        <option value="ESAM Tarija 3">ESAM Tarija 3</option>
+                        <option value="ESAM La Paz">ESAM La Paz</option>
+                        <option value="ESAM La Paz Sucursal">ESAM La Paz Sucursal</option>
+                        <option value="ESAM LATAM">ESAM LATAM</option>
+                        <option value="ESAM MONTEAGUDO">ESAM MONTEAGUDO</option>
+                        <option value="ESAM Oruro">ESAM Oruro</option>    
+                    </select> 
+                </div>
+                          
+            </div>
+             <div class="grupoForm">
+                <h4>Tipo de Programa</h4>
+                <div class="margen">
+                    <select name="" id="">
+                        <option value="" disabled selected hidden>-- Seleccione el tipo de programa --</option>
+                        <option value="Curso">Curso</option>
+                        <option value="Diplomado">Diplomado</option>
+                        <option value="Maestria">Maestria</option>
+                        <option value="Especialidad">Especialidad</option>
+                    </select>
+                </div>
+             </div>
+            <div class="grupoForm">
+                <h4>Área del Programa</h4>
+                <div class="margen">
+                    <select name="" id="" placeholder="-- Seleccione el area del programa --">
+                        <option value="" disabled selected hidden>-- Seleccione el area del programa --</option>
+                        <option value="Empresarial">Empresarial</option>
+                        <option value="Ingenieria">Ingenieria</option>
+                        <option value="Legal">Legal</option>
+                        <option value="Salud">Salud</option>
+                        <option value="Social">Social</option>
+                    </select>
+                </div>
+            </div>
+             <div class="grupoForm">
+                <h4>Coordinador</h4>
+                <div class="margen">
+                    <p>Nota: Ingrese los datos del coordinador/encargado del programa.</p>
+                    <h6>Nombre</h6>
+                    <input type="text" placeholder="Nombre">
+                    <h6>Apellidos</h6>
+                    <input type="text" placeholder="Apellidos">
+                    <h6>Correo</h6>
+                    <input type="text" placeholder="Correo">
+                </div>
+             </div>   
+
+            <div class="grupoForm">
+                <h4>Módulos</h4>
+                
+                <div class="margen">
+                    <h6>Nombre del módulo:</h6>
+                    <p>Nota: Ingrese el nombre del módulo, tome en cuenta la ortografía.</p>
+                    <input type="text" placeholder="Nombre del Módulo">
+                    <h6>Requerimientos</h6>
+                    <select name="" id="" style="margin-bottom: 15px;margin-top: 15px;">
+                        <option value="" disabled selected hidden>-- Docente --</option>
+                        <option value="Nuevo (Primera experiencia laboral)">Antiguo (Presente en la base de datos)</option> 
+                        <option value="No definido (En proceso de selección)">No definido (En proceso de selección)</option>
+                        <option value="Antiguo (Presente en la base de datos)">Nuevo (Primera experiencia laboral)</option>
+                        
+                    </select>
+                    <select name="" class="select-box" id="">
+                        <option class="opciond" value="" disabled selected hidden>-- Facturación --</option>
+                        <option value="Factura">Factura</option>
+                        <option value="Retención">Retención</option>
+                        <option value="Internacional (No Aplica facturación)">Internacional (No Aplica facturación)</option>
+                    </select>
+                    <h6>Fecha de clases:</h6>
+                    
+                    <p>Nota: Seleccione todas las fechas en las cuales se llevara a cabo el módulo.</p>
+                    <input type="date">
+                    <h6>Hora de Clases</h6>
+                    <p>Nota: Seleccione la hora de inicio y la hora de finalización del módulo.</p>
+                    <div id="dateTime" >
+                        <input type="time" >
+                        <input type="time">
+                    </div>
+                    <h6>Contenido</h6>
+                    <p style="margin-bottom: 5px;">Nota: Ingrese el contenido tentativo para el desarrollo del módulo.</p>
+                    <textarea name="" id="" cols="30" rows="10" value="Contenido del módulo" placeholder="Contenido del Módulo"></textarea>
+
+                    <button id="btn_modulo">Añadir Módulo</button>
+                    <h6>Archivo</h6>
+                    <p>Nota: Seleccione el documento del proyecto.</p>
+                  
+                    
+                    
+                    <div class="filecontent">
+                        <span >
+                            <label for="archivo"><img id="imagenclip" src="svg/clip.svg" alt="" ></label>
+                        </span>
+            
+                        
+                        <input type="file" class='fancy-file' id="archivo" name="avatar" data-button="" data-empty="Sin archivos" multiple />
+                        
+                    </div>
+                
+                </div>
+            </div>  
+
+
+            <div class="grupoForm" id="divSubmit">
+                <input id="submit01" type="submit" value="Guardar Programa">    
+            </div>
+            
+        </form>
+    </main>
+ 
+    <script src="scriptfile.js"></script>
+    <script src="scripdate.js"></script>
+
+    <footer>
+        <div class="piePagina">
+            <div>
+                <h5>Privacidad / Cookies</h5>
+                <div class="redesSociales">
+                    <a href="https://www.facebook.com/esamcochabambasucursal" target="_blank"><img class="ico" src="svg/facebook.svg" alt="" width="25px"></a>
+                    <a href="https://www.instagram.com/esamcochabambasucursal/" target="_blank"><img class="ico" src="svg/instagram.svg" alt="" width="28px"></a>
+                    <a href="https://bo.linkedin.com/company/esamcochabambasucursal" target="_blank"><img class="ico"src="svg/linkedin.svg" alt="" width="25px"></a>
+                </div>
+                
+            </div>
+            <div>
+                <h5>©2024 ESAM COCHABAMBA SUCURSAL</h5>
+                <h5>TELEFONO: 44521541 - 71315551</h5>
+            </div>
+        </div>
+        
+    </footer>
+</body>
+</html>
