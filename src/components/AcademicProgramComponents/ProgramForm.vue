@@ -74,7 +74,10 @@
             <v-select
               v-model="programType"
               label="Tipo de Programa"
-              :items="['Curso', 'Diplomado', 'Maestria', 'Especialidad']"
+              :items="programTypes"
+              item-title="typeName"
+              item-value="typeName"
+              @change="updateModuleLimit()"
             ></v-select>
           </v-container>
         </v-row>
@@ -87,7 +90,9 @@
             <v-select
               v-model="programArea"
               label="Area"
-              :items="['Empresarial', 'Ingenieria', 'Legal', 'Salud', 'Social']"
+              :items="programAreas"
+              item-title="areaName"
+              item-value="areaName"
             ></v-select>
           </v-container>
         </v-row>
@@ -228,7 +233,10 @@
                 :rules="moduleContenRules"
               ></v-textarea>
             </v-form>
-            <v-btn v-if="moduleForms.length < 9" @click="addModuleForm()">
+            <v-btn
+              v-if="moduleForms.length < 17"
+              @click="addModuleForm()"
+            >
               Añadir Módulo
             </v-btn>
           </v-container>
@@ -284,6 +292,7 @@ export default {
       instructorList: [],
       currentYear: new Date().getFullYear(),
       programsQuantity: 0,
+      moduleLimits: 3,
 
       programId: "",
       programName: "",
@@ -370,6 +379,7 @@ export default {
         { siteName: "ESAM Potosí Sucursal", siteCode: "17" },
         { siteName: "ESAM Tarija 3", siteCode: "18" },
       ],
+
       instructorOptionList: [
         {
           optionName: "No definido (En proceso de selección)",
@@ -385,6 +395,19 @@ export default {
           invoiceName: "Internacional (No aplica facturación)",
           invoiceCode: "2",
         },
+      ],
+      programTypes: [
+        { typeName: "Curso" },
+        { typeName: "Diplomado" },
+        { typeName: "Maestria" },
+        { typeName: "Especialidad" },
+      ],
+      programAreas: [
+        { areaName: "Empresarial" },
+        { areaName: "Ingenieria" },
+        { areaName: "Legal" },
+        { areaName: "Salud" },
+        { areaName: "Social" },
       ],
     };
   },
@@ -475,7 +498,7 @@ export default {
     },
     saveModules() {
       this.moduleForms.forEach((moduleForm, index) => {
-        console.log("Módulo: "+index)
+        console.log("Módulo: " + index);
         const moduleInitials = moduleForm.moduleName
           .split(" ")
           .map((x) => x[0])
@@ -489,15 +512,15 @@ export default {
         let instructorName;
         let instructorEmail;
         let instructorPhone;
-        if(moduleForm.moduleInstructorOption == 0){
+        if (moduleForm.moduleInstructorOption == 0) {
           instructorName = "";
           instructorEmail = "";
           instructorPhone = "";
-        }else if(moduleForm.moduleInstructorOption == 1){
+        } else if (moduleForm.moduleInstructorOption == 1) {
           instructorName = moduleForm.moduleInstructor.instructorName;
           instructorEmail = moduleForm.moduleInstructor.instructorEmail;
           instructorPhone = moduleForm.moduleInstructor.instructorPhone;
-        }else if(moduleForm.moduleInstructorOption == 2){
+        } else if (moduleForm.moduleInstructorOption == 2) {
           instructorName = moduleForm.moduleInstructorName;
           instructorEmail = moduleForm.moduleInstructorEmail;
           instructorPhone = moduleForm.moduleInstructorPhone;
@@ -511,7 +534,7 @@ export default {
             this.moduleCode
           ),
           {
-            moduleOrder: ("M"+index),
+            moduleOrder: "M" + index,
             moduleName: moduleForm.moduleName,
             moduleCode: this.moduleCode,
             moduleInstructorName: instructorName,
@@ -559,6 +582,16 @@ export default {
     },
     closeDialog() {
       this.dialogFlag = false;
+    },
+    updateModuleLimit() {
+      switch (this.programSite) {
+        case "Diplomado":
+          this.moduleLimits = 8;
+          break;
+        case "Maestria":
+          this.moduleLimits = 18;
+          break;
+      }
     },
   },
 };
