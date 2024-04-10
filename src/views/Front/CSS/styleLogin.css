@@ -1,3 +1,4 @@
+
 body{
     background-image: linear-gradient(to right, #095b95,#01101a);
     width: 100vw;
@@ -33,6 +34,8 @@ body{
     gap: 50px;
     justify-items: right;
     /* align-items: center;  */
+
+    overflow: hidden;
     
     
     
@@ -50,27 +53,70 @@ body{
     align-items: center;
     justify-content: center;
 }
+
+
+
+
+
+#ContendedorImaVideo{
+    position: relative;
+} 
+#miVideo{
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin-top: 170px;
+    width: 98%;
+    opacity:0.7;
+    margin-left: 10px;
+
+
+    background-color: #162d4a80;
+
+}
+
 #img_Portada{
     
     width:100%;
+    height: 100vh;
 }
+
+
+
+
+
 @media (max-width:676px){
     body{
         justify-content: start;
-        overflow-wrap: break-word;
+
+        
+        overflow: hidden; 
         
     }
+
     .contenedorID{
         transform: scale(0.9);
         margin-left: -200px;
+
+        
         
     }
-    #img_Portada{
-        transform: scale(5);  
+    #CuadradoSVGlogin{
+        
+        margin-left: -150px;
+        
     }
-    
-}
-
+    .formulario{
+        left: -150px;
+        
+    }
+    .fondoImg{
+        
+        margin-left: -220px;
+        width: 500px;
+    }
+  
+  }
 @media (max-width:1800px)  {
 
     .contenedorID{
@@ -158,7 +204,7 @@ body{
 
 form{
     position: relative;
-    margin-top: 200px;
+    margin-top: 130px;
     
     
 }
@@ -194,6 +240,7 @@ form{
     
 }
 input{
+    
     display: grid;
     justify-items: center;
     width: 250px;
@@ -209,6 +256,7 @@ input{
     background:rgb(131, 162, 166,0%);    
     outline: none;
     border: 0px solid;
+    cursor: pointer;
     border-bottom: 2px solid rgba(255, 255, 255, 0.308);
     font-size: 20px;
     &:hover{
@@ -231,10 +279,11 @@ input{
 }
 img.iconos{
    
+    cursor: pointer;
     margin-left: 15px;
 
    &:hover{
-
+    
     transform: scale(1.2);
     transition: transform 0.5s;
     
