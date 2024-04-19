@@ -10,6 +10,9 @@
  import InvitationView from '../views/InvitationViews/InvitationView.vue'
 import ProgramView from '../views/AcademicProgramViews/ProgramView.vue'
 import MKTreportView from  '../views/MKTreportViews/MKTreportView.vue'
+import PaymentCardsView from '@/views/PaymentCardViews/PaymentCardsView.vue'
+import PaymentCardsPDFView from '@/views/PaymentCardViews/PaymentCardsPDFView.vue'
+import PaymentCardsListView from '@/views/PaymentCardViews/PaymentCardsListView.vue'
 
 const routes = [
   {
@@ -58,6 +61,21 @@ const routes = [
     name: 'MKTreport',
     component: MKTreportView
   },
+  {
+    path:'/payment-cards',
+    name: 'payment-cards',
+    component: PaymentCardsView
+  },
+  {
+    path:'/payment-cards-list',
+    name: 'payment-cards-list',
+    component: PaymentCardsListView
+  },
+  {
+    path: '/payment-cards-pdf/:id',
+    name: 'payment-cards-pdf',
+    component: PaymentCardsPDFView
+   },
 
 ]
 const router = createRouter({
