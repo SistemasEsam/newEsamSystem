@@ -449,7 +449,9 @@ export default {
     saveData() {
       if (this.componentFlag == false) {
         this.componentFlag = true;
-        if (this.coursesFlag && this.publicationFlag) {
+        if (!this.coursesFlag && !this.publicationFlag) {
+          this.saveDataCourses();
+          this.saveDataPublication();
           this.showNextForm();
         } else if (this.coursesFlag == true && this.publicationFlag == false) {
           if (this.checkPublicationList()) {

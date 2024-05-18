@@ -53,6 +53,7 @@ export default {
   float: left;
   width: 8in;
   height: 1in;
+  opacity: 0.5;
 }
 
 .logo {
