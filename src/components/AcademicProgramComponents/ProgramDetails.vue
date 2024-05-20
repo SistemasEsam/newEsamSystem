@@ -45,7 +45,7 @@
             filled
           >
           </v-select>
-          <v-form v-else-if="programModule.moduleInstructorOption == 2">
+          <!-- <v-form v-else-if="programModule.moduleInstructorOption == 2">
             <v-text-field
               v-model="programModule.moduleInstructorName"
               label="Nombre del Docente"
@@ -58,7 +58,7 @@
               v-model="programModule.moduleInstructorPhone"
               label="Telefono del Docente"
             ></v-text-field>
-          </v-form>
+          </v-form> -->
           <v-select
             v-model="programModule.moduleInvoice"
             label="Facturación"
