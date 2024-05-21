@@ -29,14 +29,6 @@
       <v-card-item>
         <v-form v-if="programModule.updateModuleData">
           <v-select
-            v-model="programModule.moduleInstructorOption"
-            label="Docente"
-            :items="instructorOptionList"
-            item-title="optionName"
-            item-value="optionCode"
-          ></v-select>
-          <v-select
-            v-if="programModule.moduleInstructorOption == 1"
             v-model="programModule.moduleInstructor"
             label="Docente"
             :items="instructorList"
