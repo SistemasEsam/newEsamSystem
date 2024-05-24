@@ -37,20 +37,6 @@
             filled
           >
           </v-select>
-          <!-- <v-form v-else-if="programModule.moduleInstructorOption == 2">
-            <v-text-field
-              v-model="programModule.moduleInstructorName"
-              label="Nombre del Docente"
-            ></v-text-field>
-            <v-text-field
-              v-model="programModule.moduleInstructorEmail"
-              label="Correo del Docente"
-            ></v-text-field>
-            <v-text-field
-              v-model="programModule.moduleInstructorPhone"
-              label="Telefono del Docente"
-            ></v-text-field>
-          </v-form> -->
           <v-select
             v-model="programModule.moduleInvoice"
             label="Facturación"
@@ -58,16 +44,36 @@
             item-title="invoiceName"
             item-value="invoiceCode"
           ></v-select>
+          <v-text-field
+            label="Pago"
+            v-model="programModule.modulePayment"
+            required
+          >
+          </v-text-field>
         </v-form>
-        <v-btn :disabled="!programModule.updateModuleData" variant="outlined" @click="updateModule(programModule)">Actualizar módulo</v-btn>
-        <v-btn variant="outlined" @click="openLetter(programModule.moduleInstructorEmail, programModule.moduleCode)">Invitación</v-btn>
+        <v-btn
+          :disabled="!programModule.updateModuleData"
+          variant="outlined"
+          @click="updateModule(programModule)"
+          >Actualizar módulo</v-btn
+        >
+        <v-btn
+          variant="outlined"
+          @click="
+            openLetter(
+              programModule.moduleInstructorEmail,
+              programModule.moduleCode
+            )
+          "
+          >Invitación</v-btn
+        >
       </v-card-item>
     </v-card>
   </v-container>
 </template>
 <script>
 import { database } from "../../firebase/firebase";
-import { setDoc, doc, updateDoc, collection, getDocs} from "firebase/firestore";
+import { doc, updateDoc, collection, getDocs } from "firebase/firestore";
 import { ref } from "vue";
 
 export default {
@@ -159,33 +165,45 @@ export default {
     compareByModuleOrder(module1, module2) {
       return module1.moduleOrder.localeCompare(module2.moduleOrder);
     },
-    openLetter(moduleInstructor, moduleCode){
-      this.showNextComponent(moduleInstructor, moduleCode)
+    openLetter(moduleInstructor, moduleCode) {
+      this.showNextComponent(moduleInstructor, moduleCode);
     },
-    showNextComponent(moduleInstructor, moduleCode){
-      let nextComponent = 'invitation-letter'
-      this.$emit('show-next-component', nextComponent, [moduleInstructor, moduleCode]);
+    showNextComponent(moduleInstructor, moduleCode) {
+      let nextComponent = "invitation-letter";
+      this.$emit("show-next-component", nextComponent, [
+        moduleInstructor,
+        moduleCode,
+      ]);
     },
-    async updateModule(programModule){
-      const moduleRef = doc(database, "postDegreePrograms", this.idProgram, "modules", programModule.moduleCode)
-      if(programModule.moduleInstructorOption == 1){
-        console.log(programModule.moduleCode)
-        programModule.moduleInstructorName = programModule.moduleInstructor.instructorName
-        programModule.moduleInstructorEmail = programModule.moduleInstructor.instructorEmail
-        programModule.moduleInstructorPhone = programModule.moduleInstructor.instructorPhone
+    async updateModule(programModule) {
+      const moduleRef = doc(
+        database,
+        "postDegreePrograms",
+        this.idProgram,
+        "modules",
+        programModule.moduleCode
+      );
+      if (programModule.moduleInstructorOption == 1) {
+        console.log(programModule.moduleCode);
+        programModule.moduleInstructorName =
+          programModule.moduleInstructor.instructorName;
+        programModule.moduleInstructorEmail =
+          programModule.moduleInstructor.instructorEmail;
+        programModule.moduleInstructorPhone =
+          programModule.moduleInstructor.instructorPhone;
 
-        await updateDoc(moduleRef,{
-          moduleInstructorName : programModule.moduleInstructor.instructorName,
-          moduleInstructorEmail : programModule.moduleInstructor.instructorEmail,
-          moduleInstructorPhone : programModule.moduleInstructor.instructorPhone,
-
-        })
-      }else{
-        await updateDoc(moduleRef,{
-          moduleInstructorName : (programModule.moduleInstructorName).toUpperCase(),
-          moduleInstructorEmail : programModule.moduleInstructorEmail,
-          moduleInstructorPhone : programModule.moduleInstructorPhone,
-        })
+        await updateDoc(moduleRef, {
+          moduleInstructorName: programModule.moduleInstructor.instructorName,
+          moduleInstructorEmail: programModule.moduleInstructor.instructorEmail,
+          moduleInstructorPhone: programModule.moduleInstructor.instructorPhone,
+        });
+      } else {
+        await updateDoc(moduleRef, {
+          moduleInstructorName:
+            programModule.moduleInstructorName.toUpperCase(),
+          moduleInstructorEmail: programModule.moduleInstructorEmail,
+          moduleInstructorPhone: programModule.moduleInstructorPhone,
+        });
       }
     },
   },

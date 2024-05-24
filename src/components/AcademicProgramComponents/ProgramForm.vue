@@ -171,8 +171,7 @@
                 item-title="instructorName"
                 return-object
                 filled
-              >
-              </v-select>
+              ></v-select>
               <v-form v-else-if="moduleForm.moduleInstructorOption == 2">
                 <v-text-field
                   v-model="moduleForm.moduleInstructorName"
