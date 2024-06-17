@@ -5,11 +5,7 @@
         <v-row>
           <h3>Código de Programa</h3>
           <v-container>
-            <v-label>
-              Nota: Si el proyecto a ingresar no cuenta con el código contable
-              marcar la casilla "Programa Nuevo".
-            </v-label>
-            <v-label>Código contable del programa. </v-label>
+            <v-label> Nota: Código contable establecido en el portal. </v-label>
             <v-text-field
               v-model="programId"
               label="Código del Programa"
@@ -17,9 +13,19 @@
               required
             ></v-text-field>
           </v-container>
+          <h3>ID de Programa</h3>
+          <v-container>
+            <v-label> Nota: ID del programa establecido en el portal. </v-label>
+            <v-text-field
+              v-model="programPortalId"
+              label="ID del Programa"
+              @input="programPortalId = programPortalId.toUpperCase()"
+              required
+            ></v-text-field>
+          </v-container>
         </v-row>
         <v-row>
-          <h3>Programa</h3>
+          <h3>Nombre del Programa</h3>
           <v-container>
             <v-label>
               Nota: Escriba el nombre completo del programa, tome en cuenta la
@@ -209,17 +215,24 @@
                 Nota: Seleccione la hora de inicio y la hora de finalización del
                 módulo.
               </v-label>
-              <VueDatePicker
-                v-model="moduleForm.moduleStartHour"
-                time-picker
-                placeholder="Hora Inicio"
-              ></VueDatePicker>
-              <br />
-              <VueDatePicker
-                v-model="moduleForm.moduleEndHour"
-                time-picker
-                placeholder="Hora Fin"
-              ></VueDatePicker>
+              <div class="dateTime">
+                <div>
+                  <v-label>Hora de inicio</v-label>
+                  <VueDatePicker
+                    v-model="moduleForm.moduleStartHour"
+                    time-picker
+                    placeholder="Hora Inicio"
+                  ></VueDatePicker>
+                </div>
+                <div>
+                  <v-label>Hora de finalización</v-label>
+                  <VueDatePicker
+                    v-model="moduleForm.moduleEndHour"
+                    time-picker
+                    placeholder="Hora Fin"
+                  ></VueDatePicker>
+                </div>
+              </div>
               <br />
               <h4>Contenido:</h4>
               <v-label>
@@ -232,10 +245,7 @@
                 :rules="moduleContenRules"
               ></v-textarea>
             </v-form>
-            <v-btn
-              v-if="moduleForms.length < 17"
-              @click="addModuleForm()"
-            >
+            <v-btn v-if="moduleForms.length < 17" @click="addModuleForm()">
               Añadir Módulo
             </v-btn>
           </v-container>
@@ -294,6 +304,7 @@ export default {
       moduleLimits: 3,
 
       programId: "",
+      programPortalId: "",
       programName: "",
       programYear: "",
       programSite: "",
@@ -353,8 +364,8 @@ export default {
           moduleInstructorPhone: "",
           moduleInvoice: "",
           moduleDates: "",
-          moduleStartHour: "",
-          moduleEndHour: "",
+          moduleStartHour: { hours: 19, minutes: 0 },
+          moduleEndHour: { hours: 22, minutes: 0 },
           moduleContent: "",
         },
       ],
@@ -452,8 +463,8 @@ export default {
         moduleInstructorPhone: "",
         moduleInvoice: "",
         moduleDates: "",
-        moduleStartHour: "",
-        moduleEndHour: "",
+        moduleStartHour: { hours: 19, minutes: 0 },
+        moduleEndHour: { hours: 22, minutes: 0 },
         moduleContent: "",
       });
     },
@@ -599,5 +610,9 @@ export default {
 .program-form {
   position: relative;
   width: 65rem;
+}
+.dateTime {
+  display: flex;
+  justify-content: center;
 }
 </style>

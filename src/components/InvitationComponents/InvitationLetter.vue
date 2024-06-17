@@ -179,7 +179,8 @@
             Presentar las siguientes ACTAS:
             <br />
             <b>- Acta 01.</b> Conclusión del módulo (redacción en tiempo pasado
-            del cumplimento del plan global). <br />- Acta 02. Plan de
+            del cumplimento del plan global). <br />
+            <b>- Acta 02.</b>  Plan de
             Desarrollo Curricular (redacción en tiempo pasado del cumplimento
             del plan global).
             <br />
