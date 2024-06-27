@@ -199,6 +199,11 @@
                 item-title="invoiceName"
                 item-value="invoiceCode"
               ></v-select>
+              <h4>Monto a pagar</h4>
+              <v-label>Definir monto a pagar</v-label>
+              <v-text-field
+                  label="Salario"
+                ></v-text-field>
               <h4>Fecha y hora de clases:</h4>
               <v-label>
                 Nota: Seleccione todas las fechas en las cuales se llevara a

@@ -9,6 +9,7 @@
       <v-card-title>{{
         programModule.moduleOrder + " : " + programModule.moduleName
       }}</v-card-title>
+      <v-label>Estado: </v-label> 
       <v-card-subtitle class="subtitle-instructor"
         >Docente actual</v-card-subtitle
       >
