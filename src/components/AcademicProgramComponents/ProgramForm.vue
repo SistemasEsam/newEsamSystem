@@ -83,7 +83,7 @@
               :items="programTypes"
               item-title="typeName"
               item-value="typeName"
-              @change="updateModuleLimit()"
+              @update:model-value="updateModuleLimit(); updateProgramDefaultPayment()"
             ></v-select>
           </v-container>
         </v-row>
@@ -178,20 +178,6 @@
                 return-object
                 filled
               ></v-select>
-              <v-form v-else-if="moduleForm.moduleInstructorOption == 2">
-                <v-text-field
-                  v-model="moduleForm.moduleInstructorName"
-                  label="Nombre del Docente"
-                ></v-text-field>
-                <v-text-field
-                  v-model="moduleForm.moduleInstructorEmail"
-                  label="Correo del Docente"
-                ></v-text-field>
-                <v-text-field
-                  v-model="moduleForm.moduleInstructorPhone"
-                  label="Telefono del Docente"
-                ></v-text-field>
-              </v-form>
               <v-select
                 v-model="moduleForm.moduleInvoice"
                 label="Facturación"
@@ -202,7 +188,9 @@
               <h4>Monto a pagar</h4>
               <v-label>Definir monto a pagar</v-label>
               <v-text-field
+                  v-model="moduleForm.modulePayment"
                   label="Salario"
+                  :disabled=false
                 ></v-text-field>
               <h4>Fecha y hora de clases:</h4>
               <v-label>
@@ -314,6 +302,7 @@ export default {
       programYear: "",
       programSite: "",
       programType: "",
+      programDefaultPayment: "",
       programArea: "",
       programCoordinatorName: "",
       programCoordinatorLastname: "",
@@ -368,6 +357,7 @@ export default {
           moduleInstructorEmail: "",
           moduleInstructorPhone: "",
           moduleInvoice: "",
+          modulePayment: "",
           moduleDates: "",
           moduleStartHour: { hours: 19, minutes: 0 },
           moduleEndHour: { hours: 22, minutes: 0 },
@@ -401,11 +391,10 @@ export default {
           optionCode: "0",
         },
         { optionName: "Antiguo (Presente en la base datos)", optionCode: "1" },
-        { optionName: "Nuevo (Primera experiencia laboral)", optionCode: "2" },
       ],
       invoiceOptionList: [
-        { invoiceName: "Factura", invoiceCode: "0" },
-        { invoiceName: "Retención", invoiceCode: "1" },
+        { invoiceName: "Emite Factura", invoiceCode: "0" },
+        { invoiceName: "Pago con Retención", invoiceCode: "1" },
         {
           invoiceName: "Internacional (No aplica facturación)",
           invoiceCode: "2",
@@ -447,14 +436,12 @@ export default {
           });
         }
       });
-      console.log(this.instructorList[0].instructorName);
     },
     async getProgramsList() {
       const programs = await getDocs(
         collection(database, "postDegreePrograms")
       );
       this.programsQuantity = programs.size;
-      console.log("Cantidad de programas: " + this.programsQuantity);
     },
     addModuleForm() {
       this.moduleForms.push({
@@ -467,6 +454,7 @@ export default {
         moduleInstructorEmail: "",
         moduleInstructorPhone: "",
         moduleInvoice: "",
+        modulePayment: this.programDefaultPayment,
         moduleDates: "",
         moduleStartHour: { hours: 19, minutes: 0 },
         moduleEndHour: { hours: 22, minutes: 0 },
@@ -599,14 +587,30 @@ export default {
       this.dialogFlag = false;
     },
     updateModuleLimit() {
-      switch (this.programSite) {
+      console.log("Tipo de programa:"+this.programType)
+      switch (this.programType) {
         case "Diplomado":
           this.moduleLimits = 8;
+          console.log("Limite"+this.moduleLimits)
           break;
         case "Maestria":
           this.moduleLimits = 18;
+          console.log("Limite"+this.moduleLimits)
           break;
       }
+    },
+    updateProgramDefaultPayment(){
+      switch (this.programType) {
+        case "Diplomado":
+          this.programDefaultPayment = 1775;
+          console.log(this.programDefaultPayment)
+          break;
+        case "Maestria":
+          this.programDefaultPayment = 3550;
+          console.log(this.programDefaultPayment)
+          break;
+      }
+      this.moduleForms[0].modulePayment = this.programDefaultPayment
     },
   },
 };
