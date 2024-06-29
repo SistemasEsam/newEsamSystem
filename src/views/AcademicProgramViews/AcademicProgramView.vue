@@ -1,9 +1,11 @@
 <template>
   <NavBar></NavBar>
-  <v-container>
+  <div class="program-background">
+  <v-container class="program-background-container">
     <h1>Registro de Programa</h1>
     <ProgramForm></ProgramForm>
   </v-container>
+</div>
 </template>
 <script>
 import NavBar from "@/components/NavBar.vue";
@@ -18,4 +20,10 @@ export default {
 };
 </script>
 <style>
+.program-background{
+  background-color: #e5e7eb;
+}
+.program-background-container{
+  background-color: white;
+}
 </style>

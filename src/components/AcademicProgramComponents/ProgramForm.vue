@@ -10,6 +10,7 @@
               v-model="programId"
               label="Código del Programa"
               @input="programId = programId.toUpperCase()"
+              variant="outlined"
               required
             ></v-text-field>
           </v-container>
@@ -20,6 +21,7 @@
               v-model="programPortalId"
               label="ID del Programa"
               @input="programPortalId = programPortalId.toUpperCase()"
+              variant="outlined"
               required
             ></v-text-field>
           </v-container>
@@ -36,6 +38,7 @@
               label="Nombre del Programa"
               :rules="nameRules"
               @input="programName = programName.toUpperCase()"
+              variant="outlined"
               required
             ></v-text-field>
           </v-container>
@@ -69,6 +72,7 @@
               :items="programESAMSites"
               item-title="siteName"
               item-value="siteCode"
+              variant="outlined"
               required
             ></v-select>
           </v-container>
@@ -84,6 +88,8 @@
               item-title="typeName"
               item-value="typeName"
               @update:model-value="updateModuleLimit(); updateProgramDefaultPayment()"
+              variant="outlined"
+
             ></v-select>
           </v-container>
         </v-row>
@@ -99,6 +105,8 @@
               :items="programAreas"
               item-title="areaName"
               item-value="areaName"
+              variant="outlined"
+
             ></v-select>
           </v-container>
         </v-row>
@@ -114,6 +122,7 @@
               @input="
                 programCoordinatorName = programCoordinatorName.toUpperCase()
               "
+              variant="outlined"
               required
             ></v-text-field>
             <v-text-field
@@ -123,11 +132,13 @@
                 programCoordinatorLastname =
                   programCoordinatorLastname.toUpperCase()
               "
+              variant="outlined"                            
               required
             ></v-text-field>
             <v-text-field
               v-model="programCoordinatorEmail"
               label="Correo"
+              variant="outlined"
               @input="
                 programCoordinatorEmail = programCoordinatorEmail.toUpperCase()
               "
@@ -139,7 +150,7 @@
         <v-row>
           <h3>Módulos</h3>
           <v-container>
-            <v-form v-for="(moduleForm, index) in moduleForms" :key="index">
+            <v-form variant="outlined" v-for="(moduleForm, index) in moduleForms" :key="index">
               <v-btn
                 append-icon
                 color="red"
@@ -157,6 +168,7 @@
                 v-model="moduleForm.moduleName"
                 label="Nombre del Módulo"
                 :rules="nameRules"
+                variant="outlined"
                 @input="
                   moduleForm.moduleName = moduleForm.moduleName.toUpperCase()
                 "
@@ -168,6 +180,7 @@
                 :items="instructorOptionList"
                 item-title="optionName"
                 item-value="optionCode"
+                variant="outlined"
               ></v-select>
               <v-select
                 v-if="moduleForm.moduleInstructorOption == 1"
@@ -176,6 +189,7 @@
                 :items="instructorList"
                 item-title="instructorName"
                 return-object
+                variant="outlined"
                 filled
               ></v-select>
               <v-select
@@ -184,13 +198,16 @@
                 :items="invoiceOptionList"
                 item-title="invoiceName"
                 item-value="invoiceCode"
+                variant="outlined"
               ></v-select>
               <h4>Monto a pagar</h4>
               <v-label>Definir monto a pagar</v-label>
               <v-text-field
                   v-model="moduleForm.modulePayment"
                   label="Salario"
+                  prefix="$"
                   :disabled=false
+                  variant="outlined"
                 ></v-text-field>
               <h4>Fecha y hora de clases:</h4>
               <v-label>
@@ -236,9 +253,10 @@
                 v-model="moduleForm.moduleContent"
                 label="Contenido del Módulo"
                 :rules="moduleContenRules"
+                variant="outlined"
               ></v-textarea>
             </v-form>
-            <v-btn v-if="moduleForms.length < 17" @click="addModuleForm()">
+            <v-btn v-if="moduleForms.length < moduleLimits" @click="addModuleForm()">
               Añadir Módulo
             </v-btn>
           </v-container>
@@ -252,6 +270,7 @@
               label="Subir proyecto"
               chips
               accept="application/pdf"
+              variant="outlined"
             >
             </v-file-input>
           </v-container>
@@ -294,7 +313,7 @@ export default {
       instructorList: [],
       currentYear: new Date().getFullYear(),
       programsQuantity: 0,
-      moduleLimits: 3,
+      moduleLimits: 0,
 
       programId: "",
       programPortalId: "",
@@ -489,6 +508,7 @@ export default {
       }
       setDoc(doc(database, "postDegreePrograms", this.programId), {
         programId: this.programId,
+        programPortalId: this.programPortalId,
         programName: this.programName,
         programYear: JSON.parse(JSON.stringify(this.programYear)),
         programSite: this.programSite,
@@ -523,10 +543,6 @@ export default {
           instructorName = moduleForm.moduleInstructor.instructorName;
           instructorEmail = moduleForm.moduleInstructor.instructorEmail;
           instructorPhone = moduleForm.moduleInstructor.instructorPhone;
-        } else if (moduleForm.moduleInstructorOption == 2) {
-          instructorName = moduleForm.moduleInstructorName;
-          instructorEmail = moduleForm.moduleInstructorEmail;
-          instructorPhone = moduleForm.moduleInstructorPhone;
         }
         setDoc(
           doc(
@@ -544,6 +560,7 @@ export default {
             moduleInstructorEmail: instructorEmail,
             moduleInstructorPhone: instructorPhone,
             moduleInvoice: moduleForm.moduleInvoice,
+            modulePayment: moduleForm.modulePayment,
             moduleDates: dates,
             moduleStartHour: this.formatHour(startHour),
             moduleEndHour: this.formatHour(endHour),
