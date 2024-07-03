@@ -1,4 +1,7 @@
 <template>
+  <v-btn @click="showPreviusComponent()">
+    Atras
+  </v-btn>
   <v-container>
     <h2>Detalles del Programa: {{ this.idProgram }}</h2>
     <v-card
@@ -25,7 +28,7 @@
       >
       <v-checkbox
         v-model="programModule.updateModuleData"
-        label="Asignar/Cambiar docente:"
+        label="Actualizar módulo:"
       ></v-checkbox>
       <v-card-item>
         <v-form v-if="programModule.updateModuleData">
@@ -56,7 +59,7 @@
           :disabled="!programModule.updateModuleData"
           variant="outlined"
           @click="updateModule(programModule)"
-          >Actualizar módulo</v-btn
+          >Actualizar</v-btn
         >
         <v-btn
           variant="outlined"
@@ -66,7 +69,10 @@
               programModule.moduleCode
             )
           "
-          >Invitación</v-btn
+          >Invitación
+          
+          
+          </v-btn
         >
       </v-card-item>
     </v-card>
@@ -206,6 +212,10 @@ export default {
           moduleInstructorPhone: programModule.moduleInstructorPhone,
         });
       }
+    },
+    showPreviusComponent(){
+        let nextComponent = "program-menu"
+        this.$emit("show-next-component",nextComponent )
     },
   },
 };

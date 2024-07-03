@@ -1,8 +1,21 @@
 <template>
     <v-container>
-        <v-card v-for="(program, index) in programList"
+      <h2>Filtros de busqueda:</h2>
+      <v-label>
+        
+      </v-label>
+      <v-text-field label="Nombre de programa" variant="outlined">
+      </v-text-field>
+      <v-select variant="outlined" label="Area de programa"></v-select>
+      <v-select variant="outlined" label="Tipo de programa"></v-select>
+      <VueDatePicker placeholder="Gestión del programa" class="mb-5" v-model="programYear" year-picker></VueDatePicker>
+      <v-btn variant="outlined">Buscar</v-btn>
+    </v-container>
+    <v-container>
+        <v-card variant="outlined" v-for="(program, index) in programList"
           :key="index"
-          @click="openProgram(program.data().programId)">
+          @click="openProgram(program.data().programId)"
+          class="program-card">
             <v-card-title>
                 {{program.data().programName}}
             </v-card-title>
@@ -22,6 +35,8 @@
 import { ref } from "vue";
 import { database } from "../../firebase/firebase";
 import { collection, getDocs } from "firebase/firestore";
+import VueDatePicker from "@vuepic/vue-datepicker";
+
 
 export default {
   data() {
@@ -53,4 +68,7 @@ export default {
 };
 </script>
 <style>
+.program-card{
+  margin-bottom: 0.5rem;
+}
 </style>

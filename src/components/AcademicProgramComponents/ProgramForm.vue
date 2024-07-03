@@ -256,7 +256,7 @@
                 variant="outlined"
               ></v-textarea>
             </v-form>
-            <v-btn v-if="moduleForms.length < moduleLimits" @click="addModuleForm()">
+            <v-btn variant="outlined" v-if="moduleForms.length < moduleLimits" @click="addModuleForm()">
               Añadir Módulo
             </v-btn>
           </v-container>
@@ -277,7 +277,7 @@
         </v-row>
       </v-col>
       <br />
-      <v-btn @click="saveData()"> Guardar Programa</v-btn>
+      <v-btn variant="outlined" @click="saveData()"> Guardar Programa</v-btn>
       <v-dialog v-model="dialogFlag">
         <v-card>
           <v-card-text>
@@ -285,7 +285,7 @@
             <b> {{ this.programId }} </b>
           </v-card-text>
           <v-card-actions>
-            <v-btn color="primary" block @click="closeDialog()"
+            <v-btn variant="outlined" color="primary" block @click="closeDialog()"
               >Close Dialog</v-btn
             >
           </v-card-actions>

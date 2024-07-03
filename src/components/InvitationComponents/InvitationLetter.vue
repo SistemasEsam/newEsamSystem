@@ -1,4 +1,7 @@
 <template>
+  <v-btn @click="showPreviusComponent()">
+    Atras
+  </v-btn>
   <div class="instructor-coordinator">
     <H1> Carta de Invitación</H1>
     <v-btn @click="exportToPDF()">DESCARGAR PDF</v-btn>
@@ -482,6 +485,10 @@ export default {
           });
         });
       });
+    },
+    showPreviusComponent(){
+        let nextComponent = "program-details"
+        this.$emit("show-next-component",nextComponent )
     },
   },
 };
