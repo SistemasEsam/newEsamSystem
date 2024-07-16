@@ -5,31 +5,31 @@
   <v-container>
     <h2>Detalles del Programa: {{ this.idProgram }}</h2>
     <v-card
+      variant="outlined" 
       class="mb-2"
       v-for="(programModule, index) in moduleList"
       :key="index"
+      :rounded="rounded"
+      hover
     >
       <v-card-title>{{
         programModule.moduleOrder + " : " + programModule.moduleName
       }}</v-card-title>
-      <v-label>Estado: </v-label> 
-      <v-card-subtitle class="subtitle-instructor"
-        >Docente actual</v-card-subtitle
+      <v-card-subtitle>Estado: </v-card-subtitle> 
+      <v-card-text class="subtitle-instructor"
+        >Docente actual:</v-card-text
       >
-      <v-card-subtitle>
+      <v-card-text class="subtitle-instructor">
         Nombre:
-        {{ programModule.moduleInstructorName }}</v-card-subtitle
+        {{ programModule.moduleInstructorName }}</v-card-text
       >
-      <v-card-subtitle
-        >Correo: {{ programModule.moduleInstructorEmail }}</v-card-subtitle
+      <v-card-text class="subtitle-instructor"
+        >Correo: {{ programModule.moduleInstructorEmail }}</v-card-text
       >
-      <v-card-subtitle
-        >Telefono: {{ programModule.moduleInstructorPhone }}</v-card-subtitle
+      <v-card-text class="subtitle-instructor"
+        >Telefono: {{ programModule.moduleInstructorPhone }}</v-card-text
       >
-      <v-checkbox
-        v-model="programModule.updateModuleData"
-        label="Actualizar módulo:"
-      ></v-checkbox>
+      
       <v-card-item>
         <v-form v-if="programModule.updateModuleData">
           <v-select
@@ -55,6 +55,8 @@
           >
           </v-text-field>
         </v-form>
+      </v-card-item>
+      <v-card-actions>
         <v-btn
           :disabled="!programModule.updateModuleData"
           variant="outlined"
@@ -70,11 +72,12 @@
             )
           "
           >Invitación
-          
-          
-          </v-btn
-        >
-      </v-card-item>
+          </v-btn>
+          <v-checkbox
+        v-model="programModule.updateModuleData"
+        label="Actualizar módulo:"
+      ></v-checkbox>
+      </v-card-actions>
     </v-card>
   </v-container>
 </template>
@@ -222,6 +225,7 @@ export default {
 </script>
 <style>
 .subtitle-instructor {
-  font-size: large;
+  font-size: medium;
+  margin-bottom: -1rem;
 }
 </style>
