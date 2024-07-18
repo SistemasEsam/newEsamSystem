@@ -3,7 +3,7 @@
     <v-container class="program-form">
       <v-col>
         <v-row>
-          <h3>Código de Programa</h3>
+            <h3>Código de Programa</h3>
           <v-container>
             <v-label> Nota: Código contable establecido en el portal. </v-label>
             <v-text-field
@@ -63,7 +63,7 @@
         <v-row>
           <h3>Sede</h3>
           <v-container>
-            <v-label>
+            <v-label class="mb-2">
               Nota: Seleccione la sucursal a la que corresponde el programa.
             </v-label>
             <v-select
@@ -80,7 +80,7 @@
         <v-row>
           <h3>Tipo de Programa</h3>
           <v-container>
-            <v-label> Nota: Seleccione el tipo de programa. </v-label>
+            <v-label class="mb-2"> Nota: Seleccione el tipo de programa. </v-label>
             <v-select
               v-model="programType"
               label="Tipo de Programa"
@@ -96,7 +96,7 @@
         <v-row>
           <h3>Area del Programa</h3>
           <v-container>
-            <v-label>
+            <v-label class="mb-2">
               Nota: Seleccione el area a la que pertenece el programa.
             </v-label>
             <v-select
@@ -173,7 +173,7 @@
                   moduleForm.moduleName = moduleForm.moduleName.toUpperCase()
                 "
               ></v-text-field>
-              <h4>Requerimientos:</h4>
+              <h4 class="mb-2">Requerimientos:</h4>
               <v-select
                 v-model="moduleForm.moduleInstructorOption"
                 label="Docente"
@@ -264,7 +264,7 @@
         <v-row>
           <v-container>
             <h4>Archivo:</h4>
-            <v-label> Nota: Seleccione el documento del proyecto. </v-label>
+            <v-label class="mb-2"> Nota: Seleccione el documento del proyecto. </v-label>
             <v-file-input
               @change="loadProgramProject($event)"
               label="Subir proyecto"
@@ -636,9 +636,15 @@ export default {
 .program-form {
   position: relative;
   width: 65rem;
+  border-style: solid;
+  border-width: 0.1rem
 }
 .dateTime {
   display: flex;
   justify-content: center;
+}
+.program-header{
+  background-color: blue;
+  width: 100%;
 }
 </style>
