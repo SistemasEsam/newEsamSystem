@@ -2,6 +2,7 @@
   <v-btn @click="showPreviusComponent()">
     Atras
   </v-btn>
+  <H1>Hola</H1>
   <div class="instructor-coordinator">
     <H1> Carta de Invitación</H1>
     <v-btn @click="exportToPDF()">DESCARGAR PDF</v-btn>
