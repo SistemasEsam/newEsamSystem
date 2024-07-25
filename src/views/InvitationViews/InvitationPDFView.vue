@@ -1,12 +1,6 @@
 <template>
     <div>
-      <keep-alive>
-        <component
-          :is="activeComponent"
-          @show-next-form="showNextForm"
-          :id-array="idUser"
-        />
-      </keep-alive>
+      <invitation-letter></invitation-letter>
     </div>
   </template>
   <script>
