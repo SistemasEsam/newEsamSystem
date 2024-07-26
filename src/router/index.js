@@ -58,7 +58,7 @@ const routes = [
     component: InvitationView
   },
   {
-    path: '/invitation-pdf-view/:id',
+    path: '/invitation-pdf-view/:id/letter/:moduleId',
     name: 'invitationPDFView',
     component: InvitationPDFView
   },

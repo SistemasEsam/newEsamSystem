@@ -40,7 +40,9 @@
             <div class="bold-data">
               Ref: Invitacion para impartir docencia en:
             </div>
-            {{ this.moduleData.moduleOrder+": "+this.moduleData.moduleName }}
+            {{
+              this.moduleData.moduleOrder + ": " + this.moduleData.moduleName
+            }}
             <br />
             {{ this.programData.programName }}
           </div>
@@ -65,7 +67,7 @@
             <h4>1. Cronograma y Contenido</h4>
             <v-container>
               <v-row>
-                <v-col cols="4" class="row-sessions">
+                <v-col cols="6" class="row-sessions">
                   Contenidos minimos tentativos
                 </v-col>
                 <v-col class="row-sessions"> Actividad </v-col>
@@ -73,7 +75,7 @@
                 <v-col class="row-sessions"> Hora </v-col>
               </v-row>
               <v-row>
-                <v-col cols="4" class="row-content">
+                <v-col cols="6" class="row-content">
                   <p>
                     {{ this.moduleData.moduleContent }}
                   </p>
@@ -113,7 +115,9 @@
         </div>
       </div>
       <div class="letter-footer">
-        <InvitationFooterVue :programSite=" this.programData.programSite "></InvitationFooterVue>
+        <InvitationFooterVue
+          :programSite="this.programData.programSite"
+        ></InvitationFooterVue>
       </div>
     </div>
     <br />
@@ -178,22 +182,23 @@
             <br />
             Presentar las siguientes ACTAS:
             <br />
-            <b>- Acta 01.</b> Conclusión del módulo (redacción en tiempo pasado
-            del cumplimento del plan global). <br />
-            <b>- Acta 02.</b>  Plan de
-            Desarrollo Curricular (redacción en tiempo pasado del cumplimento
-            del plan global).
-            <br />
-            <b>- Acta 03.</b> Planilla de Acta de Notas (calificaciones finales
-            y observaciones).
-            <br />
-            <b>- Acta 04.</b> Desarrollo Curricular de Notas (las columnas
-            pueden ser modificadas acorde a las actividades calificadas).
-            <br />
-            <b>- Acta 05.</b> Planilla de Acta de Notas de Segunda Instancia
-            (nota única de 71 puntos). <br />Las actas deben presentarse de
-            acuerdo al cronograma. El incumplimiento de esta cláusula
-            deshabilita al docente para seguir dentro del plantel docente.
+            <div>
+            <ul>
+              <li><b>Acta 01.</b> Conclusión del módulo (redacción en tiempo
+              pasado del cumplimento del plan global).</li>
+              <li><b>Acta 02.</b> Plan de Desarrollo Curricular (redacción en
+              tiempo pasado del cumplimento del plan global).</li>
+              <li><b>Acta 03.</b> Planilla de Acta de Notas (calificaciones
+              finales y observaciones).</li>
+              <li><b>Acta 04.</b> Desarrollo Curricular de Notas (las columnas
+              pueden ser modificadas acorde a las actividades calificadas).</li>
+              <li><b>Acta 05.</b> Planilla de Acta de Notas de Segunda Instancia
+              (nota única de 71 puntos).</li>
+              </ul>
+            </div>
+              Las actas deben presentarse de
+              acuerdo al cronograma. El incumplimiento de esta cláusula
+              deshabilita al docente para seguir dentro del plantel docente.
             <br />En caso de que surja algún inconveniente que impida su
             presencia en el desarrollo del módulo, deberá enviar su reemplazo
             con una preparación académica igual o superior a la suya, con el fin
@@ -211,7 +216,9 @@
         </div>
       </div>
       <div class="letter-footer">
-        <InvitationFooterVue :programSite=" this.programData.programSite "></InvitationFooterVue>
+        <InvitationFooterVue
+          :programSite="this.programData.programSite"
+        ></InvitationFooterVue>
       </div>
     </div>
     <br />
@@ -227,7 +234,11 @@
             clases, deberá realizar la presentación de las actas 01, 02 ,03, 04
             de manera obligatoria y 05 si corresponde, para realizar la
             solicitud de desembolso de honorarios de
-            <b>{{ this.programData.programPayment+" "+this.moduleData.moduleInvoice }}</b>
+            <b>{{
+              this.programData.programPayment +
+              " " +
+              this.moduleData.moduleInvoice
+            }}</b>
             los cuales serán depositados al número de cuenta que sea brindado
             por su persona para el abono en fechas 11 o 26 del mes.
             <b
@@ -250,7 +261,9 @@
         </div>
       </div>
       <div class="letter-footer">
-        <InvitationFooterVue :programSite=" this.programData.programSite "></InvitationFooterVue>
+        <InvitationFooterVue
+          :programSite="this.programData.programSite"
+        ></InvitationFooterVue>
       </div>
     </div>
   </div>
@@ -285,14 +298,14 @@ export default {
         programCoordinatorEmail: "",
         programType: "",
         programPayment: "",
-        programSite:"",
+        programSite: "",
       },
       moduleData: {
         moduleCode: "",
         moduleName: "",
         moduleContent: "",
         moduleSchedule: "",
-        moduleOrder:"",
+        moduleOrder: "",
         moduleInvoice: "",
         moduleDates: [],
       },
@@ -383,12 +396,10 @@ export default {
         this.moduleData.moduleOrder = moduleDataSaved.data().moduleOrder;
         switch (moduleDataSaved.data().moduleInvoice) {
           case "0":
-          this.moduleData.moduleInvoice =
-              "Con Factura";
+            this.moduleData.moduleInvoice = "Con Factura";
             break;
           case "1":
-          this.moduleData.moduleInvoice =
-              "Con Retención";
+            this.moduleData.moduleInvoice = "Con Retención";
             break;
         }
         this.moduleData.moduleSchedule =
@@ -483,9 +494,9 @@ export default {
         });
       });
     },
-    showPreviusComponent(){
-        let nextComponent = "program-details"
-        this.$emit("show-next-component",nextComponent )
+    showPreviusComponent() {
+      let nextComponent = "program-details";
+      this.$emit("show-next-component", nextComponent);
     },
   },
 };
@@ -542,5 +553,8 @@ export default {
 }
 .bold-data {
   font-weight: bold;
+}
+.teacher-duties{
+  text-indent: 1rem;
 }
 </style>

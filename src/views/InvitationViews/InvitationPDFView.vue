@@ -1,6 +1,9 @@
 <template>
     <div>
-      <invitation-letter></invitation-letter>
+      <component
+          :is="activeComponent"
+          :id-array="idArray"
+        />
     </div>
   </template>
   <script>
@@ -13,8 +16,8 @@
     },
     data() {
       return {
-        idUser: this.$route.params.id,
-        activeComponent: "invitation-form",
+        idArray: [this.$route.params.id,this.$route.params.moduleId],
+        activeComponent: "invitation-letter",
       };
     },
   };

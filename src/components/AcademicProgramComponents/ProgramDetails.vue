@@ -178,7 +178,7 @@ export default {
       console.log("Instructor: "+moduleInstructor+"Codigo de Modulo:"+moduleCode)
       let newTab = router.resolve({
         name: "invitationPDFView",
-        params: { id: moduleInstructor },
+        params: { id: moduleInstructor, moduleId: moduleCode },
       });
       window.open(newTab.href);
     },
