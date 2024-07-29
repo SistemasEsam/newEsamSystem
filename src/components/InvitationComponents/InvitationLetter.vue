@@ -63,10 +63,10 @@
               calificación y honorarios profesionales:
             </p>
           </div>
-          <br>
+          <br />
           <div>
             <h4>1. Cronograma y Contenido</h4>
-            <v-container  >
+            <v-container>
               <v-row>
                 <v-col cols="6" class="row-sessions">
                   Contenidos minimos tentativos
@@ -188,60 +188,73 @@
           <div>
             <h4>5. Obligaciones del docente</h4>
             <div class="content-ident">
-            <ul>
-              <li>Deberá enviar su Hoja de Vida documentada (grados académicos,
-            títulos y certificados), fotocopia del CI, para la carpeta académica
-            de la Universidad Nacional Siglo XX, en formato pdf.</li>
-              <li>Presentar el plan global en la primera clase del módulo
-                correspondiente.</li>
-              <li>Presentar las siguientes ACTAS:
-                <div class="list-ident">
               <ul>
                 <li>
-                  <b>Acta 01.</b> Conclusión del módulo (redacción en tiempo
-                  pasado del cumplimento del plan global).
+                  Deberá enviar su Hoja de Vida documentada (grados académicos,
+                  títulos y certificados), fotocopia del CI, para la carpeta
+                  académica de la Universidad Nacional Siglo XX, en formato pdf.
                 </li>
                 <li>
-                  <b>Acta 02.</b> Plan de Desarrollo Curricular (redacción en
-                  tiempo pasado del cumplimento del plan global).
+                  Presentar el plan global en la primera clase del módulo
+                  correspondiente.
                 </li>
                 <li>
-                  <b>Acta 03.</b> Planilla de Acta de Notas (calificaciones
-                  finales y observaciones).
+                  Presentar las siguientes ACTAS:
+                  <div class="list-ident">
+                    <ul>
+                      <li>
+                        <b>Acta 01.</b> Conclusión del módulo (redacción en
+                        tiempo pasado del cumplimento del plan global).
+                      </li>
+                      <li>
+                        <b>Acta 02.</b> Plan de Desarrollo Curricular (redacción
+                        en tiempo pasado del cumplimento del plan global).
+                      </li>
+                      <li>
+                        <b>Acta 03.</b> Planilla de Acta de Notas
+                        (calificaciones finales y observaciones).
+                      </li>
+                      <li>
+                        <b>Acta 04.</b> Desarrollo Curricular de Notas (las
+                        columnas pueden ser modificadas acorde a las actividades
+                        calificadas).
+                      </li>
+                      <li>
+                        <b>Acta 05.</b> Planilla de Acta de Notas de Segunda
+                        Instancia (nota única de 71 puntos).
+                      </li>
+                    </ul>
+                  </div>
                 </li>
                 <li>
-                  <b>Acta 04.</b> Desarrollo Curricular de Notas (las columnas
-                  pueden ser modificadas acorde a las actividades calificadas).
+                  Las actas deben presentarse de acuerdo al cronograma. El
+                  incumplimiento de esta cláusula deshabilita al docente para
+                  seguir dentro del plantel docente.
                 </li>
                 <li>
-                  <b>Acta 05.</b> Planilla de Acta de Notas de Segunda Instancia
-                  (nota única de 71 puntos).
+                  En caso de que surja algún inconveniente que impida su
+                  presencia en el desarrollo del módulo, deberá enviar su
+                  reemplazo con una preparación académica igual o superior a la
+                  suya, con el fin de velar la calidad académica que la
+                  Universidad imparte a los postgraduantes.
+                </li>
+                <li>
+                  <b
+                    >Es obligación del Docente gestionar las actividades en
+                    plataforma Moodle, interactuar y responder a las dudas del
+                    posgraduante.</b
+                  >
+                </li>
+                <li>
+                  Al finalizar el módulo, el docente estará sujeto a la
+                  evaluación registrada por los posgaduantes, otorgando al
+                  docente una valoración cuali cuanti que permita al docente
+                  mejorar las competencias pedagógicas y su recontratación.
                 </li>
               </ul>
             </div>
-              </li>
-              <li>Las actas deben presentarse de acuerdo al cronograma. El
-            incumplimiento de esta cláusula deshabilita al docente para seguir
-            dentro del plantel docente.</li>
-              <li>En caso de que surja algún inconveniente que impida su
-            presencia en el desarrollo del módulo, deberá enviar su reemplazo
-            con una preparación académica igual o superior a la suya, con el fin
-            de velar la calidad académica que la Universidad imparte a los
-            postgraduantes.</li>
-              <li><b
-              >Es obligación del Docente gestionar las actividades en plataforma
-              Moodle, interactuar y responder a las dudas del posgraduante.</b
-            ></li>
-              <li>
-                Al finalizar el módulo, el docente estará sujeto a la
-            evaluación registrada por los posgaduantes, otorgando al docente una
-            valoración cuali cuanti que permita al docente mejorar las
-            competencias pedagógicas y su recontratación.
-              </li>
-            </ul>
-          </div>
-            <br /> Correo Electrónico:
-            Correo Coordinadora
+            <br />
+            Correo Electrónico: Correo Coordinadora
           </div>
         </div>
       </div>
