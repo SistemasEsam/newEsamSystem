@@ -63,9 +63,10 @@
               calificación y honorarios profesionales:
             </p>
           </div>
+          <br>
           <div>
             <h4>1. Cronograma y Contenido</h4>
-            <v-container>
+            <v-container  >
               <v-row>
                 <v-col cols="6" class="row-sessions">
                   Contenidos minimos tentativos
@@ -129,39 +130,52 @@
         <div>
           <div>
             <h4>2.Metodologia Academica</h4>
-            <b>● Plataforma Zoom</b> (Plataforma sincrónica) donde se llevan a
-            cabo las clases de manera semanal y en donde los posgraduantes
-            realizan sus dudas, consultas e interactúan con el docente.
-            <br />
-            <b>● Plataforma Moodle</b> (Plataforma asincrónica) donde se
-            realizan las actividades y evaluaciones hacia los posgraduantes, por
-            ello a su persona se le asigna un usuario y contraseña, para
-            ingresar través de la siguiente URL (dirección de la plataforma):
-            <br />
-            <a href="url">
-              https://esam.edu.bo/moodle/login/forgot_password.phpn
-            </a>
+            <div class="list-ident">
+              <ul>
+                <li>
+                  <b>Plataforma Zoom</b> (Plataforma sincrónica) donde se llevan
+                  a cabo las clases de manera semanal y en donde los
+                  posgraduantes realizan sus dudas, consultas e interactúan con
+                  el docente.
+                </li>
+                <li>
+                  <b>Plataforma Moodle</b> (Plataforma asincrónica) donde se
+                  realizan las actividades y evaluaciones hacia los
+                  posgraduantes, por ello a su persona se le asigna un usuario y
+                  contraseña, para ingresar través de la siguiente URL
+                  (dirección de la plataforma):
+                  <a href="url">
+                    https://esam.edu.bo/moodle/login/forgot_password.phpn
+                  </a>
+                </li>
+              </ul>
+            </div>
           </div>
           <div>
             <h4>3. Planificacion Academica</h4>
             Deberá subir una semana antes de cada clase la siguiente
             documentación:
             <br />
-            ● Plan global de la materia (Nombre del módulo, objetivos
-            específicos de enseñanza, metodología, recursos didácticos y
-            material bibliográfico).
-            <br />
-            ● Diapositivas de la semana.
-            <br />
-            ● Todo el Material bibliográfico de consulta (artículos, documentos
-            referentes, enlaces, etc.).
-            <br />
-            ● Todas las Actividades Evaluativas con solucionarios.
-            <br />
-            ● Cápsulas resumen de videos.
-            <br />
-            *Las actividades planificadas deberán estar orientadas a la práctica
-            contextual real.
+            <div class="list-ident">
+              <ul>
+                <li>
+                  Plan global de la materia (Nombre del módulo, objetivos
+                  específicos de enseñanza, metodología, recursos didácticos y
+                  material bibliográfico).
+                </li>
+                <li>Diapositivas de la semana.</li>
+                <li>
+                  Todo el Material bibliográfico de consulta (artículos,
+                  documentos referentes, enlaces, etc.).
+                </li>
+                <li>Todas las Actividades Evaluativas con solucionarios.</li>
+                <li>Cápsulas resumen de videos.</li>
+              </ul>
+            </div>
+            <b
+              >*Las actividades planificadas deberán estar orientadas a la
+              práctica contextual real.</b
+            >
           </div>
           <div>
             <h4>4. Metodologia para las evaluaciones</h4>
@@ -173,44 +187,60 @@
           </div>
           <div>
             <h4>5. Obligaciones del docente</h4>
-            Deberá enviar su Hoja de Vida documentada (grados académicos,
-            títulos y certificados), fotocopia del CI, para la carpeta académica
-            de la Universidad Nacional Siglo XX, en formato pdf.
-            <br />
-            Presentar el plan global en la primera clase del módulo
-            correspondiente.
-            <br />
-            Presentar las siguientes ACTAS:
-            <br />
-            <div>
+            <div class="content-ident">
             <ul>
-              <li><b>Acta 01.</b> Conclusión del módulo (redacción en tiempo
-              pasado del cumplimento del plan global).</li>
-              <li><b>Acta 02.</b> Plan de Desarrollo Curricular (redacción en
-              tiempo pasado del cumplimento del plan global).</li>
-              <li><b>Acta 03.</b> Planilla de Acta de Notas (calificaciones
-              finales y observaciones).</li>
-              <li><b>Acta 04.</b> Desarrollo Curricular de Notas (las columnas
-              pueden ser modificadas acorde a las actividades calificadas).</li>
-              <li><b>Acta 05.</b> Planilla de Acta de Notas de Segunda Instancia
-              (nota única de 71 puntos).</li>
+              <li>Deberá enviar su Hoja de Vida documentada (grados académicos,
+            títulos y certificados), fotocopia del CI, para la carpeta académica
+            de la Universidad Nacional Siglo XX, en formato pdf.</li>
+              <li>Presentar el plan global en la primera clase del módulo
+                correspondiente.</li>
+              <li>Presentar las siguientes ACTAS:
+                <div class="list-ident">
+              <ul>
+                <li>
+                  <b>Acta 01.</b> Conclusión del módulo (redacción en tiempo
+                  pasado del cumplimento del plan global).
+                </li>
+                <li>
+                  <b>Acta 02.</b> Plan de Desarrollo Curricular (redacción en
+                  tiempo pasado del cumplimento del plan global).
+                </li>
+                <li>
+                  <b>Acta 03.</b> Planilla de Acta de Notas (calificaciones
+                  finales y observaciones).
+                </li>
+                <li>
+                  <b>Acta 04.</b> Desarrollo Curricular de Notas (las columnas
+                  pueden ser modificadas acorde a las actividades calificadas).
+                </li>
+                <li>
+                  <b>Acta 05.</b> Planilla de Acta de Notas de Segunda Instancia
+                  (nota única de 71 puntos).
+                </li>
               </ul>
             </div>
-              Las actas deben presentarse de
-              acuerdo al cronograma. El incumplimiento de esta cláusula
-              deshabilita al docente para seguir dentro del plantel docente.
-            <br />En caso de que surja algún inconveniente que impida su
+              </li>
+              <li>Las actas deben presentarse de acuerdo al cronograma. El
+            incumplimiento de esta cláusula deshabilita al docente para seguir
+            dentro del plantel docente.</li>
+              <li>En caso de que surja algún inconveniente que impida su
             presencia en el desarrollo del módulo, deberá enviar su reemplazo
             con una preparación académica igual o superior a la suya, con el fin
             de velar la calidad académica que la Universidad imparte a los
-            postgraduantes. <br /><b
+            postgraduantes.</li>
+              <li><b
               >Es obligación del Docente gestionar las actividades en plataforma
               Moodle, interactuar y responder a las dudas del posgraduante.</b
-            >
-            <br />Al finalizar el módulo, el docente estará sujeto a la
+            ></li>
+              <li>
+                Al finalizar el módulo, el docente estará sujeto a la
             evaluación registrada por los posgaduantes, otorgando al docente una
             valoración cuali cuanti que permita al docente mejorar las
-            competencias pedagógicas y su recontratación. Correo Electrónico:
+            competencias pedagógicas y su recontratación.
+              </li>
+            </ul>
+          </div>
+            <br /> Correo Electrónico:
             Correo Coordinadora
           </div>
         </div>
@@ -554,7 +584,13 @@ export default {
 .bold-data {
   font-weight: bold;
 }
-.teacher-duties{
+.teacher-duties {
   text-indent: 1rem;
+}
+.list-ident {
+  padding-left: 3rem;
+}
+.content-ident {
+  padding-left: 2rem;
 }
 </style>
