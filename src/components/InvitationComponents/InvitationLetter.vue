@@ -66,14 +66,14 @@
           <br />
           <div>
             <h4>1. Cronograma y Contenido</h4>
-            <v-container>
+            <v-container class="table-fit">
               <v-row>
-                <v-col cols="6" class="row-sessions">
+                <v-col cols="6" class="row-sessions row-title">
                   Contenidos minimos tentativos
                 </v-col>
-                <v-col class="row-sessions"> Actividad </v-col>
-                <v-col class="row-sessions"> Fecha </v-col>
-                <v-col class="row-sessions"> Hora </v-col>
+                <v-col class="row-sessions row-title"> Actividad </v-col>
+                <v-col class="row-sessions row-title"> Fecha </v-col>
+                <v-col class="row-sessions row-title"> Hora </v-col>
               </v-row>
               <v-row>
                 <v-col cols="6" class="row-content">
@@ -183,7 +183,7 @@
             de acuerdo al cronograma establecido de forma obligatoria, debiendo,
             además, enviar como respaldo la planilla de notas al
             <br />
-            Correo Electrónico: {{ this.programData.programCoordinatorEmail }}
+            Correo Electrónico: <span class="email-style" @click="sendEmail(this.programData.programCoordinatorEmail)">{{ this.programData.programCoordinatorEmail }}</span>
           </div>
           <div>
             <h4>5. Obligaciones del docente</h4>
@@ -254,7 +254,6 @@
               </ul>
             </div>
             <br />
-            Correo Electrónico: Correo Coordinadora
           </div>
         </div>
       </div>
@@ -471,6 +470,10 @@ export default {
       console.log(formatedDates);
       return formatedDates;
     },
+    sendEmail(coordinatorEmail){
+      document.location = "mailto:"+coordinatorEmail
+
+    },
     exportToPDF() {
       const pdfWidth = 8.5 * 72; // Ancho de hoja carta en puntos (1 pulgada = 72 puntos)
       const pdfHeight = 11 * 72; // Alto de hoja carta en puntos (1 pulgada = 72 puntos)
@@ -483,7 +486,7 @@ export default {
       // Exportar contenido de la primera página (File.vue)
       html2canvas(
         this.$refs.firstPage,
-        { allowTaint: false, useCORS: true, scale: 5 },
+        { allowTaint: false, useCORS: true, scale: 4 },
         options
       ).then((canvas) => {
         const imgData = canvas.toDataURL("image/png");
@@ -501,7 +504,7 @@ export default {
         pdf.addPage();
         html2canvas(
           this.$refs.secondPage,
-          { allowTaint: false, useCORS: true, scale: 5 },
+          { allowTaint: false, useCORS: true, scale: 4 },
           options
         ).then((canvas) => {
           const imgData2 = canvas.toDataURL("image/png");
@@ -518,7 +521,7 @@ export default {
           pdf.addPage();
           html2canvas(
             this.$refs.thirdPage,
-            { allowTaint: false, useCORS: true, scale: 5 },
+            { allowTaint: false, useCORS: true, scale: 4 },
             options
           ).then((canvas) => {
             const imgData2 = canvas.toDataURL("image/png");
@@ -605,5 +608,23 @@ export default {
 }
 .content-ident {
   padding-left: 2rem;
+}
+.row-title{
+  background-color: #6e7c8f;
+  color: white;
+  text-align: center;
+  font-size: 0.85rem;
+}
+.email-style{
+  cursor:pointer;
+     color:blue;
+     text-decoration:underline;
+}
+.table-fit{
+  table-layout: auto;
+  border-collapse: collapse;
+  width: 100%;
+
+
 }
 </style>
