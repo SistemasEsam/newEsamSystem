@@ -67,46 +67,54 @@
           <div>
             <h4>1. Cronograma y Contenido</h4>
             <v-container class="table-fit">
-              <v-row>
-                <v-col cols="6" class="row-sessions row-title">
-                  Contenidos minimos tentativos
-                </v-col>
-                <v-col class="row-sessions row-title"> Actividad </v-col>
-                <v-col class="row-sessions row-title"> Fecha </v-col>
-                <v-col class="row-sessions row-title"> Hora </v-col>
-              </v-row>
-              <v-row>
-                <v-col cols="6" class="row-content">
-                  <p>
-                    {{ this.moduleData.moduleContent }}
-                  </p>
-                </v-col>
-                <v-col>
-                  <v-row
-                    class="row-sessions"
-                    v-for="(dateSelected, index) in this.moduleData.moduleDates"
-                    :key="index"
-                  >
-                    Sesión Clase {{ index + 1 }}
-                  </v-row> </v-col
-                ><v-col>
-                  <v-row
-                    class="row-sessions"
-                    v-for="(dateSelected, index) in this.moduleData.moduleDates"
-                    :key="index"
-                  >
-                    {{ dateSelected }}
-                  </v-row> </v-col
-                ><v-col>
-                  <v-row
-                    class="row-sessions"
-                    v-for="(dateSelected, index) in this.moduleData.moduleDates"
-                    :key="index"
-                  >
-                    {{ this.moduleData.moduleSchedule }}
-                  </v-row>
-                </v-col>
-              </v-row>
+              <v-col>
+                <v-row>
+                  <v-col cols="6" class="row-sessions row-title">
+                    Contenidos minimos tentativos
+                  </v-col>
+                  <v-col class="row-sessions row-title"> Actividad </v-col>
+                  <v-col class="row-sessions row-title"> Fecha </v-col>
+                  <v-col class="row-sessions row-title"> Hora </v-col>
+                </v-row>
+                <v-row>
+                  <v-col cols="6" class="row-content">
+                    <li
+                      v-for="(content, index) in this.moduleData.moduleContent"
+                      :key="index"
+                    >
+                      {{ content }}
+                    </li>
+                  </v-col>
+                  <v-col class="row-content">
+                    <v-row
+                      class="row-sessions"
+                      v-for="(dateSelected, index) in this.moduleData
+                        .moduleDates"
+                      :key="index"
+                    >
+                      Sesión Clase {{ index + 1 }}
+                    </v-row> </v-col
+                  ><v-col class="row-content">
+                    <v-row
+                      class="row-sessions"
+                      v-for="(dateSelected, index) in this.moduleData
+                        .moduleDates"
+                      :key="index"
+                    >
+                      {{ dateSelected }}
+                    </v-row> </v-col
+                  ><v-col class="row-content">
+                    <v-row
+                      class="row-sessions"
+                      v-for="(dateSelected, index) in this.moduleData
+                        .moduleDates"
+                      :key="index"
+                    >
+                      {{ this.moduleData.moduleSchedule }}
+                    </v-row>
+                  </v-col>
+                </v-row>
+              </v-col>
             </v-container>
             <br />
             Los contenidos mínimos del módulo al cual se la invita a participar,
@@ -183,7 +191,12 @@
             de acuerdo al cronograma establecido de forma obligatoria, debiendo,
             además, enviar como respaldo la planilla de notas al
             <br />
-            Correo Electrónico: <span class="email-style" @click="sendEmail(this.programData.programCoordinatorEmail)">{{ this.programData.programCoordinatorEmail }}</span>
+            Correo Electrónico:
+            <span
+              class="email-style"
+              @click="sendEmail(this.programData.programCoordinatorEmail)"
+              >{{ this.programData.programCoordinatorEmail }}</span
+            >
           </div>
           <div>
             <h4>5. Obligaciones del docente</h4>
@@ -345,7 +358,7 @@ export default {
       moduleData: {
         moduleCode: "",
         moduleName: "",
-        moduleContent: "",
+        moduleContent: [],
         moduleSchedule: "",
         moduleOrder: "",
         moduleInvoice: "",
@@ -434,7 +447,9 @@ export default {
       if (moduleDataSaved.exists()) {
         this.moduleData.moduleCode = moduleDataSaved.data().moduleCode;
         this.moduleData.moduleName = moduleDataSaved.data().moduleName;
-        this.moduleData.moduleContent = moduleDataSaved.data().moduleContent;
+        this.moduleData.moduleContent = moduleDataSaved
+          .data()
+          .moduleContent.split(/(?=[A-Z])/);
         this.moduleData.moduleOrder = moduleDataSaved.data().moduleOrder;
         switch (moduleDataSaved.data().moduleInvoice) {
           case "0":
@@ -470,9 +485,8 @@ export default {
       console.log(formatedDates);
       return formatedDates;
     },
-    sendEmail(coordinatorEmail){
-      document.location = "mailto:"+coordinatorEmail
-
+    sendEmail(coordinatorEmail) {
+      document.location = "mailto:" + coordinatorEmail;
     },
     exportToPDF() {
       const pdfWidth = 8.5 * 72; // Ancho de hoja carta en puntos (1 pulgada = 72 puntos)
@@ -594,6 +608,7 @@ export default {
 }
 .row-content {
   border: 1px solid black;
+  background-color: white;
   align-items: center;
   justify-content: center;
 }
@@ -609,22 +624,18 @@ export default {
 .content-ident {
   padding-left: 2rem;
 }
-.row-title{
+.row-title {
   background-color: #6e7c8f;
   color: white;
   text-align: center;
   font-size: 0.85rem;
 }
-.email-style{
-  cursor:pointer;
-     color:blue;
-     text-decoration:underline;
+.email-style {
+  cursor: pointer;
+  color: blue;
+  text-decoration: underline;
 }
 .table-fit{
-  table-layout: auto;
-  border-collapse: collapse;
-  width: 100%;
-
-
+  background-color: white;
 }
 </style>

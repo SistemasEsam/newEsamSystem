@@ -27,7 +27,7 @@
       >
 
       <v-card-item>
-        <v-form :disabled="!programModule.updateModuleData">
+        <v-form v-if="programModule.updateModuleData" :disabled="!programModule.updateModuleData">
           <v-select
             v-model="programModule.moduleInstructor"
             label="Docente"
