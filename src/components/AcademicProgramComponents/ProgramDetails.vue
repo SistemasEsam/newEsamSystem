@@ -1,11 +1,9 @@
 <template>
-  <v-btn @click="showPreviusComponent()">
-    Atras
-  </v-btn>
+  <v-btn @click="showPreviusComponent()"> Atras </v-btn>
   <v-container>
     <h2>Detalles del Programa: {{ this.idProgram }}</h2>
     <v-card
-      variant="outlined" 
+      variant="outlined"
       class="mb-2"
       v-for="(programModule, index) in moduleList"
       :key="index"
@@ -15,10 +13,8 @@
       <v-card-title>{{
         programModule.moduleOrder + " : " + programModule.moduleName
       }}</v-card-title>
-      <v-card-subtitle>Estado: </v-card-subtitle> 
-      <v-card-text class="subtitle-instructor"
-        >Docente actual:</v-card-text
-      >
+      <v-card-subtitle>Estado: </v-card-subtitle>
+      <v-card-text class="subtitle-instructor">Docente actual:</v-card-text>
       <v-card-text class="subtitle-instructor">
         Nombre:
         {{ programModule.moduleInstructorName }}</v-card-text
@@ -29,9 +25,9 @@
       <v-card-text class="subtitle-instructor"
         >Telefono: {{ programModule.moduleInstructorPhone }}</v-card-text
       >
-      
+
       <v-card-item>
-        <v-form v-if="programModule.updateModuleData">
+        <v-form v-if="programModule.updateModuleData" :disabled="!programModule.updateModuleData">
           <v-select
             v-model="programModule.moduleInstructor"
             label="Docente"
@@ -72,11 +68,11 @@
             )
           "
           >Invitación
-          </v-btn>
-          <v-checkbox
-        v-model="programModule.updateModuleData"
-        label="Actualizar módulo:"
-      ></v-checkbox>
+        </v-btn>
+        <v-checkbox
+          v-model="programModule.updateModuleData"
+          label="Actualizar módulo:"
+        ></v-checkbox>
       </v-card-actions>
     </v-card>
   </v-container>
@@ -85,6 +81,8 @@
 import { database } from "../../firebase/firebase";
 import { doc, updateDoc, collection, getDocs } from "firebase/firestore";
 import { ref } from "vue";
+import router from "@/router";
+
 
 export default {
   props: ["idArray"],
@@ -153,6 +151,7 @@ export default {
           moduleEndHour: module.data().moduleEndHour,
           moduleContent: module.data().moduleContent,
           updateModuleData: false,
+          modulePayment: 0,
         });
       });
       finalModuleList.sort(this.compareByModuleOrder);
@@ -176,7 +175,12 @@ export default {
       return module1.moduleOrder.localeCompare(module2.moduleOrder);
     },
     openLetter(moduleInstructor, moduleCode) {
-      this.showNextComponent(moduleInstructor, moduleCode);
+      console.log("Instructor: "+moduleInstructor+"Codigo de Modulo:"+moduleCode)
+      let newTab = router.resolve({
+        name: "invitationPDFView",
+        params: { id: moduleInstructor, moduleId: moduleCode },
+      });
+      window.open(newTab.href);
     },
     showNextComponent(moduleInstructor, moduleCode) {
       let nextComponent = "invitation-letter";
@@ -186,6 +190,12 @@ export default {
       ]);
     },
     async updateModule(programModule) {
+      let instructorNameUpdated = programModule.moduleInstructor.instructorName
+      let instructorEmailUpdated = programModule.moduleInstructor.instructorEmail
+      let instructorPhoneUpdated = programModule.moduleInstructor.instructorPhone
+      programModule.moduleInstructorName = instructorNameUpdated
+      programModule.moduleInstructorEmail = instructorEmailUpdated
+      programModule.moduleInstructorPhone = instructorPhoneUpdated
       const moduleRef = doc(
         database,
         "postDegreePrograms",
@@ -193,32 +203,16 @@ export default {
         "modules",
         programModule.moduleCode
       );
-      if (programModule.moduleInstructorOption == 1) {
-        console.log(programModule.moduleCode);
-        programModule.moduleInstructorName =
-          programModule.moduleInstructor.instructorName;
-        programModule.moduleInstructorEmail =
-          programModule.moduleInstructor.instructorEmail;
-        programModule.moduleInstructorPhone =
-          programModule.moduleInstructor.instructorPhone;
-
         await updateDoc(moduleRef, {
-          moduleInstructorName: programModule.moduleInstructor.instructorName,
-          moduleInstructorEmail: programModule.moduleInstructor.instructorEmail,
-          moduleInstructorPhone: programModule.moduleInstructor.instructorPhone,
+          moduleInstructorName: instructorNameUpdated,
+          moduleInstructorEmail: instructorEmailUpdated,
+          moduleInstructorPhone: instructorPhoneUpdated,
+          moodulePayment: programModule.modulePayment
         });
-      } else {
-        await updateDoc(moduleRef, {
-          moduleInstructorName:
-            programModule.moduleInstructorName.toUpperCase(),
-          moduleInstructorEmail: programModule.moduleInstructorEmail,
-          moduleInstructorPhone: programModule.moduleInstructorPhone,
-        });
-      }
     },
-    showPreviusComponent(){
-        let nextComponent = "program-menu"
-        this.$emit("show-next-component",nextComponent )
+    showPreviusComponent() {
+      let nextComponent = "program-menu";
+      this.$emit("show-next-component", nextComponent);
     },
   },
 };

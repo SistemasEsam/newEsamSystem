@@ -1,7 +1,4 @@
 <template>
-  <v-btn @click="showPreviusComponent()">
-    Atras
-  </v-btn>
   <div class="instructor-coordinator">
     <H1> Carta de Invitación</H1>
     <v-btn @click="exportToPDF()">DESCARGAR PDF</v-btn>
@@ -43,7 +40,9 @@
             <div class="bold-data">
               Ref: Invitacion para impartir docencia en:
             </div>
-            {{ this.moduleData.moduleOrder+": "+this.moduleData.moduleName }}
+            {{
+              this.moduleData.moduleOrder + ": " + this.moduleData.moduleName
+            }}
             <br />
             {{ this.programData.programName }}
           </div>
@@ -64,49 +63,58 @@
               calificación y honorarios profesionales:
             </p>
           </div>
+          <br />
           <div>
             <h4>1. Cronograma y Contenido</h4>
-            <v-container>
-              <v-row>
-                <v-col cols="4" class="row-sessions">
-                  Contenidos minimos tentativos
-                </v-col>
-                <v-col class="row-sessions"> Actividad </v-col>
-                <v-col class="row-sessions"> Fecha </v-col>
-                <v-col class="row-sessions"> Hora </v-col>
-              </v-row>
-              <v-row>
-                <v-col cols="4" class="row-content">
-                  <p>
-                    {{ this.moduleData.moduleContent }}
-                  </p>
-                </v-col>
-                <v-col>
-                  <v-row
-                    class="row-sessions"
-                    v-for="(dateSelected, index) in this.moduleData.moduleDates"
-                    :key="index"
-                  >
-                    Sesión Clase {{ index + 1 }}
-                  </v-row> </v-col
-                ><v-col>
-                  <v-row
-                    class="row-sessions"
-                    v-for="(dateSelected, index) in this.moduleData.moduleDates"
-                    :key="index"
-                  >
-                    {{ dateSelected }}
-                  </v-row> </v-col
-                ><v-col>
-                  <v-row
-                    class="row-sessions"
-                    v-for="(dateSelected, index) in this.moduleData.moduleDates"
-                    :key="index"
-                  >
-                    {{ this.moduleData.moduleSchedule }}
-                  </v-row>
-                </v-col>
-              </v-row>
+            <v-container class="table-fit">
+              <v-col>
+                <v-row>
+                  <v-col cols="6" class="row-sessions row-title">
+                    Contenidos minimos tentativos
+                  </v-col>
+                  <v-col class="row-sessions row-title"> Actividad </v-col>
+                  <v-col class="row-sessions row-title"> Fecha </v-col>
+                  <v-col class="row-sessions row-title"> Hora </v-col>
+                </v-row>
+                <v-row>
+                  <v-col cols="6" class="row-content">
+                    <li
+                      v-for="(content, index) in this.moduleData.moduleContent"
+                      :key="index"
+                    >
+                      {{ content }}
+                    </li>
+                  </v-col>
+                  <v-col class="row-content">
+                    <v-row
+                      class="row-sessions"
+                      v-for="(dateSelected, index) in this.moduleData
+                        .moduleDates"
+                      :key="index"
+                    >
+                      Sesión Clase {{ index + 1 }}
+                    </v-row> </v-col
+                  ><v-col class="row-content">
+                    <v-row
+                      class="row-sessions"
+                      v-for="(dateSelected, index) in this.moduleData
+                        .moduleDates"
+                      :key="index"
+                    >
+                      {{ dateSelected }}
+                    </v-row> </v-col
+                  ><v-col class="row-content">
+                    <v-row
+                      class="row-sessions"
+                      v-for="(dateSelected, index) in this.moduleData
+                        .moduleDates"
+                      :key="index"
+                    >
+                      {{ this.moduleData.moduleSchedule }}
+                    </v-row>
+                  </v-col>
+                </v-row>
+              </v-col>
             </v-container>
             <br />
             Los contenidos mínimos del módulo al cual se la invita a participar,
@@ -116,7 +124,9 @@
         </div>
       </div>
       <div class="letter-footer">
-        <InvitationFooterVue :programSite=" this.programData.programSite "></InvitationFooterVue>
+        <InvitationFooterVue
+          :programSite="this.programData.programSite"
+        ></InvitationFooterVue>
       </div>
     </div>
     <br />
@@ -128,39 +138,52 @@
         <div>
           <div>
             <h4>2.Metodologia Academica</h4>
-            <b>● Plataforma Zoom</b> (Plataforma sincrónica) donde se llevan a
-            cabo las clases de manera semanal y en donde los posgraduantes
-            realizan sus dudas, consultas e interactúan con el docente.
-            <br />
-            <b>● Plataforma Moodle</b> (Plataforma asincrónica) donde se
-            realizan las actividades y evaluaciones hacia los posgraduantes, por
-            ello a su persona se le asigna un usuario y contraseña, para
-            ingresar través de la siguiente URL (dirección de la plataforma):
-            <br />
-            <a href="url">
-              https://esam.edu.bo/moodle/login/forgot_password.phpn
-            </a>
+            <div class="list-ident">
+              <ul>
+                <li>
+                  <b>Plataforma Zoom</b> (Plataforma sincrónica) donde se llevan
+                  a cabo las clases de manera semanal y en donde los
+                  posgraduantes realizan sus dudas, consultas e interactúan con
+                  el docente.
+                </li>
+                <li>
+                  <b>Plataforma Moodle</b> (Plataforma asincrónica) donde se
+                  realizan las actividades y evaluaciones hacia los
+                  posgraduantes, por ello a su persona se le asigna un usuario y
+                  contraseña, para ingresar través de la siguiente URL
+                  (dirección de la plataforma):
+                  <a href="url">
+                    https://esam.edu.bo/moodle/login/forgot_password.phpn
+                  </a>
+                </li>
+              </ul>
+            </div>
           </div>
           <div>
             <h4>3. Planificacion Academica</h4>
             Deberá subir una semana antes de cada clase la siguiente
             documentación:
             <br />
-            ● Plan global de la materia (Nombre del módulo, objetivos
-            específicos de enseñanza, metodología, recursos didácticos y
-            material bibliográfico).
-            <br />
-            ● Diapositivas de la semana.
-            <br />
-            ● Todo el Material bibliográfico de consulta (artículos, documentos
-            referentes, enlaces, etc.).
-            <br />
-            ● Todas las Actividades Evaluativas con solucionarios.
-            <br />
-            ● Cápsulas resumen de videos.
-            <br />
-            *Las actividades planificadas deberán estar orientadas a la práctica
-            contextual real.
+            <div class="list-ident">
+              <ul>
+                <li>
+                  Plan global de la materia (Nombre del módulo, objetivos
+                  específicos de enseñanza, metodología, recursos didácticos y
+                  material bibliográfico).
+                </li>
+                <li>Diapositivas de la semana.</li>
+                <li>
+                  Todo el Material bibliográfico de consulta (artículos,
+                  documentos referentes, enlaces, etc.).
+                </li>
+                <li>Todas las Actividades Evaluativas con solucionarios.</li>
+                <li>Cápsulas resumen de videos.</li>
+              </ul>
+            </div>
+            <b
+              >*Las actividades planificadas deberán estar orientadas a la
+              práctica contextual real.</b
+            >
           </div>
           <div>
             <h4>4. Metodologia para las evaluaciones</h4>
@@ -168,53 +191,89 @@
             de acuerdo al cronograma establecido de forma obligatoria, debiendo,
             además, enviar como respaldo la planilla de notas al
             <br />
-            Correo Electrónico: {{ this.programData.programCoordinatorEmail }}
+            Correo Electrónico:
+            <span
+              class="email-style"
+              @click="sendEmail(this.programData.programCoordinatorEmail)"
+              >{{ this.programData.programCoordinatorEmail }}</span
+            >
           </div>
           <div>
             <h4>5. Obligaciones del docente</h4>
-            Deberá enviar su Hoja de Vida documentada (grados académicos,
-            títulos y certificados), fotocopia del CI, para la carpeta académica
-            de la Universidad Nacional Siglo XX, en formato pdf.
+            <div class="content-ident">
+              <ul>
+                <li>
+                  Deberá enviar su Hoja de Vida documentada (grados académicos,
+                  títulos y certificados), fotocopia del CI, para la carpeta
+                  académica de la Universidad Nacional Siglo XX, en formato pdf.
+                </li>
+                <li>
+                  Presentar el plan global en la primera clase del módulo
+                  correspondiente.
+                </li>
+                <li>
+                  Presentar las siguientes ACTAS:
+                  <div class="list-ident">
+                    <ul>
+                      <li>
+                        <b>Acta 01.</b> Conclusión del módulo (redacción en
+                        tiempo pasado del cumplimento del plan global).
+                      </li>
+                      <li>
+                        <b>Acta 02.</b> Plan de Desarrollo Curricular (redacción
+                        en tiempo pasado del cumplimento del plan global).
+                      </li>
+                      <li>
+                        <b>Acta 03.</b> Planilla de Acta de Notas
+                        (calificaciones finales y observaciones).
+                      </li>
+                      <li>
+                        <b>Acta 04.</b> Desarrollo Curricular de Notas (las
+                        columnas pueden ser modificadas acorde a las actividades
+                        calificadas).
+                      </li>
+                      <li>
+                        <b>Acta 05.</b> Planilla de Acta de Notas de Segunda
+                        Instancia (nota única de 71 puntos).
+                      </li>
+                    </ul>
+                  </div>
+                </li>
+                <li>
+                  Las actas deben presentarse de acuerdo al cronograma. El
+                  incumplimiento de esta cláusula deshabilita al docente para
+                  seguir dentro del plantel docente.
+                </li>
+                <li>
+                  En caso de que surja algún inconveniente que impida su
+                  presencia en el desarrollo del módulo, deberá enviar su
+                  reemplazo con una preparación académica igual o superior a la
+                  suya, con el fin de velar la calidad académica que la
+                  Universidad imparte a los postgraduantes.
+                </li>
+                <li>
+                  <b
+                    >Es obligación del Docente gestionar las actividades en
+                    plataforma Moodle, interactuar y responder a las dudas del
+                    posgraduante.</b
+                  >
+                </li>
+                <li>
+                  Al finalizar el módulo, el docente estará sujeto a la
+                  evaluación registrada por los posgaduantes, otorgando al
+                  docente una valoración cuali cuanti que permita al docente
+                  mejorar las competencias pedagógicas y su recontratación.
+                </li>
+              </ul>
+            </div>
             <br />
-            Presentar el plan global en la primera clase del módulo
-            correspondiente.
-            <br />
-            Presentar las siguientes ACTAS:
-            <br />
-            <b>- Acta 01.</b> Conclusión del módulo (redacción en tiempo pasado
-            del cumplimento del plan global). <br />
-            <b>- Acta 02.</b>  Plan de
-            Desarrollo Curricular (redacción en tiempo pasado del cumplimento
-            del plan global).
-            <br />
-            <b>- Acta 03.</b> Planilla de Acta de Notas (calificaciones finales
-            y observaciones).
-            <br />
-            <b>- Acta 04.</b> Desarrollo Curricular de Notas (las columnas
-            pueden ser modificadas acorde a las actividades calificadas).
-            <br />
-            <b>- Acta 05.</b> Planilla de Acta de Notas de Segunda Instancia
-            (nota única de 71 puntos). <br />Las actas deben presentarse de
-            acuerdo al cronograma. El incumplimiento de esta cláusula
-            deshabilita al docente para seguir dentro del plantel docente.
-            <br />En caso de que surja algún inconveniente que impida su
-            presencia en el desarrollo del módulo, deberá enviar su reemplazo
-            con una preparación académica igual o superior a la suya, con el fin
-            de velar la calidad académica que la Universidad imparte a los
-            postgraduantes. <br /><b
-              >Es obligación del Docente gestionar las actividades en plataforma
-              Moodle, interactuar y responder a las dudas del posgraduante.</b
-            >
-            <br />Al finalizar el módulo, el docente estará sujeto a la
-            evaluación registrada por los posgaduantes, otorgando al docente una
-            valoración cuali cuanti que permita al docente mejorar las
-            competencias pedagógicas y su recontratación. Correo Electrónico:
-            Correo Coordinadora
           </div>
         </div>
       </div>
       <div class="letter-footer">
-        <InvitationFooterVue :programSite=" this.programData.programSite "></InvitationFooterVue>
+        <InvitationFooterVue
+          :programSite="this.programData.programSite"
+        ></InvitationFooterVue>
       </div>
     </div>
     <br />
@@ -230,7 +289,11 @@
             clases, deberá realizar la presentación de las actas 01, 02 ,03, 04
             de manera obligatoria y 05 si corresponde, para realizar la
             solicitud de desembolso de honorarios de
-            <b>{{ this.programData.programPayment+" "+this.moduleData.moduleInvoice }}</b>
+            <b>{{
+              this.programData.programPayment +
+              " " +
+              this.moduleData.moduleInvoice
+            }}</b>
             los cuales serán depositados al número de cuenta que sea brindado
             por su persona para el abono en fechas 11 o 26 del mes.
             <b
@@ -253,7 +316,9 @@
         </div>
       </div>
       <div class="letter-footer">
-        <InvitationFooterVue :programSite=" this.programData.programSite "></InvitationFooterVue>
+        <InvitationFooterVue
+          :programSite="this.programData.programSite"
+        ></InvitationFooterVue>
       </div>
     </div>
   </div>
@@ -288,14 +353,14 @@ export default {
         programCoordinatorEmail: "",
         programType: "",
         programPayment: "",
-        programSite:"",
+        programSite: "",
       },
       moduleData: {
         moduleCode: "",
         moduleName: "",
-        moduleContent: "",
+        moduleContent: [],
         moduleSchedule: "",
-        moduleOrder:"",
+        moduleOrder: "",
         moduleInvoice: "",
         moduleDates: [],
       },
@@ -382,16 +447,16 @@ export default {
       if (moduleDataSaved.exists()) {
         this.moduleData.moduleCode = moduleDataSaved.data().moduleCode;
         this.moduleData.moduleName = moduleDataSaved.data().moduleName;
-        this.moduleData.moduleContent = moduleDataSaved.data().moduleContent;
+        this.moduleData.moduleContent = moduleDataSaved
+          .data()
+          .moduleContent.split(/(?=[A-Z])/);
         this.moduleData.moduleOrder = moduleDataSaved.data().moduleOrder;
         switch (moduleDataSaved.data().moduleInvoice) {
           case "0":
-          this.moduleData.moduleInvoice =
-              "Con Factura";
+            this.moduleData.moduleInvoice = "Con Factura";
             break;
           case "1":
-          this.moduleData.moduleInvoice =
-              "Con Retención";
+            this.moduleData.moduleInvoice = "Con Retención";
             break;
         }
         this.moduleData.moduleSchedule =
@@ -420,6 +485,9 @@ export default {
       console.log(formatedDates);
       return formatedDates;
     },
+    sendEmail(coordinatorEmail) {
+      document.location = "mailto:" + coordinatorEmail;
+    },
     exportToPDF() {
       const pdfWidth = 8.5 * 72; // Ancho de hoja carta en puntos (1 pulgada = 72 puntos)
       const pdfHeight = 11 * 72; // Alto de hoja carta en puntos (1 pulgada = 72 puntos)
@@ -432,7 +500,7 @@ export default {
       // Exportar contenido de la primera página (File.vue)
       html2canvas(
         this.$refs.firstPage,
-        { allowTaint: false, useCORS: true, scale: 5 },
+        { allowTaint: false, useCORS: true, scale: 4 },
         options
       ).then((canvas) => {
         const imgData = canvas.toDataURL("image/png");
@@ -450,7 +518,7 @@ export default {
         pdf.addPage();
         html2canvas(
           this.$refs.secondPage,
-          { allowTaint: false, useCORS: true, scale: 5 },
+          { allowTaint: false, useCORS: true, scale: 4 },
           options
         ).then((canvas) => {
           const imgData2 = canvas.toDataURL("image/png");
@@ -467,7 +535,7 @@ export default {
           pdf.addPage();
           html2canvas(
             this.$refs.thirdPage,
-            { allowTaint: false, useCORS: true, scale: 5 },
+            { allowTaint: false, useCORS: true, scale: 4 },
             options
           ).then((canvas) => {
             const imgData2 = canvas.toDataURL("image/png");
@@ -486,9 +554,9 @@ export default {
         });
       });
     },
-    showPreviusComponent(){
-        let nextComponent = "program-details"
-        this.$emit("show-next-component",nextComponent )
+    showPreviusComponent() {
+      let nextComponent = "program-details";
+      this.$emit("show-next-component", nextComponent);
     },
   },
 };
@@ -540,10 +608,34 @@ export default {
 }
 .row-content {
   border: 1px solid black;
+  background-color: white;
   align-items: center;
   justify-content: center;
 }
 .bold-data {
   font-weight: bold;
+}
+.teacher-duties {
+  text-indent: 1rem;
+}
+.list-ident {
+  padding-left: 3rem;
+}
+.content-ident {
+  padding-left: 2rem;
+}
+.row-title {
+  background-color: #6e7c8f;
+  color: white;
+  text-align: center;
+  font-size: 0.85rem;
+}
+.email-style {
+  cursor: pointer;
+  color: blue;
+  text-decoration: underline;
+}
+.table-fit{
+  background-color: white;
 }
 </style>
