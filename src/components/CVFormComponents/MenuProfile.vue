@@ -84,6 +84,10 @@ export default {
       let nextComponent = "personal-profile";
       this.$emit("show-next-form", nextComponent, this.applicantEmail);
     },
+    //Method to check if an user exists in database
+    checkUserExist(){
+
+    }
   },
 };
 </script>

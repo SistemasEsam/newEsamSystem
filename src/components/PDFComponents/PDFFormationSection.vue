@@ -531,7 +531,7 @@ export default {
       // Exportar contenido de la primera página (File.vue)
       html2canvas( 
         this.$refs.firstPage,
-        { allowTaint: false, useCORS: true, scale: 5 },
+        { allowTaint: false, useCORS: true, scale: 4 },
         options
       ).then((canvas) => {
         const imgData = canvas.toDataURL("image/png");
@@ -549,7 +549,7 @@ export default {
         pdf.addPage();
         html2canvas(
           this.$refs.secondPage,
-          { allowTaint: false, useCORS: true, scale: 5 },
+          { allowTaint: false, useCORS: true, scale: 4 },
           options
         ).then((canvas) => {
           const imgData2 = canvas.toDataURL("image/png");
@@ -566,7 +566,7 @@ export default {
           pdf.addPage();
           html2canvas(
             this.$refs.thirdPage,
-            { allowTaint: false, useCORS: true, scale: 5 },
+            { allowTaint: false, useCORS: true, scale: 4 },
             options
           ).then((canvas) => {
             const imgData2 = canvas.toDataURL("image/png");

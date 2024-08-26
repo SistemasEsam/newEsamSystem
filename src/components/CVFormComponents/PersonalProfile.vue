@@ -415,6 +415,7 @@ export default {
       }
       return this.formFilled;
     },
+    //Method to check if the form is  filled, if it doesnt filled send a message to complete
     saveData() {
       if (this.componentFlag == false) {
         if (this.checkFormFilled()) {

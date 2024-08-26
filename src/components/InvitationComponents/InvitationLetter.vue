@@ -66,55 +66,40 @@
           <br />
           <div>
             <h4>1. Cronograma y Contenido</h4>
-            <v-container class="table-fit">
-              <v-col>
-                <v-row>
-                  <v-col cols="6" class="row-sessions row-title">
-                    Contenidos minimos tentativos
-                  </v-col>
-                  <v-col class="row-sessions row-title"> Actividad </v-col>
-                  <v-col class="row-sessions row-title"> Fecha </v-col>
-                  <v-col class="row-sessions row-title"> Hora </v-col>
-                </v-row>
-                <v-row>
-                  <v-col cols="6" class="row-content">
-                    <li
-                      v-for="(content, index) in this.moduleData.moduleContent"
-                      :key="index"
-                    >
-                      {{ content }}
-                    </li>
-                  </v-col>
-                  <v-col class="row-content">
-                    <v-row
-                      class="row-sessions"
-                      v-for="(dateSelected, index) in this.moduleData
-                        .moduleDates"
-                      :key="index"
-                    >
-                      Sesión Clase {{ index + 1 }}
-                    </v-row> </v-col
-                  ><v-col class="row-content">
-                    <v-row
-                      class="row-sessions"
-                      v-for="(dateSelected, index) in this.moduleData
-                        .moduleDates"
-                      :key="index"
-                    >
+            <v-container>
+              <v-row id="grid-headers">
+                <v-col cols="6" class="row-sessions row-title">
+                  Contenidos minimos tentativos
+                </v-col>
+                <v-col class="row-sessions row-title"> Actividad </v-col>
+                <v-col class="row-sessions row-title"> Fecha </v-col>
+                <v-col class="row-sessions row-title"> Hora </v-col>
+              </v-row>
+              <v-row id="grid-content">
+                <v-col cols="6" class="row-content">
+                  <li
+                    v-for="(content, index) in this.moduleData.moduleContent"
+                    :key="index"
+                  >
+                    {{ content }}
+                  </li>
+                </v-col>
+                <v-col>
+                  <v-row
+                    class="row-sessions" 
+                    v-for="(dateSelected, index) in this.moduleData.moduleDates"
+                    :key="index"
+                  >
+                    <v-col> Sesión Clase {{ index + 1 }} </v-col>
+                    <v-col>
                       {{ dateSelected }}
-                    </v-row> </v-col
-                  ><v-col class="row-content">
-                    <v-row
-                      class="row-sessions"
-                      v-for="(dateSelected, index) in this.moduleData
-                        .moduleDates"
-                      :key="index"
-                    >
+                    </v-col>
+                    <v-col>
                       {{ this.moduleData.moduleSchedule }}
-                    </v-row>
-                  </v-col>
-                </v-row>
-              </v-col>
+                    </v-col>
+                  </v-row>
+                </v-col>
+              </v-row>
             </v-container>
             <br />
             Los contenidos mínimos del módulo al cual se la invita a participar,
@@ -601,14 +586,14 @@ export default {
 }
 .row-sessions {
   height: 4rem;
-  border: 1px solid black;
+  border: solid 1px black;
   align-items: center;
   justify-content: center;
   height: 2.5rem;
 }
 .row-content {
-  border: 1px solid black;
   background-color: white;
+  border: solid 1px black;
   align-items: center;
   justify-content: center;
 }
@@ -635,7 +620,7 @@ export default {
   color: blue;
   text-decoration: underline;
 }
-.table-fit{
+.table-fit {
   background-color: white;
 }
 </style>

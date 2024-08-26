@@ -537,17 +537,17 @@ export default {
         
         if (this.postDegreeCardFlag == false) {
           if (this.checkDegreeList() && this.checkPostDegreeList()) {
-            this.showNextForm();
             this.saveDataDegrees();
             this.saveDataPostDegrees();
+            this.showNextForm();
           } else {
             this.alertFlag = true;
           }
         } else {
           if (this.checkDegreeList()) {
-            this.showNextForm();
             this.saveDataDegrees();
             this.saveDataPostDegrees();
+            this.showNextForm();
           } else {
             this.alertFlag = true;
           }

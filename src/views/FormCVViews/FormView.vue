@@ -39,7 +39,7 @@
 
         return {
           idUser:'',
-          activeComponent: 'menu-profile',
+          activeComponent: 'work-experience-profile',
           component: 'menuProfile',
         }
       },
