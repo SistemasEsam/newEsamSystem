@@ -36,8 +36,8 @@
             <br />
             <div class="bold-data">Coordinadora de Programa</div>
           </div>
-          <div align="right">
-            <div class="bold-data">
+          <div class="underline" align="right">
+            <div>
               Ref: Invitacion para impartir docencia en:
             </div>
             {{
@@ -66,17 +66,17 @@
           <br />
           <div>
             <h4>1. Cronograma y Contenido</h4>
-            <v-container>
-              <v-row id="grid-headers">
-                <v-col cols="6" class="row-sessions row-title">
+            <v-container >
+              <v-row class="table-header" id="grid-headers">
+                <v-col class="row-header" cols="6" >
                   Contenidos minimos tentativos
                 </v-col>
-                <v-col class="row-sessions row-title"> Actividad </v-col>
-                <v-col class="row-sessions row-title"> Fecha </v-col>
-                <v-col class="row-sessions row-title"> Hora </v-col>
+                <v-col class="row-header"> Actividad </v-col>
+                <v-col class="row-header"> Fecha </v-col>
+                <v-col class="row-header"> Hora </v-col>
               </v-row>
-              <v-row id="grid-content">
-                <v-col cols="6" class="row-content">
+              <v-row class="table-content" id="grid-content">
+                <v-col class="row-content" cols="6" >
                   <li
                     v-for="(content, index) in this.moduleData.moduleContent"
                     :key="index"
@@ -86,7 +86,7 @@
                 </v-col>
                 <v-col>
                   <v-row
-                    class="row-sessions" 
+                  class="row-sessions" 
                     v-for="(dateSelected, index) in this.moduleData.moduleDates"
                     :key="index"
                   >
@@ -273,9 +273,9 @@
             A la conclusión del módulo en fechas establecidas en cronograma de
             clases, deberá realizar la presentación de las actas 01, 02 ,03, 04
             de manera obligatoria y 05 si corresponde, para realizar la
-            solicitud de desembolso de honorarios de
+            solicitud de desembolso de honorarios de Bs.
             <b>{{
-              this.programData.programPayment +
+              this.moduleData.modulePayment +
               " " +
               this.moduleData.moduleInvoice
             }}</b>
@@ -348,6 +348,7 @@ export default {
         moduleOrder: "",
         moduleInvoice: "",
         moduleDates: [],
+        modulePayment:"",
       },
       headers: [
         { key: "content", title: "Contenido Mínimo" },
@@ -451,6 +452,7 @@ export default {
         this.moduleData.moduleDates = this.formatDate(
           moduleDataSaved.data().moduleDates
         );
+        this.moduleData.modulePayment = moduleDataSaved.data().moodulePayment;
       } else {
         console.log("Document does not exist");
       }
@@ -584,21 +586,11 @@ export default {
   height: 1.5in;
   bottom: -5%;
 }
-.row-sessions {
-  height: 4rem;
-  border: solid 1px black;
-  align-items: center;
-  justify-content: center;
-  height: 2.5rem;
-}
-.row-content {
-  background-color: white;
-  border: solid 1px black;
-  align-items: center;
-  justify-content: center;
-}
 .bold-data {
   font-weight: bold;
+}
+.underline{
+  text-decoration: underline;
 }
 .teacher-duties {
   text-indent: 1rem;
@@ -609,18 +601,34 @@ export default {
 .content-ident {
   padding-left: 2rem;
 }
-.row-title {
+.row-header {
   background-color: #6e7c8f;
   color: white;
   text-align: center;
   font-size: 0.85rem;
+}
+.row-sessions {
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.row-content {
+  background-color: white;
+  align-items: center;
+  justify-content: center;
 }
 .email-style {
   cursor: pointer;
   color: blue;
   text-decoration: underline;
 }
-.table-fit {
+.table-header {
   background-color: white;
+  border: 1px solid black;
+}
+.table-content {
+  background-color: white;
+  border: 1px solid black;
+  border-top: 0px ;
 }
 </style>

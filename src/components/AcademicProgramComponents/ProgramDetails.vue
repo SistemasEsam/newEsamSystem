@@ -207,7 +207,8 @@ export default {
           moduleInstructorName: instructorNameUpdated,
           moduleInstructorEmail: instructorEmailUpdated,
           moduleInstructorPhone: instructorPhoneUpdated,
-          moodulePayment: programModule.modulePayment
+          modulePayment: programModule.modulePayment,
+          moduleInvoice: programModule.moduleInvoice,
         });
     },
     showPreviusComponent() {
