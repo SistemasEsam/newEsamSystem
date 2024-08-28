@@ -11,6 +11,7 @@
         <div>
           <div align="right" class="current-date">
             <div>
+              Cochabamba
               {{
                 this.currentDate.getDate() +
                 " de " +
@@ -34,11 +35,11 @@
           <div>
             {{ "De: " + this.programData.programCoordinator }}
             <br />
-            <div class="bold-data">Coordinadora de Programa</div>
+            <div class="bold-data">COORDINADORA DE PROGRAMA</div>
           </div>
           <div class="underline" align="right">
             <div>
-              Ref: Invitacion para impartir docencia en:
+              REF: INVITACIÓN PARA IMPARTIR DOCENCIA EN:
             </div>
             {{
               this.moduleData.moduleOrder + ": " + this.moduleData.moduleName
@@ -65,7 +66,7 @@
           </div>
           <br />
           <div>
-            <h4>1. Cronograma y Contenido</h4>
+            <h4 class="subtitles">1. Cronograma y Contenido</h4>
             <v-container >
               <v-row class="table-header" id="grid-headers">
                 <v-col class="row-header" cols="6" >
@@ -122,7 +123,7 @@
       <div class="main-content-letter">
         <div>
           <div>
-            <h4>2.Metodologia Academica</h4>
+            <h4 class="subtitles">2.Metodología Académica</h4>
             <div class="list-ident">
               <ul>
                 <li>
@@ -145,7 +146,7 @@
             </div>
           </div>
           <div>
-            <h4>3. Planificacion Academica</h4>
+            <h4 class="subtitles">3. Planificación Académica</h4>
             Deberá subir una semana antes de cada clase la siguiente
             documentación:
             <br />
@@ -171,7 +172,7 @@
             >
           </div>
           <div>
-            <h4>4. Metodologia para las evaluaciones</h4>
+            <h4 class="subtitles">4. Metodología para las evaluaciones</h4>
             <b>Las calificaciones deben registrarse en la Plataforma Moodle</b>
             de acuerdo al cronograma establecido de forma obligatoria, debiendo,
             además, enviar como respaldo la planilla de notas al
@@ -184,7 +185,7 @@
             >
           </div>
           <div>
-            <h4>5. Obligaciones del docente</h4>
+            <h4 class="subtitles">5. Obligaciones del docente</h4>
             <div class="content-ident">
               <ul>
                 <li>
@@ -269,16 +270,15 @@
       <div class="main-content-letter">
         <div>
           <div>
-            <h4>6. Honorarios profesionales</h4>
+            <h4 class="subtitles">6. Honorarios profesionales</h4>
             A la conclusión del módulo en fechas establecidas en cronograma de
             clases, deberá realizar la presentación de las actas 01, 02 ,03, 04
             de manera obligatoria y 05 si corresponde, para realizar la
             solicitud de desembolso de honorarios de Bs.
             <b>{{
-              this.moduleData.modulePayment +
-              " " +
-              this.moduleData.moduleInvoice
+              this.moduleData.modulePayment+" "
             }}</b>
+            <b class="italic subtitles">{{ "("+this.moduleData.moduleInvoice+") " }}</b>
             los cuales serán depositados al número de cuenta que sea brindado
             por su persona para el abono en fechas 11 o 26 del mes.
             <b
@@ -452,7 +452,7 @@ export default {
         this.moduleData.moduleDates = this.formatDate(
           moduleDataSaved.data().moduleDates
         );
-        this.moduleData.modulePayment = moduleDataSaved.data().moodulePayment;
+        this.moduleData.modulePayment = moduleDataSaved.data().modulePayment;
       } else {
         console.log("Document does not exist");
       }
@@ -586,11 +586,18 @@ export default {
   height: 1.5in;
   bottom: -5%;
 }
+.subtitles{
+  text-transform: uppercase;
+}
+.italic{
+  font-style: italic;
+}
 .bold-data {
   font-weight: bold;
 }
 .underline{
   text-decoration: underline;
+  font-weight: bolder;
 }
 .teacher-duties {
   text-indent: 1rem;
