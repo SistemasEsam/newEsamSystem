@@ -522,11 +522,7 @@ export default {
     saveModules() {
       this.moduleForms.forEach((moduleForm, index) => {
         console.log("Módulo: " + index);
-        const moduleInitials = moduleForm.moduleName
-          .split(" ")
-          .map((x) => x[0])
-          .join("");
-        this.moduleCode = this.programId + "-" + moduleInitials.substring(0, 5);
+        this.moduleCode = this.programId + "-M" + index;
         const dates = JSON.parse(JSON.stringify(moduleForm.moduleDates));
         const startHour = JSON.parse(
           JSON.stringify(moduleForm.moduleStartHour)
@@ -607,11 +603,12 @@ export default {
       console.log("Tipo de programa:"+this.programType)
       switch (this.programType) {
         case "Diplomado":
-          this.moduleLimits = 8;
+          this.moduleLimits = 10;
           console.log("Limite"+this.moduleLimits)
           break;
         case "Maestria":
-          this.moduleLimits = 18;
+          this.moduleLimits = 20
+          ;
           console.log("Limite"+this.moduleLimits)
           break;
       }

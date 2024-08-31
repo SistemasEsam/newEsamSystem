@@ -2,9 +2,9 @@
   <div class="footer-container">
     <!-- Contenido adicional del pie de página si es necesario -->
     <div class="footer-text">
-      <p>{{ this.programSite }}</p>
-      <p>{{ this.locationAdress }}</p>
-      <p>{{ this.locationInfo }}</p>
+      AVENIDA RAMÓM RIVERO - PLAZUELA QUINTANILLA
+      <br>
+      EDIFICIO LOS TIEMPOS │ TORRE 1 PISO 10 │ CEL: +591 62671307
     </div>
     <div class="footer-line"></div>
   </div>
@@ -129,6 +129,8 @@ export default {
 .footer-text {
   display: flex;
   flex-direction: column;
+  align-items: center;
+  text-align: center;
   place-items: center;
   font-size: larger;
   font-weight: bold;
