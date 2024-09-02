@@ -13,8 +13,6 @@
       <v-card-title>{{
         programModule.moduleOrder + " : " + programModule.moduleName
       }}</v-card-title>
-      <v-card-subtitle>Estado: </v-card-subtitle>
-      <v-card-text class="subtitle-instructor">Docente actual:</v-card-text>
       <v-card-text class="subtitle-instructor">
         Nombre:
         {{ programModule.moduleInstructorName }}</v-card-text
@@ -50,6 +48,8 @@
             required
           >
           </v-text-field>
+          <v-textarea
+          v-model="programModule.moduleContent"></v-textarea>
         </v-form>
       </v-card-item>
       <v-card-actions>
@@ -151,7 +151,7 @@ export default {
           moduleEndHour: module.data().moduleEndHour,
           moduleContent: module.data().moduleContent,
           updateModuleData: false,
-          modulePayment: 0,
+          modulePayment: module.data().modulePayment,
         });
       });
       finalModuleList.sort(this.compareByModuleOrder);
@@ -209,7 +209,11 @@ export default {
           moduleInstructorPhone: instructorPhoneUpdated,
           modulePayment: programModule.modulePayment,
           moduleInvoice: programModule.moduleInvoice,
+          moduleContent: programModule.moduleContent,
         });
+    },
+    updateModuleContent(){
+      this.incident.incidentFreeText = value
     },
     showPreviusComponent() {
       let nextComponent = "program-menu";
