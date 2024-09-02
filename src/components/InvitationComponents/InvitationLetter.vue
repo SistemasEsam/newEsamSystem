@@ -433,9 +433,9 @@ export default {
       if (moduleDataSaved.exists()) {
         this.moduleData.moduleCode = moduleDataSaved.data().moduleCode;
         this.moduleData.moduleName = moduleDataSaved.data().moduleName;
-        this.moduleData.moduleContent = moduleDataSaved
-          .data()
-          .moduleContent.split(/(?=[A-Z])/);
+        let contentArray = moduleDataSaved.data().moduleContent.split('.');
+        let poppedItem = contentArray.pop();
+        this.moduleData.moduleContent = contentArray;
         this.moduleData.moduleOrder = moduleDataSaved.data().moduleOrder;
         switch (moduleDataSaved.data().moduleInvoice) {
           case "0":
