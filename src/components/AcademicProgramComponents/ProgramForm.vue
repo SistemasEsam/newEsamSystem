@@ -1,283 +1,341 @@
 <template>
   <v-form class="program-main">
     <v-container class="program-form">
-      <v-col>
-        <v-row>
-            <h3>Código de Programa</h3>
+      <v-container>
+        <v-card class="card-layout">
+          <v-card-title class="subtitle-program-form">
+            Código de Programa
+          </v-card-title>
+          <v-card-subtitle>
+            Nota: Código contable establecido en el portal.
+          </v-card-subtitle>
+          <v-text-field
+            class="text-field-input"
+            v-model="programId"
+            label="Código del Programa"
+            @input="programId = programId.toUpperCase()"
+            variant="outlined"
+            required
+          ></v-text-field>
+        </v-card>
+        <v-card class="card-layout">
+          <v-card-title class="subtitle-program-form"
+            >ID de Programa</v-card-title
+          >
+          <v-card-subtitle
+            >Nota: ID del programa establecido en el portal.</v-card-subtitle
+          >
+          <v-text-field
+            class="text-field-input"
+            v-model="programPortalId"
+            label="ID del Programa"
+            @input="programPortalId = programPortalId.toUpperCase()"
+            variant="outlined"
+            required
+          ></v-text-field>
+        </v-card>
+        <v-card class="card-layout">
+          <v-card-title class="subtitle-program-form"
+            >Nombre del Programa</v-card-title
+          >
+          <v-card-subtitle
+            >Nota: Escriba el nombre completo del programa, tome en cuenta la
+            ortografía.</v-card-subtitle
+          >
+          <v-text-field
+            class="text-field-input"
+            v-model="programName"
+            label="Nombre del Programa"
+            :rules="nameRules"
+            @input="programName = programName.toUpperCase()"
+            variant="outlined"
+            required
+          ></v-text-field>
+        </v-card>
+        <v-card class="card-layout">
+          <v-card-title class="subtitle-program-form">Cronograma</v-card-title>
+          <v-card-subtitle
+            >Nota: Ingrese la fecha de inicio y la fecha de
+            finalización.</v-card-subtitle
+          >
+          <VueDatePicker
+            class="text-field-input"
+            v-model="programYear"
+            :teleport="true"
+            range
+            :partial-range="false"
+            :enable-time-picker="false"
+            placeholder="Inicio y Fin"
+          ></VueDatePicker>
+        </v-card>
+        <v-card class="card-layout">
+          <v-card-title class="subtitle-program-form">Sede</v-card-title>
+          <v-card-subtitle
+            >Nota: Seleccione la sucursal a la que corresponde el programa.
+          </v-card-subtitle>
+          <v-select
+            class="text-field-input"
+            v-model="programSite"
+            label="Sede del Programa"
+            :items="programESAMSites"
+            item-title="siteName"
+            item-value="siteCode"
+            variant="outlined"
+            required
+          ></v-select>
+        </v-card>
+        <v-card class="card-layout">
+          <v-card-title class="subtitle-program-form"
+            >Tipo de Programa</v-card-title
+          >
+          <v-card-subtitle
+            >Nota: Seleccione el tipo de programa.</v-card-subtitle
+          >
+          <v-select
+            class="text-field-input"
+            v-model="programType"
+            label="Tipo de Programa"
+            :items="programTypes"
+            item-title="typeName"
+            item-value="typeName"
+            @update:model-value="
+              updateModuleLimit();
+              updateProgramDefaultPayment();
+            "
+          ></v-select>
+        </v-card>
+        <v-card class="card-layout">
+          <v-card-title class="subtitle-program-form"
+            >Area del Programa</v-card-title
+          >
+          <v-card-subtitle
+            >Nota: Seleccione el area a la que pertenece el
+            programa.</v-card-subtitle
+          >
+          <v-select
+            class="text-field-input"
+            v-model="programArea"
+            label="Area"
+            :items="programAreas"
+            item-title="areaName"
+            item-value="areaName"
+            variant="outlined"
+          ></v-select>
+        </v-card>
+        <v-card class="card-layout">
+          <v-card-title class="subtitle-program-form">Coordinador</v-card-title>
+          <v-card-subtitle
+            >Nota: Ingrese los datos del coordinador/encargado del
+            programa.</v-card-subtitle
+          >
+          <v-text-field
+            class="text-field-input"
+            v-model="programCoordinatorName"
+            label="Nombre"
+            @input="
+              programCoordinatorName = programCoordinatorName.toUpperCase()
+            "
+            variant="outlined"
+            required
+          ></v-text-field>
+          <v-text-field
+            class="text-field-input"
+            v-model="programCoordinatorLastname"
+            label="Apellidos"
+            @input="
+              programCoordinatorLastname =
+                programCoordinatorLastname.toUpperCase()
+            "
+            variant="outlined"
+            required
+          ></v-text-field>
+          <v-text-field
+            class="text-field-input"
+            v-model="programCoordinatorEmail"
+            label="Correo"
+            variant="outlined"
+            @input="programCoordinatorEmail = programCoordinatorEmail"
+            required
+          ></v-text-field>
+        </v-card>
+        <v-card class="card-layout">
+          <v-card-title class="subtitle-program-form">Módulos</v-card-title>
+          <v-card-subtitle
+            >Nota: Llenar todos los datos del formulario.</v-card-subtitle
+          >
           <v-container>
-            <v-label> Nota: Código contable establecido en el portal. </v-label>
-            <v-text-field
-              v-model="programId"
-              label="Código del Programa"
-              @input="programId = programId.toUpperCase()"
+            <v-form
               variant="outlined"
-              required
-            ></v-text-field>
-          </v-container>
-          <h3>ID de Programa</h3>
-          <v-container>
-            <v-label> Nota: ID del programa establecido en el portal. </v-label>
-            <v-text-field
-              v-model="programPortalId"
-              label="ID del Programa"
-              @input="programPortalId = programPortalId.toUpperCase()"
-              variant="outlined"
-              required
-            ></v-text-field>
-          </v-container>
-        </v-row>
-        <v-row>
-          <h3>Nombre del Programa</h3>
-          <v-container>
-            <v-label>
-              Nota: Escriba el nombre completo del programa, tome en cuenta la
-              ortografía.
-            </v-label>
-            <v-text-field
-              v-model="programName"
-              label="Nombre del Programa"
-              :rules="nameRules"
-              @input="programName = programName.toUpperCase()"
-              variant="outlined"
-              required
-            ></v-text-field>
-          </v-container>
-        </v-row>
-        <v-row>
-          <h3>Cronograma</h3>
-          <v-container>
-            <v-label>
-              Nota: Ingrese la fecha de inicio y la fecha de finalización.
-            </v-label>
-            <VueDatePicker
-              v-model="programYear"
-              :teleport="true"
-              range
-              :partial-range="false"
-              :enable-time-picker="false"
-              placeholder="Inicio y Fin"
+              v-for="(moduleForm, index) in moduleForms"
+              :key="index"
             >
-            </VueDatePicker>
-          </v-container>
-        </v-row>
-        <v-row>
-          <h3>Sede</h3>
-          <v-container>
-            <v-label class="mb-2">
-              Nota: Seleccione la sucursal a la que corresponde el programa.
-            </v-label>
-            <v-select
-              v-model="programSite"
-              label="Sede del Programa"
-              :items="programESAMSites"
-              item-title="siteName"
-              item-value="siteCode"
-              variant="outlined"
-              required
-            ></v-select>
-          </v-container>
-        </v-row>
-        <v-row>
-          <h3>Tipo de Programa</h3>
-          <v-container>
-            <v-label class="mb-2"> Nota: Seleccione el tipo de programa. </v-label>
-            <v-select
-              v-model="programType"
-              label="Tipo de Programa"
-              :items="programTypes"
-              item-title="typeName"
-              item-value="typeName"
-              @update:model-value="updateModuleLimit(); updateProgramDefaultPayment()"
-              variant="outlined"
-
-            ></v-select>
-          </v-container>
-        </v-row>
-        <v-row>
-          <h3>Area del Programa</h3>
-          <v-container>
-            <v-label class="mb-2">
-              Nota: Seleccione el area a la que pertenece el programa.
-            </v-label>
-            <v-select
-              v-model="programArea"
-              label="Area"
-              :items="programAreas"
-              item-title="areaName"
-              item-value="areaName"
-              variant="outlined"
-
-            ></v-select>
-          </v-container>
-        </v-row>
-        <v-row>
-          <h3>Coordinador</h3>
-          <v-container>
-            <v-label>
-              Nota: Ingrese los datos del coordinador/encargado del programa.
-            </v-label>
-            <v-text-field
-              v-model="programCoordinatorName"
-              label="Nombre"
-              @input="
-                programCoordinatorName = programCoordinatorName.toUpperCase()
-              "
-              variant="outlined"
-              required
-            ></v-text-field>
-            <v-text-field
-              v-model="programCoordinatorLastname"
-              label="Apellidos"
-              @input="
-                programCoordinatorLastname =
-                  programCoordinatorLastname.toUpperCase()
-              "
-              variant="outlined"                            
-              required
-            ></v-text-field>
-            <v-text-field
-              v-model="programCoordinatorEmail"
-              label="Correo"
-              variant="outlined"
-              @input="
-                programCoordinatorEmail = programCoordinatorEmail.toUpperCase()
-              "
-              required
-            >
-            </v-text-field>
-          </v-container>
-        </v-row>
-        <v-row>
-          <h3>Módulos</h3>
-          <v-container>
-            <v-form variant="outlined" v-for="(moduleForm, index) in moduleForms" :key="index">
               <v-btn
                 append-icon
                 color="red"
                 v-if="index !== 0"
                 @click="deleteModuleForm(index)"
               >
+              Eliminar
                 <v-icon size="x-large">mdi-close-thick</v-icon>
               </v-btn>
-              <h4>Nombre de módulo:</h4>
-              <v-label>
-                Nota: Ingrese el nombre del módulo, tome en cuenta la
-                ortografía.
-              </v-label>
-              <v-text-field
-                v-model="moduleForm.moduleName"
-                label="Nombre del Módulo"
-                :rules="nameRules"
-                variant="outlined"
-                @input="
-                  moduleForm.moduleName = moduleForm.moduleName.toUpperCase()
-                "
-              ></v-text-field>
-              <h4 class="mb-2">Requerimientos:</h4>
-              <v-select
-                v-model="moduleForm.moduleInstructorOption"
-                label="Docente"
-                :items="instructorOptionList"
-                item-title="optionName"
-                item-value="optionCode"
-                variant="outlined"
-              ></v-select>
-              <v-select
-                v-if="moduleForm.moduleInstructorOption == 1"
-                v-model="moduleForm.moduleInstructor"
-                label="Docente"
-                :items="instructorList"
-                item-title="instructorName"
-                return-object
-                variant="outlined"
-                filled
-              ></v-select>
-              <v-select
-                v-model="moduleForm.moduleInvoice"
-                label="Facturación"
-                :items="invoiceOptionList"
-                item-title="invoiceName"
-                item-value="invoiceCode"
-                variant="outlined"
-              ></v-select>
-              <h4>Monto a pagar</h4>
-              <v-label>Definir monto a pagar</v-label>
-              <v-text-field
+              <v-card class="card-layout" variant="flat">
+                <v-card-title class="subtitle-module-form"
+                  >Nombre de módulo</v-card-title
+                >
+                <v-card-subtitle
+                  >Nota: Ingrese el nombre del módulo, tome en cuenta la
+                  ortografía.</v-card-subtitle
+                >
+                <v-text-field
+                  class="text-field-input"
+                  v-model="moduleForm.moduleName"
+                  label="Nombre del Módulo"
+                  :rules="nameRules"
+                  variant="outlined"
+                  @input="
+                    moduleForm.moduleName = moduleForm.moduleName.toUpperCase()
+                  "
+                ></v-text-field>
+              </v-card>
+              <v-card class="card-layout" variant="flat">
+                <v-card-title class="subtitle-module-form"
+                  >Requerimientos</v-card-title
+                >
+                <v-select
+                  class="text-field-input"
+                  v-model="moduleForm.moduleInstructorOption"
+                  label="Docente"
+                  :items="instructorOptionList"
+                  item-title="optionName"
+                  item-value="optionCode"
+                  variant="outlined"
+                ></v-select>
+                <v-select
+                  class="text-field-input"
+                  v-if="moduleForm.moduleInstructorOption == 1"
+                  v-model="moduleForm.moduleInstructor"
+                  label="Docente"
+                  :items="instructorList"
+                  item-title="instructorName"
+                  return-object
+                  variant="outlined"
+                  filled
+                ></v-select>
+                <v-select
+                  class="text-field-input"
+                  v-model="moduleForm.moduleInvoice"
+                  label="Facturación"
+                  :items="invoiceOptionList"
+                  item-title="invoiceName"
+                  item-value="invoiceCode"
+                  variant="outlined"
+                ></v-select>
+              </v-card>
+              <v-card class="card-layout" variant="flat">
+                <v-card-title class="subtitle-module-form"
+                  >Monto a pagar</v-card-title
+                >
+                <v-card-subtitle>Definir monto a pagar</v-card-subtitle>
+                <v-text-field
+                  class="text-field-input"
                   v-model="moduleForm.modulePayment"
                   label="Salario"
                   prefix="$"
-                  :disabled=false
+                  :disabled="false"
                   variant="outlined"
                 ></v-text-field>
-              <h4>Fecha y hora de clases:</h4>
-              <v-label>
-                Nota: Seleccione todas las fechas en las cuales se llevara a
-                cabo el módulo.
-              </v-label>
-              <VueDatePicker
-                v-model="moduleForm.moduleDates"
-                :enable-time-picker="false"
-                multi-dates
-                placeholder="Fechas de clases"
-              ></VueDatePicker>
-              <br />
-              <v-label>
-                Nota: Seleccione la hora de inicio y la hora de finalización del
-                módulo.
-              </v-label>
-              <div class="dateTime">
-                <div>
-                  <v-label>Hora de inicio</v-label>
-                  <VueDatePicker
-                    v-model="moduleForm.moduleStartHour"
-                    time-picker
-                    placeholder="Hora Inicio"
-                  ></VueDatePicker>
+              </v-card>
+              <v-card class="card-layout" variant="flat">
+                <v-card-title class="subtitle-module-form"
+                  >Cronograma de clases</v-card-title
+                >
+                <v-card-subtitle
+                  >Nota: Seleccione todas las fechas en las cuales se llevara a
+                  cabo el módulo.</v-card-subtitle
+                >
+                <VueDatePicker
+                  class="text-field-input"
+                  :teleport="true"
+                  v-model="moduleForm.moduleDates"
+                  :enable-time-picker="false"
+                  multi-dates
+                  placeholder="Fecha de clases"
+                ></VueDatePicker>
+                <v-card-subtitle
+                  >Nota: Seleccione la hora de inicio y la hora de finalización
+                  del módulo.</v-card-subtitle
+                >
+                <div class="dateTime">
+                  <div>
+                    <v-card-subtitle>Hora de inicio</v-card-subtitle>
+                    <VueDatePicker
+                      v-model="moduleForm.moduleStartHour"
+                      time-picker
+                      :teleport="true"
+                      placeholder="Hora Inicio"
+                    ></VueDatePicker>
+                  </div>
+                  <div>
+                    <v-card-subtitle>Hora de finalización</v-card-subtitle>
+                    <VueDatePicker
+                      v-model="moduleForm.moduleEndHour"
+                      time-picker
+                      :teleport="true"
+                      placeholder="Hora Fin"
+                    ></VueDatePicker>
+                  </div>
                 </div>
-                <div>
-                  <v-label>Hora de finalización</v-label>
-                  <VueDatePicker
-                    v-model="moduleForm.moduleEndHour"
-                    time-picker
-                    placeholder="Hora Fin"
-                  ></VueDatePicker>
-                </div>
-              </div>
-              <br />
-              <h4>Contenido:</h4>
-              <v-label>
-                Nota: Ingrese el contenido tentativo para el desarrollo del
-                módulo.
-              </v-label>
-              <v-textarea
-                v-model="moduleForm.moduleContent"
-                label="Contenido del Módulo"
-                :rules="moduleContenRules"
-                variant="outlined"
-              ></v-textarea>
+                <br />
+              </v-card>
+              <v-card class="card-layout" variant="flat">
+                <v-card-title class="subtitle-module-form"
+                  >Contenido</v-card-title
+                >
+                <v-card-subtitle
+                  >Nota: Ingrese el contenido tentativo para el desarrollo del
+                  módulo.</v-card-subtitle
+                >
+                <v-textarea
+                  class="text-field-input"
+                  v-model="moduleForm.moduleContent"
+                  label="Contenido del Módulo"
+                  :rules="moduleContenRules"
+                  variant="outlined"
+                ></v-textarea>
+              </v-card>
             </v-form>
-            <v-btn variant="outlined" v-if="moduleForms.length < moduleLimits" @click="addModuleForm()">
+          </v-container>
+          <v-card-actions>
+            <v-btn
+              class="module-button"
+              variant="tonal"
+              v-if="moduleForms.length < moduleLimits"
+              @click="addModuleForm()"
+              color="#516278"
+            >
               Añadir Módulo
             </v-btn>
-          </v-container>
-        </v-row>
-        <v-row>
-          <v-container>
-            <h4>Archivo:</h4>
-            <v-label class="mb-2"> Nota: Seleccione el documento del proyecto. </v-label>
-            <v-file-input
-              @change="loadProgramProject($event)"
-              label="Subir proyecto"
-              chips
-              accept="application/pdf"
-              variant="outlined"
-            >
-            </v-file-input>
-          </v-container>
-        </v-row>
-      </v-col>
+          </v-card-actions>
+        </v-card>
+      </v-container>
+      <v-container>
+        <v-card class="card-layout">
+          <v-card-title class="subtitle-program-form">Archivo</v-card-title>
+          <v-card-subtitle
+            >Nota: Seleccione el documento del proyecto.
+          </v-card-subtitle>
+          <v-file-input
+            class="text-field-input"
+            @change="loadProgramProject($event)"
+            label="Subir proyecto"
+            chips
+            accept="application/pdf"
+            variant="outlined"
+          ></v-file-input>
+        </v-card>
+      </v-container>
       <br />
-      <v-btn variant="outlined" @click="saveData()"> Guardar Programa</v-btn>
+      <v-btn color="#516278" variant="tonal" @click="saveData()"> Guardar Programa</v-btn>
       <v-dialog v-model="dialogFlag">
         <v-card>
           <v-card-text>
@@ -285,7 +343,11 @@
             <b> {{ this.programId }} </b>
           </v-card-text>
           <v-card-actions>
-            <v-btn variant="outlined" color="primary" block @click="closeDialog()"
+            <v-btn
+              variant="outlined"
+              color="primary"
+              block
+              @click="closeDialog()"
               >Close Dialog</v-btn
             >
           </v-card-actions>
@@ -422,7 +484,7 @@ export default {
       programTypes: [
         { typeName: "Curso" },
         { typeName: "Diplomado" },
-        { typeName: "Maestria" },
+        { typeName: "Maestría" },
         { typeName: "Especialidad" },
       ],
       programAreas: [
@@ -600,31 +662,30 @@ export default {
       this.dialogFlag = false;
     },
     updateModuleLimit() {
-      console.log("Tipo de programa:"+this.programType)
+      console.log("Tipo de programa:" + this.programType);
       switch (this.programType) {
         case "Diplomado":
           this.moduleLimits = 10;
-          console.log("Limite"+this.moduleLimits)
+          console.log("Limite" + this.moduleLimits);
           break;
         case "Maestria":
-          this.moduleLimits = 20
-          ;
-          console.log("Limite"+this.moduleLimits)
+          this.moduleLimits = 20;
+          console.log("Limite" + this.moduleLimits);
           break;
       }
     },
-    updateProgramDefaultPayment(){
+    updateProgramDefaultPayment() {
       switch (this.programType) {
         case "Diplomado":
           this.programDefaultPayment = 1775;
-          console.log(this.programDefaultPayment)
+          console.log(this.programDefaultPayment);
           break;
         case "Maestria":
           this.programDefaultPayment = 3550;
-          console.log(this.programDefaultPayment)
+          console.log(this.programDefaultPayment);
           break;
       }
-      this.moduleForms[0].modulePayment = this.programDefaultPayment
+      this.moduleForms[0].modulePayment = this.programDefaultPayment;
     },
   },
 };
@@ -633,15 +694,35 @@ export default {
 .program-form {
   position: relative;
   width: 65rem;
-  border-style: solid;
-  border-width: 0.1rem
+  border: 1px solid #6e7c8f;
+  border-width: 0.1rem;
 }
 .dateTime {
   display: flex;
   justify-content: center;
 }
-.program-header{
+.program-header {
   background-color: blue;
   width: 100%;
+}
+.subtitle-program-form {
+  color: white;
+  margin-bottom: 1rem;
+  background-color: #516278;
+}
+.container-setup {
+  border: 1px solid black;
+}
+.text-field-input {
+  margin: 1rem;
+}
+.card-layout {
+  margin-bottom: 1rem;
+}
+.subtitle-module-form {
+  color: #6e7c8f;
+}
+.module-button {
+  color: #6e7c8f;
 }
 </style>

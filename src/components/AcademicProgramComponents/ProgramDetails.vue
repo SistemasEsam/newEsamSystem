@@ -10,7 +10,8 @@
       :rounded="rounded"
       hover
     >
-      <v-card-title>{{
+      <v-card-title class="program-name"
+      >{{
         programModule.moduleOrder + " : " + programModule.moduleName
       }}</v-card-title>
       <v-card-text class="subtitle-instructor">
@@ -48,7 +49,12 @@
             required
           >
           </v-text-field>
+          <v-text-field
+          label="Fechas"
+          v-model="programModule.moduleDates">
+          </v-text-field>
           <v-textarea
+          label="Contenido mínimo"
           v-model="programModule.moduleContent"></v-textarea>
         </v-form>
       </v-card-item>
@@ -226,5 +232,11 @@ export default {
 .subtitle-instructor {
   font-size: medium;
   margin-bottom: -1rem;
+}
+.program-name {
+  color: white;
+  background-color: #6e7c8f;
+  font-size: medium;
+  margin-bottom: 1rem;
 }
 </style>
