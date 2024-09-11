@@ -10,8 +10,7 @@
       :rounded="rounded"
       hover
     >
-      <v-card-title class="program-name"
-      >{{
+      <v-card-title class="program-name">{{
         programModule.moduleOrder + " : " + programModule.moduleName
       }}</v-card-title>
       <v-card-text class="subtitle-instructor">
@@ -26,7 +25,10 @@
       >
 
       <v-card-item>
-        <v-form v-if="programModule.updateModuleData" :disabled="!programModule.updateModuleData">
+        <v-form
+          v-if="programModule.updateModuleData"
+          :disabled="!programModule.updateModuleData"
+        >
           <v-select
             v-model="programModule.moduleInstructor"
             label="Docente"
@@ -49,13 +51,17 @@
             required
           >
           </v-text-field>
-          <v-text-field
-          label="Fechas"
-          v-model="programModule.moduleDates">
-          </v-text-field>
+          <VueDatePicker
+          v-model="programModule.moduleDates"
+            :teleport="true"
+            :enable-time-picker="false"
+            multi-dates
+            placeholder="Fecha de clases"
+          ></VueDatePicker>
           <v-textarea
-          label="Contenido mínimo"
-          v-model="programModule.moduleContent"></v-textarea>
+            label="Contenido mínimo"
+            v-model="programModule.moduleContent"
+          ></v-textarea>
         </v-form>
       </v-card-item>
       <v-card-actions>
@@ -84,13 +90,17 @@
   </v-container>
 </template>
 <script>
+import VueDatePicker from "@vuepic/vue-datepicker";
+import "@vuepic/vue-datepicker/dist/main.css";
 import { database } from "../../firebase/firebase";
 import { doc, updateDoc, collection, getDocs } from "firebase/firestore";
 import { ref } from "vue";
 import router from "@/router";
 
-
 export default {
+  components:{
+    VueDatePicker,
+  },
   props: ["idArray"],
   data() {
     return {
@@ -141,7 +151,6 @@ export default {
         collection(database, "postDegreePrograms", this.idProgram, "modules")
       );
       modules.forEach((module) => {
-        let moduleDates = this.formatDate(module.data().moduleDates);
         finalModuleList.push({
           moduleOrder: module.data().moduleOrder,
           moduleCode: module.data().moduleCode,
@@ -152,7 +161,7 @@ export default {
           moduleInstructorEmail: module.data().moduleInstructorEmail,
           moduleInstructorPhone: module.data().moduleInstructorPhone,
           moduleInvoice: module.data().moduleInvoice,
-          moduleDates: moduleDates,
+          moduleDates: module.data().moduleDates,
           moduleStartHour: module.data().moduleStartHour,
           moduleEndHour: module.data().moduleEndHour,
           moduleContent: module.data().moduleContent,
@@ -163,25 +172,13 @@ export default {
       finalModuleList.sort(this.compareByModuleOrder);
       this.moduleList = finalModuleList;
     },
-    formatDate(dates) {
-      const formatedDates = [];
-      dates.forEach((date) => {
-        const listDate = new Date(date);
-        const newDate =
-          listDate.getDate() +
-          "/" +
-          (listDate.getMonth() + 1) +
-          "/" +
-          listDate.getFullYear();
-        formatedDates.push(newDate);
-      });
-      return formatedDates;
-    },
     compareByModuleOrder(module1, module2) {
       return module1.moduleOrder.localeCompare(module2.moduleOrder);
     },
     openLetter(moduleInstructor, moduleCode) {
-      console.log("Instructor: "+moduleInstructor+"Codigo de Modulo:"+moduleCode)
+      console.log(
+        "Instructor: " + moduleInstructor + "Codigo de Modulo:" + moduleCode
+      );
       let newTab = router.resolve({
         name: "invitationPDFView",
         params: { id: moduleInstructor, moduleId: moduleCode },
@@ -196,12 +193,15 @@ export default {
       ]);
     },
     async updateModule(programModule) {
-      let instructorNameUpdated = programModule.moduleInstructor.instructorName
-      let instructorEmailUpdated = programModule.moduleInstructor.instructorEmail
-      let instructorPhoneUpdated = programModule.moduleInstructor.instructorPhone
-      programModule.moduleInstructorName = instructorNameUpdated
-      programModule.moduleInstructorEmail = instructorEmailUpdated
-      programModule.moduleInstructorPhone = instructorPhoneUpdated
+      let instructorNameUpdated = programModule.moduleInstructor.instructorName;
+      let instructorEmailUpdated =
+        programModule.moduleInstructor.instructorEmail;
+      let instructorPhoneUpdated =
+        programModule.moduleInstructor.instructorPhone;
+      programModule.moduleInstructorName = instructorNameUpdated;
+      programModule.moduleInstructorEmail = instructorEmailUpdated;
+      programModule.moduleInstructorPhone = instructorPhoneUpdated;
+      let dates = JSON.parse(JSON.stringify(programModule.moduleDates));
       const moduleRef = doc(
         database,
         "postDegreePrograms",
@@ -209,17 +209,18 @@ export default {
         "modules",
         programModule.moduleCode
       );
-        await updateDoc(moduleRef, {
-          moduleInstructorName: instructorNameUpdated,
-          moduleInstructorEmail: instructorEmailUpdated,
-          moduleInstructorPhone: instructorPhoneUpdated,
-          modulePayment: programModule.modulePayment,
-          moduleInvoice: programModule.moduleInvoice,
-          moduleContent: programModule.moduleContent,
-        });
+      await updateDoc(moduleRef, {
+        moduleInstructorName: instructorNameUpdated,
+        moduleInstructorEmail: instructorEmailUpdated,
+        moduleInstructorPhone: instructorPhoneUpdated,
+        modulePayment: programModule.modulePayment,
+        moduleInvoice: programModule.moduleInvoice,
+        moduleContent: programModule.moduleContent,
+        moduleDates: dates,
+      });
     },
-    updateModuleContent(){
-      this.incident.incidentFreeText = value
+    updateModuleContent() {
+      this.incident.incidentFreeText = value;
     },
     showPreviusComponent() {
       let nextComponent = "program-menu";
