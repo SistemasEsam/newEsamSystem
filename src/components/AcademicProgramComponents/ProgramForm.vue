@@ -668,7 +668,7 @@ export default {
           this.moduleLimits = 10;
           console.log("Limite" + this.moduleLimits);
           break;
-        case "Maestria":
+        case "Maestría":
           this.moduleLimits = 20;
           console.log("Limite" + this.moduleLimits);
           break;
@@ -680,7 +680,7 @@ export default {
           this.programDefaultPayment = 1775;
           console.log(this.programDefaultPayment);
           break;
-        case "Maestria":
+        case "Maestría":
           this.programDefaultPayment = 3550;
           console.log(this.programDefaultPayment);
           break;
