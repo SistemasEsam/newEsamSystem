@@ -87,6 +87,8 @@
         ></v-checkbox>
       </v-card-actions>
     </v-card>
+    <v-btn @click="showModuleDialog">Añadir Modulo</v-btn>
+    <DialogModuleForm :visible="dialogVisible" @cerrar="closeModuleDialog"/>
   </v-container>
 </template>
 <script>
@@ -96,15 +98,18 @@ import { database } from "../../firebase/firebase";
 import { doc, updateDoc, collection, getDocs } from "firebase/firestore";
 import { ref } from "vue";
 import router from "@/router";
+import DialogModuleForm from "./ModuleForm.vue";
 
 export default {
   components:{
     VueDatePicker,
+    DialogModuleForm
   },
   props: ["idArray"],
   data() {
     return {
       idProgram: this.idArray,
+      dialogVisible: false,
       moduleList: ref([]),
       instructorList: [],
       instructorStatus: 1,
@@ -226,6 +231,12 @@ export default {
       let nextComponent = "program-menu";
       this.$emit("show-next-component", nextComponent);
     },
+    showModuleDialog() {
+      this.dialogVisible = true;
+    },
+    closeModuleDialog() {
+      this.dialogVisible = false;
+    }
   },
 };
 </script>
